@@ -15,7 +15,7 @@ This script is for ChatGPT agent mode in the ChatGPT desktop app. The agent play
 2. In the ChatGPT desktop app, start a new chat and turn on agent mode.
 3. Attach `flower-power-test-pack.zip` to the chat.
 4. Paste everything in the "Prompt" section below as the message.
-5. When the agent asks, take over its browser once and sign in to GitHub. The agent uses that session to file issues.
+5. The agent files issues with `gh`, so check that `gh auth status` works in its shell.
 
 The test runs against the live site. A fix reaches the agent only after it merges to `main` and deploys.
 
@@ -48,13 +48,21 @@ A **blocker** is anything that stops the persona from finishing a step the way a
 
 When you hit a blocker, **stop and file a GitHub issue before you do anything else.** Do not try many workarounds first. Do not save it for the end.
 
-To file an issue:
+To file an issue, use the `gh` command line. It is already signed in.
 
-1. Open this link. It starts a new issue with the `user-test` and `blocker` labels:
-   `https://github.com/byronwall/flower-power/issues/new?labels=user-test,blocker`
-2. If GitHub asks you to sign in, stop and ask me to take over the browser. I will sign in. Do not make a GitHub account.
-3. Title: `[<Persona>] <what broke, in 10 words or less>`. Example: `[Maria] Import stays at 95% and never finishes`.
-4. Body: use this template.
+1. Check for a duplicate first:
+
+   ```bash
+   gh issue list -R byronwall/flower-power --label user-test --state open
+   ```
+
+   If the same problem is already filed, add your persona's details as a comment instead of a new issue:
+
+   ```bash
+   gh issue comment <number> -R byronwall/flower-power --body-file note.md --attach 'shot.png#What Dave saw'
+   ```
+
+2. Write the body to a file, such as `issue.md`, with this template:
 
    ```markdown
    **Persona:** <name> · <listing address>
@@ -71,14 +79,25 @@ To file an issue:
    ### What happened
    <exact error text in quotes, if there was any>
 
+   ![What happened](shot.png)
+
    ### Can I continue?
    <yes with a workaround (say what it is) / no>
    ```
 
-5. Attach a screenshot. Drag the image into the body box, or click the paperclip below the box.
-6. Click **Create** and copy the issue URL into your notes.
+3. Save a screenshot as `shot.png` in the same folder, and create the issue. The image path in the body must match the `--attach` path exactly:
 
-Before you file, look at the open issues with the `user-test` label. If the same problem is already filed, add a comment with your persona's details instead of a new issue.
+   ```bash
+   gh issue create -R byronwall/flower-power \
+     --title "[Maria] Import stays at 95% and never finishes" \
+     --label user-test --label blocker \
+     --body-file issue.md \
+     --attach 'shot.png#What happened'
+   ```
+
+   Title format: `[<Persona>] <what broke, in 10 words or less>`.
+
+4. Copy the issue URL that `gh` prints into your notes.
 
 After you file, try one simple workaround (reload, go back, try again once). If it works, go on with the script. If not, skip to the next step that does not need the broken part. If nothing works, go to the next persona.
 
@@ -86,9 +105,8 @@ After you file, try one simple workaround (reload, go back, try again once). If 
 
 Write down every smaller problem as you go: confusing words, a control that took a while to find, slow screens, ugly layout, things that look wrong, and things you wished the app did. Do not file these one at a time. At the end of each persona, file **one** summary issue for that persona:
 
-- Link: `https://github.com/byronwall/flower-power/issues/new?labels=user-test,ux`
-- Title: `[<Persona>] UX notes from the user test`
-- Body: the persona's scores and notes, in the format of the "Report for each persona" section below.
+- Command: `gh issue create -R byronwall/flower-power --label user-test --label ux --title "[<Persona>] UX notes from the user test" --body-file ux.md`
+- Body: the persona's scores and notes, in the format of the "Report for each persona" section below. Attach up to 5 of the most telling screenshots with `--attach`.
 
 ### Accounts
 
