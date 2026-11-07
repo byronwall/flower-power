@@ -125,3 +125,10 @@ Require two images: an overhead aerial and one photo of the front of the house. 
 - The target (90% pass, worst scale under 25%) is not met. The loop stopped after three changes in a row that did not improve it, and near the budget.
 - 6 of the 13 failures are the no-photo cases, which the two-image rule removes. The rest are lot size on zoomed or wooded lots, and two scale misses.
 - Total spend: 379 API calls, 3.21M input and 0.96M output tokens.
+
+### 6-rebase-check: after rebasing onto main (f6bcd9e)
+
+- Main now has the 95-plant library, so the prompt is longer: about 11.7k input tokens per run, up from about 9k.
+- 1 run per base listing: 11 of 12 pass. Scale error median 9.1%, worst 24%. House IoU median 0.97. Lot area error median 21%, worst 47%.
+- The same 12 listings passed 32 of 36 runs (89%) in 1-lot-lines, so the rebase did not regress the import.
+- Cost: 12 calls, 141k in, 31k out. Total spend is now 391 calls, 3.35M in, 0.99M out.

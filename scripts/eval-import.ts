@@ -8,6 +8,7 @@ import { model } from "../src/ai/openai";
 // Runs the image import on each case in tmp/listings that has a truth.json, scores it, and writes
 // tmp/import-eval/<iteration>/ with one JSON per run and summary.json for the /dev/eval page.
 // Usage: pnpm tsx scripts/eval-import.ts --iter base [--runs 3] [--jobs 6] [case ...]
+// --base runs only the listings, without variants.
 // --rescore scores the saved runs of an iteration again against the current truth, with no API calls.
 // A case name with no "@" also matches its variants, so "circle" runs circle and circle@zoom160.
 
@@ -40,7 +41,10 @@ await mkdir(out, { recursive: true });
 const plants = await loadPlantList();
 // The image-count study (@img1, @img2, @img4) runs only when named, as in: eval-import.ts img1 img2 img4.
 const study = /@(img\d|ground|drone)$/;
-const names = (await readdir(root)).filter((n) => (only.length ? only.some((o) => n === o || n.split("@")[0] === o || n.endsWith(`@${o}`)) : !study.test(n))).sort();
+const names = (await readdir(root))
+  .filter((n) => (only.length ? only.some((o) => n === o || n.split("@")[0] === o || n.endsWith(`@${o}`)) : !study.test(n)))
+  .filter((n) => !args.includes("--base") || !n.includes("@"))
+  .sort();
 const tasks: { name: string; run: number }[] = [];
 const cases: Record<string, { truth: Truth; aerialFile: string; dir: string }> = {};
 for (const name of names) {
