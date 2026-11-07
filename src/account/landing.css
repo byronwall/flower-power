@@ -1892,3 +1892,15 @@ html:has(.landing) {
     font-size: 14px;
   }
 }
+
+/* The app's buttons keep text on one centered line. These hold sentences, so they wrap and sit left. */
+.demo-step,
+.show-tab {
+  white-space: normal;
+  justify-content: flex-start;
+}
+
+.demo-step-text,
+.show-tab-text {
+  min-width: 0;
+}
