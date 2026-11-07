@@ -39,7 +39,7 @@ export function TimeBar(props: Props) {
               <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
                 {s.icon()}
               </svg>
-              <span>{s.name}</span>
+              <span class="season-name">{s.name}</span>
             </button>
           )}
         </For>

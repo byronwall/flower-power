@@ -22,6 +22,8 @@ type Props = {
   weather?: Weather;
   // How strongly the property's aerial shows over the painting. 0 hides it.
   photoOpacity?: number;
+  // Room kept clear on the left and right for controls laid over the plan, in pixels.
+  padX?: [number, number];
 };
 
 // Room around the lot when fitted. The bottom leaves space for the scale bar and zoom controls.
@@ -58,9 +60,11 @@ export function PlanView(props: Props) {
     }
   });
 
+  const padX = () => props.padX ?? [PAD.x, PAD.x];
+  const midX = (w: number) => padX()[0] + (w - padX()[0] - padX()[1]) / 2;
   const fitScale = () => {
     const { w, h } = size();
-    return Math.max(0.1, Math.min((w - PAD.x * 2) / lot().w, (h - PAD.top - PAD.bottom) / lot().h));
+    return Math.max(0.1, Math.min((w - padX()[0] - padX()[1]) / lot().w, (h - PAD.top - PAD.bottom) / lot().h));
   };
 
   const view = createMemo<View>(
@@ -70,7 +74,7 @@ export function PlanView(props: Props) {
       const scale = fitScale() * c.zoom;
       // The fitted lot sits centered in the space between the padding, not the whole box.
       const midY = PAD.top + (h - PAD.top - PAD.bottom) / 2;
-      return { scale, offX: w / 2 - c.cx * scale, offY: midY - c.cy * scale };
+      return { scale, offX: midX(w) - c.cx * scale, offY: midY - c.cy * scale };
     },
     { scale: 1, offX: 0, offY: 0 },
     { equals: (a, b) => a.scale === b.scale && a.offX === b.offX && a.offY === b.offY },
@@ -104,10 +108,10 @@ export function PlanView(props: Props) {
     const scale = fitScale() * zoom;
     const midY = PAD.top + (h - PAD.top - PAD.bottom) / 2;
     const fx = (sx - v.offX) / v.scale, fy = (sy - v.offY) / v.scale;
-    setCam({ zoom, cx: fx - (sx - w / 2) / scale, cy: fy - (sy - midY) / scale });
+    setCam({ zoom, cx: fx - (sx - midX(w)) / scale, cy: fy - (sy - midY) / scale });
   }
 
-  const zoomCenter = (factor: number) => zoomAt(factor, size().w / 2, PAD.top + (size().h - PAD.top - PAD.bottom) / 2);
+  const zoomCenter = (factor: number) => zoomAt(factor, midX(size().w), PAD.top + (size().h - PAD.top - PAD.bottom) / 2);
   const fit = () => setCam(fitCam());
 
   onMount(() => {
