@@ -104,6 +104,11 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     }
     const moving = controls.update();
     sky.position.copy(camera.position);
+    // Haze starts just past the lot however far back the camera stands.
+    if (scene.fog instanceof THREE.Fog) {
+      scene.fog.near = camera.position.distanceTo(controls.target) + lotSize * 0.45;
+      scene.fog.far = scene.fog.near + lotSize * 2.6;
+    }
     renderer.render(scene, camera);
     rendering = false;
     if (moving || controls.autoRotate || flight) frame = requestAnimationFrame(render);
@@ -265,7 +270,7 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     skyMat.uniforms.sunColor.value.set(look.sun);
     sky.scale.setScalar(4000);
     scene.background = new THREE.Color(look.horizon);
-    scene.fog = new THREE.Fog(look.horizon, lotSize * 1.5, lotSize * 4.2);
+    scene.fog = new THREE.Fog(look.horizon, lotSize * 1.5, lotSize * 4);
     hemi.color.set(look.top).lerp(new THREE.Color("#ffffff"), 0.55);
     hemi.groundColor.set(shade(look.lawn, -0.35));
     hemi.intensity = look.hemi;
@@ -476,10 +481,10 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
       fall: ["#c0612b", "#d9a43a", "#8f3b2a", "#7d7f3a", "#b8822f"],
       winter: [],
     };
-    const n = 46;
+    const n = 38;
     for (let i = 0; i < n; i++) {
       const a = (i / n) * Math.PI * 2 + rand() * 0.12;
-      const dist = lotSize * (1.25 + rand() * 1.6);
+      const dist = lotSize * (1.55 + rand() * 1.6);
       const x = Math.cos(a) * dist, z = Math.sin(a) * dist;
       const h = 24 + rand() * 26, r = h * (0.3 + rand() * 0.12);
       const evergreen = rand() < 0.25;
