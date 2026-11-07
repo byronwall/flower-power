@@ -3,47 +3,312 @@
   "name": "Sample Indiana lot",
   "units": "ft",
   "headingDeg": 0,
-  "lot": { "outline": [[0, 0], [80, 0], [80, 130], [0, 130]] },
-  "house": { "outline": [[15, 58], [66, 58], [66, 95], [48, 95], [48, 100], [15, 100]], "heightFt": 24 },
+  "lot": {
+    "outline": [
+      [0, 0],
+      [80, 0],
+      [80, 130],
+      [0, 130]
+    ]
+  },
+  "house": {
+    "outline": [
+      [15, 58],
+      [66, 58],
+      [66, 95],
+      [48, 95],
+      [48, 100],
+      [15, 100]
+    ],
+    "heightFt": 24
+  },
   "fences": [
-    { "id": "fence-back", "kind": "solid", "heightFt": 6, "path": [[0, 0], [80, 0]] },
-    { "id": "fence-west", "kind": "semi-open", "heightFt": 4, "path": [[0, 0], [0, 72]] },
-    { "id": "fence-east", "kind": "open", "heightFt": 4, "path": [[80, 0], [80, 72]] }
+    {
+      "id": "fence-back",
+      "kind": "solid",
+      "heightFt": 6,
+      "path": [
+        [0, 0],
+        [80, 0]
+      ]
+    },
+    {
+      "id": "fence-west",
+      "kind": "semi-open",
+      "heightFt": 4,
+      "path": [
+        [0, 0],
+        [0, 72]
+      ]
+    },
+    {
+      "id": "fence-east",
+      "kind": "open",
+      "heightFt": 4,
+      "path": [
+        [80, 0],
+        [80, 72]
+      ]
+    }
   ],
   "surfaces": [
-    { "id": "driveway", "kind": "driveway", "outline": [[50, 95], [66, 95], [68, 130], [50, 130]] },
-    { "id": "front-walk", "kind": "path", "outline": [[30, 100], [34, 100], [34, 112], [50, 112], [50, 116], [30, 116]] },
-    { "id": "patio", "kind": "patio", "outline": [[24, 40], [46, 40], [47, 58], [23, 58]] },
-    { "id": "stones-to-shed", "kind": "stepping-stones", "outline": [[12, 47], [23, 47], [23, 51], [12, 51]] },
-    { "id": "back-bed", "kind": "mulch", "outline": [[18, 3], [62, 3], [64, 9], [58, 15], [40, 13], [22, 15], [16, 9]] },
-    { "id": "maple-bed", "kind": "mulch", "outline": [[4, 8], [13, 4], [22, 14], [20, 28], [10, 32], [3, 24]] },
-    { "id": "front-bed", "kind": "mulch", "outline": [[14, 100], [30, 100], [30, 106], [14, 106]] },
-    { "id": "fire-pit-gravel", "kind": "gravel", "outline": [[54, 40], [68, 40], [70, 50], [62, 55], [52, 50]] }
+    {
+      "id": "driveway",
+      "kind": "driveway",
+      "outline": [
+        [50, 95],
+        [66, 95],
+        [68, 130],
+        [50, 130]
+      ]
+    },
+    {
+      "id": "front-walk",
+      "kind": "path",
+      "outline": [
+        [30, 100],
+        [34, 100],
+        [34, 112],
+        [50, 112],
+        [50, 116],
+        [30, 116]
+      ]
+    },
+    {
+      "id": "patio",
+      "kind": "patio",
+      "outline": [
+        [24, 40],
+        [46, 40],
+        [47, 58],
+        [23, 58]
+      ]
+    },
+    {
+      "id": "stones-to-shed",
+      "kind": "stepping-stones",
+      "outline": [
+        [12, 47],
+        [23, 47],
+        [23, 51],
+        [12, 51]
+      ]
+    },
+    {
+      "id": "back-bed",
+      "kind": "mulch",
+      "outline": [
+        [18, 3],
+        [62, 3],
+        [64, 9],
+        [58, 15],
+        [40, 13],
+        [22, 15],
+        [16, 9]
+      ]
+    },
+    {
+      "id": "maple-bed",
+      "kind": "mulch",
+      "outline": [
+        [4, 8],
+        [13, 4],
+        [22, 14],
+        [20, 28],
+        [10, 32],
+        [3, 24]
+      ]
+    },
+    {
+      "id": "front-bed",
+      "kind": "mulch",
+      "outline": [
+        [14, 100],
+        [30, 100],
+        [30, 106],
+        [14, 106]
+      ]
+    },
+    {
+      "id": "fire-pit-gravel",
+      "kind": "gravel",
+      "outline": [
+        [54, 40],
+        [68, 40],
+        [70, 50],
+        [62, 55],
+        [52, 50]
+      ]
+    }
   ],
   "structures": [
-    { "id": "shed", "kind": "shed", "outline": [[2, 42], [12, 42], [12, 56], [2, 56]], "heightFt": 9 },
-    { "id": "raised-bed", "kind": "raised-bed", "outline": [[66, 22], [74, 22], [74, 30], [66, 30]], "heightFt": 1.5 }
+    {
+      "id": "shed",
+      "kind": "shed",
+      "outline": [
+        [2, 42],
+        [12, 42],
+        [12, 56],
+        [2, 56]
+      ],
+      "heightFt": 9
+    },
+    {
+      "id": "raised-bed",
+      "kind": "raised-bed",
+      "outline": [
+        [66, 22],
+        [74, 22],
+        [74, 30],
+        [66, 30]
+      ],
+      "heightFt": 1.5
+    }
   ],
   "edges": [
-    { "id": "back-bed-edge", "kind": "edging", "path": [[16, 9], [22, 15], [40, 13], [58, 15], [64, 9]] },
-    { "id": "fire-pit-wall", "kind": "seat-wall", "path": [[53, 51], [55, 42], [67, 42], [69, 49]] }
+    {
+      "id": "back-bed-edge",
+      "kind": "edging",
+      "path": [
+        [16, 9],
+        [22, 15],
+        [40, 13],
+        [58, 15],
+        [64, 9]
+      ]
+    },
+    {
+      "id": "fire-pit-wall",
+      "kind": "seat-wall",
+      "path": [
+        [53, 51],
+        [55, 42],
+        [67, 42],
+        [69, 49]
+      ]
+    }
   ],
   "features": [
-    { "id": "birdbath", "kind": "birdbath", "at": [56, 24] },
-    { "id": "fire-pit", "kind": "fire-pit", "at": [61, 47] },
-    { "id": "bench", "kind": "bench", "at": [35, 34] },
-    { "id": "feeder", "kind": "feeder", "at": [26, 22] }
+    {
+      "id": "birdbath",
+      "kind": "birdbath",
+      "at": [56, 24]
+    },
+    {
+      "id": "fire-pit",
+      "kind": "fire-pit",
+      "at": [61, 47]
+    },
+    {
+      "id": "bench",
+      "kind": "bench",
+      "at": [35, 34]
+    },
+    {
+      "id": "feeder",
+      "kind": "feeder",
+      "at": [26, 22]
+    }
   ],
   "plantings": [
-    { "id": "maple", "type": "single", "plantId": "red-maple", "at": [12, 17], "existing": true },
-    { "id": "redbud", "type": "single", "plantId": "eastern-redbud", "at": [20, 118] },
-    { "id": "arborvitae-screen", "type": "row", "plantId": "green-giant-arborvitae", "path": [[76, 4], [76, 18]] },
-    { "id": "coneflowers", "type": "region", "plantId": "purple-coneflower", "outline": [[20, 6], [36, 4], [38, 12], [24, 13]], "seed": 7 },
-    { "id": "susans", "type": "region", "plantId": "black-eyed-susan", "outline": [[38, 4], [52, 4], [56, 12], [40, 12]], "seed": 11 },
-    { "id": "dropseed", "type": "region", "plantId": "prairie-dropseed", "outline": [[54, 4], [61, 4], [62, 9], [57, 13]], "seed": 3 },
-    { "id": "hostas", "type": "region", "plantId": "hosta", "outline": [[5, 10], [12, 6], [19, 14], [17, 26], [9, 29], [5, 22]], "seed": 5 },
-    { "id": "rose", "type": "single", "plantId": "knock-out-rose", "at": [44, 38] },
-    { "id": "foundation-boxwood", "type": "row", "plantId": "boxwood", "path": [[16, 102], [29, 102]] },
-    { "id": "daylilies", "type": "region", "plantId": "daylily", "outline": [[15, 103.5], [29, 103.5], [29, 105.5], [15, 105.5]], "seed": 2 }
+    {
+      "id": "maple",
+      "type": "single",
+      "plantId": "red-maple",
+      "at": [12, 17],
+      "existing": true
+    },
+    {
+      "id": "redbud",
+      "type": "single",
+      "plantId": "eastern-redbud",
+      "at": [20, 118]
+    },
+    {
+      "id": "arborvitae-screen",
+      "type": "row",
+      "plantId": "green-giant-arborvitae",
+      "path": [
+        [76, 4],
+        [76, 18]
+      ]
+    },
+    {
+      "id": "coneflowers",
+      "type": "region",
+      "plantId": "purple-coneflower",
+      "outline": [
+        [20, 6],
+        [36, 4],
+        [38, 12],
+        [24, 13]
+      ],
+      "seed": 7
+    },
+    {
+      "id": "susans",
+      "type": "region",
+      "plantId": "black-eyed-susan",
+      "outline": [
+        [38, 4],
+        [52, 4],
+        [56, 12],
+        [40, 12]
+      ],
+      "seed": 11
+    },
+    {
+      "id": "dropseed",
+      "type": "region",
+      "plantId": "prairie-dropseed",
+      "outline": [
+        [54, 4],
+        [61, 4],
+        [62, 9],
+        [57, 13]
+      ],
+      "seed": 3
+    },
+    {
+      "id": "hostas",
+      "type": "region",
+      "plantId": "hosta",
+      "outline": [
+        [5, 10],
+        [12, 6],
+        [19, 14],
+        [17, 26],
+        [9, 29],
+        [5, 22]
+      ],
+      "seed": 5
+    },
+    {
+      "id": "rose",
+      "type": "single",
+      "plantId": "knock-out-rose",
+      "at": [44, 38]
+    },
+    {
+      "id": "foundation-boxwood",
+      "type": "row",
+      "plantId": "boxwood",
+      "path": [
+        [16, 102],
+        [29, 102]
+      ]
+    },
+    {
+      "id": "daylilies",
+      "type": "region",
+      "plantId": "daylily",
+      "outline": [
+        [15, 103.5],
+        [29, 103.5],
+        [29, 105.5],
+        [15, 105.5]
+      ],
+      "seed": 2
+    }
   ]
 }

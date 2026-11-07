@@ -28,7 +28,7 @@ body,
 .app {
   height: 100%;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
 }
 
 .app-bar {
@@ -175,4 +175,225 @@ select:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--bloom);
   outline-offset: 2px;
+}
+
+.status {
+  padding: 40px 16px;
+  color: var(--muted);
+}
+
+button {
+  font: inherit;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--moss);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.primary {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+button.danger {
+  color: #a3352f;
+  border-color: #e4c5bf;
+}
+
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-text {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 110px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar button[aria-pressed="true"],
+.toolbar select.active {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+.toolbar .hint {
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.inspector {
+  width: 280px;
+  flex: none;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.inspector header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inspector h2 {
+  margin: 0;
+  font: 400 22px/1.2 var(--f-hand);
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.field > span:first-child {
+  color: var(--muted);
+}
+
+.field input,
+.field select {
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 4px 8px;
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.facts dt {
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+/* Edit layer: shapes are invisible until hovered or selected. Strokes stay in screen pixels. */
+.edit-layer * {
+  vector-effect: non-scaling-stroke;
+}
+
+.edit-bg {
+  fill: transparent;
+}
+
+.edit-layer.drawing,
+.edit-layer.drawing .hit {
+  cursor: crosshair;
+}
+
+.edit-layer.drawing .hit {
+  pointer-events: none;
+}
+
+.hit {
+  fill: transparent;
+  stroke: transparent;
+  cursor: move;
+}
+
+.hit.line {
+  fill: none;
+  stroke: transparent;
+  vector-effect: none;
+}
+
+.hit:hover {
+  fill: rgba(69, 112, 79, 0.08);
+  stroke: rgba(69, 112, 79, 0.6);
+  stroke-width: 1.5;
+}
+
+.hit.line:hover {
+  stroke: rgba(69, 112, 79, 0.25);
+  fill: none;
+}
+
+.sel-line,
+.sel-ring {
+  fill: rgba(176, 69, 122, 0.06);
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 3;
+  pointer-events: none;
+}
+
+polyline.sel-line {
+  fill: none;
+}
+
+.handle {
+  fill: white;
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  cursor: grab;
+}
+
+.draft {
+  fill: none;
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
 }
