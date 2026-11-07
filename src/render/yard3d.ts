@@ -1,35 +1,48 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { plantsById } from "../model/library";
-import type { Plant } from "../model/plant";
 import type { Point, Property } from "../model/property";
-import { bounds } from "./geometry";
-import { expand, lookOf, seasonOf, type Look, type ViewTime } from "./look";
+import { bounds, centroid, inside, rng } from "./geometry";
+import { expand, lookOf, seasonOf, type ViewTime } from "./look";
+import { feature, house, hipRoof, slabGeo, type Frame } from "./yard3d-built";
+import { blotTexture, Kit, kitMaterial, kitMesh, shade, skyDome, surfaceTexture, T, vary, type Finish } from "./yard3d-kit";
+import { plantParts, type Spot } from "./yard3d-plants";
 
 // The yard as a small 3D model beside the plan. Plan feet map to scene units one to one:
 // plan x is scene x, plan y is scene z, and heights go up the scene's y axis.
 // It is rebuilt from the property on every change, which is cheap for a single lot.
 
 export type Pick = { col: string; id: string };
+export type CameraView = "overview" | "top" | "eye";
 
 type Options = {
   onPick?: (ref: Pick | null) => void;
+  onHover?: (ref: Pick | null, clientX: number, clientY: number) => void;
 };
 
-const LAWN = { spring: "#8db25f", summer: "#7fa552", fall: "#a2a15d", winter: "#c9cbbd" } as const;
-const SKY = { spring: "#dfecef", summer: "#d6e7f1", fall: "#ece5d8", winter: "#e3e7ea" } as const;
-const SURFACE: Record<string, string> = {
-  lawn: "#86a957",
-  patio: "#c7b49a",
-  path: "#d8cbb2",
-  "stepping-stones": "#bcb2a2",
-  gravel: "#cfc5b2",
-  mulch: "#76563d",
-  driveway: "#a7a39b",
-  pond: "#5f93ab",
+type Season = ReturnType<typeof seasonOf>;
+
+// Light and color per season. Winter (Dec to Feb) has a light snow cover.
+const SEASON: Record<Season, { top: string; horizon: string; lawn: string; sun: string; elev: number; sunI: number; hemi: number }> = {
+  spring: { top: "#7fb0d8", horizon: "#e4eef0", lawn: "#86ad58", sun: "#fff3dc", elev: 50, sunI: 2.7, hemi: 1.15 },
+  summer: { top: "#6aa3d6", horizon: "#e2edf2", lawn: "#77a14c", sun: "#fff1d6", elev: 62, sunI: 2.9, hemi: 1.1 },
+  fall: { top: "#86a9c9", horizon: "#f0e6d6", lawn: "#94a05a", sun: "#ffe2b8", elev: 38, sunI: 2.6, hemi: 1.05 },
+  winter: { top: "#9fb4c8", horizon: "#e9edf0", lawn: "#e8ecee", sun: "#fff0e0", elev: 26, sunI: 2.1, hemi: 1.25 },
+};
+
+const SURFACE: Record<string, { color: string; finish: Finish; tile: number; depth: number; snow: boolean }> = {
+  lawn: { color: "#86a957", finish: "lawn", tile: 24, depth: 0.05, snow: true },
+  patio: { color: "#c9b79c", finish: "pavers", tile: 16, depth: 0.3, snow: false },
+  path: { color: "#d8cbb2", finish: "speckle", tile: 10, depth: 0.12, snow: false },
+  "stepping-stones": { color: "#a9a493", finish: "stones", tile: 5, depth: 0.1, snow: true },
+  gravel: { color: "#cfc5b2", finish: "speckle", tile: 6, depth: 0.1, snow: true },
+  mulch: { color: "#6f5039", finish: "speckle", tile: 6, depth: 0.16, snow: true },
+  driveway: { color: "#aaa69e", finish: "slab", tile: 20, depth: 0.25, snow: false },
+  pond: { color: "#3f7590", finish: "speckle", tile: 30, depth: 0.02, snow: false },
 };
 const STRUCTURE: Record<string, string> = { deck: "#a77b52", pergola: "#b48a5f", shed: "#9c6b4a", "raised-bed": "#8a6243" };
 const FENCE = "#b9a88d";
+const SNOW = "#eef2f4";
 
 export function createYard(container: HTMLElement, opts: Options = {}) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -37,45 +50,63 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
   container.appendChild(renderer.domElement);
   renderer.domElement.className = "yard3d-canvas";
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, 1, 1, 5000);
+  const camera = new THREE.PerspectiveCamera(38, 1, 1, 6000);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
-  controls.maxPolarAngle = Math.PI / 2 - 0.06; // never under the ground
-  controls.minDistance = 8;
+  controls.maxPolarAngle = Math.PI / 2 - 0.04; // never under the ground
+  controls.minDistance = 6;
   controls.screenSpacePanning = false; // pan slides along the ground
   controls.autoRotateSpeed = 1.2;
 
-  const hemi = new THREE.HemisphereLight("#f4f7ff", "#6b6a4a", 1.3);
-  const sun = new THREE.DirectionalLight("#fff4dc", 2.4);
+  const hemi = new THREE.HemisphereLight("#f4f7ff", "#6b6a4a", 1.1);
+  const sun = new THREE.DirectionalLight("#fff4dc", 2.6);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
-  sun.shadow.bias = -0.0004;
-  sun.shadow.normalBias = 0.6;
-  scene.add(hemi, sun, sun.target);
+  sun.shadow.bias = -0.0003;
+  sun.shadow.normalBias = 0.5;
+  const sky = skyDome();
+  scene.add(hemi, sun, sun.target, sky);
 
   let world = new THREE.Group();
   scene.add(world);
   let lotSize = 100;
   let framedFor = "";
   let selected: Pick | null = null;
+  let hovered: Pick | null = null;
   let current: { property: Property; time: ViewTime } | null = null;
+  // Which way the garden faces from the house, so the first view looks at the plants.
+  let facing = new THREE.Vector2(0, 1);
+  // Where plants stand (scene x, z, radius) and the lot outline, so eye level can stand clear.
+  let standing: [number, number, number][] = [];
+  let lotOutline: Point[] = [];
 
   // ---------- rendering on demand ----------
-  // Draw now; keep drawing each frame only while the camera is still easing or spinning.
+  // Draw now; keep drawing each frame only while the camera is easing, flying or spinning.
   let frame = 0;
   let rendering = false;
+  let flight: { from: THREE.Vector3; to: THREE.Vector3; fromT: THREE.Vector3; toT: THREE.Vector3; start: number; ms: number } | null = null;
   const render = () => {
     frame = 0;
     rendering = true;
+    if (flight) {
+      const k = Math.min(1, (performance.now() - flight.start) / flight.ms);
+      const e = 1 - Math.pow(1 - k, 3);
+      camera.position.lerpVectors(flight.from, flight.to, e);
+      controls.target.lerpVectors(flight.fromT, flight.toT, e);
+      if (k >= 1) flight = null;
+    }
     const moving = controls.update();
+    sky.position.copy(camera.position);
     renderer.render(scene, camera);
     rendering = false;
-    if (moving || controls.autoRotate) frame = requestAnimationFrame(render);
+    if (moving || controls.autoRotate || flight) frame = requestAnimationFrame(render);
   };
   const invalidate = () => {
     if (!frame && !rendering) render();
@@ -104,14 +135,14 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     ray.setFromCamera(ndc, camera);
   };
   const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-  let center: Point = [0, 0];
+  const frameOf: Frame = { center: [0, 0] };
 
   // The plan point (in feet) under a screen position, on the ground.
   function groundAt(clientX: number, clientY: number): Point | null {
     toNdc(clientX, clientY);
     const hit = new THREE.Vector3();
     if (!ray.ray.intersectPlane(ground, hit)) return null;
-    return [Math.round((hit.x + center[0]) * 10) / 10, Math.round((hit.z + center[1]) * 10) / 10];
+    return [Math.round((hit.x + frameOf.center[0]) * 10) / 10, Math.round((hit.z + frameOf.center[1]) * 10) / 10];
   }
 
   function pickAt(clientX: number, clientY: number): Pick | null {
@@ -132,210 +163,301 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     downAt = null;
     opts.onPick?.(pickAt(e.clientX, e.clientY));
   };
+  // Hover names what is under the pointer, checked at most once a frame and never mid-drag.
+  let hoverFrame = 0;
+  const move = (e: PointerEvent) => {
+    if (e.buttons || hoverFrame) return;
+    const { clientX, clientY } = e;
+    hoverFrame = requestAnimationFrame(() => {
+      hoverFrame = 0;
+      const ref = pickAt(clientX, clientY);
+      renderer.domElement.style.cursor = ref ? "pointer" : "";
+      if (ref?.col !== hovered?.col || ref?.id !== hovered?.id) {
+        hovered = ref;
+        ringOn(hoverRing, hovered && !same(hovered, selected) ? hovered : null);
+        invalidate();
+      }
+      opts.onHover?.(ref, clientX, clientY);
+    });
+  };
+  const leave = () => {
+    hovered = null;
+    ringOn(hoverRing, null);
+    renderer.domElement.style.cursor = "";
+    opts.onHover?.(null, 0, 0);
+    invalidate();
+  };
   renderer.domElement.addEventListener("pointerdown", down);
   renderer.domElement.addEventListener("pointerup", up);
+  renderer.domElement.addEventListener("pointermove", move);
+  renderer.domElement.addEventListener("pointerleave", leave);
 
-  // ---------- building the scene ----------
-  const geo = {
-    sphere: new THREE.IcosahedronGeometry(1, 2),
-    blob: new THREE.IcosahedronGeometry(1, 1),
-    cone: new THREE.ConeGeometry(1, 1, 10),
-    cyl: new THREE.CylinderGeometry(1, 1, 1, 10),
-    box: new THREE.BoxGeometry(1, 1, 1),
-  };
-  const mats = new Map<string, THREE.MeshStandardMaterial>();
-  const mat = (color: string, flat = true) => {
-    const key = color + flat;
-    let m = mats.get(key);
-    if (!m) {
-      m = new THREE.MeshStandardMaterial({ color, roughness: 0.92, metalness: 0, flatShading: flat });
-      mats.set(key, m);
-    }
+  // ---------- materials made once ----------
+  const surfaceMats = new Map<string, THREE.MeshStandardMaterial>();
+  const surfaceMat = (color: string, finish: Finish, tile: number, rough = 0.95) => {
+    const key = `${color}:${finish}:${tile}:${rough}`;
+    let m = surfaceMats.get(key);
+    if (!m) surfaceMats.set(key, (m = new THREE.MeshStandardMaterial({ color: "#ffffff", map: surfaceTexture(color, finish, tile), roughness: rough, metalness: 0 })));
     return m;
   };
-  const mesh = (g: THREE.BufferGeometry, color: string, shadow = true, flat = true) => {
-    const m = new THREE.Mesh(g, mat(color, flat));
-    m.castShadow = shadow;
+  const water = new THREE.MeshStandardMaterial({ color: "#3d7390", roughness: 0.12, metalness: 0.2, transparent: true, opacity: 0.92 });
+  const glassMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.18, metalness: 0.35, flatShading: true });
+  const spotMat = new THREE.MeshStandardMaterial({ roughness: 0.7, flatShading: true });
+  const litterMat = new THREE.MeshStandardMaterial({ roughness: 0.95, side: THREE.DoubleSide });
+  const blotMat = new THREE.MeshBasicMaterial({ color: "#1d2412", map: blotTexture(), transparent: true, opacity: 0.38, depthWrite: false });
+  const spotGeo = new THREE.IcosahedronGeometry(1, 0);
+  const litterGeo = new THREE.CircleGeometry(1, 5).rotateX(-Math.PI / 2);
+  const blotGeo = new THREE.PlaneGeometry(2, 2).rotateX(-Math.PI / 2);
+
+  // Plant geometry by look, kept across rebuilds: most month changes reuse every plant.
+  const plantCache = new Map<string, { geo: THREE.BufferGeometry | null; spots: Spot[]; litter: Spot[]; radius: number }>();
+
+  const at3 = ([x, y]: Point) => new THREE.Vector3(x - frameOf.center[0], 0, y - frameOf.center[1]);
+
+  function surfaceMesh(outline: Point[], depth: number, lift: number, mat: THREE.Material) {
+    const m = new THREE.Mesh(slabGeo(outline, frameOf, depth, lift), mat);
     m.receiveShadow = true;
     return m;
-  };
+  }
 
-  const shapeOf = (outline: Point[]) => {
-    const s = new THREE.Shape();
-    outline.forEach(([x, y], i) => (i ? s.lineTo(x - center[0], -(y - center[1])) : s.moveTo(x - center[0], -(y - center[1]))));
-    return s;
-  };
-  // A flat or raised slab from a plan outline.
-  const slab = (outline: Point[], depth: number, color: string, lift = 0) => {
-    const g = depth > 0 ? new THREE.ExtrudeGeometry(shapeOf(outline), { depth, bevelEnabled: false }) : new THREE.ShapeGeometry(shapeOf(outline));
-    g.rotateX(-Math.PI / 2);
-    const m = mesh(g, color, depth > 0.5, true);
-    m.position.y = lift;
-    return m;
-  };
-  const at3 = ([x, y]: Point) => new THREE.Vector3(x - center[0], 0, y - center[1]);
+  // Many small spots (flowers, berries, leaves, contact shadows) as one instanced mesh.
+  function instanced(geo: THREE.BufferGeometry, mat: THREE.Material, spots: Spot[], flat: boolean) {
+    const im = new THREE.InstancedMesh(geo, mat, spots.length);
+    const m = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), e = new THREE.Euler(), c = new THREE.Color();
+    const rand = rng(spots.length + 11);
+    spots.forEach((p, i) => {
+      q.setFromEuler(e.set(flat ? (rand() - 0.5) * 0.3 : rand() * 3, rand() * 6, flat ? (rand() - 0.5) * 0.3 : rand() * 3));
+      im.setMatrixAt(i, m.compose(p.at, q, s.set(p.size, flat ? 1 : p.size, p.size)));
+      im.setColorAt(i, c.set(p.color));
+    });
+    im.instanceMatrix.needsUpdate = true;
+    if (im.instanceColor) im.instanceColor.needsUpdate = true;
+    return im;
+  }
 
   function build(property: Property, time: ViewTime) {
-    world.remove(ring);
+    world.remove(selRing, hoverRing);
     scene.remove(world);
     world.traverse((o) => {
-      if (o instanceof THREE.Mesh && !Object.values(geo).includes(o.geometry)) o.geometry.dispose();
-      if (o instanceof THREE.Points) {
-        o.geometry.dispose();
-        (o.material as THREE.Material).dispose();
+      if (o instanceof THREE.Mesh || o instanceof THREE.InstancedMesh) {
+        if (!o.userData.cached && o.geometry !== spotGeo && o.geometry !== litterGeo && o.geometry !== blotGeo) o.geometry.dispose();
+        if (o instanceof THREE.InstancedMesh) o.dispose();
       }
     });
     world = new THREE.Group();
     scene.add(world);
+    if (plantCache.size > 4000) {
+      plantCache.forEach((p) => p.geo?.dispose());
+      plantCache.clear();
+    }
 
     const season = seasonOf(time.month);
+    const look = SEASON[season];
+    const snow = season === "winter";
     const lb = bounds(property.lot.outline);
-    center = [lb.minX + lb.w / 2, lb.minY + lb.h / 2];
+    frameOf.center = [lb.minX + lb.w / 2, lb.minY + lb.h / 2];
     lotSize = Math.max(lb.w, lb.h);
-    scene.background = new THREE.Color(SKY[season]);
-    scene.fog = new THREE.Fog(SKY[season], lotSize * 2.2, lotSize * 6);
 
-    // Ground beyond the lot, then the lot itself.
-    const outside = mesh(new THREE.CircleGeometry(lotSize * 6, 48).rotateX(-Math.PI / 2), shade(LAWN[season], 0.42), false);
+    // Sky, fog and light.
+    const skyMat = sky.material as THREE.ShaderMaterial;
+    skyMat.uniforms.top.value.set(look.top);
+    skyMat.uniforms.horizon.value.set(look.horizon);
+    skyMat.uniforms.sunColor.value.set(look.sun);
+    sky.scale.setScalar(4000);
+    scene.background = new THREE.Color(look.horizon);
+    scene.fog = new THREE.Fog(look.horizon, lotSize * 1.5, lotSize * 4.2);
+    hemi.color.set(look.top).lerp(new THREE.Color("#ffffff"), 0.55);
+    hemi.groundColor.set(shade(look.lawn, -0.35));
+    hemi.intensity = look.hemi;
+
+    // Ground beyond the lot, the lot, then each surface on top.
+    const lawnFinish: Finish = snow ? "snow" : "lawn";
+    const outside = new THREE.Mesh(new THREE.CircleGeometry(lotSize * 7, 64).rotateX(-Math.PI / 2), surfaceMat(`#${(snow ? new THREE.Color(look.lawn) : shade(look.lawn, -0.1).lerp(new THREE.Color(look.horizon), 0.25)).getHexString()}`, lawnFinish, 40));
     outside.position.y = -0.05;
+    outside.receiveShadow = true;
     world.add(outside);
-    world.add(slab(property.lot.outline, 0, LAWN[season], 0));
+    world.add(surfaceMesh(property.lot.outline, 0, 0, surfaceMat(look.lawn, lawnFinish, 24)));
 
+    const pondRim = new Kit();
     property.surfaces.forEach((s, i) => {
-      const m = slab(s.outline, s.kind === "patio" || s.kind === "driveway" ? 0.25 : 0.08, SURFACE[s.kind] ?? "#bbb", 0.01 + i * 0.002);
+      const k = SURFACE[s.kind] ?? SURFACE.gravel;
+      const lift = 0.01 + i * 0.002;
+      const color = snow && k.snow ? `#${new THREE.Color(k.color).lerp(new THREE.Color(SNOW), 0.75).getHexString()}` : s.kind === "lawn" ? look.lawn : k.color;
+      let m: THREE.Mesh;
+      if (s.kind === "pond") {
+        m = surfaceMesh(s.outline, 0, 0.06, snow ? surfaceMat("#cfdde4", "speckle", 10, 0.3) : water);
+        // Stones around the edge.
+        const rand = rng(i + 101);
+        for (let j = 0; j < s.outline.length; j++) {
+          const a = at3(s.outline[j]), b = at3(s.outline[(j + 1) % s.outline.length]);
+          const n = Math.ceil(a.distanceTo(b) / 1.3);
+          for (let t = 0; t < n; t++) {
+            const p = a.clone().lerp(b, t / n);
+            const sz = 0.45 + rand() * 0.35;
+            pondRim.add(T.lumps[t % 4], vary(snow ? "#dfe5e8" : "#9c968a", rand, 0.12), [p.x, 0.15, p.z], [sz, sz * 0.6, sz], [rand(), rand() * 6, rand()], 0.3);
+          }
+        }
+      } else {
+        m = surfaceMesh(s.outline, k.depth, lift, surfaceMat(color, k.finish, k.tile));
+        m.castShadow = k.depth > 0.2;
+      }
       m.userData.ref = { col: "surfaces", id: s.id };
       world.add(m);
     });
+    if (!pondRim.empty) world.add(kitMesh(pondRim));
 
-    // House: walls, then a roof slab with a small overhang so it reads as a building.
-    const wallH = property.house.heightFt * 0.7;
-    const house = new THREE.Group();
-    house.add(slab(property.house.outline, wallH, "#e6dccb"));
-    house.add(roof(property.house.outline, wallH, property.house.heightFt - wallH));
-    house.userData.ref = { col: "house", id: "house" };
-    world.add(house);
+    // House: walls with windows and a door, under a hip roof.
+    const roofColor = snow ? SNOW : "#5f5650";
+    const walls = new Kit(), glass = new Kit();
+    const path = property.surfaces.find((s) => s.kind === "path") ?? property.surfaces.find((s) => s.kind === "patio");
+    house(walls, glass, property.house.outline, frameOf, property.house.heightFt, roofColor, path ? centroid(path.outline) : null);
+    const home = new THREE.Group();
+    home.add(kitMesh(walls));
+    const gm = new THREE.Mesh(glass.geometry(), glassMat);
+    home.add(gm);
+    home.userData.ref = { col: "house", id: "house" };
+    world.add(home);
 
     for (const s of property.structures) {
-      const g = new THREE.Group();
+      const kit = new Kit();
       const color = STRUCTURE[s.kind] ?? "#9c7b5a";
       if (s.kind === "pergola") {
         const b = bounds(s.outline);
-        for (const [x, y] of s.outline) {
-          const post = mesh(geo.box, color);
-          post.scale.set(0.5, s.heightFt, 0.5);
-          post.position.copy(at3([x, y])).setY(s.heightFt / 2);
-          g.add(post);
+        for (const p of s.outline) {
+          const v = at3(p);
+          kit.add(T.box, color, [v.x, s.heightFt / 2, v.z], [0.55, s.heightFt, 0.55]);
         }
-        for (let i = 0; i <= 6; i++) {
-          const slat = mesh(geo.box, color);
-          slat.scale.set(b.w, 0.3, 0.35);
-          slat.position.copy(at3([b.minX + b.w / 2, b.minY + (b.h * i) / 6])).setY(s.heightFt);
-          g.add(slat);
+        for (let i = 0; i <= 8; i++) {
+          const v = at3([b.minX + b.w / 2, b.minY + (b.h * i) / 8]);
+          kit.add(T.box, shade(color, 0.08), [v.x, s.heightFt + 0.2, v.z], [b.w + 1.5, 0.35, 0.3]);
         }
+      } else if (s.kind === "shed") {
+        const wallH = s.heightFt * 0.7;
+        kit.addGeo(slabGeo(s.outline, frameOf, wallH, 0), color, 0.15);
+        hipRoof(kit, s.outline, frameOf, wallH, s.heightFt - wallH, snow ? SNOW : "#5f5650", 0.8, 0.6);
       } else {
-        g.add(slab(s.outline, s.kind === "shed" ? s.heightFt * 0.75 : s.heightFt, color));
-        if (s.kind === "shed") g.add(roof(s.outline, s.heightFt * 0.75, s.heightFt * 0.25));
-        if (s.kind === "raised-bed") g.add(slab(s.outline, 0.05, "#5d4330", s.heightFt - 0.1));
+        kit.addGeo(slabGeo(s.outline, frameOf, s.heightFt, 0), color, 0.2);
+        if (s.kind === "raised-bed") kit.addGeo(slabGeo(s.outline, frameOf, 0.05, s.heightFt - 0.12), snow ? SNOW : "#4a3526");
       }
-      g.userData.ref = { col: "structures", id: s.id };
-      world.add(g);
+      const m = kitMesh(kit);
+      m.userData.ref = { col: "structures", id: s.id };
+      world.add(m);
     }
 
     for (const f of property.fences) {
-      const g = new THREE.Group();
+      const kit = new Kit();
+      const rand = rng(f.path.length * 7 + 3);
       for (let i = 1; i < f.path.length; i++) {
         const a = at3(f.path[i - 1]), b = at3(f.path[i]);
-        const len = a.distanceTo(b), mid = a.clone().add(b).multiplyScalar(0.5), ang = Math.atan2(b.z - a.z, b.x - a.x);
+        const len = a.distanceTo(b), mid = a.clone().add(b).multiplyScalar(0.5), ang = -Math.atan2(b.z - a.z, b.x - a.x);
+        const dir = b.clone().sub(a).normalize();
         if (f.kind === "solid") {
-          const wall = mesh(geo.box, FENCE);
-          wall.scale.set(len, f.heightFt, 0.25);
-          wall.position.copy(mid).setY(f.heightFt / 2);
-          wall.rotation.y = -ang;
-          g.add(wall);
+          // Board by board, so the fence has a grain.
+          const n = Math.max(1, Math.round(len / 0.5));
+          for (let j = 0; j < n; j++) {
+            const p = a.clone().addScaledVector(dir, (j + 0.5) * (len / n));
+            kit.add(T.box, vary(FENCE, rand, 0.06), [p.x, f.heightFt / 2, p.z], [len / n - 0.04, f.heightFt - rand() * 0.15, 0.18], [0, ang, 0], 0.2);
+          }
         } else {
           for (const y of f.kind === "open" ? [f.heightFt * 0.35, f.heightFt * 0.9] : [0.4, f.heightFt * 0.5, f.heightFt * 0.95]) {
-            const rail = mesh(geo.box, FENCE);
-            rail.scale.set(len, f.kind === "open" ? 0.2 : 0.5, 0.15);
-            rail.position.copy(mid).setY(y);
-            rail.rotation.y = -ang;
-            g.add(rail);
+            kit.add(T.box, FENCE, [mid.x, y, mid.z], [len, f.kind === "open" ? 0.2 : 0.45, 0.15], [0, ang, 0], 0.1);
           }
         }
         // Posts every 8 ft.
         const n = Math.max(1, Math.round(len / 8));
         for (let j = 0; j <= n; j++) {
-          const post = mesh(geo.box, shade(FENCE, -0.2));
-          post.scale.set(0.4, f.heightFt + 0.3, 0.4);
-          post.position.copy(a.clone().lerp(b, j / n)).setY((f.heightFt + 0.3) / 2);
-          g.add(post);
+          const p = a.clone().lerp(b, j / n);
+          kit.add(T.box, shade(FENCE, -0.22), [p.x, (f.heightFt + 0.3) / 2, p.z], [0.4, f.heightFt + 0.3, 0.4], [0, ang, 0], 0.2);
         }
       }
-      g.userData.ref = { col: "fences", id: f.id };
-      world.add(g);
+      const m = kitMesh(kit);
+      m.userData.ref = { col: "fences", id: f.id };
+      world.add(m);
     }
 
     for (const e of property.edges) {
-      const g = new THREE.Group();
+      const kit = new Kit();
       const h = e.kind === "seat-wall" ? 1.6 : 0.35;
       for (let i = 1; i < e.path.length; i++) {
         const a = at3(e.path[i - 1]), b = at3(e.path[i]);
-        const len = a.distanceTo(b), ang = Math.atan2(b.z - a.z, b.x - a.x);
-        const w = mesh(geo.box, e.kind === "seat-wall" ? "#c9bca6" : "#8d8478");
-        w.scale.set(len, h, e.kind === "seat-wall" ? 1.2 : 0.3);
-        w.position.copy(a.clone().add(b).multiplyScalar(0.5)).setY(h / 2);
-        w.rotation.y = -ang;
-        g.add(w);
+        const len = a.distanceTo(b), mid = a.clone().add(b).multiplyScalar(0.5);
+        kit.add(T.box, e.kind === "seat-wall" ? "#c9bca6" : "#8d8478", [mid.x, h / 2, mid.z], [len, h, e.kind === "seat-wall" ? 1.2 : 0.3], [0, -Math.atan2(b.z - a.z, b.x - a.x), 0], 0.25);
       }
-      g.userData.ref = { col: "edges", id: e.id };
-      world.add(g);
+      const m = kitMesh(kit);
+      m.userData.ref = { col: "edges", id: e.id };
+      world.add(m);
     }
 
     for (const f of property.features) {
-      const g = feature(f.kind);
-      g.position.copy(at3(f.at));
-      g.userData.ref = { col: "features", id: f.id };
-      world.add(g);
+      const kit = new Kit();
+      const v = at3(f.at);
+      feature(kit, f.kind, [v.x, 0, v.z]);
+      const m = kitMesh(kit);
+      m.userData.ref = { col: "features", id: f.id };
+      world.add(m);
     }
 
-    // Plants, with flowers and berries gathered into one point cloud per color.
-    const dots = new Map<string, number[]>();
-    const dot = (color: string, v: THREE.Vector3) => {
-      let a = dots.get(color);
-      if (!a) dots.set(color, (a = []));
-      a.push(v.x, v.y, v.z);
-    };
+    // Plants: each one is one mesh; flowers, fallen leaves and contact shadows are shared.
+    const spots: Spot[] = [], litter: Spot[] = [], blots: Spot[] = [];
+    const sum = new THREE.Vector2();
+    let count = 0;
+    standing = [];
+    lotOutline = property.lot.outline;
     for (const pl of property.plantings) {
       const plant = plantsById.get(pl.plantId);
       if (!plant) continue;
       for (const inst of expand(pl, plant)) {
-        const look = lookOf(plant, time, inst.existing, inst.scale);
-        if (!look) continue;
-        const { group, flowers, fruit } = plantModel(plant, look, inst.seed);
+        const lk = lookOf(plant, time, inst.existing, inst.scale);
+        if (!lk) continue;
         const pos = at3(inst.at);
-        group.position.copy(pos);
-        group.userData.ref = { col: "plantings", id: pl.id };
-        world.add(group);
-        flowers.forEach((v, i) => dot(look.bloom![i % look.bloom!.length], v.add(pos)));
-        fruit.forEach((v) => dot(look.fruit!, v.add(pos)));
+        sum.x += pos.x;
+        sum.y += pos.z;
+        count++;
+        const key = `${plant.id}|${inst.seed}|${lk.spreadFt.toFixed(1)}|${lk.heightFt.toFixed(1)}|${lk.foliage}|${lk.bloom}|${lk.fruit}|${snow}`;
+        let parts = plantCache.get(key);
+        if (!parts) {
+          const p = plantParts(plant, lk, inst.seed, snow);
+          plantCache.set(key, (parts = { geo: p.kit.empty ? null : p.kit.geometry(), spots: p.spots, litter: p.litter, radius: p.radius }));
+        }
+        if (parts.geo) {
+          const m = new THREE.Mesh(parts.geo, kitMaterial);
+          m.castShadow = m.receiveShadow = true;
+          m.userData.cached = true;
+          m.position.copy(pos);
+          m.userData.ref = { col: "plantings", id: pl.id };
+          world.add(m);
+        }
+        for (const s of parts.spots) spots.push({ ...s, at: s.at.clone().add(pos) });
+        for (const s of parts.litter) litter.push({ ...s, at: s.at.clone().add(pos).setY(0.2) });
+        standing.push([pos.x, pos.z, lk.spreadFt / 2]);
+        if (lk.foliage) blots.push({ at: pos.clone().setY(0.19), size: parts.radius * 1.15 + 0.3, color: "#000000" });
       }
     }
-    for (const [color, arr] of dots) {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3));
-      const pts = new THREE.Points(g, new THREE.PointsMaterial({ color, size: 0.55, sizeAttenuation: true }));
-      // Points are positioned in world space already.
-      world.add(pts);
+    if (spots.length) world.add(instanced(spotGeo, spotMat, spots, false));
+    if (litter.length) world.add(instanced(litterGeo, litterMat, litter, true));
+    if (blots.length) {
+      const b = instanced(blotGeo, blotMat, blots, true);
+      b.renderOrder = 1;
+      world.add(b);
     }
+    // The first view stands on the planted side of the house, looking back at it.
+    const hc = centroid(property.house.outline);
+    const toGarden = new THREE.Vector2(count ? sum.x / count : 0, count ? sum.y / count : 1).sub(new THREE.Vector2(hc[0] - frameOf.center[0], hc[1] - frameOf.center[1]));
+    facing = toGarden.lengthSq() > 1 ? toGarden.normalize() : new THREE.Vector2(0, 1);
+
+    world.add(neighborhood(season, property.lot.outline));
 
     // Sun from the south (toward plan +y when north is up), high in summer and low in winter.
-    const elev = { summer: 62, spring: 48, fall: 40, winter: 26 }[season] * (Math.PI / 180);
+    const elev = look.elev * (Math.PI / 180);
     const az = ((property.headingDeg + 180 + 25) * Math.PI) / 180;
     const d = lotSize * 1.2;
     sun.position.set(Math.sin(az) * Math.cos(elev) * d, Math.sin(elev) * d, Math.cos(az) * Math.cos(elev) * d);
-    sun.intensity = season === "winter" ? 1.8 : 2.4;
+    sun.color.set(look.sun);
+    sun.intensity = look.sunI;
+    skyMat.uniforms.sunDir.value.copy(sun.position).normalize();
     const c = sun.shadow.camera;
-    c.left = c.bottom = -lotSize * 0.8;
-    c.right = c.top = lotSize * 0.8;
+    c.left = c.bottom = -lotSize * 0.75;
+    c.right = c.top = lotSize * 0.75;
     c.near = 1;
     c.far = d * 3;
     c.updateProjectionMatrix();
@@ -343,180 +465,121 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     highlight();
   }
 
-  // A roof slab that overhangs the walls a little, with a lighter cap, so it reads as a roof.
-  function roof(outline: Point[], base: number, height: number) {
-    const b = bounds(outline);
-    const mid: Point = [b.minX + b.w / 2, b.minY + b.h / 2];
-    const grow = (k: number) => outline.map(([x, y]) => [mid[0] + (x - mid[0]) * (1 + k / b.w), mid[1] + (y - mid[1]) * (1 + k / b.h)] as Point);
-    const g = new THREE.Group();
-    g.add(slab(grow(2.2), Math.max(0.8, height * 0.35), "#5e544d", base));
-    g.add(slab(grow(0.6), 0.3, "#8a7f74", base + Math.max(0.8, height * 0.35)));
-    return g;
-  }
-
-  function feature(kind: string) {
-    const g = new THREE.Group();
-    const add = (geom: THREE.BufferGeometry, color: string, s: [number, number, number], y: number) => {
-      const m = mesh(geom, color);
-      m.scale.set(...s);
-      m.position.y = y;
-      g.add(m);
+  // Trees on the neighboring lots, past the fence line, so the yard sits in a place and
+  // the horizon isn't bare. They fade into the fog and can't be picked.
+  function neighborhood(season: Season, lot: Point[]) {
+    const kit = new Kit();
+    const rand = rng(lot.length * 131 + Math.round(lotSize));
+    const leafy: Record<Season, string[]> = {
+      spring: ["#7fa653", "#8db35f", "#6d9548"],
+      summer: ["#5d7f3e", "#4f7337", "#6a8a45"],
+      fall: ["#c0612b", "#d9a43a", "#8f3b2a", "#7d7f3a", "#b8822f"],
+      winter: [],
     };
-    if (kind === "birdbath") {
-      add(geo.cyl, "#bdb6a8", [0.35, 2.4, 0.35], 1.2);
-      add(geo.cyl, "#cfc8ba", [1.3, 0.25, 1.3], 2.5);
-      add(geo.cyl, "#8fb4c9", [1.1, 0.05, 1.1], 2.65);
-    } else if (kind === "fire-pit") {
-      add(geo.cyl, "#7c746b", [2.2, 0.9, 2.2], 0.45);
-      add(geo.cyl, "#3d3631", [1.7, 0.05, 1.7], 0.92);
-    } else if (kind === "bench") {
-      add(geo.box, "#9b744f", [5, 0.3, 1.5], 1.5);
-      add(geo.box, "#7d5d40", [0.3, 1.5, 1.3], 0.75);
-      g.children[1].position.x = -2.1;
-      add(geo.box, "#7d5d40", [0.3, 1.5, 1.3], 0.75);
-      g.children[2].position.x = 2.1;
-    } else if (kind === "feeder") {
-      add(geo.cyl, "#5f564d", [0.15, 5, 0.15], 2.5);
-      add(geo.box, "#b08a5c", [0.9, 0.9, 0.9], 5.2);
-    } else {
-      add(geo.cyl, "#8fb4c9", [2.4, 0.15, 2.4], 0.08);
-      add(geo.sphere, "#a9a297", [0.7, 0.9, 0.7], 0.6);
-    }
-    return g;
-  }
-
-  // ---------- plants ----------
-  function plantModel(plant: Plant, look: Look, seed: number) {
-    const g = new THREE.Group();
-    const r = look.spreadFt / 2, h = look.heightFt;
-    const rand = mulberry(seed);
-    const leaf = look.foliage;
-    const local = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
-    const flowers: THREE.Vector3[] = [];
-    const fruit: THREE.Vector3[] = [];
-    // Points scattered over the upper, outer surface of an ellipsoid.
-    const onSurface = (cy: number, rx: number, ry: number, n: number, out: THREE.Vector3[]) => {
-      for (let i = 0; i < n; i++) {
-        const a = rand() * Math.PI * 2, up = 0.15 + rand() * 0.85;
-        const k = Math.sqrt(1 - up * up);
-        out.push(local(Math.cos(a) * k * rx * 1.02, cy + up * ry * 1.02, Math.sin(a) * k * rx * 1.02));
+    const n = 46;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + rand() * 0.12;
+      const dist = lotSize * (1.25 + rand() * 1.6);
+      const x = Math.cos(a) * dist, z = Math.sin(a) * dist;
+      const h = 24 + rand() * 26, r = h * (0.3 + rand() * 0.12);
+      const evergreen = rand() < 0.25;
+      if (evergreen) {
+        for (let t = 0; t < 3; t++) kit.add(T.cone, vary("#3f5f3a", rand, 0.1), [x, h * t * 0.22, z], [r * 0.62 * (1 - t * 0.22), h * (1 - t * 0.22), r * 0.62 * (1 - t * 0.22)], [0, rand() * 3, 0], 0.4);
+        if (season === "winter") kit.add(T.cone, SNOW, [x, h * 0.45, z], [r * 0.32, h * 0.5, r * 0.32], [0, 0, 0], 0.1);
+        continue;
       }
-    };
-
-    switch (plant.render.form) {
-      case "canopy": {
-        const trunkH = h * 0.38;
-        const tw = Math.max(0.35, r * 0.07);
-        const trunk = mesh(geo.cyl, "#6b5a4b");
-        trunk.scale.set(tw, trunkH + h * 0.2, tw);
-        trunk.position.y = (trunkH + h * 0.2) / 2;
-        g.add(trunk);
-        const cy = trunkH + (h - trunkH) / 2;
-        if (leaf) {
-          // A crown of overlapping lumps, so it reads as foliage rather than a ball.
-          const lumps = 7;
-          for (let i = 0; i < lumps; i++) {
-            const a = (i / lumps) * Math.PI * 2 + rand();
-            const off = i === 0 ? 0 : 0.42;
-            const b = mesh(geo.blob, shade(leaf, (rand() - 0.5) * 0.25));
-            const s = i === 0 ? 0.75 : 0.5 + rand() * 0.15;
-            b.scale.set(r * s, ((h - trunkH) / 2) * s * 1.05, r * s);
-            b.position.set(Math.cos(a) * r * off, cy + (i === 0 ? 0 : (rand() - 0.3) * (h - trunkH) * 0.3), Math.sin(a) * r * off);
-            b.rotation.set(rand(), rand(), rand());
-            g.add(b);
-          }
-        } else {
-          // Bare branches.
-          for (let i = 0; i < 6; i++) {
-            const a = (i / 6) * Math.PI * 2 + rand() * 0.5;
-            const br = mesh(geo.cyl, "#6b5a4b");
-            const len = (h - trunkH) * 0.7;
-            br.scale.set(tw * 0.35, len, tw * 0.35);
-            br.position.set(Math.cos(a) * r * 0.25, trunkH + len * 0.45, Math.sin(a) * r * 0.25);
-            br.rotation.set(Math.sin(a) * 0.55, 0, -Math.cos(a) * 0.55);
-            g.add(br);
-          }
+      kit.add(T.limb, "#5f5044", [x, 0, z], [r * 0.1, h * 0.55, r * 0.1]);
+      const colors = leafy[season];
+      if (!colors.length) {
+        for (let j = 0; j < 4; j++) {
+          const b = (j / 4) * Math.PI * 2 + rand();
+          kit.limb(new THREE.Vector3(x, h * 0.4, z), new THREE.Vector3(x + Math.cos(b) * r * 0.6, h * (0.85 + rand() * 0.15), z + Math.sin(b) * r * 0.6), r * 0.05, "#6a5b4e");
         }
-        if (look.bloom) onSurface(cy - (h - trunkH) * 0.15, r * 0.8, (h - trunkH) / 2, leaf ? 140 : 220, flowers);
-        if (look.fruit) onSurface(cy - (h - trunkH) * 0.15, r * 0.85, (h - trunkH) / 2, 80, fruit);
-        break;
+        continue;
       }
-      case "columnar": {
-        const c = mesh(geo.cone, leaf ?? "#3d6b3e");
-        c.scale.set(r, h * 0.97, r);
-        c.position.y = h * 0.5 + h * 0.03;
-        g.add(c);
-        break;
-      }
-      case "grass": {
-        const c = mesh(geo.cyl, leaf ?? "#b9a07a");
-        c.geometry = new THREE.CylinderGeometry(1, 0.35, 1, 9, 1, true);
-        c.scale.set(r, h, r);
-        c.position.y = h / 2;
-        g.add(c);
-        if (look.bloom || look.fruit) onSurface(h * 0.8, r, h * 0.2, 40, look.fruit ? fruit : flowers);
-        break;
-      }
-      case "mat": {
-        const m = mesh(geo.sphere, leaf ?? "#6c8f4c");
-        m.scale.set(r, Math.max(0.25, h), r);
-        g.add(m);
-        if (look.bloom) onSurface(0, r, Math.max(0.25, h), 60, flowers);
-        break;
-      }
-      case "rosette": {
-        const m = mesh(geo.sphere, leaf ?? "#5a8a48");
-        m.scale.set(r, h * 0.6, r);
-        g.add(m);
-        if (look.bloom) onSurface(h * 0.4, r * 0.5, h * 0.5, 18, flowers);
-        break;
-      }
-      default: {
-        // Mounds (shrubs) and upright perennials.
-        const upright = plant.render.form === "upright";
-        const color = leaf ?? "#6b5a4b";
-        const m = mesh(geo.blob, leaf ? color : shade("#6b5a4b", 0.2));
-        m.scale.set(r, upright ? h * 0.42 : h / 2, r);
-        m.position.y = upright ? h * 0.38 : h / 2;
-        if (!leaf) m.scale.multiplyScalar(0.9);
-        g.add(m);
-        const cy = upright ? h * 0.38 : h / 2;
-        if (look.bloom) onSurface(cy, r, upright ? h * 0.6 : h / 2, upright ? 24 : 60, flowers);
-        if (look.fruit) onSurface(cy, r, h / 2, 70, fruit);
+      const base = colors[Math.floor(rand() * colors.length)];
+      for (let j = 0; j < 5; j++) {
+        const b = rand() * Math.PI * 2, o = j ? r * 0.45 : 0;
+        const s = r * (j ? 0.55 : 0.75);
+        kit.add(T.lumps[j % 4], vary(base, rand, 0.1), [x + Math.cos(b) * o, h * 0.62 + (rand() - 0.3) * h * 0.2, z + Math.sin(b) * o], [s, s * 0.9, s], [rand(), rand(), rand()], 0.45);
       }
     }
-    // Flower and berry points in the plant's own space; the caller adds them to shared clouds.
-    return { group: g, flowers, fruit };
+    return kitMesh(kit, false);
   }
 
-  // ---------- selection highlight ----------
-  const ring = new THREE.Mesh(
-    new THREE.RingGeometry(0.92, 1, 48).rotateX(-Math.PI / 2),
-    new THREE.MeshBasicMaterial({ color: "#b0457a", transparent: true, opacity: 0.9, depthTest: false }),
-  );
-  ring.renderOrder = 10;
-  function highlight() {
+  // ---------- selection and hover rings ----------
+  const ringMesh = (color: string, opacity: number) => {
+    const m = new THREE.Mesh(
+      new THREE.RingGeometry(0.9, 1, 64).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color, transparent: true, opacity, depthTest: false, toneMapped: false }),
+    );
+    m.renderOrder = 10;
+    return m;
+  };
+  const selRing = ringMesh("#b0457a", 0.95);
+  const hoverRing = ringMesh("#ffffff", 0.75);
+  const same = (a: Pick | null, b: Pick | null) => !!a && !!b && a.col === b.col && a.id === b.id;
+
+  function ringOn(ring: THREE.Mesh, pick: Pick | null) {
     world.remove(ring);
-    if (!selected) return;
-    const target = world.children.find((o) => o.userData.ref?.col === selected!.col && o.userData.ref?.id === selected!.id);
-    if (!target) return;
+    if (!pick) return;
+    const parts = world.children.filter((o) => same(o.userData.ref, pick));
+    if (!parts.length) return;
     const box = new THREE.Box3();
-    world.children.filter((o) => o.userData.ref?.col === selected!.col && o.userData.ref?.id === selected!.id).forEach((o) => box.expandByObject(o));
+    parts.forEach((o) => box.expandByObject(o));
     const size = box.getSize(new THREE.Vector3()), mid = box.getCenter(new THREE.Vector3());
     const rr = Math.max(size.x, size.z) / 2 + 1;
     ring.scale.set(rr, 1, rr);
-    ring.position.set(mid.x, 0.3, mid.z);
+    ring.position.set(mid.x, 0.35, mid.z);
     world.add(ring);
+  }
+  function highlight() {
+    ringOn(selRing, selected);
+    ringOn(hoverRing, hovered && !same(hovered, selected) ? hovered : null);
   }
 
   // ---------- camera ----------
-  function frameView() {
-    // Back off further in a tall, narrow pane so the whole lot still fits across.
-    const d = lotSize * 1.3 * Math.max(1, 0.8 / Math.max(0.3, camera.aspect));
-    camera.position.set(-d * 0.5, d * 0.52, d * 1.0);
-    controls.target.set(0, 0, 0);
+  // Where each named view puts the camera, around the lot's center.
+  function viewOf(kind: CameraView) {
+    const fit = Math.max(1, 0.8 / Math.max(0.3, camera.aspect));
+    const f = new THREE.Vector3(facing.x, 0, facing.y);
+    const side = new THREE.Vector3(-f.z, 0, f.x);
+    // Straight down with north up, like the plan.
+    if (kind === "top") return { pos: new THREE.Vector3(0, lotSize * 1.55 * fit, 0.01), target: new THREE.Vector3() };
+    if (kind === "eye") {
+      // Standing in the garden at eye height, in the clearest spot out toward the planted
+      // side, looking back across the beds at the house.
+      const c = frameOf.center;
+      let best = new THREE.Vector3(f.x * lotSize * 0.3, 5.5, f.z * lotSize * 0.3), bestScore = -Infinity;
+      for (let i = 0; i < 9; i++)
+        for (const k of [0.5, 0.44, 0.38, 0.3]) {
+          const a = Math.atan2(f.z, f.x) + (i - 4) * 0.16;
+          const x = Math.cos(a) * lotSize * k, z = Math.sin(a) * lotSize * k;
+          if (!inside([x + c[0], z + c[1]], lotOutline)) continue;
+          const room = Math.min(40, ...standing.map(([px, pz, r]) => Math.hypot(px - x, pz - z) - r));
+          const score = Math.min(room, 4) * 5 + k * 60 - Math.abs(i - 4) * 1.5;
+          if (score > bestScore) [bestScore, best] = [score, new THREE.Vector3(x, 5.5, z)];
+        }
+      return { pos: best, target: new THREE.Vector3(0, 6, 0) };
+    }
+    const d = lotSize * 1.3 * fit;
+    const p = f.clone().multiplyScalar(d * 0.85).addScaledVector(side, d * 0.42).setY(d * 0.5);
+    return { pos: p, target: new THREE.Vector3(0, 2, 0) };
+  }
+
+  function setView(kind: CameraView, animate = true) {
+    const v = viewOf(kind);
     controls.maxDistance = lotSize * 4;
-    controls.update();
+    if (!animate) {
+      camera.position.copy(v.pos);
+      controls.target.copy(v.target);
+      controls.update();
+      invalidate();
+      return;
+    }
+    flight = { from: camera.position.clone(), to: v.pos, fromT: controls.target.clone(), toT: v.target, start: performance.now(), ms: 650 };
+    cancelAnimationFrame(frame);
+    frame = 0;
     invalidate();
   }
 
@@ -530,40 +593,29 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
       if (framedFor !== property.id) {
         framedFor = property.id;
         resize();
-        frameView();
+        setView("overview", false);
       }
       invalidate();
     },
     groundAt,
-    resetView: frameView,
+    resetView: () => setView("overview"),
+    setView,
     setSpin(on: boolean) {
       controls.autoRotate = on;
       invalidate();
     },
     dispose() {
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(hoverFrame);
+      plantCache.forEach((p) => p.geo?.dispose());
       ro.disconnect();
       controls.dispose();
       renderer.domElement.removeEventListener("pointerdown", down);
       renderer.domElement.removeEventListener("pointerup", up);
+      renderer.domElement.removeEventListener("pointermove", move);
+      renderer.domElement.removeEventListener("pointerleave", leave);
       renderer.dispose();
       renderer.domElement.remove();
     },
   };
-}
-
-function mulberry(seed: number) {
-  let a = seed >>> 0 || 1;
-  return () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function shade(hex: string, amount: number) {
-  const c = new THREE.Color(hex);
-  return amount < 0 ? `#${c.lerp(new THREE.Color("#1f2a1c"), -amount).getHexString()}` : `#${c.lerp(new THREE.Color("#fffbea"), amount).getHexString()}`;
 }
