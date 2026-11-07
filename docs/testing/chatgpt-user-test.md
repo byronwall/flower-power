@@ -33,7 +33,7 @@ Developers fix bugs while you test. If a blocker you filed earlier works again l
 
 ### Files
 
-I attached `flower-power-test-pack.zip`. Unzip it. It has one folder for each persona. Each folder has `aerial.jpg`, an overhead satellite image of the lot, and `photo-NN.jpg` files, the listing photos from Zillow. When the app asks for images, upload the files from that persona's folder only.
+The images are on disk in `/Users/byronwall/Projects/flower-power/tmp/user-test/flower-power-test-pack/`. It has one folder for each persona. Each folder has `aerial.jpg`, an overhead satellite image of the lot, and `photo-NN.jpg` files, the listing photos from Zillow. When the app asks for images, upload the files from that persona's folder only.
 
 ### The most important rule: log blockers at once
 
