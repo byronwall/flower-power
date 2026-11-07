@@ -22,10 +22,12 @@ const MIN_ALT = 10;
 // Share of light that gets through a structure's roof or walls.
 const structureLight: Record<string, number> = { pergola: 0.5 };
 
-type Caster =
-  | { kind: "prism"; outline: Point[]; h: number; light: number; own?: Uint8Array }
+// `own` marks cells the caster does not shade itself, such as the ground a shrub grows in.
+type Caster = { own?: Uint8Array } & (
+  | { kind: "prism"; outline: Point[]; h: number; light: number }
   | { kind: "wall"; a: Point; b: Point; h: number; light: number }
-  | { kind: "disk"; at: Point; r: number; h: number; evergreen: boolean };
+  | { kind: "disk"; at: Point; r: number; h: number; evergreen: boolean }
+);
 
 export function classOf(hours: number): SunClass | "unknown" {
   if (Number.isNaN(hours)) return "unknown";
@@ -92,8 +94,16 @@ function casters(p: Property, g: SunGrid): Caster[] {
   for (const pl of p.plantings) {
     const plant = plantsById.get(pl.plantId);
     if (!plant || (plant.category !== "tree" && plant.category !== "shrub")) continue;
-    for (const inst of expand(pl, plant))
-      out.push({ kind: "disk", at: inst.at, r: plant.size.spreadFt / 2, h: plant.size.heightFt, evergreen: plant.evergreen });
+    const r = plant.size.spreadFt / 2;
+    for (const inst of expand(pl, plant)) {
+      const c: Caster = { kind: "disk", at: inst.at, r, h: plant.size.heightFt, evergreen: plant.evergreen };
+      // People plant under a tree, but a shrub fills its own spot.
+      if (plant.category === "shrub") {
+        c.own = new Uint8Array(g.cols * g.rows);
+        fillCapsule(g, inst.at, inst.at, r, (i) => (c.own![i] = 1));
+      }
+      out.push(c);
+    }
   }
   return out;
 }
@@ -123,10 +133,9 @@ function compute(p: Property, season: SunSeason, cellFt: number): SunGrid {
       id++;
       const dx = ux * c.h, dy = uy * c.h;
       const t = c.kind === "disk" ? canopyLight(c.evergreen, sun.month) : c.light;
-      const own = c.kind === "prism" ? c.own : undefined;
       // Each caster dims a cell once, even where its pieces overlap.
       const dim = (i: number) => {
-        if (stamp[i] === id || own?.[i]) return;
+        if (stamp[i] === id || c.own?.[i]) return;
         stamp[i] = id;
         light[i] *= t;
       };
