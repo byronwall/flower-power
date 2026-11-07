@@ -4,7 +4,7 @@ import Brand from "./Brand";
 import { sendCreds } from "./session";
 import "./account.css";
 
-// The shared form for /login and /register. On success it opens the planner.
+// The shared form for /login and /register. On success it opens the projects page.
 export default function AuthForm(props: { kind: "login" | "register" }) {
   const navigate = useNavigate();
   const [error, setError] = createSignal("");
@@ -18,7 +18,7 @@ export default function AuthForm(props: { kind: "login" | "register" }) {
     const err = await sendCreds(props.kind, String(form.get("email")), String(form.get("password")));
     setBusy(false);
     if (err) setError(err);
-    else navigate("/plan", { replace: true });
+    else navigate("/projects", { replace: true });
   };
 
   return (

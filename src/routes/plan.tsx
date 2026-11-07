@@ -1,6 +1,7 @@
-import { A, useNavigate } from "@solidjs/router";
+import { A, useNavigate, useSearchParams } from "@solidjs/router";
 import { createEffect, createResource, createSignal, For, onCleanup, onMount, Show } from "solid-js";
-import { fetchMe } from "../account/session";
+import { sample } from "../account/sample";
+import { fetchMe, takePendingImport } from "../account/session";
 import UserMenu from "../account/UserMenu";
 import { PlanView } from "../components/PlanView";
 import { TimeBar } from "../components/TimeBar";
@@ -18,19 +19,37 @@ import type { Property } from "../model/property";
 import type { ViewTime } from "../render/look";
 
 // Sends a person who is not logged in to /login, then loads only their properties.
+// ?id= picks the property to open. Files from "New from photos" on /projects import on open.
 export default function PlanPage() {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const pending = takePendingImport();
   const [me] = createResource(async () => (await fetchMe()) ?? void navigate("/login", { replace: true }));
-  const [list, { mutate }] = createResource(me, loadProperties);
+  const [list, { mutate }] = createResource(me, async () => {
+    const l = await loadProperties();
+    if (!l.length && !pending) navigate("/projects", { replace: true });
+    return l;
+  });
   return (
-    <Show when={me() && list()} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
-      {(l) => <Planner email={me()!.email} properties={l()} onSaved={(p) => mutate(l().some((x) => x.id === p.id) ? l().map((x) => (x.id === p.id ? p : x)) : [...l(), p])} />}
+    <Show when={me() && list() && (list()!.length || pending) ? list() : undefined} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
+      {(l) => (
+        <Planner
+          email={me()!.email}
+          properties={l()}
+          initialId={params.id as string | undefined}
+          pending={pending}
+          onSaved={(p) => mutate(l().some((x) => x.id === p.id) ? l().map((x) => (x.id === p.id ? p : x)) : [...l(), p])}
+        />
+      )}
     </Show>
   );
 }
 
-function Planner(props: { email: string; properties: Property[]; onSaved: (p: Property) => void }) {
-  const ed = createEditor(props.properties[0]);
+type PlannerProps = { email: string; properties: Property[]; initialId?: string; pending: File[] | null; onSaved: (p: Property) => void };
+
+function Planner(props: PlannerProps) {
+  // With no saved properties yet, the sample is the starting point until the import replaces it.
+  const ed = createEditor(props.properties.find((p) => p.id === props.initialId) ?? props.properties[0] ?? sample);
   const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
   const [status, setStatus] = createSignal("");
   const [preview, setPreview] = createSignal<string | null>(null);
@@ -145,6 +164,7 @@ function Planner(props: { email: string; properties: Property[]; onSaved: (p: Pr
   const hasFiles = (e: DragEvent) => e.dataTransfer?.types.includes("Files") ?? false;
 
   onMount(() => {
+    if (props.pending) runImport(props.pending);
     const key = (e: KeyboardEvent) => {
       const typing = (e.target as HTMLElement).closest("input, select, textarea");
       const mod = e.metaKey || e.ctrlKey;
