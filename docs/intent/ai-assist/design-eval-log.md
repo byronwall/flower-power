@@ -34,3 +34,13 @@ Imported lots are rebuilt from the newest saved import of each aerial in `data/a
 - **thin**: each design has at least 6 changes (3 for area rework).
 
 ## Iterations
+
+### 1. Baseline, 25 plants
+
+`gpt-6.1-terra`, medium effort. Style prompts name each style's plant palette and say that other styles are being made for the same yard.
+
+- 4 of 8 cases pass. 37 calls, 216k tokens (125k in, 91k out).
+- Survival 0.94 to 1.0. No dial, hardscape, scope, or safety breaks. The only drops were a second op on one item, a plant on the path, and a moved tree.
+- Every fail is overlap: mean 0.33 to 0.41 on four cases. With 25 plants, every wildlife design reaches for coneflower, black-eyed Susan, and bergamot.
+- The hardscape opt-in works: all three patio-case designs add a patio. No other case adds one.
+- A unit test proves the checks drop bad ops (unknown plant, outside the lot, on the house or driveway, hardscape, tree spacing, bed overlap, dial, scope), since the model rarely sends them.

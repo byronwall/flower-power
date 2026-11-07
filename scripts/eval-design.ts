@@ -17,6 +17,9 @@ import { inside } from "../src/render/geometry";
 
 const STYLES: Style[] = ["cottage", "prairie", "modern", "formal"];
 
+// The least new bed area each dial should bring, in square feet.
+const minArea: Record<Dial, number> = { light: 80, refresh: 250, redo: 500 };
+
 const goalSets: Record<string, Goals> = {
   peaceful: { text: "A peaceful place to sit in the evening, soft colors, nothing fussy.", chips: ["calm", "blue", "white", "purple"], favorites: [], hardscape: false },
   wildlife: { text: "I want songbirds and butterflies all season.", chips: ["songbirds", "butterflies", "native"], favorites: [], hardscape: false },
@@ -114,6 +117,8 @@ function score(c: Case, base: Property, designs: Design[]) {
       adds: d.ops.filter((o) => o.op === "add").length,
       removes: d.ops.filter((o) => o.op === "remove" || o.op === "replace").length,
       features: d.ops.filter((o) => o.op === "addFeature").length,
+      // Square feet of planting the design adds, replaces, or reshapes.
+      area: Math.round(touched(base, after)),
       fit: newPlants.length ? newPlants.filter((id) => fits(c.goals, byId.get(id)!)).length / newPlants.length : 0,
       plantSet: [...new Set(newPlants)],
       dialBad: dialViolations(c.dial, base, after, d),
@@ -130,6 +135,7 @@ function score(c: Case, base: Property, designs: Design[]) {
   const overlap = pairs.length ? Math.max(...pairs) : 0;
   const meanOverlap = pairs.length ? pairs.reduce((a, b) => a + b, 0) / pairs.length : 0;
   const bad = rows.reduce((a, r) => a + r.dialBad + r.hardBad + r.scopeBad + r.safetyBad, 0);
+  const area = rows.length ? Math.min(...rows.map((r) => r.area)) : 0;
   const fit = rows.length ? rows.reduce((a, r) => a + r.fit, 0) / rows.length : 0;
   const want = (c.styles ?? STYLES).length;
   const fails: string[] = [];
@@ -139,10 +145,30 @@ function score(c: Case, base: Property, designs: Design[]) {
   if (bad) fails.push("rules");
   if (fit < 0.6) fails.push("fit");
   if (rows.some((r) => r.changes < (c.scope ? 3 : 6))) fails.push("thin");
+  if (area < (c.scope ? 60 : minArea[c.dial])) fails.push("timid");
   return {
-    summary: { pass: !fails.length, designs: rows.length, survival: +(kept / Math.max(1, raw)).toFixed(2), meanOverlap: +meanOverlap.toFixed(2), maxOverlap: +overlap.toFixed(2), fit: +fit.toFixed(2), changes: rows.map((r) => r.changes).join("/"), removes: rows.map((r) => r.removes).join("/"), bad, fails: fails.join(" ") },
+    summary: { pass: !fails.length, designs: rows.length, survival: +(kept / Math.max(1, raw)).toFixed(2), meanOverlap: +meanOverlap.toFixed(2), maxOverlap: +overlap.toFixed(2), fit: +fit.toFixed(2), area: rows.map((r) => r.area).join("/"), changes: rows.map((r) => r.changes).join("/"), removes: rows.map((r) => r.removes).join("/"), bad, fails: fails.join(" ") },
     rows,
   };
+}
+
+// Footprint of each planting: a bed's area, a row's length times the plant's spread, one plant's crown.
+function footprint(x: Planting) {
+  const spread = byId.get(x.plantId)?.size.spreadFt ?? 2;
+  if (x.type === "region") return polyArea(x.outline);
+  if (x.type === "row") return x.path.reduce((a, q, i) => a + (i ? Math.hypot(q[0] - x.path[i - 1][0], q[1] - x.path[i - 1][1]) : 0), 0) * spread;
+  return Math.PI * (Math.min(spread, 12) / 2) ** 2;
+}
+
+function touched(base: Property, after: Property) {
+  const before = new Map(base.plantings.map((x) => [x.id, JSON.stringify(x)]));
+  return after.plantings.filter((x) => before.get(x.id) !== JSON.stringify(x)).reduce((a, x) => a + footprint(x), 0);
+}
+
+function polyArea(o: Point[]) {
+  let a = 0;
+  for (let i = 0; i < o.length; i++) a += o[i][0] * o[(i + 1) % o.length][1] - o[(i + 1) % o.length][0] * o[i][1];
+  return Math.abs(a / 2);
 }
 
 function fits(goal: string, p: Plant) {

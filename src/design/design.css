@@ -65,6 +65,7 @@ line.ghost-swap {
   border-radius: 6px;
   background: white;
   cursor: pointer;
+  overflow-wrap: anywhere;
 }
 .dd-cases button.on {
   border-color: var(--moss);
@@ -108,7 +109,7 @@ line.ghost-swap {
 }
 .dd-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 16px;
 }
 .dd-card {
@@ -116,7 +117,7 @@ line.ghost-swap {
   border-radius: 10px;
   background: var(--panel);
   display: grid;
-  grid-template-rows: auto 440px auto;
+  grid-template-rows: auto 520px auto;
   overflow: hidden;
 }
 .dd-card header {

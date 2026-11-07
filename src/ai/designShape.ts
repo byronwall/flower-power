@@ -118,6 +118,22 @@ function northText(deg: number) {
 }
 
 // A coarse picture of the lot, one character per cell, so the model can find open ground.
+// Open ground in square feet: lot cells that are not house, hard surface, structure, or bed.
+export function openArea(p: Property, scope?: Point[]) {
+  const b = bounds(scope ?? p.lot.outline);
+  let n = 0;
+  for (let x = b.minX + 1; x < b.maxX; x += 2) for (let y = b.minY + 1; y < b.maxY; y += 2) if ((!scope || inside([x, y], scope)) && mapChar(p, [x, y]) === ".") n++;
+  return n * 4;
+}
+
+const areaShare: Record<Dial, [number, number]> = { light: [0.05, 0.1], refresh: [0.15, 0.25], redo: [0.3, 0.45] };
+
+function areaText(p: Property, ask: Ask) {
+  const open = openArea(p, ask.scope);
+  const [lo, hi] = areaShare[ask.dial].map((k) => Math.round((open * k) / 50) * 50);
+  return `The ${ask.scope ? "area" : "yard"} has about ${open} sq ft of open lawn or mulch. For this change level, new, replaced, and reshaped plantings together should cover about ${lo} to ${hi} sq ft.`;
+}
+
 export function textMap(p: Property, sun?: SunAt, cell = 5) {
   const b = bounds(p.lot.outline);
   const cols = Math.ceil(b.w / cell);
@@ -258,9 +274,13 @@ Placement rules, which code checks:
 - New beds do not overlap existing beds; reshape the existing bed instead.
 - Match each plant's sun to its place. Under or just north of a big tree, or on the north side of the house, is part sun or shade.
 - Use only plant ids from the table. Prefer plants whose wildlife, color, and safety fit the goals. If they want kids or pets safe, use no plants with thorns or toxic-to-pets.
-- Beds use outlines of 4 to 8 points. A drift is usually 20 to 150 sq ft.
+- Beds use outlines of 4 to 8 points. A drift is usually 30 to 200 sq ft.
 
-Aim for 12 to 30 ops that together make a complete, buildable design.`;
+Work at the scale of the yard, so the design reads from across it. Beds along the house are usually 4 to 8 ft deep, and borders along fences 5 to 10 ft deep. A hedge or row runs the length of the edge it marks.
+
+Aim for 12 to 30 ops that together make a complete, buildable design.
+
+${areaText(p, ask)}`;
   const scope = ask.scope ? `\n\nRework only this area: ${JSON.stringify(pts(ask.scope))}. Every op must be inside it. Do not touch anything outside it. Aim for 5 to 15 ops.` : "";
   const review = ask.review ? `\n\nReview of the yard as it is:\n${[ask.review.summary, ...ask.review.doesnt.map((s) => `Problem: ${s.note}`), ...ask.review.empty.map((s) => `Empty: ${s.note}${s.at ? ` near ${r1(s.at[0])},${r1(s.at[1])}` : ""}`)].join("\n")}` : "";
   const text = `Goals:\n${goalText(ask.goals, byId)}${scope}${review}\n\nPlan:\n${planSummary(p, byId)}\n\n${mapLegend(!!ask.sun)}\n${textMap(p, ask.sun)}\n\nPlant table:\n${plantTable(plants)}`;
