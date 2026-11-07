@@ -4,7 +4,7 @@ import { TimeBar } from "../components/TimeBar";
 import { YardView3D } from "../components/YardView3D";
 import type { Property } from "../model/property";
 import type { Weather } from "../render/life";
-import { monthNames, seasonOf, type ViewTime } from "../render/look";
+import { monthNames, seasonOf, snowCanFall, type ViewTime } from "../render/look";
 import type { Pick } from "../render/yard3d";
 import { Icon, type IconName } from "./Icon";
 import { sample } from "./sample";
@@ -276,6 +276,11 @@ const WEATHER: { id: Weather; name: string; icon: IconName }[] = [
 function PlanTab() {
   const [time, setTime] = createSignal<ViewTime>({ year: 2, month: 6 });
   const [weather, setWeather] = createSignal<Weather>("sunny");
+  // Snow is only offered in winter; leaving winter while it snows clears the sky.
+  const weathers = () => WEATHER.filter((w) => w.id !== "snow" || snowCanFall(time().month));
+  createEffect(() => {
+    if (weather() === "snow" && !snowCanFall(time().month)) setWeather("sunny");
+  });
   return (
     <div class="play">
       <div class="play-stage">
@@ -288,7 +293,7 @@ function PlanTab() {
         <TimeBar part="season" time={time()} onChange={setTime} />
         <TimeBar part="year" time={time()} onChange={setTime} />
         <div class="card-group" role="radiogroup" aria-label="Weather">
-          <For each={WEATHER}>
+          <For each={weathers()}>
             {(w) => (
               <button type="button" role="radio" class="time-card" aria-checked={weather() === w.id} onClick={() => setWeather(w.id)}>
                 <Icon name={w.icon} size={16} />

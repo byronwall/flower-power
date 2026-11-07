@@ -20,7 +20,7 @@ import { browserStorage, createLocalStore, type SavedCopy } from "../gallery/sto
 import { Toolbar } from "../editor/Toolbar";
 import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
-import type { ViewTime } from "../render/look";
+import { snowCanFall, type ViewTime } from "../render/look";
 import type { Weather } from "../render/life";
 import { AreaPick } from "../design/AreaPick";
 import { DesignPanel } from "../design/DesignPanel";
@@ -70,6 +70,11 @@ function Planner(props: PlannerProps) {
   const [hoverOp, setHoverOp] = createSignal<Op | null>(null);
   const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
   const [weather, setWeather] = createSignal<Weather>("sunny");
+  // Snow is only offered in winter; leaving winter while it snows clears the sky.
+  const weathers = () => WEATHERS.filter((w) => w.id !== "snow" || snowCanFall(time().month));
+  createEffect(() => {
+    if (weather() === "snow" && !snowCanFall(time().month)) setWeather("sunny");
+  });
   // The tour plays once on a first visit, and any time from the welcome card.
   const [tour, setTour] = createSignal(false);
   onMount(() => {
@@ -504,7 +509,7 @@ function Planner(props: PlannerProps) {
                 <Toolbar editor={ed} />
                 <ModeBanner editor={ed} />
                 <div class="card-group weather-cards" role="radiogroup" aria-label="Weather on the plan">
-                  <For each={WEATHERS}>
+                  <For each={weathers()}>
                     {(w) => (
                       <button
                         type="button"
@@ -512,7 +517,7 @@ function Planner(props: PlannerProps) {
                         class="time-card weather-card"
                         aria-checked={weather() === w.id}
                         aria-label={w.name}
-                        title={`${w.name} on the 2D plan`}
+                        title={w.id === "snow" ? "Snow (winter only)" : `${w.name} weather`}
                         onClick={() => setWeather(w.id)}
                       >
                         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">

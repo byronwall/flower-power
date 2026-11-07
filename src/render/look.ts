@@ -19,6 +19,11 @@ export function hasGroundSnow(month: number): boolean {
   return month === 12 || month === 1;
 }
 
+// Falling snow is a winter weather; in other seasons the Snow choice is hidden.
+export function snowCanFall(month: number): boolean {
+  return seasonOf(month) === "winter";
+}
+
 export type Look = {
   spreadFt: number;
   heightFt: number;
