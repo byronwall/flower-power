@@ -369,3 +369,16 @@ line.ghost-swap {
   fill: transparent;
   cursor: crosshair;
 }
+.dp-fold > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.dp-fold:not([open]) > summary {
+  margin-bottom: 0;
+}
+.dp-fold.dp-review {
+  display: grid;
+  gap: 6px;
+}

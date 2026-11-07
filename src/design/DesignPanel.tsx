@@ -70,7 +70,10 @@ export function DesignPanel(props: Props) {
   }
 
   const reviewYard = () => run("Reading your yard…", async () => void ds.setReview(await fetchReview(ds.base(), goals())));
-  const makeDesigns = () => run(`Drawing ${styles().length} designs…`, async () => ds.addDesigns(await fetchDesigns(ds.base(), goals(), dial(), styles())));
+  const makeDesigns = () => run(`Drawing ${styles().length} designs…`, async () => {
+    ds.addDesigns(await fetchDesigns(ds.base(), goals(), dial(), styles()));
+    cards.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   // Area rework starts from the plan on screen, so it builds on the active design.
   const rework = () =>
     run("Reworking the area…", async () => {
@@ -94,6 +97,7 @@ export function DesignPanel(props: Props) {
   };
 
   const pending = () => ds.active()?.pending ?? [];
+  let cards!: HTMLElement;
 
   return (
     <aside class="inspector design-panel" aria-label="Design ideas">
@@ -105,6 +109,8 @@ export function DesignPanel(props: Props) {
         </button>
       </header>
 
+      <details class="dp-fold" open={!ds.designs().length}>
+        <summary>Goals and style</summary>
       <section class="dp-goals">
         <textarea rows="2" placeholder="A shady place to read, color all summer, room for the kids to run…" value={text()} onInput={(e) => setText(e.currentTarget.value)} aria-label="Goals in your words" />
         <For each={CHIPS}>
@@ -148,6 +154,7 @@ export function DesignPanel(props: Props) {
           Open to a new patio, path, or pergola
         </label>
       </section>
+      </details>
 
       <section>
         <div class="dp-dial" role="radiogroup" aria-label="How much to change">
@@ -178,7 +185,7 @@ export function DesignPanel(props: Props) {
             Make designs
           </button>
         </div>
-        <Show when={busy()}>
+      <Show when={busy()}>
           <p class="dp-busy" role="status">
             {busy()}
           </p>
@@ -192,17 +199,17 @@ export function DesignPanel(props: Props) {
 
       <Show when={ds.review()}>
         {(rv) => (
-          <section class="dp-review">
-            <h3>Your yard today</h3>
+          <details class="dp-fold dp-review" open={!ds.designs().length}>
+            <summary>Your yard today</summary>
             <p>{rv().summary}</p>
             <Spots title="Works" list={rv().works} />
             <Spots title="Doesn't" list={rv().doesnt} />
-            <Spots title="Empty spots" list={rv().empty} />
-          </section>
+            <Spots title="Empty spots (numbered on the plan)" list={rv().empty} />
+          </details>
         )}
       </Show>
 
-      <section>
+      <section ref={cards}>
         <h3>Designs</h3>
         <div class="dp-cards">
           <Card name="As it is" sub="Your yard today" on={!ds.activeId()} property={ds.base()} time={props.time} onPick={() => ds.activate(undefined)} />

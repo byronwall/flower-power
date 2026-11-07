@@ -83,7 +83,8 @@ export function createDesigns(ed: Editor) {
   function addDesigns(made: Design[], onTopOf?: Design) {
     commit();
     const prior = onTopOf ? (designs().find((d) => d.id === onTopOf.id)?.ops ?? []) : [];
-    const added = made.map((d) => ({ ...d, review: review() ?? undefined, ops: prior, pending: d.ops }));
+    // Keep ops change nothing, so only real changes wait for a decision.
+    const added = made.map((d) => ({ ...d, review: review() ?? undefined, ops: prior, pending: d.ops.filter((o) => o.op !== "keep") }));
     setDesigns([...designs(), ...added]);
     ed.setDirty(true);
     if (added[0]) activate(added[0].id);
