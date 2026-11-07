@@ -1,11 +1,14 @@
 import { For } from "solid-js";
 import { monthNames, seasonOf, type ViewTime } from "../render/look";
 
+const years = [1, 2, 3, 4, 5];
+
 type Props = { time: ViewTime; onChange: (t: ViewTime) => void };
 
 export function TimeBar(props: Props) {
   return (
-    <div class="time-bar">
+    <div class="time-bar" title="Preview how the garden looks in any month and year after planting">
+      <span class="time-title eyebrow">Preview</span>
       <label class="time-month">
         <span class="time-label">
           {monthNames[props.time.month - 1]} · <em>{seasonOf(props.time.month)}</em>
@@ -24,16 +27,24 @@ export function TimeBar(props: Props) {
           <For each={monthNames}>{(m) => <span>{m[0]}</span>}</For>
         </span>
       </label>
-      <div class="time-years" role="group" aria-label="Years after planting">
-        <span class="time-label">Year</span>
-        <For each={[1, 2, 3, 4, 5]}>
-          {(y) => (
-            <button type="button" aria-pressed={props.time.year === y} onClick={() => props.onChange({ ...props.time, year: y })}>
-              {y}
-            </button>
-          )}
-        </For>
-      </div>
+      <label class="time-years">
+        <span class="time-label">
+          Year <em>{props.time.year}</em>
+        </span>
+        <input
+          id="year"
+          type="range"
+          min="1"
+          max={years.length}
+          step="1"
+          value={props.time.year}
+          onInput={(e) => props.onChange({ ...props.time, year: Number(e.currentTarget.value) })}
+          aria-label="Years after planting"
+        />
+        <span class="time-ticks" aria-hidden="true">
+          <For each={years}>{(y) => <span>{y}</span>}</For>
+        </span>
+      </label>
     </div>
   );
 }
