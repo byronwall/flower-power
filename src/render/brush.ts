@@ -9,13 +9,32 @@ export type Brush = {
 
 export const INK = "#33342c";
 
+// Color strings are built thousands of times a paint, so both helpers remember their answers.
+const rgbaMemo = new Map<string, string>();
 export function rgba(hex: string, a: number) {
+  const key = hex + a;
+  let out = rgbaMemo.get(key);
+  if (out) return out;
   const n = parseInt(hex.slice(1), 16);
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+  out = `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+  if (rgbaMemo.size > 4000) rgbaMemo.clear();
+  rgbaMemo.set(key, out);
+  return out;
 }
 
 // amount < 0 darkens toward ink, amount > 0 lightens toward paper.
+const shadeMemo = new Map<string, string>();
 export function shade(hex: string, amount: number) {
+  const key = hex + amount;
+  const hit = shadeMemo.get(key);
+  if (hit) return hit;
+  const out = mix(hex, amount);
+  if (shadeMemo.size > 4000) shadeMemo.clear();
+  shadeMemo.set(key, out);
+  return out;
+}
+
+function mix(hex: string, amount: number) {
   const n = parseInt(hex.slice(1), 16);
   const target = amount < 0 ? [40, 44, 36] : [250, 247, 236];
   const k = Math.abs(amount);
@@ -42,7 +61,8 @@ export function roughen(pts: Point[], step: number, amount: number, r: () => num
 
 export function trace(ctx: CanvasRenderingContext2D, pts: Point[], closed = true) {
   ctx.beginPath();
-  pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+  ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
   if (closed) ctx.closePath();
 }
 

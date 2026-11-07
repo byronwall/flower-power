@@ -50,10 +50,17 @@ export function sweepPath(ctx: CanvasRenderingContext2D, outline: Point[], [dx, 
 // so ridges and valleys appear where two planes meet. Planes facing the sun are light, the rest dark,
 // and shingle courses run parallel to each eave. Drawn to a small canvas and cached per zoom step.
 const roofCache = new Map<string, HTMLCanvasElement>();
+// Which plane each pixel belongs to depends only on the outline and resolution, not on the sun.
+const faceCache = new Map<string, { face: Int16Array; dist: Float32Array }>();
 
 export function roofImage(outline: Point[], light: Light, pxPerFt: number, base: string, ink: string) {
-  const res = Math.min(16, Math.max(3, 2 ** (Math.round(Math.log2(pxPerFt) * 2) / 2)));
-  const key = `${outline.join(";")}|${light.dir.map((v) => v.toFixed(2))}|${res}|${base}`;
+  const res = Math.min(12, Math.max(3, 2 ** (Math.round(Math.log2(pxPerFt) * 2) / 2)));
+  const shape = `${outline.join(";")}|${res}`;
+  // The sun's direction moves little from month to month, so 10 degree steps share one image.
+  const step = Math.PI / 18;
+  const ang = Math.round(Math.atan2(light.dir[1], light.dir[0]) / step) * step;
+  const dir: Point = [Math.cos(ang), Math.sin(ang)];
+  const key = `${shape}|${ang.toFixed(3)}|${base}`;
   const hit = roofCache.get(key);
   if (hit) return hit;
   const box = bounds(outline);
@@ -70,7 +77,7 @@ export function roofImage(outline: Point[], light: Light, pxPerFt: number, base:
     const ux = (b[0] - a[0]) / len, uy = (b[1] - a[1]) / len;
     // Outward normal, so the plane's downhill side faces this way.
     const nx = ccw ? uy : -uy, ny = ccw ? -ux : ux;
-    const lit = -(nx * light.dir[0] + ny * light.dir[1]);
+    const lit = -(nx * dir[0] + ny * dir[1]);
     return { a, b, ux, uy, len, nx, ny, lit };
   });
   // The inward bisector at each corner. A roof plane spans from its eave back to the bisectors at
@@ -87,29 +94,37 @@ export function roofImage(outline: Point[], light: Light, pxPerFt: number, base:
   const parse = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
   const [br, bg, bb] = parse(base);
   const [ir, ig, ib] = parse(ink);
-  const face = new Int16Array(w * h).fill(-1);
-  const dist = new Float32Array(w * h);
-  for (let py = 0; py < h; py++) {
-    for (let px = 0; px < w; px++) {
-      const x = box.minX + (px - 1 + 0.5) / res, y = box.minY + (py - 1 + 0.5) / res;
-      if (!inside([x, y], outline)) continue;
-      // The nearest eave whose plane reaches this point. Fall back to the nearest edge if none does.
-      let best = -1, bestLine = Infinity, near = -1, nearSeg = Infinity, nearLine = 0;
-      for (let e = 0; e < edges.length; e++) {
-        const E = edges[e];
-        const rx = x - E.a[0], ry = y - E.a[1];
-        const line = Math.abs(rx * E.uy - ry * E.ux);
-        const t = Math.max(0, Math.min(E.len, rx * E.ux + ry * E.uy));
-        const seg = Math.hypot(rx - E.ux * t, ry - E.uy * t);
-        if (seg < nearSeg) [near, nearSeg, nearLine] = [e, seg, line];
-        const A = bis[e], B = bis[(e + 1) % edges.length];
-        const inA = side(A.p, A.dx, A.dy, x, y) * side(A.p, A.dx, A.dy, E.b[0], E.b[1]) >= 0;
-        const inB = side(B.p, B.dx, B.dy, x, y) * side(B.p, B.dx, B.dy, E.a[0], E.a[1]) >= 0;
-        if (inA && inB && line < bestLine) [best, bestLine] = [e, line];
+  let faces = faceCache.get(shape);
+  if (!faces) {
+    faces = { face: new Int16Array(w * h).fill(-1), dist: new Float32Array(w * h) };
+    fillFaces(faces.face, faces.dist);
+    if (faceCache.size > 16) faceCache.clear();
+    faceCache.set(shape, faces);
+  }
+  const { face, dist } = faces;
+  function fillFaces(face: Int16Array, dist: Float32Array) {
+    for (let py = 0; py < h; py++) {
+      for (let px = 0; px < w; px++) {
+        const x = box.minX + (px - 1 + 0.5) / res, y = box.minY + (py - 1 + 0.5) / res;
+        if (!inside([x, y], outline)) continue;
+        // The nearest eave whose plane reaches this point. Fall back to the nearest edge if none does.
+        let best = -1, bestLine = Infinity, near = -1, nearSeg = Infinity, nearLine = 0;
+        for (let e = 0; e < edges.length; e++) {
+          const E = edges[e];
+          const rx = x - E.a[0], ry = y - E.a[1];
+          const line = Math.abs(rx * E.uy - ry * E.ux);
+          const t = Math.max(0, Math.min(E.len, rx * E.ux + ry * E.uy));
+          const seg = Math.hypot(rx - E.ux * t, ry - E.uy * t);
+          if (seg < nearSeg) [near, nearSeg, nearLine] = [e, seg, line];
+          const A = bis[e], B = bis[(e + 1) % edges.length];
+          const inA = side(A.p, A.dx, A.dy, x, y) * side(A.p, A.dx, A.dy, E.b[0], E.b[1]) >= 0;
+          const inB = side(B.p, B.dx, B.dy, x, y) * side(B.p, B.dx, B.dy, E.a[0], E.a[1]) >= 0;
+          if (inA && inB && line < bestLine) [best, bestLine] = [e, line];
+        }
+        if (best < 0) [best, bestLine] = [near, nearLine];
+        face[py * w + px] = best;
+        dist[py * w + px] = bestLine;
       }
-      if (best < 0) [best, bestLine] = [near, nearLine];
-      face[py * w + px] = best;
-      dist[py * w + px] = bestLine;
     }
   }
   for (let py = 0; py < h; py++) {
@@ -128,7 +143,11 @@ export function roofImage(outline: Point[], light: Light, pxPerFt: number, base:
         // Ridge or valley: an ink line where two planes meet.
         r = ir; gg = ig; b = ib; a = 150;
       }
-      img.data.set([Math.min(255, r), Math.min(255, gg), Math.min(255, b), a], i * 4);
+      const d = img.data;
+      d[i * 4] = r;
+      d[i * 4 + 1] = gg;
+      d[i * 4 + 2] = b;
+      d[i * 4 + 3] = a;
     }
   }
   g.putImageData(img, 0, 0);

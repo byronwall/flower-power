@@ -6,7 +6,7 @@ import { bounds, hashString, rng } from "./geometry";
 import type { Weather } from "./life";
 import { sweepPath, lightOf, roofImage, type Light } from "./light";
 import { expand, lookOf, seasonOf, type Look, type ViewTime } from "./look";
-import { drawPlant } from "./plants";
+import { stampPlant } from "./sprites";
 
 export type View = { scale: number; offX: number; offY: number };
 
@@ -22,11 +22,8 @@ const SUN: Record<Weather, number> = { sunny: 1, cloudy: 0.35, rain: 0.25, snow:
 export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewTime, view: View, opts: PaintOpts = {}) {
   const ctx = canvas.getContext("2d")!;
   const dpr = window.devicePixelRatio || 1;
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = PAPER;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.setTransform(dpr * view.scale, 0, 0, dpr * view.scale, dpr * view.offX, dpr * view.offY);
-  const b: Brush = { ctx, px: (n) => n / view.scale };
+  const { width: cw, height: ch } = canvas;
+  const toPlan = (c: CanvasRenderingContext2D) => c.setTransform(dpr * view.scale, 0, 0, dpr * view.scale, dpr * view.offX, dpr * view.offY);
   const season = seasonOf(time.month);
   const weather = opts.weather ?? "sunny";
   const snow = weather === "snow";
@@ -34,21 +31,34 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
   const s = (id: string) => hashString(property.id + id);
   const lot = property.lot.outline;
 
-  // Ground: the whole lot is lawn unless a surface covers it.
-  wash(b, lot, LAWN[season], s("lot"), { alpha: 0.22, layers: 3, rim: 0.12 });
-  clipTo(ctx, lot, () => {
-    lawnTone(b, lot, LAWN[season], s("tone"));
-    if (season !== "winter") mowStripes(b, lot, LAWN[season]);
-    grassTexture(b, lot, LAWN[season], s("grass"));
+  // The ground does not change with the month inside a season, the year, or the plants,
+  // so it is painted once to its own canvas and copied in while those change.
+  const groundKey = [cw, ch, dpr, view.scale, view.offX, view.offY, season, weather, property.id, lot, property.surfaces, property.structures, property.edges, property.fences];
+  const ground = cached(canvas, "ground", groundKey, cw, ch, (g) => {
+    g.fillStyle = PAPER;
+    g.fillRect(0, 0, cw, ch);
+    toPlan(g);
+    const gb: Brush = { ctx: g, px: (n) => n / view.scale };
+    // Ground: the whole lot is lawn unless a surface covers it.
+    wash(gb, lot, LAWN[season], s("lot"), { alpha: 0.22, layers: 3, rim: 0.12 });
+    clipTo(g, lot, () => {
+      lawnTone(gb, lot, LAWN[season], s("tone"));
+      if (season !== "winter") mowStripes(gb, lot, LAWN[season]);
+      grassTexture(gb, lot, LAWN[season], s("grass"));
+    });
+    for (const sf of property.surfaces) surface(gb, sf.kind, sf.outline, LAWN[season], s(sf.id));
+    if (snow) clipTo(g, lot, () => snowCover(gb, lot, s("snow")));
+    if (weather === "rain") clipTo(g, lot, () => wet(gb, lot));
+    for (const st of property.structures) structure(gb, st.kind, st.outline, s(st.id));
+    for (const e of property.edges) edge(gb, e.kind, e.path, s(e.id));
+    for (const f of property.fences) fence(gb, f.kind, f.path, f.heightFt, s(f.id));
   });
-
-  for (const sf of property.surfaces) surface(b, sf.kind, sf.outline, LAWN[season], s(sf.id));
-  if (snow) clipTo(ctx, lot, () => snowCover(b, lot, s("snow")));
-  if (weather === "rain") clipTo(ctx, lot, () => wet(b, lot));
-
-  for (const st of property.structures) structure(b, st.kind, st.outline, s(st.id));
-  for (const e of property.edges) edge(b, e.kind, e.path, s(e.id));
-  for (const f of property.fences) fence(b, f.kind, f.path, f.heightFt, s(f.id));
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalCompositeOperation = "copy";
+  ctx.drawImage(ground, 0, 0);
+  ctx.globalCompositeOperation = "source-over";
+  toPlan(ctx);
+  const b: Brush = { ctx, px: (n) => n / view.scale };
 
   house(b, property.house.outline, s("house"), sun, snow);
 
@@ -61,12 +71,18 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
   });
 
   // Plants: all shadows first, then plants from shortest to tallest so trees overhang beds.
+  // Plants whose crown and shadow are both off screen are skipped.
+  const seen = { minX: -view.offX / view.scale, minY: -view.offY / view.scale, maxX: (cw / dpr - view.offX) / view.scale, maxY: (ch / dpr - view.offY) / view.scale };
   const items = property.plantings.flatMap((p) => {
     const plant = plantsById.get(p.plantId);
     if (!plant) return [];
     return expand(p, plant).flatMap((inst) => {
       const look = lookOf(plant, time, inst.existing, inst.scale);
-      return look ? [{ inst, plant, look }] : [];
+      if (!look) return [];
+      const m = look.spreadFt / 2 + look.heightFt * sun.reach + 1;
+      const [x, y] = inst.at;
+      if (x + m < seen.minX || x - m > seen.maxX || y + m < seen.minY || y - m > seen.maxY) return [];
+      return [{ inst, plant, look }];
     });
   });
   items.sort((a, z) => a.look.heightFt - z.look.heightFt);
@@ -78,7 +94,7 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
     for (const { inst, plant, look } of items) castPlant(b, plant, inst.at, look, sun, snow, inst.seed);
   });
   for (const { inst, plant, look } of items) {
-    drawPlant(b, plant, inst.at, look, inst.seed);
+    stampPlant(b, plant, inst.at, look, inst.seed);
     volume(b, plant, inst.at, look, sun);
   }
 
@@ -93,20 +109,44 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
   });
 
   // Paper grain over everything, so the washes sit in the paper, and a soft darkening toward the edges.
+  // Both are made once per canvas size and laid on with one multiply.
+  const paper = cached(canvas, "paper", [cw, ch], cw, ch, (g) => {
+    g.fillStyle = "#ffffff";
+    g.fillRect(0, 0, cw, ch);
+    g.globalCompositeOperation = "multiply";
+    g.globalAlpha = 0.55;
+    g.fillStyle = g.createPattern(paperGrain(), "repeat")!;
+    g.fillRect(0, 0, cw, ch);
+    g.globalAlpha = 1;
+    const edgeTone = g.createRadialGradient(cw / 2, ch / 2, Math.min(cw, ch) * 0.45, cw / 2, ch / 2, Math.hypot(cw, ch) * 0.62);
+    edgeTone.addColorStop(0, "rgba(255,255,255,0)");
+    edgeTone.addColorStop(1, "rgba(214,202,178,0.55)");
+    g.fillStyle = edgeTone;
+    g.fillRect(0, 0, cw, ch);
+  });
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.save();
   ctx.globalCompositeOperation = "multiply";
-  ctx.globalAlpha = 0.55;
-  ctx.fillStyle = ctx.createPattern(paperGrain(), "repeat")!;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.globalAlpha = 1;
-  const { width: cw, height: ch } = canvas;
-  const edgeTone = ctx.createRadialGradient(cw / 2, ch / 2, Math.min(cw, ch) * 0.45, cw / 2, ch / 2, Math.hypot(cw, ch) * 0.62);
-  edgeTone.addColorStop(0, "rgba(255,255,255,0)");
-  edgeTone.addColorStop(1, "rgba(214,202,178,0.55)");
-  ctx.fillStyle = edgeTone;
-  ctx.fillRect(0, 0, cw, ch);
-  ctx.restore();
+  ctx.drawImage(paper, 0, 0);
+  ctx.globalCompositeOperation = "source-over";
+}
+
+// Offscreen layers kept per target canvas. A layer is redrawn only when its key changes.
+const layers = new WeakMap<HTMLCanvasElement, Map<string, { key: unknown[]; canvas: HTMLCanvasElement }>>();
+
+function cached(target: HTMLCanvasElement, name: string, key: unknown[], w: number, h: number, draw: (g: CanvasRenderingContext2D) => void) {
+  let mine = layers.get(target);
+  if (!mine) layers.set(target, (mine = new Map()));
+  const hit = mine.get(name);
+  if (hit && hit.key.length === key.length && hit.key.every((k, i) => k === key[i])) return hit.canvas;
+  const canvas = hit?.canvas ?? document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const g = canvas.getContext("2d")!;
+  g.save();
+  draw(g);
+  g.restore();
+  mine.set(name, { key, canvas });
+  return canvas;
 }
 
 type Sun = Light & { k: number };
@@ -261,7 +301,8 @@ function volume(b: Brush, plant: Plant, at: Point, look: Look, sun: Sun) {
   const form = plant.render.form;
   if (!look.foliage || !(form === "canopy" || form === "mound" || form === "columnar")) return;
   const r = look.spreadFt / 2;
-  if (r / b.px(1) < 4) return;
+  // Too small on screen to read as round: skip the two gradients.
+  if (r / b.px(1) < 7) return;
   const { ctx } = b;
   const [dx, dy] = sun.dir;
   ctx.save();
