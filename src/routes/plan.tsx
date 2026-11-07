@@ -1,4 +1,7 @@
+import { A, useNavigate } from "@solidjs/router";
 import { createEffect, createResource, createSignal, For, onCleanup, onMount, Show } from "solid-js";
+import { fetchMe } from "../account/session";
+import UserMenu from "../account/UserMenu";
 import { PlanView } from "../components/PlanView";
 import { TimeBar } from "../components/TimeBar";
 import { YardView3D } from "../components/YardView3D";
@@ -14,16 +17,19 @@ import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
 import type { ViewTime } from "../render/look";
 
-export default function Home() {
-  const [list, { mutate }] = createResource(loadProperties);
+// Sends a person who is not logged in to /login, then loads only their properties.
+export default function PlanPage() {
+  const navigate = useNavigate();
+  const [me] = createResource(async () => (await fetchMe()) ?? void navigate("/login", { replace: true }));
+  const [list, { mutate }] = createResource(me, loadProperties);
   return (
-    <Show when={list()} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
-      {(l) => <Planner properties={l()} onSaved={(p) => mutate(l().some((x) => x.id === p.id) ? l().map((x) => (x.id === p.id ? p : x)) : [...l(), p])} />}
+    <Show when={me() && list()} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
+      {(l) => <Planner email={me()!.email} properties={l()} onSaved={(p) => mutate(l().some((x) => x.id === p.id) ? l().map((x) => (x.id === p.id ? p : x)) : [...l(), p])} />}
     </Show>
   );
 }
 
-function Planner(props: { properties: Property[]; onSaved: (p: Property) => void }) {
+function Planner(props: { email: string; properties: Property[]; onSaved: (p: Property) => void }) {
   const ed = createEditor(props.properties[0]);
   const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
   const [status, setStatus] = createSignal("");
@@ -197,7 +203,9 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
       <header class="app-bar">
         <span class="brand">
           <Mascot size={44} plantId="purple-coneflower" class="brand-mascot" />
-          <span class="wordmark">Flower Power</span>
+          <A href="/" class="wordmark brand-home">
+            Flower Power
+          </A>
         </span>
         <label class="property-pick">
           <span class="eyebrow">Plan</span>
@@ -259,6 +267,7 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
           </span>
         </div>
         <Toolbar editor={ed} />
+        <UserMenu email={props.email} />
       </header>
       <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails() }}>
         <Show when={importing()}>

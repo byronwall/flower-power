@@ -23,9 +23,7 @@ export default function AuthForm(props: { kind: "login" | "register" }) {
 
   return (
     <div class="auth-page">
-      <A href="/" class="auth-home">
-        <Brand />
-      </A>
+      <Brand />
       <form class="auth-card" onSubmit={submit}>
         <h1>{isLogin() ? "Log in" : "Create your account"}</h1>
         <p class="muted">{isLogin() ? "Pick up your garden where you left it." : "Your plans save to your account."}</p>

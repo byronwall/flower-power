@@ -114,10 +114,6 @@
   gap: 24px;
 }
 
-.auth-home {
-  text-decoration: none;
-}
-
 .auth-card {
   width: min(380px, 100%);
   display: flex;
@@ -165,7 +161,6 @@
 
 .user-menu {
   position: relative;
-  margin-left: auto;
 }
 
 .user-chip {
@@ -216,4 +211,15 @@
   .user-email {
     display: none;
   }
+}
+
+.brand-home {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Outside the editor there is room for the wordmark at every width. */
+.landing-bar .wordmark,
+.auth-page .wordmark {
+  display: inline;
 }

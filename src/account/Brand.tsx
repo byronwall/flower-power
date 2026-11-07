@@ -1,17 +1,14 @@
+import { A } from "@solidjs/router";
+import { Mascot } from "../components/Mascot";
+
+// The app bar brand: Sprout plus the wordmark. The wordmark links home; a click on Sprout makes it hop.
 export default function Brand() {
   return (
     <span class="brand">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <g fill="var(--bloom)">
-          <circle cx="12" cy="6.5" r="3.6" />
-          <circle cx="17.5" cy="10.5" r="3.6" />
-          <circle cx="15.4" cy="16.8" r="3.6" />
-          <circle cx="8.6" cy="16.8" r="3.6" />
-          <circle cx="6.5" cy="10.5" r="3.6" />
-        </g>
-        <circle cx="12" cy="12" r="3" fill="#f2c14e" />
-      </svg>
-      Flower Power
+      <Mascot size={44} plantId="purple-coneflower" class="brand-mascot" />
+      <A href="/" class="wordmark brand-home">
+        Flower Power
+      </A>
     </span>
   );
 }
