@@ -305,6 +305,8 @@ export function PlanView(props: Props) {
     >
       <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} />
       <svg class="plan-overlay" width={size().w} height={size().h}>
+        {/* Under the editor overlay, so its hover labels and handles stay on top. */}
+        <PlantTags property={props.property} view={view()} width={size().w} height={size().h} />
         <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>
           <Show when={props.property.underlay && props.photoOpacity ? props.property.underlay : undefined}>
             {(u) => (
@@ -322,7 +324,6 @@ export function PlanView(props: Props) {
           </Show>
           {untrack(() => props.overlay?.(liveView))}
         </g>
-        <PlantTags property={props.property} view={view()} width={size().w} height={size().h} />
         <PlanMarks property={props.property} view={view()} height={size().h} />
       </svg>
       <canvas class="life-canvas" ref={lifeCanvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} aria-hidden="true" />
