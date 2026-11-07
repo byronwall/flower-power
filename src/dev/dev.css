@@ -1,0 +1,292 @@
+/* Dev-only plant data viewer. Loaded only with the viewer, so it never reaches production. */
+#app:has(.dev) {
+  height: auto;
+}
+
+.dev {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+.dev-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 12px 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.dev h1 {
+  margin: 0;
+  font: 400 22px/1 var(--f-hand);
+  color: var(--moss);
+}
+
+.dev-note,
+.dev-count {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dev-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+}
+
+.dev-stat dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.dev-stat dd {
+  margin: 0;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.dev-stat.bad dd {
+  color: #a3352b;
+}
+
+.dev-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.dev-controls input[type="search"],
+.dev-controls button {
+  font: inherit;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+}
+
+.dev-controls button {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+  cursor: pointer;
+}
+
+.dev-controls button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.dev-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dev-photos {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  background: #ebe5d6;
+}
+
+.dev-nophoto {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  height: 120px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dev-photo {
+  flex: 0 0 auto;
+  margin: 0;
+  width: 220px;
+}
+
+.dev-photo img {
+  display: block;
+  width: 220px;
+  height: 160px;
+  object-fit: cover;
+  background: #ddd6c6;
+}
+
+.dev-photo figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.dev-body {
+  padding: 12px 14px 14px;
+}
+
+.dev h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.dev h3 {
+  margin: 14px 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.dev-sci {
+  margin: 2px 0 8px;
+  color: var(--muted);
+}
+
+.dev-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #e8e2d3;
+  color: var(--ink);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.chip.good {
+  background: #dcebd9;
+  color: #2d5a36;
+}
+
+.chip.warn {
+  background: #f6e7c8;
+  color: #7a5414;
+}
+
+.chip.bad {
+  background: #f5d9d4;
+  color: #8c2c22;
+  white-space: normal;
+}
+
+.dev-props {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 2px 12px;
+  margin: 0;
+}
+
+.dev-props > div {
+  display: contents;
+}
+
+.dev-props dt {
+  color: var(--muted);
+}
+
+.dev-props dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dev-props .missing dt,
+.dev-props .missing dd {
+  color: #a86a14;
+}
+
+.dev-seasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  border-radius: 3px;
+  border: 1px solid rgb(0 0 0 / 0.15);
+}
+
+.swatch.none {
+  background: repeating-linear-gradient(45deg, #fff 0 3px, #ddd 3px 6px);
+}
+
+.dev-links {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.dev-links li {
+  margin: 2px 0;
+}
+
+.dev-links li > * + * {
+  margin-left: 6px;
+}
+
+.dev a {
+  color: var(--moss);
+}
+
+.dev-link-btn {
+  padding: 0 6px;
+  font: inherit;
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.dev details {
+  margin-top: 12px;
+}
+
+.dev summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dev pre {
+  max-height: 320px;
+  overflow: auto;
+  padding: 8px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 11px;
+}
