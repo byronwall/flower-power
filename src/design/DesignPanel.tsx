@@ -266,7 +266,7 @@ export function DesignPanel(props: Props) {
             </Show>
             <Show when={a().dropped?.length}>
               <details class="dp-dropped">
-                <summary>{a().dropped!.length} ideas did not fit and were left out</summary>
+                <summary>{a().dropped!.length === 1 ? "1 idea did not fit and was" : `${a().dropped!.length} ideas did not fit and were`} left out</summary>
                 <ul>
                   <For each={a().dropped}>{(x) => <li>{x}</li>}</For>
                 </ul>
