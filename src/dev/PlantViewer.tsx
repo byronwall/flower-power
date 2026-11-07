@@ -1,5 +1,6 @@
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { createStore } from "solid-js/store";
+import { NrcsChecklist } from "./NrcsChecklist";
 import { plantFiles, type PlantFile } from "./plant-files";
 import "./dev.css";
 
@@ -18,6 +19,7 @@ export default function PlantViewer() {
   const [query, setQuery] = createSignal("");
   const [onlyProblems, setOnlyProblems] = createSignal(false);
   const [running, setRunning] = createSignal(false);
+  const [tab, setTab] = createSignal<"app" | "nrcs">("app");
 
   const urls = [...new Set(files.flatMap(urlsOf))];
   const broken = () => urls.filter((u) => checks[u]?.state === "broken").length;
@@ -70,6 +72,20 @@ export default function PlantViewer() {
           <h1>Plant data</h1>
           <p class="dev-note">Dev only. Not part of the app.</p>
         </div>
+        <nav class="dev-tabs">
+          <button classList={{ on: tab() === "app" }} onClick={() => setTab("app")}>
+            App plants ({files.length})
+          </button>
+          <button classList={{ on: tab() === "nrcs" }} onClick={() => setTab("nrcs")}>
+            NRCS checklist
+          </button>
+        </nav>
+      </header>
+      <Show when={tab() === "nrcs"}>
+        <NrcsChecklist files={files} />
+      </Show>
+      <Show when={tab() === "app"}>
+      <div class="dev-bar dev-subbar">
         <dl class="dev-stats">
           <Stat label="Plants" value={files.length} />
           <Stat label="Schema errors" value={files.filter((f) => f.errors.length).length} bad />
@@ -87,13 +103,14 @@ export default function PlantViewer() {
             {running() ? "Checking…" : `Check all ${urls.length} URLs`}
           </button>
         </div>
-      </header>
+      </div>
       <p class="dev-count">
         Showing {shown().length} of {files.length}
       </p>
       <main class="dev-grid">
         <For each={shown()}>{(f) => <PlantCard file={f} checks={checks} onCheck={checkUrl} />}</For>
       </main>
+      </Show>
     </div>
   );
 }

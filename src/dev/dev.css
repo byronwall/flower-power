@@ -87,6 +87,89 @@
   cursor: default;
 }
 
+.dev-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.dev-tabs button {
+  font: inherit;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.dev-tabs button.on {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+.dev-subbar {
+  position: static;
+  border-bottom: 0;
+}
+
+.dev-filters {
+  margin: 12px 0 0;
+}
+
+.dev-filters select {
+  font: inherit;
+  padding: 5px 8px;
+}
+
+.dev-table-wrap {
+  margin-top: 8px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.dev-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dev-table th,
+.dev-table td {
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.dev-table th {
+  position: sticky;
+  top: 0;
+  background: #ece6d8;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.dev-syn {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.dev-more {
+  display: block;
+  margin: 12px auto 0;
+  font: inherit;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
 .dev-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));

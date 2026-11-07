@@ -14,7 +14,7 @@ Part of the [plant library](intent-brief.md). This plan moves the Indiana workin
 
 | Source | What it holds | Size |
 | --- | --- | --- |
-| NRCS Indiana checklist (`Indiana_NRCS_csv.txt`, not in the repo) | Names only: symbol, synonym symbol, scientific name, common name, family | 12,686 rows; 4,508 accepted taxa; about 2,670 at species level |
+| NRCS Indiana checklist (`data/nrcs/indiana-checklist.csv`) | Names only: symbol, synonym symbol, scientific name, common name, family | 12,686 rows; 4,508 accepted taxa; 2,775 at species level (including 107 named hybrids) |
 | `indiana_plants.json` (the working list) | A short record per plant in an older format, with metric sizes, one flower color, one foliage color, bloom months, status, sun, moisture, tags, sources, edible, recommended and invasive alternatives | 105 plants |
 | `data/plants/*.json` (the app) | Full records that pass `plantSchema` and drive the renderer, gallery and editor | 25 plants |
 
