@@ -1,0 +1,79 @@
+{
+  "id": "eastern-redbud",
+  "commonName": "Eastern redbud",
+  "botanicalName": "Cercis canadensis",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 25,
+    "spreadFt": 25,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 10,
+    "spacingFt": 20
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "clay"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4
+    ],
+    "colors": [
+      "#c4589a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#9cb85f",
+    "summer": "#5c8a3e",
+    "fall": "#d9b43c",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 5,
+      "task": "Prune lightly after it blooms"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,78 @@
+{
+  "id": "annabelle-hydrangea",
+  "commonName": "Annabelle hydrangea",
+  "botanicalName": "Hydrangea arborescens 'Annabelle'",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8
+    ],
+    "colors": [
+      "#f2f0e2"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8bb05e",
+    "summer": "#5b8743",
+    "fall": "#c8b65a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Cut stems back to 12 inches"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

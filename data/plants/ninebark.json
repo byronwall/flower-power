@@ -1,0 +1,87 @@
+{
+  "id": "ninebark",
+  "commonName": "Ninebark",
+  "botanicalName": "Physocarpus opulifolius",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 7,
+    "spreadFt": 7,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 4,
+    "spacingFt": 6
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "clay",
+    "dry"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#f0e4e0"
+    ]
+  },
+  "fruit": {
+    "months": [
+      8,
+      9
+    ],
+    "color": "#a5463a"
+  },
+  "foliage": {
+    "spring": "#7a9a4a",
+    "summer": "#567a38",
+    "fall": "#b5652f",
+    "winter": null
+  },
+  "zones": [
+    3,
+    7
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Thin out the oldest stems"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,81 @@
+{
+  "id": "hosta",
+  "commonName": "Hosta",
+  "botanicalName": "Hosta 'Francee'",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2.5
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#c9b7e0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7fa85a",
+    "summer": "#4f7f45",
+    "fall": "#c5b25a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 4,
+      "task": "Watch for slugs"
+    },
+    {
+      "month": 10,
+      "task": "Cut back the leaves after frost"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "hummingbirds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "rosette"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

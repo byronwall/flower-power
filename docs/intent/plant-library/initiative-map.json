@@ -40,6 +40,13 @@
       "location": "../garden-design-app/initiative-map.json",
       "anchor": "claims C24, C26, C27, C31",
       "authority": "user"
+    },
+    {
+      "id": "L2",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "plan-views round 1",
+      "authority": "user"
     }
   ],
   "intent": {
@@ -98,6 +105,32 @@
           "U1"
         ],
         "anchor": "C31",
+        "confidence": "high"
+      },
+      {
+        "id": "L5",
+        "statement": "Start with 25 plants as one JSON file each; a colleague will add more to the repo.",
+        "kind": "scope",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "L2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "L6",
+        "statement": "Each plant has a default placement: single, region, or either. Some shrubs are single, such as a rose bush; others are regions.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "L2"
+        ],
         "confidence": "high"
       }
     ],

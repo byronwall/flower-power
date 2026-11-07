@@ -1,0 +1,67 @@
+{
+  "id": "christmas-fern",
+  "commonName": "Christmas fern",
+  "botanicalName": "Polystichum acrostichoides",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": true,
+  "placement": "either",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#4f7c42",
+    "summer": "#3e6a3a",
+    "fall": "#3e6a3a",
+    "winter": "#4d6a3e"
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 4,
+      "task": "Remove old fronds as the new ones unroll"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "rosette"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

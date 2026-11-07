@@ -1,0 +1,80 @@
+{
+  "id": "wild-bergamot",
+  "commonName": "Wild bergamot",
+  "botanicalName": "Monarda fistulosa",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "dry"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#b79bd0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7f9c5a",
+    "summer": "#5c8545",
+    "fall": "#7a6e4a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 8,
+      "task": "Thin the stems so air moves and mildew stays away"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "hummingbirds",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,84 @@
+{
+  "id": "serviceberry",
+  "commonName": "Serviceberry",
+  "botanicalName": "Amelanchier arborea",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 20,
+    "spreadFt": 15,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 10,
+    "spacingFt": 15
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4
+    ],
+    "colors": [
+      "#f4f1ea"
+    ]
+  },
+  "fruit": {
+    "months": [
+      6
+    ],
+    "color": "#4b2e5c"
+  },
+  "foliage": {
+    "spring": "#a3b86c",
+    "summer": "#5f8a46",
+    "fall": "#d4632f",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Pick the berries or leave them for birds"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

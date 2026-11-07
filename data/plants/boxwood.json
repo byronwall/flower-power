@@ -1,0 +1,67 @@
+{
+  "id": "boxwood",
+  "commonName": "Boxwood",
+  "botanicalName": "Buxus 'Green Velvet'",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "either",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 6,
+    "spacingFt": 2.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#46723e",
+    "summer": "#3f6b3a",
+    "fall": "#3f6b3a",
+    "winter": "#4f6b42"
+  },
+  "zones": [
+    5,
+    8
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Shear lightly after new growth"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

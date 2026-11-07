@@ -1,0 +1,86 @@
+{
+  "id": "winterberry",
+  "commonName": "Winterberry holly",
+  "botanicalName": "Ilex verticillata",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 7,
+    "spreadFt": 7,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 5,
+    "spacingFt": 5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "clay"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      6
+    ],
+    "colors": [
+      "#f3f0e0"
+    ]
+  },
+  "fruit": {
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
+    "color": "#c0262d"
+  },
+  "foliage": {
+    "spring": "#86a85a",
+    "summer": "#4f7c3e",
+    "fall": "#a8873a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 4,
+      "task": "Plant one male shrub near the females so they make berries"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

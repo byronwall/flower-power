@@ -1,0 +1,84 @@
+{
+  "id": "red-maple",
+  "commonName": "Red maple",
+  "botanicalName": "Acer rubrum",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 50,
+    "spreadFt": 35,
+    "plantedSpreadFt": 4,
+    "yearsToMature": 20,
+    "spacingFt": 35
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "clay"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      3
+    ],
+    "colors": [
+      "#b8333a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8fae5a",
+    "summer": "#4f7a3a",
+    "fall": "#c0392b",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches"
+    },
+    {
+      "month": 6,
+      "task": "Water weekly the first two summers"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}
