@@ -1,0 +1,31 @@
+{
+  "id": "sideoats-grama",
+  "commonName": "Sideoats grama",
+  "botanicalName": "Bouteloua curtipendula",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 2.5, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 2, "spacingFt": 1.5 },
+  "sun": ["full"],
+  "soil": ["dry", "average", "well-drained"],
+  "water": "low",
+  "bloom": { "months": [7, 8, 9], "colors": ["#9e5d54"] },
+  "fruit": { "months": [9, 10], "color": "#a68e63" },
+  "foliage": { "spring": "#8daa72", "summer": "#819b6b", "fall": "#b49353", "winter": "#aa966e" },
+  "zones": [3, 8],
+  "care": [{ "month": 3, "task": "Cut back old stems before new growth" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds", "butterflies"],
+  "effort": 1,
+  "render": { "form": "grass" },
+  "sources": [
+    { "label": "Indiana Native Plant Society, Landscape Uses of Native Plants", "url": "https://indiananativeplants.org/landscape-uses-of-native-plants/" },
+    { "label": "University of Minnesota, Gardening with Native Grasses in Cold Climates", "url": "https://open.lib.umn.edu/nativegrasses/chapter/sideoats-grama-bouteloua-curtipendula/" }
+  ],
+  "verified": false
+}

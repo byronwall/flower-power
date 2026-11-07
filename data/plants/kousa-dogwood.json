@@ -1,0 +1,91 @@
+{
+  "id": "kousa-dogwood",
+  "commonName": "Kousa dogwood",
+  "botanicalName": "Cornus kousa",
+  "category": "tree",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 25,
+    "spreadFt": 25,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 20
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "well-drained",
+    "acidic",
+    "loam"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#f2eee4"
+    ]
+  },
+  "fruit": {
+    "months": [
+      8,
+      9
+    ],
+    "color": "#d14c40"
+  },
+  "foliage": {
+    "spring": "#9db86b",
+    "summer": "#4b7d46",
+    "fall": "#bd4938",
+    "winter": null
+  },
+  "zones": [
+    5,
+    8
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/cornus-kousa/common-name/kousa-dogwood/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,90 @@
+{
+  "id": "buttonbush",
+  "commonName": "Buttonbush",
+  "botanicalName": "Cephalanthus occidentalis",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 7,
+    "spreadFt": 6,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "wet"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#f4f0dc"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#8b3c35"
+  },
+  "foliage": {
+    "spring": "#8cae57",
+    "summer": "#4e793e",
+    "fall": "#cfb845",
+    "winter": null
+  },
+  "zones": [
+    5,
+    10
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Remove damaged stems before spring growth"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs and Small Trees",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Shrubs%20and%20Small%20Trees.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

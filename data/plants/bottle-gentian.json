@@ -1,0 +1,82 @@
+{
+  "id": "bottle-gentian",
+  "commonName": "Bottle gentian",
+  "botanicalName": "Gentiana andrewsii",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 1,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      8,
+      9
+    ],
+    "colors": [
+      "#3e68a5"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#66884d",
+    "summer": "#5d7d47",
+    "fall": "#958556",
+    "winter": null
+  },
+  "zones": [
+    3,
+    7
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/plant-finder"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}

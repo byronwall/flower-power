@@ -1,0 +1,31 @@
+{
+  "id": "feather-reed-grass",
+  "commonName": "Karl Foerster feather reed grass",
+  "botanicalName": "Calamagrostis × acutiflora 'Karl Foerster'",
+  "category": "grass",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 5, "spreadFt": 2, "plantedSpreadFt": 0.5, "yearsToMature": 2, "spacingFt": 2 },
+  "sun": ["full", "part"],
+  "soil": ["average", "moist", "well-drained", "clay"],
+  "water": "medium",
+  "bloom": { "months": [6, 7, 8], "colors": ["#c7a3a9"] },
+  "fruit": { "months": [8, 9, 10, 11], "color": "#c5aa75" },
+  "foliage": { "spring": "#86a56a", "summer": "#71904e", "fall": "#ab9a68", "winter": "#b09d75" },
+  "zones": [5, 9],
+  "care": [{ "month": 3, "task": "Cut clump to the ground before new shoots appear" }, { "month": 5, "task": "Water new plants during dry periods" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds"],
+  "effort": 1,
+  "render": { "form": "grass" },
+  "sources": [
+    { "label": "Missouri Botanical Garden Plant Finder, Feather Reed Grass", "url": "https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?chr=24&cv=5&hf=2&ht=5&isprofile=0&taxonid=243336&z=5" },
+    { "label": "Chicago Botanic Garden, Feather Reed Grass", "url": "https://www.chicagobotanic.org/plant-information/plant-finder/calamagrostis-x-acutiflora-karl-foerster-feather-reed-grass" }
+  ],
+  "verified": false
+}

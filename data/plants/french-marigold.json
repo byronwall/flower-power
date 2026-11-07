@@ -1,0 +1,31 @@
+{
+  "id": "french-marigold",
+  "commonName": "French marigold",
+  "botanicalName": "Tagetes patula",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 1, "spreadFt": 1, "plantedSpreadFt": 0.5, "yearsToMature": 1, "spacingFt": 1 },
+  "sun": ["full", "part"],
+  "soil": ["average", "well-drained", "clay", "loam", "sand"],
+  "water": "medium",
+  "bloom": { "months": [5, 6, 7, 8, 9, 10], "colors": ["#e4b644", "#df762f", "#bb443b"] },
+  "fruit": null,
+  "foliage": { "spring": "#67934c", "summer": "#5a8242", "fall": "#5a8242", "winter": null },
+  "zones": [10, 11],
+  "care": [{ "month": 5, "task": "Plant after frost in evenly moist soil" }, { "month": 7, "task": "Remove spent flowers to prolong bloom" }, { "month": 9, "task": "Water during extended dry periods" }],
+  "plantingMonths": [5, 6],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": ["pollinators", "butterflies"],
+  "effort": 1,
+  "render": { "form": "mound" },
+  "sources": [
+    { "label": "NC State Extension, French Marigold", "url": "https://plants.ces.ncsu.edu/plants/tagetes-patula/" },
+    { "label": "Pet Poison Helpline, Marigold toxicity", "url": "https://www.petpoisonhelpline.com/poison/marigold/" }
+  ],
+  "verified": false
+}

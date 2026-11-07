@@ -1,0 +1,83 @@
+{
+  "id": "autumn-joy-sedum",
+  "commonName": "Autumn Joy stonecrop",
+  "botanicalName": "Hylotelephium spectabile",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "well-drained"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "colors": [
+      "#b87885"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#74945a",
+    "summer": "#718b50",
+    "fall": "#a77d55",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, stonecrop",
+      "url": "https://plants.ces.ncsu.edu/plants/hylotelephium-telephium/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Recommended Perennials",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Growing%20Perennials18.pdf"
+    }
+  ],
+  "verified": false
+}

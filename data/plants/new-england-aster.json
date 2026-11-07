@@ -1,0 +1,84 @@
+{
+  "id": "new-england-aster",
+  "commonName": "New England aster",
+  "botanicalName": "Symphyotrichum novae-angliae",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "colors": [
+      "#9253ad"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#66894e",
+    "summer": "#60804a",
+    "fall": "#aa805a",
+    "winter": null
+  },
+  "zones": [
+    4,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, New England aster",
+      "url": "https://plants.ces.ncsu.edu/plants/symphyotrichum-novae-angliae/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}

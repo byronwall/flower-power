@@ -1,0 +1,31 @@
+{
+  "id": "switchgrass",
+  "commonName": "Switchgrass",
+  "botanicalName": "Panicum virgatum",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 5, "spreadFt": 3, "plantedSpreadFt": 0.5, "yearsToMature": 3, "spacingFt": 3 },
+  "sun": ["full", "part"],
+  "soil": ["average", "clay", "moist", "well-drained"],
+  "water": "medium",
+  "bloom": { "months": [7, 8, 9], "colors": ["#c987a2"] },
+  "fruit": { "months": [9, 10, 11], "color": "#c6b99d" },
+  "foliage": { "spring": "#8fae78", "summer": "#698b73", "fall": "#c48745", "winter": "#b7a17d" },
+  "zones": [4, 9],
+  "care": [{ "month": 3, "task": "Cut old stems to the ground before new growth" }, { "month": 5, "task": "Water new plants during dry periods" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds", "butterflies"],
+  "effort": 1,
+  "render": { "form": "grass" },
+  "sources": [
+    { "label": "Purdue Extension, Recommended Indiana-native Plants for Protecting Pollinators", "url": "https://www.extension.entm.purdue.edu/publications/POL-6/POL-6.html" },
+    { "label": "Purdue Extension, Native Plants", "url": "https://www.purdue.edu/hla/sites/master-gardener/wp-content/uploads/sites/9/2024/04/MG-native-plants-4.16.24.pdf" }
+  ],
+  "verified": false
+}

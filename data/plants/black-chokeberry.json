@@ -1,0 +1,89 @@
+{
+  "id": "black-chokeberry",
+  "commonName": "Black chokeberry",
+  "botanicalName": "Aronia melanocarpa",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 6,
+    "spreadFt": 6,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5
+    ],
+    "colors": [
+      "#f4f1e8"
+    ]
+  },
+  "fruit": {
+    "months": [
+      8,
+      9
+    ],
+    "color": "#202020"
+  },
+  "foliage": {
+    "spring": "#a0bd68",
+    "summer": "#548044",
+    "fall": "#c84332",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Thin older stems if needed"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs for Clay Soils",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Clay%20Soils%20-%20Shrubs7.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

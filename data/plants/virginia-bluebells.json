@@ -1,0 +1,83 @@
+{
+  "id": "virginia-bluebells",
+  "commonName": "Virginia bluebells",
+  "botanicalName": "Mertensia virginica",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 1.25
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist",
+    "rich"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#83b9db",
+      "#d98fa2"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7da56b",
+    "summer": "#71975f",
+    "fall": null,
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Department of Conservation, Virginia bluebells",
+      "url": "https://mdc.mo.gov/discover-nature/field-guide/virginia-bluebells"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}

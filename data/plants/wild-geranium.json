@@ -1,0 +1,82 @@
+{
+  "id": "wild-geranium",
+  "commonName": "Wild geranium",
+  "botanicalName": "Geranium maculatum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.25
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "well-drained",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#c38ab5"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#70945b",
+    "summer": "#6c8954",
+    "fall": "#c0a878",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Department of Conservation, wild geranium",
+      "url": "https://mdc.mo.gov/discover-nature/field-guide/wild-geranium-cranes-bill"
+    },
+    {
+      "label": "Missouri Botanical Garden, Signs of Spring",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Signs%20of%20Spring.pdf"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,92 @@
+{
+  "id": "crabapple",
+  "commonName": "Crabapple",
+  "botanicalName": "Malus \u00d7 (ornamental hybrids)",
+  "category": "tree",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 20,
+    "spreadFt": 20,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 15,
+    "spacingFt": 18
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "well-drained",
+    "loam"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#eebac4",
+      "#f2eee7"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#bd3038"
+  },
+  "foliage": {
+    "spring": "#a5b85d",
+    "summer": "#4d793c",
+    "fall": "#bd533c",
+    "winter": null
+  },
+  "zones": [
+    4,
+    8
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/malus/common-name/crab-apple/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

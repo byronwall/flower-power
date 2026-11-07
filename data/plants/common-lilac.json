@@ -1,0 +1,84 @@
+{
+  "id": "common-lilac",
+  "commonName": "Common lilac",
+  "botanicalName": "Syringa vulgaris",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 12,
+    "spreadFt": 10,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained",
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5
+    ],
+    "colors": [
+      "#b39acb",
+      "#eee8e0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8bac5a",
+    "summer": "#50763d",
+    "fall": "#b7aa61",
+    "winter": null
+  },
+  "zones": [
+    3,
+    7
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Remove spent flower clusters after bloom"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension, Taking Care of Your Yard",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-236-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

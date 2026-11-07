@@ -1,0 +1,31 @@
+{
+  "id": "common-blue-violet",
+  "commonName": "Common blue violet",
+  "botanicalName": "Viola sororia",
+  "category": "groundcover",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 0.5, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 2, "spacingFt": 1 },
+  "sun": ["full", "part", "shade"],
+  "soil": ["moist", "average"],
+  "water": "medium",
+  "bloom": { "months": [3, 4, 5, 6], "colors": ["#6252a3"] },
+  "fruit": { "months": [5, 6], "color": "#6b654f" },
+  "foliage": { "spring": "#6f9a50", "summer": "#5e8345", "fall": "#7c8154", "winter": null },
+  "zones": [3, 8],
+  "care": [{ "month": 5, "task": "Water new patches during prolonged dry weather" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["pollinators", "butterflies"],
+  "effort": 1,
+  "render": { "form": "mat" },
+  "sources": [
+    { "label": "Indiana Plant Atlas, Common Blue Violet", "url": "https://indiana.plantatlas.usf.edu/plant.aspx?id=276" },
+    { "label": "Iowa State University Extension, Common Blue Violet", "url": "https://naturalresources.extension.iastate.edu/encyclopedia/dooryardcommon-blue-violet" }
+  ],
+  "verified": false
+}

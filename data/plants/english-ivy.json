@@ -1,0 +1,31 @@
+{
+  "id": "english-ivy",
+  "commonName": "English ivy",
+  "botanicalName": "Hedera helix",
+  "category": "groundcover",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": true,
+  "placement": "region",
+  "size": { "heightFt": 1, "spreadFt": 10, "plantedSpreadFt": 1, "yearsToMature": 3, "spacingFt": 2 },
+  "sun": ["full", "part", "shade"],
+  "soil": ["average", "moist", "well-drained"],
+  "water": "medium",
+  "bloom": { "months": [9, 10], "colors": ["#a5a77a"] },
+  "fruit": { "months": [11, 12, 1, 2], "color": "#25243a" },
+  "foliage": { "spring": "#32643d", "summer": "#285535", "fall": "#285535", "winter": "#285535" },
+  "zones": [4, 9],
+  "care": [{ "month": 5, "task": "Trim runners to keep them within their planting area" }, { "month": 9, "task": "Remove vines from trees and shrubs" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": ["birds"],
+  "effort": 3,
+  "render": { "form": "mat" },
+  "sources": [
+    { "label": "NC State Extension, English Ivy", "url": "https://plants.ces.ncsu.edu/plants/hedera-helix/common-name/english-ivy/" },
+    { "label": "ASPCA, English Ivy toxicity profile", "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/english-ivy" }
+  ],
+  "verified": false
+}

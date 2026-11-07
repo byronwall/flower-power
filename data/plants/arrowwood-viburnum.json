@@ -1,0 +1,90 @@
+{
+  "id": "arrowwood-viburnum",
+  "commonName": "Arrowwood viburnum",
+  "botanicalName": "Viburnum dentatum",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 8,
+    "spreadFt": 8,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#f5f1e5"
+    ]
+  },
+  "fruit": {
+    "months": [
+      8,
+      10
+    ],
+    "color": "#273c70"
+  },
+  "foliage": {
+    "spring": "#8ead5a",
+    "summer": "#4f793c",
+    "fall": "#c84332",
+    "winter": null
+  },
+  "zones": [
+    2,
+    8
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Prune after flowering only if needed"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs and Small Trees",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Shrubs%20and%20Small%20Trees.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

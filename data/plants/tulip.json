@@ -1,0 +1,85 @@
+{
+  "id": "tulip",
+  "commonName": "Tulip",
+  "botanicalName": "Tulipa gesneriana",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 0.5,
+    "plantedSpreadFt": 0.3,
+    "yearsToMature": 1,
+    "spacingFt": 0.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#d64847"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#638547",
+    "summer": null,
+    "fall": null,
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    9,
+    10,
+    11
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension, flowering bulbs",
+      "url": "https://extension.purdue.edu/news/county/whitley/2022/09/enhancing-your-landscape-aesthetics-with-flowering-bulbs.html"
+    },
+    {
+      "label": "Purdue Extension, Taking Care of Your Yard",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-236-W.pdf"
+    },
+    {
+      "label": "ASPCA, tulip toxicity",
+      "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/tulip"
+    }
+  ],
+  "verified": false
+}

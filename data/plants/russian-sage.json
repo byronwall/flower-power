@@ -1,0 +1,83 @@
+{
+  "id": "russian-sage",
+  "commonName": "Russian sage",
+  "botanicalName": "Salvia yangii",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 3,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 2.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "well-drained"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#8a83c7"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8a967a",
+    "summer": "#849078",
+    "fall": "#b3a78b",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "hummingbirds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder, Russian sage",
+      "url": "https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?chr=24&cv=5&hf=2&ht=5&isprofile=0&taxonid=298757&z=5"
+    },
+    {
+      "label": "Missouri Botanical Garden, Plants for Shallow, Rocky Soil",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/plants-for-shallow-rocky-soil"
+    }
+  ],
+  "verified": false
+}
