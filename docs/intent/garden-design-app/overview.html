@@ -1,0 +1,520 @@
+<title>Flower Power Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column on watercolor paper, widening to a board for the spikes. */
+:root {
+  --paper: #f7f6f1;
+  --card: #fffffc;
+  --ink: #23302a;
+  --muted: #5d6b63;
+  --line: #dde2d8;
+  --moss: #3f6b4f;
+  --moss-soft: #e3ece4;
+  --bloom: #b0457a;
+  --bloom-soft: #f5e3ec;
+  --sun: #b7841c;
+  --sun-soft: #f6ecd2;
+  --sky: #3c6f8f;
+  --sky-soft: #e0ebf2;
+  --wash: rgba(63,107,79,.10);
+  --wash2: rgba(176,69,122,.08);
+  --f-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #151a17; --card: #1d2420; --ink: #e7ece6; --muted: #a3b0a7; --line: #313b35;
+    --moss: #8fc49f; --moss-soft: #22342a; --bloom: #e48ab5; --bloom-soft: #3a2230;
+    --sun: #e2b65a; --sun-soft: #352c17; --sky: #8dbbd8; --sky-soft: #1d2d37;
+    --wash: rgba(143,196,159,.08); --wash2: rgba(228,138,181,.06);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151a17; --card: #1d2420; --ink: #e7ece6; --muted: #a3b0a7; --line: #313b35;
+  --moss: #8fc49f; --moss-soft: #22342a; --bloom: #e48ab5; --bloom-soft: #3a2230;
+  --sun: #e2b65a; --sun-soft: #352c17; --sky: #8dbbd8; --sky-soft: #1d2d37;
+  --wash: rgba(143,196,159,.08); --wash2: rgba(228,138,181,.06);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  background-image:
+    radial-gradient(60rem 30rem at 85% -10%, var(--wash), transparent 70%),
+    radial-gradient(40rem 26rem at -10% 8%, var(--wash2), transparent 70%);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  font: 400 16px/1.6 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px; }
+.col { max-width: 720px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1.02; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.15; }
+h3 { font-size: 1.15rem; line-height: 1.3; }
+p { margin: 0; }
+a { color: var(--moss); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--bloom); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font: 500 .74rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink); max-width: 62ch; }
+.muted { color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 24px; }
+.sec-head { display: flex; flex-direction: column; gap: 10px; }
+
+/* Hero */
+header.hero { padding-top: 64px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero-text { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 500 .78rem/1 var(--f-body); padding: 7px 11px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+.chip b { color: var(--ink); font-weight: 600; }
+.hero-art { width: 100%; max-width: 100%; aspect-ratio: 1 / 1; }
+.hero-art canvas { width: 100%; height: 100%; display: block; border-radius: 50%; }
+
+/* Flow */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; counter-reset: step; }
+.flow li { counter-increment: step; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.flow li::before { content: counter(step); font: 500 .75rem/1 var(--f-mono); color: var(--moss); }
+.flow li strong { font-weight: 600; font-size: .98rem; }
+.flow li span { color: var(--muted); font-size: .88rem; line-height: 1.45; }
+
+/* Who + facts */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+.fact { display: flex; flex-direction: column; gap: 6px; border-top: 2px solid var(--moss); padding-top: 14px; }
+.fact .k { font: 500 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--moss); }
+.fact p { color: var(--ink); }
+
+/* Scope */
+.scope { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.area { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.area ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: .93rem; line-height: 1.45; }
+.area ul li::marker { color: var(--moss); }
+.horizon { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.horizon > div { border: 1px dashed var(--line); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+.horizon ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .93rem; display: flex; flex-direction: column; gap: 3px; }
+
+/* Decisions */
+.decisions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px 40px; }
+.decision { display: flex; flex-direction: column; gap: 8px; }
+.decision h3 { color: var(--ink); }
+.decision p { color: var(--muted); }
+
+/* Proof */
+.proof { background: var(--moss-soft); border-radius: 14px; padding: 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.proof .step { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.proof .step .k { font: 500 .78rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--moss); }
+
+/* Spikes board */
+.toolbar { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.seg .lbl { font: 500 .72rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.seg button { font: 500 .85rem/1 var(--f-body); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+.seg button:hover { border-color: var(--moss); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tiers { display: flex; flex-direction: column; gap: 28px; }
+.tier { display: flex; flex-direction: column; gap: 12px; }
+.tier-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.tier-head h3 { font-size: 1.3rem; }
+.tier-head .count { font: 500 .8rem/1 var(--f-mono); color: var(--muted); }
+.tier-head p { flex-basis: 100%; color: var(--muted); font-size: .93rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.spike { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid var(--c, var(--moss)); min-width: 0; }
+.spike .top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.spike .id { font: 500 .8rem/1 var(--f-mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 5px; padding: 4px 6px; }
+.tag { font: 500 .72rem/1 var(--f-body); padding: 4px 8px; border-radius: 999px; }
+.tag.area-t { background: var(--cs, var(--moss-soft)); color: var(--c, var(--moss)); }
+.tag.kind { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+.tag.risk { background: var(--bloom-soft); color: var(--bloom); }
+.spike h4 { margin: 0; font: 600 1rem/1.35 var(--f-body); }
+.spike .q { color: var(--muted); font-size: .92rem; line-height: 1.5; }
+.spike details { border-top: 1px solid var(--line); padding-top: 8px; font-size: .9rem; }
+.spike summary { cursor: pointer; color: var(--moss); font-weight: 500; font-size: .85rem; list-style: none; }
+.spike summary::-webkit-details-marker { display: none; }
+.spike summary::before { content: "+ "; font-family: var(--f-mono); }
+.spike details[open] summary::before { content: "− "; }
+.spike dl { margin: 8px 0 4px; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+.spike dt { font: 500 .72rem/1.6 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.spike dd { margin: 0; line-height: 1.45; }
+.empty { color: var(--muted); font-size: .92rem; }
+
+/* Settled + open */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.list li { display: flex; flex-direction: column; gap: 2px; padding-left: 16px; border-left: 2px solid var(--line); }
+.list li b { font-weight: 600; }
+.list li span { color: var(--muted); font-size: .94rem; }
+.open-q { background: var(--sun-soft); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.open-q .k { font: 500 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--sun); }
+
+/* Mockups */
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+figure img { width: 100%; max-width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); display: block; }
+figcaption { font-size: .88rem; color: var(--muted); line-height: 1.45; }
+figcaption b { color: var(--ink); font-weight: 600; }
+
+footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 820px) {
+  header.hero { grid-template-columns: 1fr; padding-top: 40px; gap: 24px; }
+  .hero-art { max-width: 280px; }
+  .proof { grid-template-columns: 1fr; padding: 22px; }
+  .two { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr; }
+  .wrap { gap: 56px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-text">
+    <span class="eyebrow">Flower Power · first product shape</span>
+    <h1>See your own yard as a garden, before you dig.</h1>
+    <p class="lede">A website for Indiana homeowners. Give it your address and a few photos. It paints your whole property as a watercolor plan, suggests gardens that fit your sun and shade, shows them through the seasons and 5 years out, and gives you a planting plan you can follow.</p>
+    <div class="chips">
+      <span class="chip">Phase <b>Shape</b></span>
+      <span class="chip">Next <b>4 spikes, then the first proof</b></span>
+      <span class="chip">Updated <b>Nov 7, 2026</b></span>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true"><canvas id="bloom" width="640" height="640"></canvas></div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">How it works</span>
+    <h2>One session, start to finish</h2>
+  </div>
+  <ol class="flow">
+    <li><strong>Your yard appears</strong><span>Address and drag-in photos become a plan at a known scale.</span></li>
+    <li><strong>Fix and set the sun</strong><span>Correct outlines. Say which way the front door faces. Check the shadows.</span></li>
+    <li><strong>Say what you want</strong><span>A feeling, colors, birds or butterflies, safety, favorite plants, or a photo you love.</span></li>
+    <li><strong>Pick a design</strong><span>3 to 5 options on your real yard. Give feedback, rework an area.</span></li>
+    <li><strong>Edit in 2D, see in 3D</strong><span>Paint areas of plants. The 3D pane updates at once.</span></li>
+    <li><strong>Move through time</strong><span>Winter to fall, then years 1 to 5.</span></li>
+    <li><strong>Take the plan</strong><span>Shopping list, planting and care calendar. Share it.</span></li>
+  </ol>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Who it is for</span>
+    <h2>A homeowner at the kitchen table</h2>
+  </div>
+  <div class="facts">
+    <div class="fact"><span class="k">Person</span><p>A homeowner with a place for a garden. Older, retired, and family people who open a link. Anne is the first real user.</p></div>
+    <div class="fact"><span class="k">Setting</span><p>A desktop computer at home, with room for real controls. A phone only takes photos.</p></div>
+    <div class="fact"><span class="k">Knowledge</span><p>Beginners pick from options. Experienced gardeners name the plants they love, and the app designs around them.</p></div>
+    <div class="fact"><span class="k">Region</span><p>Indiana only to start: one climate and about 100 popular Indiana plants.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">First product</span>
+    <h2>What is in scope</h2>
+  </div>
+  <div class="scope">
+    <div class="area"><h3>Your property</h3><ul><li>Aerial view at a known scale from the address</li><li>AI marks house, driveway, fences, beds, trees</li><li>Photos show how each area looks now</li><li>Redraw outlines, type a size, draw lot lines</li></ul></div>
+    <div class="area"><h3>Sun and shade</h3><ul><li>Set the front-door direction</li><li>Morning and afternoon shadows; rotate until right</li><li>Each area gets full sun, part sun, or shade</li></ul></div>
+    <div class="area"><h3>What you want</h3><ul><li>Feeling, color theme, wildlife, safety for kids and pets</li><li>Favorite plants to design around</li><li>Style from a reference photo, labeled as borrowed</li><li>Honest review of the yard now</li></ul></div>
+    <div class="area"><h3>Designs and editor</h3><ul><li>3 to 5 designs; pick, give feedback, rework an area</li><li>Drag a plant out and paint an area at the right spacing</li><li>Plants overlap at real size, not in grid cells</li><li>Gallery filtered by color, bloom, sun, effort</li></ul></div>
+    <div class="area"><h3>Views and time</h3><ul><li>Watercolor plan; each plant painted with some randomness</li><li>2D plan beside a live 3D pane you can rotate</li><li>Slider: four seasons, then years 1 to 5, in both panes</li></ul></div>
+    <div class="area"><h3>Plan, accounts, sharing</h3><ul><li>Shopping list, planting and care calendar, soil and sun</li><li>Email and password accounts</li><li>Share a project, view only</li><li>Public gallery: a zoomable wall of gardens</li></ul></div>
+  </div>
+  <div class="horizon">
+    <div><span class="eyebrow">Evaluate before committing</span><ul><li>Front view painted onto your own house photo</li><li>House and tree heights from public elevation data</li><li>Lot lines from county parcel maps</li></ul></div>
+    <div><span class="eyebrow">Later</span><ul><li>Growth simulation: seed to flower, plants crowding others</li><li>Budget and costs; paths, stone, fence materials</li><li>Other regions, weather runs, city use, garden explainer</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Key decisions</span>
+    <h2>Where we pushed the design</h2>
+  </div>
+  <div class="decisions">
+    <div class="decision"><h3>Aerial view first, photos second</h3><p>The plan comes from the address and an aerial image. Photos show the look of each area. Building a 3D model from photos is a research project that would hold up the whole app.</p></div>
+    <div class="decision"><h3>Watercolor, not photos</h3><p>Plant photos look repetitive. Each plant is painted with some variation, so areas look organic. The 2D plan and the 3D pane use the same art and data.</p></div>
+    <div class="decision"><h3>The AI chooses, code places</h3><p>The AI picks plants, areas, and reasons. Normal code does spacing, sun checks, and plant facts, so designs are repeatable and the facts are real.</p></div>
+    <div class="decision"><h3>Keep the platform small</h3><p>Email and password accounts and the simplest database. No payments and no listing-site integration. The map only needs to be close enough to plan with.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">First proof</span>
+    <h2>One real yard, painted and moving through time</h2>
+  </div>
+  <div class="proof">
+    <div class="step"><span class="k">Try</span><p>For one real Indiana property, go from the address to a watercolor plan with AI-marked features. Paint areas of 10 Indiana plants. Move the slider through 4 seasons and 5 years.</p></div>
+    <div class="step"><span class="k">Observe</span><p>Do Byron and Anne recognize the yard after less than 5 minutes of fixes? Would they show the plan to a friend?</p></div>
+    <div class="step"><span class="k">Decide</span><p>Yes: add the live 3D pane, then designs and the plan output. Map fails: switch to guided drawing. Art fails: finish the plant-art spike first.</p></div>
+  </div>
+</section>
+
+<section id="spikes">
+  <div class="sec-head">
+    <span class="eyebrow">Spikes and research · 16 items</span>
+    <h2>What we must learn before we build</h2>
+    <p class="muted col">A spike is a small throwaway prototype. Research is reading and checking sources. Each item answers one question and has a fallback if the answer is no.</p>
+  </div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Filter by area" id="f-area"><span class="lbl">Area</span></div>
+    <div class="seg" role="group" aria-label="Filter by kind" id="f-kind"><span class="lbl">Kind</span></div>
+  </div>
+  <div class="tiers" id="tiers"></div>
+</section>
+
+<section>
+  <div class="two">
+    <div class="sec-head">
+      <span class="eyebrow">Settled</span>
+      <h2>Decided in the question rounds</h2>
+      <ul class="list" style="margin-top:12px">
+        <li><b>Whole property</b><span>Landscaping for the whole house. A small area alone also works.</span></li>
+        <li><b>The magic moment</b><span>Seeing your own house and yard appear.</span></li>
+        <li><b>Close-enough map</b><span>Good enough to plan with, not for a contractor.</span></li>
+        <li><b>Plant facts drive the plan</b><span>Annual or perennial, lifespan, sun, soil, bloom, yearly care such as lifting dahlias.</span></li>
+        <li><b>Accounts and sharing</b><span>Email and password. Shared projects are view only.</span></li>
+      </ul>
+    </div>
+    <div class="sec-head">
+      <span class="eyebrow">Open</span>
+      <h2>One choice left</h2>
+      <div class="open-q" style="margin-top:12px">
+        <span class="k">Proposed default</span>
+        <p>The public gallery shows the garden, but hides the address and the aerial photo. Confirm or change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Early concept mockups</span>
+    <h2>Where the idea started</h2>
+    <p class="muted col">These come from the first voice memo, before the question rounds. They show the direction, not the final look. The watercolor plan replaces the photo look.</p>
+  </div>
+  <div class="shots">
+    <figure><img src="mockups/01-capture-map.jpg" alt="Concept: photos turn into a measured site plan with features to confirm" loading="lazy"><figcaption><b>Capture and map.</b> Photos in, a site plan out, with features to confirm.</figcaption></figure>
+    <figure><img src="mockups/02-goals-gallery.jpg" alt="Concept: goal chips and a gallery of redesigns of the same yard" loading="lazy"><figcaption><b>Design gallery.</b> Goals, then several redesigns of the same yard.</figcaption></figure>
+    <figure><img src="mockups/03-plan-3d-time.jpg" alt="Concept: 2D plan editor beside a 3D view with a year slider" loading="lazy"><figcaption><b>Plan, 3D, and time.</b> The 2D editor beside 3D, with a year slider.</figcaption></figure>
+  </div>
+</section>
+
+<footer>
+  <span>Source documents in <a href="https://github.com/byronwall/flower-power/tree/main/docs/intent/garden-design-app">byronwall/flower-power</a></span>
+  <a href="https://github.com/byronwall/flower-power/blob/main/docs/intent/garden-design-app/intent-brief.md">Intent brief</a>
+  <a href="https://github.com/byronwall/flower-power/blob/main/docs/intent/garden-design-app/shape-brief.md">Shape brief</a>
+  <a href="https://github.com/byronwall/flower-power/blob/main/docs/intent/garden-design-app/spikes.md">Spikes</a>
+</footer>
+
+</div>
+
+<script>
+const AREAS = {
+  capture: { name: "Property capture", c: "var(--sky)", cs: "var(--sky-soft)" },
+  visuals: { name: "Visuals", c: "var(--bloom)", cs: "var(--bloom-soft)" },
+  sun: { name: "Sun and shade", c: "var(--sun)", cs: "var(--sun-soft)" },
+  plants: { name: "Plant knowledge", c: "var(--moss)", cs: "var(--moss-soft)" },
+  design: { name: "Design AI", c: "var(--bloom)", cs: "var(--bloom-soft)" },
+  editor: { name: "Editor", c: "var(--moss)", cs: "var(--moss-soft)" },
+  community: { name: "Gallery", c: "var(--sky)", cs: "var(--sky-soft)" },
+};
+const TIERS = [
+  { id: "first", name: "Before the first proof", note: "These decide whether the first proof can run." },
+  { id: "next", name: "Next", note: "These unlock the 3D pane, sun and shade, the plant data, and the designs." },
+  { id: "later", name: "Later", note: "These decide how later features work." },
+];
+const SPIKES = [
+  { id: "S1", tier: "first", area: "capture", kind: "Research + spike", title: "Aerial base map for an Indiana address",
+    q: "Which aerial source gives a clear, current view of a suburban lot at a known scale, with terms that let us trace on it?",
+    how: "Compare IndianaMap orthoimagery, Esri World Imagery, Mapbox Satellite, and Google Map Tiles: resolution, date, cost, terms.",
+    decide: "One source and the way to get meters per pixel.",
+    fallback: "The person uploads a screenshot and sets scale from one known size." },
+  { id: "S5", tier: "first", area: "visuals", kind: "Spike", risk: true, title: "Watercolor plant art with variation",
+    q: "Can we paint detailed watercolor plants that change with season, bloom, and age, vary each time, and overlap well?",
+    how: "10 plants × 4 seasons × 3 ages. Compare generated images with random variation, a code watercolor painter, and a mix.",
+    decide: "Art method, style guide, and the cost to add all 100 plants.",
+    fallback: "Soft colored shapes with paper texture and bloom color." },
+  { id: "S15", tier: "first", area: "editor", kind: "Spike", title: "Painting an area of one plant",
+    q: "When a person paints an area with a plant, how does it fill: spacing, natural pattern, and edges next to other areas?",
+    how: "Prototype the fill on one bed with three plant sizes.",
+    decide: "The fill rule and how a person changes the count or edge.",
+    fallback: "Place single plants, and use repeat to copy at the right spacing." },
+  { id: "S2", tier: "first", area: "capture", kind: "Spike", title: "AI marks features on the aerial view",
+    q: "Can a vision model outline the house, driveway, fences, beds, trees, and lawn well enough to fix in under 5 minutes?",
+    how: "Five real Indiana lots. Vision model alone, against public building footprints plus a vision model.",
+    decide: "Automatic marking with corrections, or guided drawing.",
+    fallback: "The person clicks the house corners and the app suggests the rest." },
+  { id: "S7", tier: "next", area: "visuals", kind: "Spike", title: "Live 3D pane beside the plan",
+    q: "Can a browser 3D scene show the whole yard in the same watercolor look and update at once with edits and the slider?",
+    how: "House raised from its footprint, plan as ground texture, painted plants. Test several hundred plants.",
+    decide: "The 3D method and the plant limit before it slows down.",
+    fallback: "A Render 3D button that makes a still image." },
+  { id: "S8", tier: "next", area: "sun", kind: "Spike", title: "Sun and shadows",
+    q: "From latitude, date, house footprint, and estimated heights, can we draw believable shadows and give each area a sun class?",
+    how: "Sun position library, house height from floor count, tree height by type. Check against a real yard twice a day.",
+    decide: "Whether simple heights are enough.",
+    fallback: "The person paints full-sun, part-sun, and shade areas." },
+  { id: "S10", tier: "next", area: "plants", kind: "Research", title: "Indiana plant data set",
+    q: "Which sources give trusted data for about 100 popular Indiana plants, and under what terms?",
+    how: "Purdue Extension, Indiana Native Plant Society, Missouri Botanical Garden Plant Finder, USDA PLANTS.",
+    decide: "The data model and the first 100 plants, with a source for each fact.",
+    fallback: "AI drafts the data; a person checks each plant against one trusted source." },
+  { id: "S12", tier: "next", area: "design", kind: "Spike", title: "Design generation",
+    q: "Can the AI choose plants and areas for 3 to 5 different designs that fit sun, theme, safety, and locked plants?",
+    how: "One real plan, three themes: peaceful place to sit, songbirds, low effort and safe for kids.",
+    decide: "How work is split between AI and code, and the output format.",
+    fallback: "Hand-made templates per theme, filled with plants that fit the sun." },
+  { id: "S3", tier: "later", area: "capture", kind: "Research", title: "Property lines",
+    q: "Can we get lot lines from county parcel maps by address, and can we show them?",
+    how: "Check Hamilton County GIS and the statewide parcel layer.",
+    decide: "Automatic lot lines, or the person draws them.",
+    fallback: "The person draws lot and fence lines." },
+  { id: "S4", tier: "later", area: "capture", kind: "Spike", title: "What photos add",
+    q: "From drag-in photos, can the AI name existing plants and place each photo on the plan?",
+    how: "Twenty photos of one yard across two seasons.",
+    decide: "Automatic photo placement, or the person drops each photo.",
+    fallback: "The person places photos and names the main plants." },
+  { id: "S6", tier: "later", area: "visuals", kind: "Spike", title: "Front view on the house photo",
+    q: "Can an image model paint the planned plants into the person's own front photo so it matches the plan?",
+    how: "Three front photos, one plan each.",
+    decide: "Generated image, drawn scene, or later work.",
+    fallback: "No front view in the first version." },
+  { id: "S9", tier: "later", area: "sun", kind: "Research", title: "Real heights from elevation data",
+    q: "Does Indiana's public lidar give useful house and tree heights, and is it practical in a browser app?",
+    how: "Pull lidar tiles for two known lots and compare heights.",
+    decide: "Lidar heights, or estimates.",
+    fallback: "Estimated heights from S8." },
+  { id: "S11", tier: "later", area: "plants", kind: "Research", title: "Growth over time",
+    q: "Is a simple curve from planted size to mature size, plus a seasonal look, enough to look right at 1, 3, and 5 years?",
+    how: "Compare the curve with published growth data for ten plants.",
+    decide: "The growth fields in the data set.",
+    fallback: "Three fixed stages: planted, half grown, mature." },
+  { id: "S13", tier: "later", area: "design", kind: "Spike", title: "Review the yard now",
+    q: "From the plan and photos, can the AI give a useful, honest review: what works, what does not, which spots are empty?",
+    how: "Three real yards, reviewed by a gardener for accuracy.",
+    decide: "Ship the review, or start from themes only.",
+    fallback: "Themes only." },
+  { id: "S14", tier: "later", area: "design", kind: "Spike", title: "Style from a reference photo",
+    q: "From a photo of another garden, can the AI pull out colors, forms, and structure, and map them to Indiana plants?",
+    how: "Five reference photos applied to one real yard.",
+    decide: "Ship it, or keep themes only.",
+    fallback: "Themes only." },
+  { id: "S16", tier: "later", area: "community", kind: "Spike", title: "Public gallery wall",
+    q: "Can the app show hundreds of garden thumbnails on one zoomed-out wall, and zoom smoothly into one garden?",
+    how: "500 thumbnails on a pan-and-zoom canvas, with sharper images as you zoom in.",
+    decide: "How thumbnails are made and stored, and the zoom method.",
+    fallback: "A normal grid of cards that you scroll." },
+];
+
+const state = { area: "all", kind: "all" };
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function buildFilters() {
+  const areaEl = document.getElementById("f-area");
+  const kindEl = document.getElementById("f-kind");
+  const areaOpts = [["all", "All"], ...Object.entries(AREAS).map(([k, v]) => [k, v.name])];
+  const kindOpts = [["all", "All"], ["Spike", "Spikes"], ["Research", "Research"]];
+  for (const [k, label] of areaOpts) areaEl.append(btn(label, "area", k));
+  for (const [k, label] of kindOpts) kindEl.append(btn(label, "kind", k));
+}
+function btn(label, key, val) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = label;
+  b.setAttribute("aria-pressed", String(state[key] === val));
+  b.addEventListener("click", () => {
+    state[key] = val;
+    for (const x of b.parentElement.querySelectorAll("button")) x.setAttribute("aria-pressed", String(x === b));
+    render();
+  });
+  return b;
+}
+function matches(s) {
+  if (state.area !== "all" && s.area !== state.area) return false;
+  if (state.kind === "Spike" && !s.kind.includes("pike")) return false;
+  if (state.kind === "Research" && !s.kind.includes("Research")) return false;
+  return true;
+}
+function card(s) {
+  const a = AREAS[s.area];
+  return `<article class="spike" style="--c:${a.c};--cs:${a.cs}">
+    <div class="top"><span class="id">${s.id}</span><span class="tag area-t">${a.name}</span><span class="tag kind">${s.kind}</span>${s.risk ? '<span class="tag risk">Biggest risk</span>' : ""}</div>
+    <h4>${esc(s.title)}</h4>
+    <p class="q">${esc(s.q)}</p>
+    <details><summary>How we test it</summary><dl>
+      <dt>Try</dt><dd>${esc(s.how)}</dd>
+      <dt>Decide</dt><dd>${esc(s.decide)}</dd>
+      <dt>If no</dt><dd>${esc(s.fallback)}</dd>
+    </dl></details>
+  </article>`;
+}
+function render() {
+  document.getElementById("tiers").innerHTML = TIERS.map((t) => {
+    const items = SPIKES.filter((s) => s.tier === t.id && matches(s));
+    return `<div class="tier"><div class="tier-head"><h3>${t.name}</h3><span class="count">${items.length} item${items.length === 1 ? "" : "s"}</span><p>${t.note}</p></div>
+      ${items.length ? `<div class="cards">${items.map(card).join("")}</div>` : '<p class="empty">No items match this filter.</p>'}</div>`;
+  }).join("");
+}
+buildFilters();
+render();
+
+// Hero: a small seeded watercolor plan of overlapping plant footprints.
+(function paint() {
+  const cv = document.getElementById("bloom");
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  let seed = 21;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const css = getComputedStyle(document.documentElement);
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.dataset.theme !== "light" || document.documentElement.dataset.theme === "dark";
+  ctx.fillStyle = css.getPropertyValue("--card").trim() || "#fffffc";
+  ctx.fillRect(0, 0, W, H);
+  const hues = [[132, 30, 38], [140, 26, 46], [96, 30, 50], [330, 45, 60], [345, 50, 66], [44, 70, 60], [205, 35, 55], [280, 30, 62]];
+  function blob(x, y, r, h, alpha) {
+    for (let layer = 0; layer < 7; layer++) {
+      ctx.beginPath();
+      const pts = 18;
+      for (let i = 0; i <= pts; i++) {
+        const ang = (i / pts) * Math.PI * 2;
+        const rr = r * (0.82 + rnd() * 0.3);
+        const px = x + Math.cos(ang) * rr, py = y + Math.sin(ang) * rr;
+        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      }
+      ctx.closePath();
+      const l = dark ? Math.max(30, h[2] - 8) : h[2];
+      ctx.fillStyle = `hsla(${h[0] + (rnd() - .5) * 10}, ${h[1]}%, ${l + (rnd() - .5) * 8}%, ${alpha})`;
+      ctx.fill();
+    }
+  }
+  ctx.globalCompositeOperation = dark ? "screen" : "multiply";
+  // path
+  ctx.strokeStyle = dark ? "rgba(200,190,170,.18)" : "rgba(160,140,110,.22)";
+  ctx.lineWidth = 46; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(60, 600); ctx.bezierCurveTo(220, 470, 380, 520, 600, 300); ctx.stroke();
+  // trees
+  blob(190, 190, 120, hues[0], .07);
+  blob(470, 150, 95, hues[1], .07);
+  // shrubs
+  for (let i = 0; i < 6; i++) blob(80 + rnd() * 480, 260 + rnd() * 300, 40 + rnd() * 30, hues[2], .08);
+  // flower drifts
+  for (let i = 0; i < 70; i++) {
+    const h = hues[3 + Math.floor(rnd() * 5)];
+    const cx = 120 + rnd() * 420, cy = 300 + rnd() * 260;
+    blob(cx, cy, 10 + rnd() * 16, h, .12);
+  }
+  ctx.globalCompositeOperation = "source-over";
+})();
+</script>

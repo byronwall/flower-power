@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-06",
+  "model": "gpt-5.6-sol via codex exec $imagegen",
+  "style_block": "Use case: ui-mockup. A desktop web app (16:10, 1600x1000) for planning a home garden and yard, named \"Groundwork\". Audience: homeowners who love gardens; mood calm, crafted, botanical, premium. Clean dense application UI with thin 1px borders, small rounded corners (6px), subtle shadows only on floating panels. Palette: paper background #F6F3EC, panel white #FFFFFF, ink text #23302A, muted text #6B756E, leaf green #3F7A4A, sage #A9BFA3, terracotta accent #C8693F, stone gray #B8B2A6, sky #DDE7EA. Inter-like sans serif UI type, legible, short real English labels only, no lorem ipsum, no garbled text. Rich, beautiful garden imagery inside the canvas areas.",
+  "files": [
+    "01-capture-map.png",
+    "02-goals-gallery.png",
+    "03-plan-3d-time.png",
+    "04-futures-scenarios.png",
+    "05-render-styles.png",
+    "06-mobile-capture.png",
+    "07-native-swap.png",
+    "08-materials-library.png",
+    "09-garden-explainer.png",
+    "10-architect-portfolio.png"
+  ],
+  "note": "Per-screen prompts follow the style block; see TASK-0021 for what each screen shows."
+}

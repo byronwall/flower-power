@@ -1,0 +1,828 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Garden design app",
+    "slug": "garden-design-app",
+    "scale": "program",
+    "current_phase": "shape",
+    "last_updated": "2026-11-07",
+    "summary": "Desktop web app for Indiana homeowners: address and photos become an illustrated plan of the whole property; sun-aware AI designs; season and 5-year slider; a step-by-step planting and care plan.",
+    "status": "planned",
+    "next_action": "Run spikes S1, S5, S15, S2, then the first proof.",
+    "repo": "https://github.com/byronwall/flower-power"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "current",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "current",
+      "updated_at": "2026-11-07"
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "type": "transcript",
+      "location": "https://notes.apps.byroni.us/docs/cmw5cvu8200boqo1ycgm6cnd5",
+      "anchor": "voice memo 2026-11-06, 9 min",
+      "authority": "user"
+    },
+    {
+      "id": "Q1",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 1: audience and setting",
+      "authority": "user"
+    },
+    {
+      "id": "Q2",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 2: scope and starting points",
+      "authority": "user"
+    },
+    {
+      "id": "Q3",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 3: magic moment, output, control, device",
+      "authority": "user"
+    },
+    {
+      "id": "Q4",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 4: plants, grid, sun, Indiana, time slider",
+      "authority": "user"
+    },
+    {
+      "id": "Q5",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 5: themes, safety, overlap, annuals, sun orientation",
+      "authority": "user"
+    },
+    {
+      "id": "Q6",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 6: main look and saving",
+      "authority": "user"
+    },
+    {
+      "id": "Q7",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 7: sharing and public gallery",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "C1",
+        "statement": "Help people make landscaping decisions by storing property, plant, and goal data and turning it into visuals and simulations.",
+        "kind": "outcome",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "0:06",
+        "confidence": "high"
+      },
+      {
+        "id": "C2",
+        "statement": "Start from photos (own library, phone, or listing photos the user saves) plus the address and a scaled aerial view; build a map of the whole property: house, driveway, fences, beds, trees. Close-enough accuracy.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1",
+          "Q3"
+        ],
+        "anchor": "0:06",
+        "confidence": "high"
+      },
+      {
+        "id": "C3",
+        "statement": "Capture goals, budget, desired amount of change, and current satisfaction.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "0:06",
+        "confidence": "high"
+      },
+      {
+        "id": "C4",
+        "statement": "First user is a homeowner with a place for a garden: older, retired, and family people who open a URL; not Gen Z. Anne is the likely first real user. The first version is a product others can use, not only Anne's yard.",
+        "kind": "audience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "proof",
+        "sources": [
+          "S1",
+          "Q1"
+        ],
+        "anchor": "0:06, 2:26",
+        "confidence": "high"
+      },
+      {
+        "id": "C5",
+        "statement": "Professionals may get more value; making money is not a stated goal.",
+        "kind": "audience",
+        "commitment": "tentative",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "2:26",
+        "confidence": "medium"
+      },
+      {
+        "id": "C6",
+        "statement": "Must be highly visually appealing.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "3:01",
+        "confidence": "high"
+      },
+      {
+        "id": "C7",
+        "statement": "Gaussian splats from photos for 3D renders.",
+        "kind": "implementation hypothesis",
+        "commitment": "tentative",
+        "importance": "supporting",
+        "status": "deferred",
+        "horizon": "later",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "3:01",
+        "confidence": "medium"
+      },
+      {
+        "id": "C8",
+        "statement": "Understand time: seasons within a year and plant size out to about 5 years, especially trees. Monte Carlo weather runs are deferred.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1",
+          "Q4"
+        ],
+        "anchor": "3:01",
+        "confidence": "high"
+      },
+      {
+        "id": "C9",
+        "statement": "A 2D landscape-architect plan view is the editing surface.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "3:01",
+        "confidence": "high"
+      },
+      {
+        "id": "C10",
+        "statement": "Deep knowledge of materials: paths, stonework, fence styles, and their interaction with planting.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "3:01",
+        "confidence": "high"
+      },
+      {
+        "id": "C11",
+        "statement": "Scenarios and long-term plans (trees over 5-10 years).",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "5:06",
+        "confidence": "high"
+      },
+      {
+        "id": "C12",
+        "statement": "Maximize automation/AI: identify what exists, measure, suggest; user clicks through a gallery of proposals and mood-board elements.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "5:06",
+        "confidence": "high"
+      },
+      {
+        "id": "C13",
+        "statement": "Render styles: photoreal, artist (watercolor/isometric), playful game look; the game look is fun but likely not useful.",
+        "kind": "future possibility",
+        "commitment": "illustrative",
+        "importance": "peripheral",
+        "status": "deferred",
+        "horizon": "later",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "6:34",
+        "confidence": "medium"
+      },
+      {
+        "id": "C14",
+        "statement": "Garden explainer (e.g., Versailles over time) as a 3D historical tour.",
+        "kind": "future possibility",
+        "commitment": "tentative",
+        "importance": "peripheral",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "7:40",
+        "confidence": "medium"
+      },
+      {
+        "id": "C15",
+        "statement": "Public portfolio for landscape architects.",
+        "kind": "future possibility",
+        "commitment": "tentative",
+        "importance": "peripheral",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "S1"
+        ],
+        "anchor": "7:40",
+        "confidence": "medium"
+      },
+      {
+        "id": "C16",
+        "statement": "Whole-property landscaping around the house is the target; planning a small area alone must also work and look good.",
+        "kind": "scope",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C17",
+        "statement": "A person can start from a feeling or theme (peaceful, private, color), wildlife to attract, or safety needs (no thorns or toxic plants near kids and pets); the app turns it into plants and layout.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C18",
+        "statement": "The app reviews the current yard: what looks good, what does not, and which spots are empty.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C19",
+        "statement": "A reference photo of another garden can supply style elements to apply to the user property; the design stays anchored on the real property and borrowed ideas are labeled.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C20",
+        "statement": "The magical moment is seeing your own house and yard appear from photos and the address.",
+        "kind": "priority",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C21",
+        "statement": "Output: top-down plan (main), front view, current plus new plants and trees, and a step-by-step plan from now to the goal.",
+        "kind": "outcome",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C22",
+        "statement": "Beginners get 3 to 5 options, pick, and give feedback; experienced users give plants and ideas that act as constraints.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C23",
+        "statement": "Used on a desktop computer at home; photos come by drag and drop; a phone only takes photos.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C24",
+        "statement": "Visual plant gallery with filters for color and bloom time; drag plants onto the plan; every AI-placed plant can be moved, removed, replaced, or reworked by area.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C25",
+        "statement": "Sun and shade are central and must be modeled per area of the yard.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C26",
+        "statement": "Region, climate, and plants are limited to Indiana; start from about the top 100 Indiana plants.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C27",
+        "statement": "Step-by-step plan covers planting windows, care schedule, time to grow, sun, soil, popular and easy choices, annual vs perennial, and yearly lift-and-replant work.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C28",
+        "statement": "Time slider covers seasons within a year and extends to about 5 years.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C29",
+        "statement": "The 2D plan is not a square grid: plants overlap and have real footprints. A 3D isometric view is wanted if it can be made beautiful; plant visuals need research.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q5"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C30",
+        "statement": "Sun setup: address plus the direction the front door faces; show morning and afternoon shadows; user rotates until they look right; user can draw fence and property lines.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q5"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C31",
+        "statement": "Plant data includes lifespan, annual vs perennial, replanting effort, and low-effort options including artificial plants.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q5"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C32",
+        "statement": "Community use, such as the city of Fishers planning a peaceful public space, is a later direction enabled by being on the web.",
+        "kind": "future possibility",
+        "commitment": "explicit",
+        "importance": "peripheral",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "Q1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C33",
+        "statement": "Main look is a detailed watercolor illustration; each plant is painted with randomness so it looks organic; not photos.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C34",
+        "statement": "Dragging a plant out paints an area of that plant.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C35",
+        "statement": "A 3D pane beside the 2D plan updates at once with edits and the time slider, if it can be made fast enough.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C36",
+        "statement": "Accounts with email and password only, simplest database; no magic links or private links; people must not lose work; sharing projects is important.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C37",
+        "statement": "Later: simulate growth from seed to flower and plants that fill in or crowd out others.",
+        "kind": "future possibility",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "Q6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C38",
+        "statement": "Shared projects are view only.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q7"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C39",
+        "statement": "Public gallery: owners mark projects public; a zoomed-out wall of thumbnails where you zoom in to see other gardens.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q7"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "themes": [
+      "anchored on the real property",
+      "visual beauty",
+      "sun and shade",
+      "time and growth",
+      "AI proposals with full user control",
+      "actionable plan",
+      "Indiana first"
+    ],
+    "conflicts": [],
+    "human_questions": []
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "current",
+    "appetite": "One property type (suburban Indiana lot), one region, about 100 plants. Enough to show Anne her whole yard. Not a platform.",
+    "problem": "Homeowners cannot picture a garden on their own yard, across seasons and years, or know what to plant where and when.",
+    "recommended_shape": "Accounts with email and password; aerial-first capture with AI-marked features and photos for appearance; watercolor 2D plan with per-plant variation as the editor; live 3D pane from the same data; AI picks plants and areas while code places, spaces, and checks sun; season and 5-year slider driving both panes; plan output; sharing.",
+    "success_moves": [
+      "Measure from the aerial image and use photos for appearance; keep photo-to-3D reconstruction out of the first version.",
+      "Make beauty an illustration problem: watercolor plant art with seeded variation and one style guide, shared by the 2D plan and the 3D pane so the views always agree.",
+      "AI chooses plants, areas, and reasons; deterministic code does spacing, sun checks, and plant facts from a sourced data set.",
+      "Put each external service (aerial imagery, vision model, image generation) behind one narrow module with a saved-fixture version, so the prototype runs locally on one recorded property.",
+      "Every capture step has a manual fallback (draw outline, paint sun, place photos), so a failed AI step never blocks the flow."
+    ],
+    "first_proof": {
+      "question": "Can we turn a real Indiana address into a recognizable, beautiful illustrated plan, with 10 plants that change across 4 seasons and 5 years?",
+      "artifact": "Local web prototype for one real property: aerial base, AI-marked features with correction, 10 illustrated plants, time slider.",
+      "decision_rule": "If Byron and Anne recognize the yard after under 5 minutes of fixes and would show the plan to a friend, add the live 3D pane (S7), then designs and plan output. If the map fails, switch to guided drawing. If the art fails, finish S5 first."
+    },
+    "rabbit_holes": [
+      "Photo-to-3D reconstruction (Gaussian splats)",
+      "Photoreal per-plant 3D models and seasons",
+      "Imagery licensing that forbids tracing",
+      "AI-invented plant facts",
+      "Generalizing beyond Indiana or beyond suburban lots",
+      "Accounts and multi-device sync before the core view works"
+    ],
+    "open_decisions": [
+      "Proposed default: public gallery hides the address and aerial photo. Confirm."
+    ],
+    "spikes_doc": "spikes.md"
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-06",
+      "event": "Intent recovered from voice memo; brief drafted.",
+      "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Five question rounds absorbed; intent brief rewritten; artifacts moved from planning task into the flower-power repo.",
+      "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Shape brief and spike list written; first proof defined.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Round 6: watercolor look with variation, live two-pane 3D, email/password accounts with sharing. Shape and spikes updated.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Round 7: view-only sharing and a public gallery wall (S16).",
+      "phase": "shape"
+    }
+  ],
+  "closure": null,
+  "question_rounds": {
+    "rounds": [
+      {
+        "round": 1,
+        "theme": "audience and setting",
+        "source": "Q1",
+        "questions": [
+          {
+            "question": "Who opens the app first?",
+            "answer": "Homeowner with a garden spot; older, retired, family people who use URLs. City use (Fishers) later."
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "theme": "scope and starting points",
+        "source": "Q2",
+        "questions": [
+          {
+            "question": "One spot or the whole yard?",
+            "answer": "Whole-house landscaping; a small area must also work."
+          },
+          {
+            "question": "Design for a feeling?",
+            "answer": "Yes, plus wildlife themes, yard review, color themes, and reference images applied to my yard."
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "theme": "magic moment, output, control, device",
+        "source": "Q3",
+        "questions": [
+          {
+            "question": "Which moment must feel magical?",
+            "answer": "Photos in, your own house and yard appear; aerial view for scale; references clearly separate."
+          },
+          {
+            "question": "What does a person leave with?",
+            "answer": "Top-down and front views, current plus new plants, step-by-step plan."
+          },
+          {
+            "question": "How much does the app design?",
+            "answer": "Beginners pick from 3-5 options; experts give constraints."
+          },
+          {
+            "question": "Where is it used?",
+            "answer": "Desktop at home; phone only for photos."
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "theme": "accuracy, plan contents, time slider",
+        "source": "Q4",
+        "questions": [
+          {
+            "question": "How accurate must the map be?",
+            "answer": "Close enough to be reasonable."
+          },
+          {
+            "question": "What is in the step-by-step plan?",
+            "answer": "Planting windows, care, time to grow, sun, soil, popular and easy plants."
+          },
+          {
+            "question": "Is the time slider in v1?",
+            "answer": "Yes: seasons in a year and out to about 5 years."
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "theme": "grid vs render, sun source",
+        "source": "Q5",
+        "questions": [
+          {
+            "question": "Grid look or beautiful render?",
+            "answer": "Grid-like 2D is for editing but plants overlap, so not square cells; must be beautiful; 3D isometric if possible; plant visuals need research."
+          },
+          {
+            "question": "Where does sun and shade data come from?",
+            "answer": "Address and front-door direction; show morning and afternoon shadows; user rotates until right; user draws fence and property lines."
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "theme": "main look and saving",
+        "source": "Q6",
+        "questions": [
+          {
+            "question": "What should the main plan view look like?",
+            "answer": "Detailed watercolor illustration with randomness per plant so it feels organic; photos look repetitive. 3D after the 2D layout, ideally a live two-pane view synced with the slider."
+          },
+          {
+            "question": "How do people save and return?",
+            "answer": "Accounts with email and password only, simplest database; sharing is important; no private links."
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "theme": "sharing",
+        "source": "Q7",
+        "questions": [
+          {
+            "question": "Can a shared person edit?",
+            "answer": "View only for now. Also add a public gallery: mark projects public; zoomed-out small-multiples wall; zoom in to see a garden."
+          }
+        ]
+      }
+    ],
+    "status": "complete"
+  }
+}
