@@ -36,11 +36,13 @@ export async function checkPassword(pw: string, stored: string) {
   return timingSafeEqual(got, want);
 }
 
+export const writeUsers = (users: User[]) => writeFile(usersFile(), JSON.stringify(users, null, 2) + "\n");
+
 // Adds the user and gives them a copy of the sample lot to start from.
 export async function createUser(email: string, pw: string): Promise<User> {
   const users = await readUsers();
   const user = { id: randomUUID(), email, hash: await hashPassword(pw), created: new Date().toISOString() };
-  await writeFile(usersFile(), JSON.stringify([...users, user], null, 2) + "\n");
+  await writeUsers([...users, user]);
   const dir = join(dataDir(), "users", user.id);
   for (const sub of ["properties", "images", "ai-runs"]) await mkdir(join(dir, sub), { recursive: true });
   await copyFile(join(process.cwd(), "data/properties/sample-lot.json"), join(dir, "properties/sample-lot.json"));
