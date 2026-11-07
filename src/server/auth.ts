@@ -1,4 +1,5 @@
 import { createHmac, randomBytes, randomUUID, scrypt, timingSafeEqual } from "node:crypto";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
@@ -49,10 +50,25 @@ export async function createUser(email: string, pw: string): Promise<User> {
   return user;
 }
 
+// SESSION_SECRET when set. Otherwise the server makes one on first use and keeps it in the data folder,
+// so sessions survive restarts with nothing to configure.
+let secret: string | undefined;
+function sessionSecret() {
+  if (process.env.SESSION_SECRET) return process.env.SESSION_SECRET;
+  if (secret) return secret;
+  const file = join(dataDir(), "session-secret");
+  try {
+    secret = readFileSync(file, "utf8").trim();
+  } catch {
+    mkdirSync(dataDir(), { recursive: true });
+    secret = randomBytes(32).toString("hex");
+    writeFileSync(file, secret, { mode: 0o600 });
+  }
+  return secret;
+}
+
 function sign(id: string) {
-  const secret = process.env.SESSION_SECRET;
-  if (!secret) throw new Error("SESSION_SECRET is not set. Add it to .env.");
-  return createHmac("sha256", secret).update(id).digest("base64url");
+  return createHmac("sha256", sessionSecret()).update(id).digest("base64url");
 }
 
 export function sessionCookie(id: string) {
