@@ -92,6 +92,13 @@ Browser proof with a test user, in `tmp/proof-designs/1x-*.jpg`:
 
 The rebased branch rescores 8 of 8 with no calls.
 
-## Spend
+### 5. Rebased on main with 153 plants
 
-168 model calls in all: 5 smoke, 4 eval runs of 37, and 10 in the editor proof (two reviews and two sets of 4 designs). About 1.3M tokens. One set of 4 editor designs was lost to a hot reload before it was saved.
+The coworker's plant list import grew the library to 153 plants. The design prompt grew from about 19k to 27k characters.
+
+- 8 of 8 pass. 37 calls, 431k tokens (323k in, 108k out). Input tokens rose about 40% (from 230k); output stayed the same.
+- Survival 0.84 to 1.0. Mean overlap 0.03 to 0.18; max 0.38. Goal fit 0.95 to 1.0. No dial, hardscape, scope, or safety breaks.
+- Touched area: light 210 to 420 sq ft, refresh 580 to 1,890, redo 920 to 1,740, area rework 190 to 260.
+
+
+209 model calls in all: 5 smoke, 5 eval runs of 37, and 14 in the editor proof (two reviews and three sets of 4 designs, one set lost to a hot reload before it was saved). About 1.75M tokens.
