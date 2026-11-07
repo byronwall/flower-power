@@ -1,0 +1,530 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "AI assist: import, recommend, and plan",
+    "slug": "ai-assist",
+    "scale": "capability",
+    "current_phase": "plan",
+    "last_updated": "2026-11-07",
+    "summary": "Three AI jobs on one shared layer: image to property, current to goal recommendations as edit ops, and a code-led transition plan with AI phasing.",
+    "status": "planned",
+    "next_action": "Collect 3-5 real listings in tmp/listings/ and start M1.",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "transcript",
+      "location": "conversation",
+      "anchor": "Request to scope image import, recommendations, and transition plans",
+      "authority": "user"
+    },
+    {
+      "id": "R1",
+      "type": "repo",
+      "location": "src/model/property.ts",
+      "anchor": "propertySchema, existing flag",
+      "authority": "repo"
+    },
+    {
+      "id": "R2",
+      "type": "repo",
+      "location": "src/model/plant.ts",
+      "anchor": "plantingMonths, care, effort, liftAndStore, verified",
+      "authority": "repo"
+    },
+    {
+      "id": "R3",
+      "type": "repo",
+      "location": "src/editor/state.ts",
+      "anchor": "update, add, remove, updateItem, newId",
+      "authority": "repo"
+    },
+    {
+      "id": "R4",
+      "type": "repo",
+      "location": "src/components/PlanView.tsx",
+      "anchor": "overlay slot; no image underlay",
+      "authority": "repo"
+    },
+    {
+      "id": "D1",
+      "type": "doc",
+      "location": "../property-capture/intent-brief.md",
+      "anchor": "fix in under 5 minutes; no step blocks the flow",
+      "authority": "user"
+    },
+    {
+      "id": "D2",
+      "type": "doc",
+      "location": "../design-assistant/intent-brief.md",
+      "anchor": "AI picks plants, areas, reasons; code does spacing and sun",
+      "authority": "user"
+    },
+    {
+      "id": "D3",
+      "type": "doc",
+      "location": "../garden-plan/intent-brief.md",
+      "anchor": "plan comes from design and plant facts; no invented facts",
+      "authority": "user"
+    },
+    {
+      "id": "A1",
+      "type": "doc",
+      "location": "claude-api skill",
+      "anchor": "messages.parse + zodOutputFormat; forced tool_choice 400 on Opus/Sonnet 5.5; high-res image 1:1 pixel coords",
+      "authority": "inferred"
+    },
+    {
+      "id": "Q1-4",
+      "type": "qa",
+      "location": "conversation",
+      "anchor": "question rounds 1-4",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "C1",
+        "statement": "Import an image of the yard into a property file the editor opens.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1",
+          "D1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C2",
+        "statement": "Recommend changes from the existing layout to a desired layout.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1",
+          "D2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C3",
+        "statement": "Produce a plan to get from the current yard to the goal.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1",
+          "D3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C4",
+        "statement": "AI output is edit ops on one property, accepted per op as one undo step.",
+        "kind": "implementation hypothesis",
+        "commitment": "inferred",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "R3"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "id": "C5",
+        "statement": "Plan months and care come only from plant data; AI orders and explains.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "D3",
+          "R2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C6",
+        "statement": "Import takes an aerial screenshot plus listing or phone photos with zero clicks; the person confirms one size after.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q1-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C7",
+        "statement": "Recommendations come as 3-5 designs with a change dial; all designs are kept.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q1-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C8",
+        "statement": "AI runs hosted on Coolify with one API key and basic usage controls.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q1-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "C9",
+        "statement": "Transition plan is taken once and phased by season and year.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q1-4"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "themes": [
+      "current vs goal state",
+      "AI judges, code checks",
+      "results land in the editor"
+    ],
+    "conflicts": [
+      {
+        "id": "K1",
+        "statement": "Recommendations must not place plants where they cannot grow, but no per-area sun class exists yet.",
+        "sources": [
+          "D2",
+          "R1"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "Q11 one goal per file vs Q13 keep all designs; resolved by storing designs as op lists on the property (proposal, needs confirmation).",
+        "sources": [
+          "Q1-4"
+        ]
+      }
+    ],
+    "human_questions": []
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "draft",
+    "appetite": "Three thin jobs on one shared layer; each useful alone; no streaming, chat, or accounts.",
+    "problem": "Hand drawing a yard and hand designing it is the blank-canvas work the product must avoid.",
+    "recommended_shape": "Shared server AI layer with small zod schemas and saved runs; image import from overhead screenshot plus one size; recommendations as edit ops with ghost overlay; transition plan as code diff plus AI phasing.",
+    "success_moves": [
+      "Edit ops instead of whole properties, mapped to existing editor operations.",
+      "Saved runs double as a fake (AI_FAKE=1) so UI work needs no live calls.",
+      "Closed task list from code; AI may only order and explain task ids within allowed months.",
+      "Pixel coordinates from the model, converted to feet by code from one known size.",
+      "Small AI-only schemas with plant ids as an enum; propertySchema validation after mapping."
+    ],
+    "first_proof": {
+      "question": "Can a vision model turn an aerial screenshot plus listing photos into a lot plan that is fixable in under 5 minutes with zero clicks?",
+      "artifact": "scripts/import-image.ts on 3-5 real listings, writing data/properties/import-*.json",
+      "decision_rule": "Under 5 minutes keeps zero-click import; over 5 adds click-the-corners before the AI pass."
+    },
+    "rabbit_holes": [
+      "Address-to-aerial licensing (S1)",
+      "Species naming from aerial images",
+      "Sun model inside recommendations"
+    ],
+    "open_decisions": [
+      {
+        "id": "O1",
+        "question": "Daily spend cap for hosted AI."
+      },
+      {
+        "id": "O2",
+        "question": "Is a shared passcode enough before accounts exist?"
+      }
+    ]
+  },
+  "implementation": {
+    "status": "planned",
+    "repository_snapshot": {
+      "root": "/Users/byronwall/Projects/flower-power",
+      "revision": "bfdc8d7",
+      "worktree_status": "clean",
+      "subsystems": [
+        "src/model",
+        "src/editor",
+        "src/components/PlanView.tsx",
+        "src/routes/api"
+      ],
+      "test_commands": [
+        "pnpm test",
+        "pnpm typecheck"
+      ],
+      "deployment_surfaces": [
+        "Coolify"
+      ]
+    },
+    "dependencies": [
+      {
+        "id": "claude",
+        "name": "Anthropic API",
+        "first_proof_role": "real",
+        "seam": "src/ai/client.ts run(feature, request)",
+        "proof_strategy": "vitest on pure code; live script runs saved as runs; AI_FAKE replay for UI; one hosted smoke per feature"
+      },
+      {
+        "id": "coolify",
+        "name": "Coolify hosting + volume",
+        "first_proof_role": "absent",
+        "seam": "DATA_DIR env",
+        "proof_strategy": "M3 deploy with redeploy-survival and cap checks"
+      }
+    ],
+    "fast_local_loop": {
+      "command": "pnpm tsx scripts/import.ts tmp/listings/<name>",
+      "also": "pnpm test; AI_FAKE=1 pnpm dev",
+      "network": "Anthropic API for the script only"
+    },
+    "milestones": [
+      {
+        "id": "m1",
+        "title": "Listing becomes a plan you can fix over the photo",
+        "status": "planned"
+      },
+      {
+        "id": "m2",
+        "title": "Import from the app with a one-size fix",
+        "status": "planned"
+      },
+      {
+        "id": "m3",
+        "title": "Hosted on Coolify with cost controls",
+        "status": "planned"
+      },
+      {
+        "id": "m4",
+        "title": "3-5 designs kept on the property",
+        "status": "planned"
+      },
+      {
+        "id": "m5",
+        "title": "Printable phased transition plan",
+        "status": "planned"
+      }
+    ],
+    "cut_line": [
+      "Address lookup (S1), next after M2",
+      "Click-the-corners unless M1 fails",
+      "Photo self-placement",
+      "Streaming and chat refinement",
+      "Task tracking, reminders, step-through, costs",
+      "Per-user quotas and accounts"
+    ],
+    "open_decisions": [
+      {
+        "id": "P1",
+        "question": "AI_DAILY_USD value",
+        "fallback": "$5/day"
+      },
+      {
+        "id": "P2",
+        "question": "Passcode enough before accounts?",
+        "fallback": "Keep passcode"
+      },
+      {
+        "id": "P3",
+        "question": "Sun check in designs",
+        "fallback": "Label sun unchecked"
+      }
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "change": "Created from four parallel scoping passes (import, recommend, plan, shared AI layer)."
+    },
+    {
+      "date": "2026-11-07",
+      "change": "Recorded 15 answers across 4 rounds; rewrote intent and shape briefs."
+    },
+    {
+      "date": "2026-11-07",
+      "change": "Wrote implementation plan: M1 script import + underlay, M2 app import, M3 hosting and cost controls, M4 designs as ops with shared diff, M5 phased plan."
+    }
+  ],
+  "closure": null,
+  "question_rounds": {
+    "focus": "scope of the three AI jobs",
+    "per_round": 4,
+    "planned_rounds": 4,
+    "status": "complete",
+    "rounds": [
+      {
+        "round": 1,
+        "theme": "goals and stakes",
+        "source": "qa-round-1",
+        "questions": [
+          {
+            "n": 1,
+            "question": "Which job first?",
+            "answer": "Image import",
+            "effect": "First proof is import."
+          },
+          {
+            "n": 2,
+            "question": "Audience?",
+            "answer": "User images; Zillow as demo case",
+            "effect": "Listing photos are a v1 input."
+          },
+          {
+            "n": 3,
+            "question": "Inputs?",
+            "answer": "Overhead screenshot, phone photos, address only",
+            "effect": "Multi-image import; address deferred in Q7."
+          },
+          {
+            "n": 4,
+            "question": "Clicks before result?",
+            "answer": "Zero clicks",
+            "effect": "AI estimates scale."
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "theme": "import behavior",
+        "source": "qa-round-2",
+        "questions": [
+          {
+            "n": 5,
+            "question": "Zillow role?",
+            "answer": "Multiple images as context including an aerial for scale",
+            "effect": "One call with aerial plus photos."
+          },
+          {
+            "n": 6,
+            "question": "Scale fix?",
+            "answer": "Confirm one size after",
+            "effect": "Labeled size, rescale all."
+          },
+          {
+            "n": 7,
+            "question": "Address in v1?",
+            "answer": "Screenshot first",
+            "effect": "Address lookup next after v1."
+          },
+          {
+            "n": 8,
+            "question": "Plant naming?",
+            "answer": "Best library match",
+            "effect": "Guess flag on matched plants."
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "theme": "designs and plan",
+        "source": "qa-round-3",
+        "questions": [
+          {
+            "n": 9,
+            "question": "Recommendation shape?",
+            "answer": "3-5 designs first",
+            "effect": "Parallel designs with stances."
+          },
+          {
+            "n": 10,
+            "question": "Boldness?",
+            "answer": "Person sets a dial",
+            "effect": "light/refresh/redo; trees removed only on redo."
+          },
+          {
+            "n": 11,
+            "question": "Goal state?",
+            "answer": "Same file, per-item status",
+            "effect": "One file."
+          },
+          {
+            "n": 12,
+            "question": "Plan use?",
+            "answer": "Take it once",
+            "effect": "Printable, no task state."
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "theme": "confirmation and hosting",
+        "source": "qa-round-4",
+        "questions": [
+          {
+            "n": 13,
+            "question": "Designs temporary?",
+            "answer": "Keep the others",
+            "effect": "Conflict with Q11 resolved: designs stored as op lists on the property."
+          },
+          {
+            "n": 14,
+            "question": "Hosting?",
+            "answer": "Hosted with an API key; basic usage controls",
+            "effect": "Passcode gate, daily cap, persistent volume."
+          },
+          {
+            "n": 15,
+            "question": "Multi-year phasing?",
+            "answer": "Yes",
+            "effect": "Phases by season and year."
+          }
+        ]
+      }
+    ]
+  }
+}
