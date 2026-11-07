@@ -9,7 +9,7 @@ Flower Power is a garden planner for Indiana homeowners. Start from photos of yo
 
 ## What works now
 
-- **Start from photos.** Drop in a top-down aerial and a front photo. The AI (OpenAI `gpt-6.1-terra`) traces the house, lot, beds, fences and trees, and guesses which plants are there. You fix one size and confirm the guesses.
+- **Start from photos.** Drop a top-down aerial and a front photo on one page, and pick which one is the aerial. The AI (OpenAI `gpt-6.1-terra`) traces the house, lot, beds, fences and trees, and guesses which plants are there. You fix one size and confirm the guesses.
 - **Edit the plan.** A watercolor plan you can draw on: plants, rows, filled areas, beds, paths, fences and structures, with undo.
 - **See it change.** Seasons, months, and years 1 to 5, in 2D, 3D, or side by side.
 - **Sun and shade.** A sun model gives hours of direct sun for every 2 ft square: full sun, part sun or shade.
@@ -23,6 +23,8 @@ Flower Power is a garden planner for Indiana homeowners. Start from photos of yo
 | ![Design ideas](docs/hackathon/screens/design-cards.jpg) | ![Side by side](docs/hackathon/screens/side-by-side.jpg) |
 
 ![Gallery](docs/hackathon/screens/gallery.jpg)
+
+![New from photos](docs/hackathon/screens/new-from-photos.jpg)
 
 ## How it fits together
 

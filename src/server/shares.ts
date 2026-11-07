@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { toPublic } from "../gallery/publish";
 import { propertySchema, type Property } from "../model/property";
 import { dataDir } from "./auth";
 
@@ -37,14 +38,14 @@ export async function shareOff(userId: string, propertyId?: string) {
   await writeShares(Object.fromEntries(keep));
 }
 
-// The shared property without its aerial, so a share never shows where the owner lives.
+// The plan the owner sees, with the active design applied. Like the gallery, it leaves out the aerial
+// (so a share never shows where the owner lives) and the design ideas.
 export async function sharedProperty(token: string): Promise<Property | null> {
   const s = (await readShares())[token];
   if (!s) return null;
   try {
     const file = join(dataDir(), "users", s.userId, "properties", `${s.propertyId}.json`);
-    const { underlay, ...rest } = propertySchema.parse(JSON.parse(await readFile(file, "utf8")));
-    return rest;
+    return toPublic(propertySchema.parse(JSON.parse(await readFile(file, "utf8"))));
   } catch {
     return null;
   }

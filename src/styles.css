@@ -1117,25 +1117,8 @@ polyline.sel-line {
   border-bottom: 1px solid var(--line);
 }
 
-.view-bar .time-cards {
-  margin: 0 auto;
-}
-
 .plan-wrap {
   container-type: inline-size;
-}
-
-/* When the plan area is narrow, the time cards take their own row under the view switch. */
-@container (max-width: 1120px) {
-  .view-bar .view-cards {
-    margin-right: auto;
-  }
-  .view-bar .time-cards {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
 }
 
 .card-group {
@@ -1432,49 +1415,6 @@ polyline.sel-line {
 
 /* ===================== 100x craft pass ===================== */
 
-/* View bar: row 1 is panels, view and year; row 2 is season and month. One row when there is room. */
-.view-bar {
-  gap: 6px 8px;
-  padding: 6px 10px;
-}
-
-.view-bar .year-cards {
-  margin-left: auto;
-}
-
-.bar-row {
-  order: 10;
-  flex-basis: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.bar-row .time-cards {
-  margin: 0;
-  gap: 8px;
-}
-
-@container (min-width: 1240px) {
-  .bar-row {
-    order: 0;
-    flex-basis: auto;
-    flex: 1;
-  }
-  .view-bar .year-cards {
-    margin-left: 0;
-  }
-}
-
-@container (max-width: 1120px) {
-  .view-bar .view-cards {
-    margin-right: 0;
-  }
-  .view-bar .time-cards {
-    order: 0;
-    width: auto;
-  }
-}
-
 .view-bar .view-card,
 .view-bar .time-card,
 .view-bar .year-card,
@@ -1494,17 +1434,6 @@ polyline.sel-line {
 
 .view-bar .year-card {
   width: 30px;
-}
-
-/* Narrow plans: view cards show only their icons (names stay in the tooltip and label). */
-@container (max-width: 620px) {
-  .view-name {
-    display: none;
-  }
-  .view-card {
-    width: 34px;
-    padding: 0;
-  }
 }
 
 /* Side by side stacks 2D over 3D when each half would be too thin. */
@@ -2011,25 +1940,41 @@ b {
   cursor: pointer !important;
 }
 
+/* Weather only changes the 2D plan, so it sits on the plan under the zoom controls. */
 .weather-cards {
-  padding-left: 8px;
-  border-left: 1px solid var(--line);
+  position: absolute;
+  top: 54px;
+  right: 12px;
+  z-index: 2;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
 }
 
-.view-bar .weather-card {
-  width: 32px;
+.weather-card {
+  width: 34px;
+  height: 32px;
   padding: 0;
+  border-radius: 0;
+  margin-top: -1px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: none;
+}
+
+.weather-card:first-child {
+  margin-top: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.weather-card:last-child {
+  border-radius: 0 0 8px 8px;
 }
 
 .weather-card[aria-checked="true"] {
   background: #eef3f8;
   border-color: #6f8ea3;
   color: #3e5a6c;
-}
-
-.bar-row {
-  gap: 8px;
-  align-items: center;
 }
 
 /* ===================== Animated tour ===================== */
@@ -2677,9 +2622,6 @@ b {
   .app {
     grid-template-columns: minmax(0, 1fr);
   }
-  .bar-row {
-    flex-wrap: wrap;
-  }
   /* Side by side has no room on a phone, so the 3D view goes under the plan instead. */
   .views.split {
     flex-direction: column;
@@ -2703,17 +2645,6 @@ b {
   .app-bar > .user-menu {
     order: 1;
     margin-left: auto;
-  }
-  .app-bar .toolbar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    max-width: 100%;
-    margin-left: 0;
-    padding-bottom: 2px;
-    scrollbar-width: none;
-  }
-  .app-bar .toolbar > * {
-    flex: none;
   }
 }
 
@@ -3336,4 +3267,103 @@ b {
   font-size: 13px;
   color: var(--muted);
   min-height: 4.2em; /* three lines, so the panel never jumps between scenes */
+}
+
+/* ===================== Laptop fit ===================== */
+/* The header holds only app and file actions, so it stays on one row. */
+.app-bar {
+  flex-wrap: nowrap;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.app-bar > .user-menu {
+  margin-left: auto;
+}
+
+/* Drawing tools float as a rail on the plan they draw on. */
+.plan-view .toolbar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  width: 120px;
+  margin: 0;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.plan-view .toolbar-sep,
+.plan-view .toolbar-label {
+  display: none;
+}
+
+.plan-view .toolbar select,
+.plan-view .toolbar .tool-select {
+  width: 100%;
+  height: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-view .toolbar .tool-select {
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0 11px;
+}
+
+.plan-view .toolbar .tool-select-label {
+  display: inline;
+}
+
+/* View bar: one row of view, year and season. Labels fold to icons as the plan narrows. */
+.view-bar {
+  gap: 6px;
+  padding: 6px 10px;
+}
+
+.view-bar > .time-cards {
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.view-bar > .ideas-toggle {
+  margin-left: auto;
+}
+
+@container (max-width: 1000px) {
+  .season-name,
+  .ideas-active {
+    display: none;
+  }
+  .view-bar .time-card {
+    width: 32px;
+    padding: 0;
+  }
+}
+
+@container (max-width: 860px) {
+  .view-name,
+  .ideas-label {
+    display: none;
+  }
+  .view-card {
+    width: 34px;
+    padding: 0;
+  }
+  .view-bar .ideas-toggle {
+    width: 34px;
+    padding: 0;
+  }
+}
+
+@container (max-width: 760px) {
+  .year-cards .card-label {
+    display: none;
+  }
+  .view-bar .month-chip {
+    min-width: 34px;
+    padding: 0 6px;
+  }
 }

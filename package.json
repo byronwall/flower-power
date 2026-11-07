@@ -10,7 +10,10 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "demo:setup": "tsx demo/setup.ts",
+    "demo": "DATA_DIR=demo/data vinxi dev --port 3300",
+    "demo:offline": "AI_FAKE=1 DATA_DIR=demo/data vinxi dev --port 3300"
   },
   "packageManager": "pnpm@11.9.0",
   "dependencies": {
