@@ -19,7 +19,7 @@ node workers "Worker sessions" in=fan color=blue shade=200 count=6
 node codex "Codex: 95 plants" in=fan color=teal shade=200
 node mates "Teammates on main" in=fan color=amber shade=200 count=2
 
-node live "Live · 11 PRs" color=green shade=500 shape=pill
+node live "Live · 15 PRs" color=green shade=500 shape=pill
 
 legend amber "People" shade=200
 legend blue "Claude Code" shade=200

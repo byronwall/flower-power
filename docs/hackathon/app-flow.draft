@@ -8,11 +8,10 @@ node plan "Plan file" color=green shade=500 shape=pill
 node views "2D, 3D, seasons, years" color=green shade=200
 node sun "Sun hours" color=green shade=200
 node goals "Your goals"
-node design "3–5 designs" color=amber shade=200
+node design "3–5 designs" color=green shade=200
 node steps "Planting steps" color=stone shade=200
 
 legend green "Built" shade=200
-legend amber "On a branch" shade=200
 legend violet "OpenAI" shade=200
 legend stone "Next" shade=200
 
