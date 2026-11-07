@@ -389,3 +389,73 @@
   font-weight: 600;
   color: var(--moss-dark);
 }
+
+/* New from photos: drop zone and picked images. */
+.drop {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  margin: 16px 0;
+  padding: 48px 16px;
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+  cursor: pointer;
+  text-align: center;
+}
+.drop:hover,
+.drop.over {
+  border-color: var(--moss);
+  background: var(--moss-soft);
+}
+.drop-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.drop-list li {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.drop-list li.aerial {
+  border-color: var(--moss);
+  box-shadow: 0 0 0 1px var(--moss);
+}
+.drop-list img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--paper);
+}
+.drop-meta {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px 10px;
+}
+.drop-role {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.aerial .drop-role {
+  color: var(--moss-dark);
+}
+.drop-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.drop-actions {
+  display: flex;
+  gap: 6px;
+}
+.drop-go {
+  justify-content: flex-end;
+}

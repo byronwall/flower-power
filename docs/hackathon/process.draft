@@ -1,0 +1,40 @@
+diagram "How we built Flower Power in one day" version=1
+subtitle "Decide first, then build in parallel"
+
+group night "Night before" color=slate
+node memo "Voice memo" in=night
+node mocks "Mockups" in=night
+
+group decide "11:00 · Decide" color=slate
+node rounds "5 question rounds" in=decide color=amber shade=200
+node brief "Brief + 17 spikes" in=decide
+
+group first "12:10 · First build" color=slate
+node stack "4 PRs: model, render, edit, gallery" in=first color=blue shade=200
+node deploy "Deploy" in=first color=teal shade=200
+
+group fan "13:30 · Fan out" color=slate
+node coord "Coordinator" in=fan color=blue shade=400
+node workers "Worker sessions" in=fan color=blue shade=200 count=6
+node codex "Codex: 95 plants" in=fan color=teal shade=200
+node mates "Teammates on main" in=fan color=amber shade=200 count=2
+
+node live "Live · 15 PRs" color=green shade=500 shape=pill
+
+legend amber "People" shade=200
+legend blue "Claude Code" shade=200
+legend teal "Codex" shade=200
+legend green "Live"
+
+edge a memo -> mocks
+edge b mocks -> rounds
+edge c rounds -> brief
+edge d brief -> stack
+edge e stack -> deploy
+edge f deploy -> coord
+edge g coord -> workers "briefs"
+edge h workers -> live
+edge i codex -> live
+edge j mates -> live
+
+layout root flow direction=right fold=never gap=40

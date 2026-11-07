@@ -148,9 +148,12 @@ function Planner(props: PlannerProps) {
       // Storage may be blocked; panels still work for this visit.
     }
   });
-  // Opening something to look at brings its panel back.
+  // Opening something to look at brings its panel back. On laptop widths the panel
+  // closes again once nothing is open, so the plan gets that room back.
+  const compact = () => typeof window !== "undefined" && window.innerWidth <= 1280;
   createEffect(() => {
     if (ed.selected() || preview()) setShowDetails(true);
+    else if (compact()) setShowDetails(false);
   });
   // Selecting something on the plan replaces a gallery preview.
   createEffect(() => {
@@ -166,7 +169,7 @@ function Planner(props: PlannerProps) {
       ed.setDirty(false);
       setStatus("Saved");
       // A public design shows its latest saved version in the gallery.
-      if (store.isPublic(ed.property().id)) store.publish(ed.property());
+      if (store.isPublic(p.id)) store.publish(p);
     } catch (e) {
       setStatus((e as Error).message);
     }
@@ -199,7 +202,7 @@ function Planner(props: PlannerProps) {
       props.onSaved(p);
       store.noteCopy(id, { id: copy.from.id, title: copy.from.title });
     }
-    ed.load(p);
+    ds.open(p);
     setScaleBasis(null);
     setStatus("");
     setParams({ view: undefined, tab: undefined, garden: undefined });
@@ -372,9 +375,6 @@ function Planner(props: PlannerProps) {
             </Show>
           </span>
         </div>
-        <Show when={!inGallery()}>
-          <Toolbar editor={ed} />
-        </Show>
         <UserMenu me={props.me} compact />
       </header>
       <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails(), hidden: inGallery() }}>
@@ -432,11 +432,12 @@ function Planner(props: PlannerProps) {
               </For>
             </div>
             <TimeBar part="year" time={time()} onChange={setTime} />
+            <TimeBar part="season" time={time()} onChange={setTime} />
             <button type="button" class="ideas-toggle" aria-pressed={showIdeas()} onClick={() => setShowIdeas(!showIdeas())} title="Goals, a review of your yard, and design ideas">
               <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
                 <path d="M8 1.5l1.5 4 4 1.5-4 1.5L8 12.5l-1.5-4-4-1.5 4-1.5zM13 11l.6 1.4L15 13l-1.4.6L13 15l-.6-1.4L11 13l1.4-.6z" fill="currentColor" />
               </svg>
-              Design ideas
+              <span class="ideas-label">Design ideas</span>
               <Show when={ds.active()}>
                 {(a) => <span class="ideas-active">· {a().name}</span>}
               </Show>
@@ -451,28 +452,6 @@ function Planner(props: PlannerProps) {
             >
               <PanelIcon side="right" />
             </button>
-            <div class="bar-row">
-              <TimeBar part="season" time={time()} onChange={setTime} />
-              <div class="card-group weather-cards" role="radiogroup" aria-label="Weather on the plan">
-                <For each={WEATHERS}>
-                  {(w) => (
-                    <button
-                      type="button"
-                      role="radio"
-                      class="time-card weather-card"
-                      aria-checked={weather() === w.id}
-                      aria-label={w.name}
-                      title={`${w.name} on the 2D plan`}
-                      onClick={() => setWeather(w.id)}
-                    >
-                      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                        <path d={w.icon} />
-                      </svg>
-                    </button>
-                  )}
-                </For>
-              </div>
-            </div>
           </div>
           <Show when={importError()}>
             <div class="import-banner error" role="alert">
@@ -493,6 +472,7 @@ function Planner(props: PlannerProps) {
                 time={time()}
                 weather={weather()}
                 photoOpacity={photo().on ? photo().opacity : 0}
+                padX={[140, 60]}
                 overlay={(view) => (
                   <>
                     <Ghost base={ed.property()} ops={ds.active()?.pending ?? []} scope={scope() ?? (showIdeas() ? ds.active()?.scope : undefined)} hover={hoverOp()} review={showIdeas() ? ds.review() : null} />
@@ -521,7 +501,27 @@ function Planner(props: PlannerProps) {
                   if (plant) ed.add("plantings", droppedPlanting(ed.property(), plant, at));
                 }}
               >
+                <Toolbar editor={ed} />
                 <ModeBanner editor={ed} />
+                <div class="card-group weather-cards" role="radiogroup" aria-label="Weather on the plan">
+                  <For each={WEATHERS}>
+                    {(w) => (
+                      <button
+                        type="button"
+                        role="radio"
+                        class="time-card weather-card"
+                        aria-checked={weather() === w.id}
+                        aria-label={w.name}
+                        title={`${w.name} on the 2D plan`}
+                        onClick={() => setWeather(w.id)}
+                      >
+                        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                          <path d={w.icon} />
+                        </svg>
+                      </button>
+                    )}
+                  </For>
+                </div>
               </PlanView>
             </div>
             <Show when={used3d()}>

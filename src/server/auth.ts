@@ -1,6 +1,6 @@
 import { createHmac, randomBytes, randomUUID, scrypt, timingSafeEqual } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import { z } from "zod";
@@ -48,9 +48,29 @@ export async function createUser(email: string, pw: string, profile: Profile = {
   const users = await readUsers();
   const user: User = { id: randomUUID(), email, hash: await hashPassword(pw), created: new Date().toISOString(), ...profile };
   await writeUsers([...users, user]);
-  const dir = join(dataDir(), "users", user.id);
+  await freshFolder(user.id);
+  return user;
+}
+
+// Empties data/users/<id> and puts the sample lot back.
+async function freshFolder(id: string) {
+  const dir = join(dataDir(), "users", id);
+  await rm(dir, { recursive: true, force: true });
   for (const sub of ["properties", "images", "ai-runs"]) await mkdir(join(dir, sub), { recursive: true });
   await copyFile(join(process.cwd(), "data/properties/sample-lot.json"), join(dir, "properties/sample-lot.json"));
+}
+
+// The shared demo account. The password is public on purpose: see demo/README.md.
+export const DEMO = { email: "demo@flower.test", password: "flowerdemo" };
+
+// Each demo login starts clean: the account is made if it is missing, and its files go back to the sample lot.
+export async function resetDemo(): Promise<User> {
+  const users = await readUsers();
+  const old = users.find((u) => u.email === DEMO.email);
+  if (!old) return createUser(DEMO.email, DEMO.password, { name: "Demo Gardener", avatar: "sunflower" });
+  const user = { ...old, hash: await hashPassword(DEMO.password) };
+  await writeUsers(users.map((u) => (u === old ? user : u)));
+  await freshFolder(user.id);
   return user;
 }
 

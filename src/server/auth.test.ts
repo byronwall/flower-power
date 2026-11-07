@@ -74,3 +74,17 @@ it("keeps an avatar and name on the account, and lets the person change them", a
   // A made-up avatar never blocks signing up.
   expect(await (await call(register.POST, { email: "dee@example.com", password: "password-d", avatar: "dragon" })).json()).toMatchObject({ avatar: null });
 });
+
+it("makes the demo account on first login and resets it on each login", async () => {
+  const creds = { email: "demo@flower.test", password: "flowerdemo" };
+  const first = await call(login.POST, creds);
+  expect(first.status).toBe(200);
+  const demo = cookieOf(first);
+  const [sample] = await (await call(list.GET, undefined, demo)).json();
+  await call(one.POST, { ...sample, id: "demo-yard", name: "Demo yard" }, demo, { id: "demo-yard" });
+  expect(await ids(await call(list.GET, undefined, demo))).toEqual(["demo-yard", "sample-lot"]);
+
+  const again = await call(login.POST, creds);
+  expect((await again.json()).id).toBe((await first.clone().json()).id);
+  expect(await ids(await call(list.GET, undefined, cookieOf(again)))).toEqual(["sample-lot"]);
+});
