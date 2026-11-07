@@ -63,7 +63,11 @@ Trace:
 - plants: each tree or large shrub, at its trunk or crown center. Pick the closest match from the plant list, by category first, then by look.
 - beds: planting beds along the house and elsewhere, each with the closest match for its main plant.
 
-Use 4 to 12 points per outline. Skip anything you cannot see. Do not invent features.
+Aerials are often taken in early spring, with bare trees. A bare tree shows as a gray web of branches and a long branch shadow. Count it as a tree.
+Fences are thin lines and are easy to miss. When a listing photo shows a fence, find its line in the aerial and trace it.
+Use the listing photos to confirm trees, fences, and beds, then place each one where it is in the aerial.
+
+Use 4 to 12 points per outline. Skip anything that neither the aerial nor the photos show. Do not invent features.
 
 Plant list (id: name, category):
 ${plants.map((p) => `${p.id}: ${p.commonName}, ${p.category}`).join("\n")}`;

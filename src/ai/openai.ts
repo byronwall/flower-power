@@ -21,7 +21,7 @@ function key() {
   return k;
 }
 
-export const model = () => process.env.OPENAI_MODEL || "gpt-5.5";
+export const model = () => process.env.OPENAI_MODEL || "gpt-6.1-terra";
 
 export async function respond<T>(req: { feature: string; instructions: string; parts: Part[]; schema: object; files?: Record<string, Buffer> }) {
   const body = {

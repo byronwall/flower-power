@@ -4,11 +4,11 @@
     "title": "AI assist: import, recommend, and plan",
     "slug": "ai-assist",
     "scale": "capability",
-    "current_phase": "plan",
+    "current_phase": "execution",
     "last_updated": "2026-11-07",
     "summary": "Three AI jobs on one shared layer: image to property, current to goal recommendations as edit ops, and a code-led transition plan with AI phasing.",
-    "status": "planned",
-    "next_action": "Collect 3-5 real listings in tmp/listings/ and start M1.",
+    "status": "active",
+    "next_action": "Byron tries /dev/import and times a fix; then M2 (upload in main app).",
     "parent": "../garden-design-app"
   },
   "artifacts": {
@@ -337,7 +337,10 @@
       {
         "id": "m1",
         "title": "Listing becomes a plan you can fix over the photo",
-        "status": "planned"
+        "status": "active",
+        "evidence": [
+          "Script + dev page /dev/import on gpt-6.1-terra (OpenAI, per Byron). Eval on 2 Zillow 46220 lots: 10 of 10 runs pass after prompt tune; scale err 2-15%, house IoU 0.80-0.99, lot area err 6-17%. Fix-time check over photo not yet done."
+        ]
       },
       {
         "id": "m2",
@@ -398,6 +401,10 @@
     {
       "date": "2026-11-07",
       "change": "Wrote implementation plan: M1 script import + underlay, M2 app import, M3 hosting and cost controls, M4 designs as ops with shared diff, M5 phased plan."
+    },
+    {
+      "date": "2026-11-07",
+      "change": "Switched provider to OpenAI gpt-6.1-terra at Byron request; built M1 import, eval, and dev page."
     }
   ],
   "closure": null,

@@ -8,7 +8,7 @@ import { model } from "../src/ai/openai";
 // Runs the image import on each listing in tmp/listings that has a truth.json, scores it, and writes an overlay page.
 // Usage: pnpm tsx scripts/eval-import.ts [--runs 2] [listing ...]
 
-type Truth = { name: string; ftPerPx: number; houseBoxPx: [number, number, number, number]; expect: { driveway?: boolean; minPlants: number; minBeds: number; fence?: boolean } };
+type Truth = { name: string; ftPerPx: number; lotFt2?: number; houseBoxPx: [number, number, number, number]; expect: { driveway?: boolean; minPlants: number; minBeds: number; fence?: boolean } };
 
 const args = process.argv.slice(2);
 const runs = Number(args[args.indexOf("--runs") + 1]) || 1;
@@ -47,7 +47,7 @@ for (const name of names) {
 
 const passed = rows.filter((r) => r.pass).length;
 console.log(`\n${model()}: ${passed} of ${rows.length} runs pass.`);
-console.table(rows.map(({ listing, run, pass, scaleErr, houseIoU, houseInLot, plants, beds, fails, tokens, sec }: any) => ({ listing, run, pass, scaleErr, houseIoU, houseInLot, plants, beds, fails, tokens, sec })));
+console.table(rows.map(({ listing, run, pass, scaleErr, houseIoU, lotErr, plants, beds, fails, tokens, sec }: any) => ({ listing, run, pass, scaleErr, houseIoU, lotErr, plants, beds, fails, tokens, sec })));
 await writeFile(join(out, "summary.json"), JSON.stringify({ model: model(), rows }, null, 2));
 
 function score(raw: ImportRaw, t: Truth, w: number, h: number) {
@@ -59,15 +59,25 @@ function score(raw: ImportRaw, t: Truth, w: number, h: number) {
   const centroid = [hs.reduce((a, p) => a + p[0], 0) / hs.length, hs.reduce((a, p) => a + p[1], 0) / hs.length] as const;
   const houseInLot = inside(centroid, raw.lot.map(px));
   const driveway = raw.surfaces.some((s) => s.kind === "driveway");
+  // Lot area from the model's own scale, against the listing's lot size.
+  const lotFt2 = area(raw.lot.map(px)) * (raw.imageWidthFt / w) ** 2;
+  const lotErr = t.lotFt2 ? Math.abs(lotFt2 - t.lotFt2) / t.lotFt2 : 0;
   const fails: string[] = [];
   if (scaleErr > 0.25) fails.push("scale");
   if (houseIoU < 0.5) fails.push("house");
   if (!houseInLot) fails.push("lot");
+  if (lotErr > 0.35) fails.push("lot size");
   if (t.expect.driveway !== undefined && driveway !== t.expect.driveway) fails.push("driveway");
   if (t.expect.fence && !raw.fences.length) fails.push("fence");
   if (raw.plants.length < t.expect.minPlants) fails.push("plants");
   if (raw.beds.length < t.expect.minBeds) fails.push("beds");
-  return { pass: !fails.length, scaleErr: +scaleErr.toFixed(2), houseIoU: +houseIoU.toFixed(2), houseInLot, plants: raw.plants.length, beds: raw.beds.length, fails: fails.join(" ") };
+  return { pass: !fails.length, scaleErr: +scaleErr.toFixed(2), houseIoU: +houseIoU.toFixed(2), houseInLot, lotErr: +lotErr.toFixed(2), plants: raw.plants.length, beds: raw.beds.length, fails: fails.join(" ") };
+}
+
+function area(o: (readonly [number, number])[]) {
+  let a = 0;
+  for (let i = 0; i < o.length; i++) a += o[i][0] * o[(i + 1) % o.length][1] - o[(i + 1) % o.length][0] * o[i][1];
+  return Math.abs(a / 2);
 }
 
 function iou(a: number[], b: number[]) {
