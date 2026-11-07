@@ -1,0 +1,84 @@
+{
+  "id": "knock-out-rose",
+  "commonName": "Knock Out rose",
+  "botanicalName": "Rosa 'Radrazz'",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 4,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 2,
+    "spacingFt": 3.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "colors": [
+      "#d4304f"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d8f4a",
+    "summer": "#4d7234",
+    "fall": "#6b6a3a",
+    "winter": null
+  },
+  "zones": [
+    5,
+    11
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Cut back by one third"
+    },
+    {
+      "month": 7,
+      "task": "Watch for Japanese beetles"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": true,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

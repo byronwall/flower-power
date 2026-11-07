@@ -1,0 +1,77 @@
+{
+  "id": "prairie-dropseed",
+  "commonName": "Prairie dropseed",
+  "botanicalName": "Sporobolus heterolepis",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "clay"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      8,
+      9
+    ],
+    "colors": [
+      "#d8cfa8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8aa65a",
+    "summer": "#7f9f4f",
+    "fall": "#c99a3a",
+    "winter": "#b9a07a"
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Cut back old leaves before new growth"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

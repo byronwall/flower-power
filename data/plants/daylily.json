@@ -1,0 +1,82 @@
+{
+  "id": "daylily",
+  "commonName": "Daylily",
+  "botanicalName": "Hemerocallis 'Stella de Oro'",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "clay"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#f2b01e"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7da255",
+    "summer": "#6f9a4c",
+    "fall": "#9a8a4a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 9,
+      "task": "Divide crowded clumps every 4 years"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    8,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "hummingbirds",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

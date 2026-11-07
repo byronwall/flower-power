@@ -4,17 +4,17 @@
     "title": "Plan views: 2D plan, 3D pane, and height layers",
     "slug": "plan-views",
     "scale": "feature",
-    "current_phase": "intent",
+    "current_phase": "shape",
     "last_updated": "2026-11-07",
     "summary": "How the garden is drawn and edited: watercolor 2D plan with height hints, synced 3D pane, and a layer slicer for plants under other plants.",
     "status": "planned",
-    "next_action": "Byron chooses fixed layers or a free slider, and whether ground-level changes are in v1; then add layer cases to spike S17.",
+    "next_action": "Build the 2D renderer (scaffold, model, plants, renderer, editor, gallery).",
     "parent": "../garden-design-app"
   },
   "artifacts": {
     "intent_brief": {
       "path": "intent-brief.md",
-      "status": "draft",
+      "status": "current",
       "updated_at": "2026-11-07"
     },
     "brainstorm": {
@@ -24,8 +24,8 @@
     },
     "shape_brief": {
       "path": "shape-brief.md",
-      "status": "not-created",
-      "updated_at": null
+      "status": "current",
+      "updated_at": "2026-11-07"
     },
     "implementation_plan": {
       "path": "implementation-plan.md",
@@ -46,6 +46,13 @@
       "type": "transcript",
       "location": "conversation 2026-11-07",
       "anchor": "dictation on heights and layers in the 2D plan",
+      "authority": "user"
+    },
+    {
+      "id": "P3",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round: 10 questions on 2D renderer and plants",
       "authority": "user"
     }
   ],
@@ -148,12 +155,77 @@
         "kind": "implementation hypothesis",
         "commitment": "tentative",
         "importance": "supporting",
-        "status": "active",
+        "status": "deferred",
         "horizon": "first release",
         "sources": [
           "P2"
         ],
         "confidence": "medium"
+      },
+      {
+        "id": "V9",
+        "statement": "The ground is flat in 2D; no slope, terraces, or layers for now. Heights are only object values for shade and 3D.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V10",
+        "statement": "First real build: 2D renderer with editing and a plant gallery, reading typed JSON property files.",
+        "kind": "scope",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V11",
+        "statement": "Look: semi-realistic watercolor, like a hand-drawn landscape architecture plan.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V12",
+        "statement": "Plantings are single positions, regions of one plant, or rows; the choice is per placement.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V13",
+        "statement": "Model: lot outline, size, heading; house outline only; fences solid/semi-open/open with shade; hedges as rows; surfaces, structures, edges, garden features.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P3"
+        ],
+        "confidence": "high"
       }
     ],
     "themes": [
@@ -162,10 +234,7 @@
       "progressive disclosure of layers"
     ],
     "conflicts": [],
-    "human_questions": [
-      "Fixed layers (canopy, shrubs, ground) or a free height slider?",
-      "Are ground-level changes such as steps and terraces in the first version?"
-    ]
+    "human_questions": []
   },
   "brainstorm": {
     "status": "not-requested",
@@ -174,12 +243,21 @@
     "selected_option": null
   },
   "shape": {
-    "status": "not-started",
-    "appetite": null,
+    "status": "current",
+    "appetite": "One renderer, editor, and gallery; 25 plants; two property files.",
     "problem": null,
-    "recommended_shape": null,
-    "success_moves": [],
-    "first_proof": null,
+    "recommended_shape": "Solid app; typed JSON property and plant files; canvas watercolor paint layer under an SVG edit layer; regions expanded to plants from spacing and seed.",
+    "success_moves": [
+      "Canvas paint layer plus SVG interaction layer.",
+      "Store regions, not every plant; expand from spacing and seed.",
+      "One JSON file per plant with a validation check, so a colleague can add plants safely.",
+      "Flat ground only; heights as attributes."
+    ],
+    "first_proof": {
+      "question": "Does a property file render as a believable hand-drawn watercolor plan that is easy to edit across seasons and years?",
+      "artifact": "Local app showing the sample lot with a coneflower region, a redbud, and the time slider.",
+      "decision_rule": "If it looks like a hand-drawn plan and regions are easy to edit, trace Byron yard and add plants; otherwise run S5 before more editor work."
+    },
     "rabbit_holes": [],
     "open_decisions": []
   },
@@ -204,7 +282,63 @@
       "date": "2026-11-07",
       "event": "Split from the garden design app intent; heights and layers recovered from dictation.",
       "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "10 questions answered; 2D renderer shape written; build starts.",
+      "phase": "shape"
     }
   ],
-  "closure": null
+  "closure": null,
+  "question_rounds": {
+    "rounds": [
+      {
+        "round": 1,
+        "theme": "2D renderer and plant representation",
+        "source": "P3",
+        "questions": [
+          {
+            "question": "Scope",
+            "answer": "Render, edit, and gallery."
+          },
+          {
+            "question": "Format",
+            "answer": "JSON with TS types."
+          },
+          {
+            "question": "Test yard",
+            "answer": "Both: Byron yard and a made-up lot."
+          },
+          {
+            "question": "Look",
+            "answer": "Semi-realistic watercolor like a hand-drawn landscape architecture diagram."
+          },
+          {
+            "question": "Plant unit",
+            "answer": "Regions and single positions; chosen per placement; trees single."
+          },
+          {
+            "question": "Time",
+            "answer": "Seasons and age from the start."
+          },
+          {
+            "question": "Plant count",
+            "answer": "25; a colleague will add more to the repo."
+          },
+          {
+            "question": "Fences",
+            "answer": "Solid, semi-open, open, living hedge."
+          },
+          {
+            "question": "Hardscape",
+            "answer": "Surfaces, structures, edges and low walls, garden features."
+          },
+          {
+            "question": "House",
+            "answer": "Outline only."
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,0 +1,85 @@
+{
+  "id": "dahlia",
+  "commonName": "Dahlia",
+  "botanicalName": "Dahlia 'Cafe au Lait'",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "tender-perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.3,
+    "yearsToMature": 1,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "well-drained",
+    "rich"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "colors": [
+      "#f1d2c0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": null,
+    "summer": "#4f7a3a",
+    "fall": "#5e6e3a",
+    "winter": null
+  },
+  "zones": [
+    8,
+    11
+  ],
+  "care": [
+    {
+      "month": 5,
+      "task": "Plant tubers after the last frost"
+    },
+    {
+      "month": 6,
+      "task": "Stake the tall stems"
+    },
+    {
+      "month": 10,
+      "task": "Dig the tubers after frost and store them dry indoors"
+    }
+  ],
+  "plantingMonths": [
+    5
+  ],
+  "liftAndStore": true,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 3,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

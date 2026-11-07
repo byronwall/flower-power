@@ -2,7 +2,23 @@
 
 Flower Power is a garden planner for Indiana homeowners. You give it your address and a few photos. It paints your whole property as a watercolor plan and suggests gardens that fit your sun and shade. You can see a garden in 2D and 3D through the seasons and 5 years out. You also get a step-by-step plan for planting and care.
 
-The project is in the planning phase. There is no code yet.
+The first part in progress is the 2D plan renderer. See the [plan views shape brief](docs/intent/plan-views/shape-brief.md).
+
+## Run it
+
+The app uses SolidStart, TypeScript, and pnpm, on Node 20 to 22.
+
+```bash
+pnpm install
+pnpm dev
+```
+
+`pnpm test` checks every plant and property file. `pnpm typecheck` checks the TypeScript.
+
+## Data
+
+- `data/plants/`: one JSON file for each plant. See [data/plants/README.md](data/plants/README.md) to add a plant.
+- `data/properties/`: one JSON file for each property. The schema is in `src/model/property.ts`.
 
 ## Overview
 

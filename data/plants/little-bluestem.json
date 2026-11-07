@@ -1,0 +1,77 @@
+{
+  "id": "little-bluestem",
+  "commonName": "Little bluestem",
+  "botanicalName": "Schizachyrium scoparium",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": {
+    "months": [
+      9,
+      10,
+      11
+    ],
+    "color": "#e6dcc7"
+  },
+  "foliage": {
+    "spring": "#8aa7a0",
+    "summer": "#6f94a0",
+    "fall": "#b8743a",
+    "winter": "#b07a46"
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Cut to 4 inches before new growth starts"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

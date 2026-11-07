@@ -1,0 +1,517 @@
+/* Layout: a slim tool bar over a full-bleed drawing sheet. */
+:root {
+  --paper: #f4f0e6;
+  --panel: #fbf9f3;
+  --ink: #2f3329;
+  --muted: #6c7064;
+  --line: #ddd6c6;
+  --moss: #45704f;
+  --bloom: #b0457a;
+  --f-ui: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-hand: "Architects Daughter", "Comic Sans MS", cursive;
+  color: var(--ink);
+  background: var(--paper);
+  font: 14px/1.4 var(--f-ui);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font: 400 20px/1 var(--f-hand);
+  color: var(--moss);
+}
+
+select {
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+}
+
+.app-main {
+  position: relative;
+  min-height: 0;
+  display: flex;
+}
+
+.plan-view {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.plan-view canvas,
+.plan-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.plan-marks text {
+  font: 13px var(--f-hand);
+  fill: var(--ink);
+}
+
+.plan-marks circle {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.plan-marks path {
+  fill: var(--ink);
+}
+
+.plan-marks .bar-dark {
+  fill: var(--ink);
+}
+
+.plan-marks .bar-light {
+  fill: none;
+  stroke: var(--ink);
+}
+
+.time-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.time-label {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 92px;
+}
+
+.time-label em {
+  font-style: normal;
+  text-transform: capitalize;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.time-month {
+  display: grid;
+  grid-template-columns: auto 220px;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.time-month input {
+  width: 220px;
+  accent-color: var(--moss);
+  margin: 0;
+}
+
+.time-ticks {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.time-years {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-years .time-label {
+  min-width: 0;
+  margin-right: 4px;
+}
+
+.time-years button {
+  width: 28px;
+  height: 26px;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.time-years button[aria-pressed="true"] {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--bloom);
+  outline-offset: 2px;
+}
+
+.status {
+  padding: 40px 16px;
+  color: var(--muted);
+}
+
+button {
+  font: inherit;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--moss);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.primary {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+button.danger {
+  color: #a3352f;
+  border-color: #e4c5bf;
+}
+
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-text {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 110px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar button[aria-pressed="true"],
+.toolbar select.active {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+.toolbar .hint {
+  margin-left: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.inspector {
+  width: 280px;
+  flex: none;
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.inspector header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inspector h2 {
+  margin: 0;
+  font: 400 22px/1.2 var(--f-hand);
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.field > span:first-child {
+  color: var(--muted);
+}
+
+.field input,
+.field select {
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 4px 8px;
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.facts dt {
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+/* Edit layer: shapes are invisible until hovered or selected. Strokes stay in screen pixels. */
+.edit-layer * {
+  vector-effect: non-scaling-stroke;
+}
+
+.edit-bg {
+  fill: transparent;
+}
+
+.edit-layer.drawing,
+.edit-layer.drawing .hit {
+  cursor: crosshair;
+}
+
+.edit-layer.drawing .hit {
+  pointer-events: none;
+}
+
+.hit {
+  fill: transparent;
+  stroke: transparent;
+  cursor: move;
+}
+
+.hit.line {
+  fill: none;
+  stroke: transparent;
+  vector-effect: none;
+}
+
+.hit:hover {
+  fill: rgba(69, 112, 79, 0.08);
+  stroke: rgba(69, 112, 79, 0.6);
+  stroke-width: 1.5;
+}
+
+.hit.line:hover {
+  stroke: rgba(69, 112, 79, 0.25);
+  fill: none;
+}
+
+.sel-line,
+.sel-ring {
+  fill: rgba(176, 69, 122, 0.06);
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 3;
+  pointer-events: none;
+}
+
+polyline.sel-line {
+  fill: none;
+}
+
+.handle {
+  fill: white;
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  cursor: grab;
+}
+
+.draft {
+  fill: none;
+  stroke: var(--bloom);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
+}
+
+.gallery {
+  width: 300px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.gallery header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gallery input[type="search"],
+.gallery select {
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chips button {
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+.chips button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.plant-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.plant-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  cursor: grab;
+}
+
+.plant-card:hover {
+  background: white;
+}
+
+.thumb {
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+.plant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.plant-info strong {
+  font-weight: 600;
+}
+
+.botanical {
+  font-style: italic;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tags {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.place {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.place button {
+  padding: 1px 8px;
+  font-size: 12px;
+}
+
+.place button[aria-pressed="true"] {
+  background: var(--bloom);
+  border-color: var(--bloom);
+  color: white;
+}

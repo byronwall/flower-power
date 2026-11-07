@@ -1,0 +1,81 @@
+{
+  "id": "catmint",
+  "commonName": "Catmint",
+  "botanicalName": "Nepeta 'Walker's Low'",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 2.5,
+    "spreadFt": 3,
+    "plantedSpreadFt": 0.75,
+    "yearsToMature": 2,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "well-drained",
+    "dry"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#8a80c8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#97ad90",
+    "summer": "#8fa58a",
+    "fall": "#8a9a80",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Shear by half after the first bloom"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

@@ -2,7 +2,7 @@
 title: "Plan views: 2D plan, 3D pane, and height layers"
 slug: "plan-views"
 phase: intent
-status: draft
+status: current
 last_updated: "2026-11-07"
 ---
 
@@ -55,11 +55,13 @@ You plant a shade garden under a big maple. A layer control appears, because now
 - Steps, terraces, and other ground-level changes could show in the 3D pane and as contour-style marks in 2D.
 - The slice could also apply to the 3D pane, which would cut away the canopy there too.
 
-## What still needs your input
+## Decided on Nov 7
 
-1. Fixed layers (canopy, shrubs, ground) or a free height slider?
-2. Are ground-level changes, such as steps and terraces, part of the first version?
+- The ground is flat in the 2D plan. Slope, terraces, and the layer slicer wait for a later spike (S17). Heights are only values on objects, for shade and for the 3D pane.
+- The first real build is the 2D renderer, with editing and a plant gallery. See the [shape brief](shape-brief.md).
+- The look is semi-realistic watercolor, like a hand-drawn landscape architecture plan.
+- A planting is a single plant at a point, a region of one plant, or a row, such as a hedge.
 
 ## Next step after confirmation
 
-Add the layer cases to spike S17, which tests height hints, the canopy cutaway, and the shaded area against the 3D pane.
+Build the 2D renderer described in the [shape brief](shape-brief.md).

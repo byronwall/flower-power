@@ -1,3 +1,9 @@
+*.log
 .DS_Store
+.output/
+.pnpm-store/
+.vinxi/
+dist/
 node_modules/
 tmp/
+.claude/

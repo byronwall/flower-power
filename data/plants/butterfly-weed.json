@@ -1,0 +1,79 @@
+{
+  "id": "butterfly-weed",
+  "commonName": "Butterfly weed",
+  "botanicalName": "Asclepias tuberosa",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "well-drained"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8
+    ],
+    "colors": [
+      "#ec7a1c"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": null,
+    "summer": "#5f8a42",
+    "fall": "#8a8a46",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 5,
+      "task": "Be patient: it comes up late in spring"
+    }
+  ],
+  "plantingMonths": [
+    5,
+    6,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "butterflies",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,70 @@
+{
+  "id": "green-giant-arborvitae",
+  "commonName": "Green Giant arborvitae",
+  "botanicalName": "Thuja 'Green Giant'",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "either",
+  "size": {
+    "heightFt": 40,
+    "spreadFt": 14,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 8,
+    "spacingFt": 6
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#46753f",
+    "summer": "#3d6b3e",
+    "fall": "#3d6b3e",
+    "winter": "#4a6b40"
+  },
+  "zones": [
+    5,
+    8
+  ],
+  "care": [
+    {
+      "month": 8,
+      "task": "Water deeply in a drought"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "columnar"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/plantfinder/plantfindersearch.aspx"
+    },
+    {
+      "label": "Purdue Extension, Consumer Horticulture",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false
+}
