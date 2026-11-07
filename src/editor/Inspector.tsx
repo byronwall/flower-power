@@ -1,8 +1,9 @@
-import { For, Show, type JSX } from "solid-js";
+import { createSignal, For, Show, type JSX } from "solid-js";
 import { plants, plantsById } from "../model/library";
 import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type Property } from "../model/property";
 import { itemOf, type Editor, type Ref } from "./state";
 import { PlantPicture } from "../gallery/PlantPicture";
+import { photoOf, PlantPhoto } from "../gallery/PlantPhoto";
 import type { Plant } from "../model/plant";
 import { lookOf, monthNames, type ViewTime } from "../render/look";
 
@@ -133,18 +134,58 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
   );
 }
 
-// A large drawing of the plant, with a note when it is dormant in the month shown.
+// A large view of the plant: its real photo, or the plan drawing for the month shown.
+// The photo credit is shown because the photos are licensed with attribution (CC BY, CC BY-SA).
 function Picture(props: { plant: Plant; time: ViewTime }) {
+  const [view, setView] = createSignal<"photo" | "drawing">("photo");
+  const photo = () => photoOf(props.plant);
+  const showPhoto = () => view() === "photo" && !!photo();
   const dormant = () => !lookOf(props.plant, { month: props.time.month, year: 5 }, true);
   return (
     <figure class="plant-preview">
-      <PlantPicture plant={props.plant} time={props.time} size={300} class="preview-canvas" />
-      <figcaption>
-        {dormant() ? `Not showing in ${monthNames[props.time.month - 1]}, so drawn as in July` : `Full grown, in ${monthNames[props.time.month - 1]}`}
-      </figcaption>
+      <Show when={photo()}>
+        <div class="view-switch" role="group" aria-label="Picture">
+          <button type="button" aria-pressed={showPhoto()} onClick={() => setView("photo")}>
+            Photo
+          </button>
+          <button type="button" aria-pressed={!showPhoto()} onClick={() => setView("drawing")}>
+            On the plan
+          </button>
+        </div>
+      </Show>
+      <Show
+        when={showPhoto()}
+        fallback={
+          <>
+            <PlantPicture plant={props.plant} time={props.time} size={300} class="preview-canvas" />
+            <figcaption>
+              {dormant() ? `Not showing in ${monthNames[props.time.month - 1]}, so drawn as in July` : `Full grown, in ${monthNames[props.time.month - 1]}`}
+            </figcaption>
+          </>
+        }
+      >
+        <PlantPhoto plant={props.plant} time={props.time} size={300} class="preview-photo" drawingClass="preview-canvas" />
+        <figcaption class="credit">
+          Photo: {photo()!.author}, {photo()!.license} ·{" "}
+          <a href={photo()!.sourceUrl} target="_blank" rel="noreferrer">
+            source
+          </a>
+        </figcaption>
+      </Show>
     </figure>
   );
 }
+
+const months = (list: number[]) => list.map((m) => monthNames[m - 1]).join(", ");
+const PLANTING: Record<NonNullable<Plant["planting"]>["method"], string> = {
+  seed: "From seed",
+  bulb: "As a bulb",
+  tuber: "As a tuber",
+  plug: "As a plug",
+  container: "From a nursery pot",
+  "bare-root": "Bare root",
+  division: "From a division",
+};
 
 function PlantFacts(props: { plant: Plant }) {
   const p = () => props.plant;
@@ -154,10 +195,53 @@ function PlantFacts(props: { plant: Plant }) {
       <dd>
         {p().size.heightFt} ft tall, {p().size.spreadFt} ft wide in {p().size.yearsToMature} yr
       </dd>
+      <dt>Spacing</dt>
+      <dd>{p().size.spacingFt} ft apart</dd>
       <dt>Sun</dt>
       <dd>{p().sun.map(label).join(", ")}</dd>
+      <dt>Water</dt>
+      <dd>{label(p().water)}</dd>
       <dt>Blooms</dt>
-      <dd>{p().bloom ? p().bloom!.months.map((m) => monthNames[m - 1]).join(", ") : "No flowers to speak of"}</dd>
+      <dd>
+        <Show when={p().bloom} fallback="No flowers to speak of">
+          {(b) => (
+            <>
+              {months(b().months)}
+              <For each={b().colors}>{(c) => <span class="swatch" style={{ background: c }} title={c} />}</For>
+            </>
+          )}
+        </Show>
+      </dd>
+      <dt>Lifecycle</dt>
+      <dd>
+        {label(p().lifecycle)}
+        <Show when={p().lifespanYears}>{(l) => <>, lives {l()[0] === l()[1] ? l()[0] : `${l()[0]}–${l()[1]}`} yr</>}</Show>
+      </dd>
+      <Show when={p().emerges !== undefined}>
+        <dt>Comes up</dt>
+        <dd>{p().emerges === null ? "Shows all year" : `In ${monthNames[p().emerges! - 1]}`}</dd>
+      </Show>
+      <dt>Plant in</dt>
+      <dd>{months(p().plantingMonths)}</dd>
+      <Show when={p().planting}>
+        {(pl) => (
+          <>
+            <dt>How to plant</dt>
+            <dd>
+              {PLANTING[pl().method]}
+              <Show when={pl().depthIn !== undefined}>, {pl().depthIn} in deep</Show>
+            </dd>
+          </>
+        )}
+      </Show>
+      <Show when={p().pollination}>
+        {(po) => (
+          <>
+            <dt>Needs a mate</dt>
+            <dd>{po().needsPartner ? `Yes. ${po().partner ?? "Plant a partner nearby."}` : "No"}</dd>
+          </>
+        )}
+      </Show>
       <dt>Native</dt>
       <dd>{p().nativeToIndiana ? "Yes, to Indiana" : "No"}</dd>
     </dl>

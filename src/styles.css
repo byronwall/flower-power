@@ -976,6 +976,69 @@ polyline.sel-line {
   text-align: center;
 }
 
+/* Real plant photos: the gallery thumbnail and the large preview. */
+.thumb.photo {
+  display: block;
+  flex: none;
+  object-fit: cover;
+  background: var(--line);
+}
+
+.preview-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: var(--line);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.plant-preview figcaption.credit {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.plant-preview figcaption.credit a {
+  color: inherit;
+}
+
+.view-switch {
+  display: flex;
+  align-self: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.view-switch button {
+  font: inherit;
+  font-size: 13px;
+  padding: 4px 14px;
+  border: 0;
+  border-radius: 0;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.view-switch button[aria-pressed="true"] {
+  background: var(--moss);
+  color: white;
+}
+
+.facts .swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+  vertical-align: -1px;
+  border-radius: 3px;
+  border: 1px solid rgb(0 0 0 / 0.15);
+}
+
 .preview-tip {
   margin: 0;
   padding: 12px 14px;

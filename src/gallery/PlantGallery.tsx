@@ -4,7 +4,7 @@ import { label } from "../editor/Inspector";
 import { plants } from "../model/library";
 import type { Plant } from "../model/plant";
 import { monthNames, type ViewTime } from "../render/look";
-import { PlantPicture } from "./PlantPicture";
+import { PlantPhoto } from "./PlantPhoto";
 
 const CATEGORIES = ["tree", "shrub", "perennial", "grass", "groundcover", "annual"] as const;
 
@@ -136,7 +136,7 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing
                 e.dataTransfer!.effectAllowed = "copy";
               }}
             >
-              <PlantPicture plant={p} time={props.time} size={56} />
+              <PlantPhoto plant={p} time={props.time} size={56} />
               <div class="plant-info">
                 <strong>{p.commonName}</strong>
                 <span class="botanical">{p.botanicalName}</span>
