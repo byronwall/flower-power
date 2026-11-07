@@ -163,7 +163,7 @@ export function EditLayer(props: Props) {
     const p = { get col() { return hitById().get(props.k)!.col; }, get id() { return hitById().get(props.k)!.id; }, get item() { return hitById().get(props.k)!.item; }, get r() { return hitById().get(props.k)!.r; } };
     const pts = () => pointsOf(p.item);
     const ref = () => ({ col: p.col, id: p.id }) as Ref;
-    const cls = () => `hit${isSel(p.col, p.id) ? " selected" : ""}`;
+    const cls = () => `hit${isSel(p.col, p.id) ? " selected" : ""}${"guess" in p.item && p.item.guess ? " guess" : ""}`;
     const on = {
       onPointerDown: (e: PointerEvent) => startDrag(e, ref()),
       onPointerEnter: () => setHover(ref()),

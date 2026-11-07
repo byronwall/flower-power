@@ -26,6 +26,7 @@ export async function POST({ request }: APIEvent) {
 
     const file = form.get("aerial");
     if (!(file instanceof File)) return Response.json({ error: "Add an aerial image." }, { status: 400 });
+    if (process.env.AI_FAKE === "1") return Response.json(await replayRun(await fakeRun(Buffer.from(await file.arrayBuffer())), id, name));
     const aerial = toImage(`${id}-aerial${file.type === "image/png" ? ".png" : ".jpg"}`, Buffer.from(await file.arrayBuffer()));
     const photos = await Promise.all(
       form.getAll("photos").filter((f): f is File => f instanceof File && f.size > 0).map(async (f, i) => toImage(`${id}-photo-${i + 1}.jpg`, Buffer.from(await f.arrayBuffer()))),
@@ -38,6 +39,18 @@ export async function POST({ request }: APIEvent) {
   } catch (e) {
     return Response.json({ error: (e as Error).message }, { status: 500 });
   }
+}
+
+// AI_FAKE=1 answers from a saved run with no API call: the newest run with the same aerial, else the newest run.
+async function fakeRun(aerial: Buffer) {
+  const runs = (await readdir(runsDir()).catch(() => [])).filter((d) => d.endsWith("-import")).sort().reverse();
+  if (!runs.length) throw new Error("AI_FAKE is on, but data/ai-runs has no saved runs.");
+  await new Promise((r) => setTimeout(r, 2500));
+  for (const run of runs) {
+    const same = await readFile(join(runsDir(), run, "aerial.jpg")).then((b) => b.equals(aerial), () => false);
+    if (same) return run;
+  }
+  return runs[0];
 }
 
 async function replayRun(run: string, id: string, name: string) {
