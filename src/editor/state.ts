@@ -42,12 +42,18 @@ export function createEditor(initial: Property) {
   const [dirty, setDirty] = createSignal(false);
   const past: Property[] = [];
   const future: Property[] = [];
+  // Bumped whenever history changes, so buttons can show whether undo/redo apply.
+  const [hist, setHist] = createSignal(0);
+  const bump = () => setHist(hist() + 1);
+  const canUndo = () => (hist(), past.length > 0);
+  const canRedo = () => (hist(), future.length > 0);
 
   // `live` updates skip history, so a drag records one undo step at its start.
   function update(fn: (p: Property) => Property, live = false) {
     if (!live) {
       past.push(property());
       future.length = 0;
+      bump();
     }
     setProperty(fn(property()));
     setDirty(true);
@@ -56,6 +62,7 @@ export function createEditor(initial: Property) {
   function checkpoint() {
     past.push(property());
     future.length = 0;
+    bump();
   }
 
   function updateItem(ref: Ref, fn: (item: any) => any, live = false) {
@@ -80,6 +87,7 @@ export function createEditor(initial: Property) {
     const prev = past.pop();
     if (!prev) return;
     future.push(property());
+    bump();
     setProperty(prev);
     setDirty(true);
   }
@@ -88,6 +96,7 @@ export function createEditor(initial: Property) {
     const next = future.pop();
     if (!next) return;
     past.push(property());
+    bump();
     setProperty(next);
     setDirty(true);
   }
@@ -95,12 +104,13 @@ export function createEditor(initial: Property) {
   function load(p: Property) {
     past.length = 0;
     future.length = 0;
+    bump();
     setProperty(p);
     setSelected(null);
     setDirty(false);
   }
 
-  return { property, selected, setSelected, tool, setTool, dirty, setDirty, update, updateItem, checkpoint, add, remove, undo, redo, load };
+  return { property, selected, setSelected, tool, setTool, dirty, setDirty, update, updateItem, checkpoint, add, remove, undo, redo, canUndo, canRedo, load };
 }
 
 export type Editor = ReturnType<typeof createEditor>;

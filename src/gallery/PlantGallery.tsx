@@ -1,10 +1,10 @@
-import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Show } from "solid-js";
 import type { Editor } from "../editor/state";
 import { label } from "../editor/Inspector";
 import { plants } from "../model/library";
 import type { Plant } from "../model/plant";
-import { lookOf, type ViewTime } from "../render/look";
-import { drawPlant } from "../render/plants";
+import { monthNames, type ViewTime } from "../render/look";
+import { PlantPicture } from "./PlantPicture";
 
 const CATEGORIES = ["tree", "shrub", "perennial", "grass", "groundcover", "annual"] as const;
 
@@ -27,7 +27,7 @@ function family(hex: string) {
   return FAMILIES.find((f) => f.test(h, s, l))?.id ?? "other";
 }
 
-export function PlantGallery(props: { editor: Editor; time: ViewTime }) {
+export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing?: string | null; onPreview?: (id: string) => void }) {
   const [query, setQuery] = createSignal("");
   const [category, setCategory] = createSignal<string>("");
   const [sun, setSun] = createSignal<string>("");
@@ -64,8 +64,13 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime }) {
   return (
     <aside class="gallery">
       <header>
-        <span class="eyebrow">Plants · {shown().length} of {plants.length}</span>
-        <input id="plant-search" type="search" placeholder="Search plants" value={query()} onInput={(e) => setQuery(e.currentTarget.value)} />
+        <div class="gallery-title">
+          <h2>Plants</h2>
+          <span class="count">
+            {shown().length} of {plants.length}
+          </span>
+        </div>
+        <input id="plant-search" type="search" placeholder="Search by name…" value={query()} onInput={(e) => setQuery(e.currentTarget.value)} />
         <div class="chips" role="group" aria-label="Kind of plant">
           <button type="button" aria-pressed={!category()} onClick={() => setCategory("")}>
             All
@@ -86,47 +91,84 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime }) {
             <option value="shade">Shade</option>
           </select>
           <select id="filter-color" aria-label="Bloom color" value={color()} onChange={(e) => setColor(e.currentTarget.value)}>
-            <option value="">Any bloom color</option>
+            <option value="">Any color</option>
             <For each={FAMILIES}>{(f) => <option value={f.id}>{f.name}</option>}</For>
           </select>
         </div>
         <label class="check">
           <input id="filter-blooming" type="checkbox" checked={bloomingNow()} onChange={(e) => setBloomingNow(e.currentTarget.checked)} />
-          Blooming in the month shown
+          Only plants blooming in {monthNames[props.time.month - 1]}
         </label>
       </header>
+      <p class="gallery-tip">Drag a plant onto the plan, or pick how to plant it.</p>
       <ul class="plant-list">
-        <For each={shown()} fallback={<li class="muted">No plants match these filters.</li>}>
+        <For
+          each={shown()}
+          fallback={
+            <li class="empty">
+              No plants match these filters.
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  setCategory("");
+                  setSun("");
+                  setColor("");
+                  setBloomingNow(false);
+                }}
+              >
+                Clear filters
+              </button>
+            </li>
+          }
+        >
           {(p) => (
             <li
               class="plant-card"
+              classList={{ previewing: props.previewing === p.id }}
               draggable="true"
+              title="Click to see it larger. Drag onto the plan to plant it."
+              onClick={(e) => {
+                if (!(e.target as HTMLElement).closest("button")) props.onPreview?.(p.id);
+              }}
               onDragStart={(e) => {
                 e.dataTransfer!.setData("text/plant", p.id);
                 e.dataTransfer!.effectAllowed = "copy";
               }}
             >
-              <PlantThumb plant={p} time={props.time} />
+              <PlantPicture plant={p} time={props.time} size={56} />
               <div class="plant-info">
                 <strong>{p.commonName}</strong>
                 <span class="botanical">{p.botanicalName}</span>
                 <span class="tags">
                   {label(p.category)} · {p.size.heightFt} ft · {p.sun.map(label).join("/")}
-                  <Show when={p.nativeToIndiana}> · Native</Show>
                 </span>
+                <Show when={p.nativeToIndiana || p.bloom?.months.includes(props.time.month)}>
+                  <span class="badges">
+                    <Show when={p.bloom?.months.includes(props.time.month)}>
+                      <span class="badge bloom" title={`Flowers in ${monthNames[props.time.month - 1]}`}>
+                        <span class="swatch" style={{ background: p.bloom!.colors[0] }} />
+                        In bloom
+                      </span>
+                    </Show>
+                    <Show when={p.nativeToIndiana}>
+                      <span class="badge" title="Native to Indiana">Native</span>
+                    </Show>
+                  </span>
+                </Show>
                 <span class="place">
                   <Show when={p.placement !== "region"}>
-                    <button type="button" aria-pressed={activeTool() === `${p.id}:single`} onClick={() => place(p, "single")}>
-                      Place
+                    <button type="button" aria-pressed={activeTool() === `${p.id}:single`} onClick={() => place(p, "single")} title="Click the plan to place one plant">
+                      + One
                     </button>
                   </Show>
                   <Show when={p.placement !== "single"}>
-                    <button type="button" aria-pressed={activeTool() === `${p.id}:region`} onClick={() => place(p, "region")}>
-                      Region
+                    <button type="button" aria-pressed={activeTool() === `${p.id}:region`} onClick={() => place(p, "region")} title="Outline an area on the plan to fill it with this plant">
+                      Fill area
                     </button>
                   </Show>
                   <Show when={p.category === "shrub" || p.category === "grass" || p.category === "perennial"}>
-                    <button type="button" aria-pressed={activeTool() === `${p.id}:row`} onClick={() => place(p, "row")}>
+                    <button type="button" aria-pressed={activeTool() === `${p.id}:row`} onClick={() => place(p, "row")} title="Draw a line on the plan to plant a row, like a hedge">
                       Row
                     </button>
                   </Show>
@@ -138,28 +180,4 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime }) {
       </ul>
     </aside>
   );
-}
-
-// The plant drawn by the plan painter, at mature size and the month shown.
-function PlantThumb(props: { plant: Plant; time: ViewTime }) {
-  const [canvas, setCanvas] = createSignal<HTMLCanvasElement>();
-  const SIZE = 56;
-  createEffect(() => {
-    const c = canvas();
-    if (c) draw(c, props.time.month);
-  });
-  const draw = (canvas: HTMLCanvasElement, month: number) => {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = canvas.height = SIZE * dpr;
-    const ctx = canvas.getContext("2d")!;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.fillStyle = "#f4f0e6";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    const time = { month, year: 5 };
-    const look = lookOf(props.plant, time, true) ?? lookOf(props.plant, { month: 7, year: 5 }, true)!;
-    const scale = (SIZE * 0.8) / look.spreadFt;
-    ctx.setTransform(dpr * scale, 0, 0, dpr * scale, (dpr * SIZE) / 2, (dpr * SIZE) / 2);
-    drawPlant({ ctx, px: (n) => n / scale }, props.plant, [0, 0], look, 17);
-  };
-  return <canvas class="thumb" ref={setCanvas} style={{ width: `${SIZE}px`, height: `${SIZE}px` }} />;
 }
