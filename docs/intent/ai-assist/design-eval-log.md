@@ -5,10 +5,12 @@ The design engine makes a short review of the yard, then one design per style, a
 ## How to run
 
 ```sh
-pnpm tsx scripts/eval-design.ts                # all cases, about 34 model calls
-pnpm tsx scripts/eval-design.ts sample-safe-redo
-pnpm tsx scripts/eval-design.ts --rescore      # check the saved answers again, with no calls
+pnpm tsx --import ./scripts/glob.mjs scripts/eval-design.ts                # all cases, about 34 model calls
+pnpm tsx --import ./scripts/glob.mjs scripts/eval-design.ts sample-safe-redo
+pnpm tsx --import ./scripts/glob.mjs scripts/eval-design.ts --rescore      # check the saved answers again, with no calls
 ```
+
+`scripts/glob.mjs` lets tsx load `src/model/library.ts`, which the sun model imports. It expands Vite's `import.meta.glob` for JSON files.
 
 ## Cases
 
@@ -44,3 +46,41 @@ Imported lots are rebuilt from the newest saved import of each aerial in `data/a
 - Every fail is overlap: mean 0.33 to 0.41 on four cases. With 25 plants, every wildlife design reaches for coneflower, black-eyed Susan, and bergamot.
 - The hardscape opt-in works: all three patio-case designs add a patio. No other case adds one.
 - A unit test proves the checks drop bad ops (unknown plant, outside the lot, on the house or driveway, hardscape, tree spacing, bed overlap, dial, scope), since the model rarely sends them.
+
+### 2. 95 plants, same prompts
+
+The library grew from 25 to 95 plants (`1e1de98`).
+
+- 8 of 8 cases pass. 37 calls, 316k tokens (225k in, 91k out). The longer plant table adds about 100k input tokens per run.
+- Overlap fell from 0.33-0.41 to 0.03-0.25 mean. Survival 0.94 to 1.0. No rule breaks.
+- On the page the designs read as timid. Even "redo" leaves most of the lawn alone, and formal designs swap beds for short hedges.
+- New score, **area**: square feet of planting each design adds, replaces, or reshapes, counting rows by length times spread and single plants by crown. Pass at 80 (light), 250 (refresh), 500 (redo), 60 (area rework), for the smallest design in the case. Net bed area did not work: formal and low-effort designs rightly trade beds for hedges or lawn.
+- Rescored with the area check: 5 of 8 pass. Formal designs are the smallest in every case.
+
+### 3. Area targets per dial
+
+The prompt now states the open lawn and mulch area and asks for new, replaced, and reshaped planting of 5-10% (light), 15-25% (refresh), or 30-45% (redo) of it. It also gives bed depths: 4 to 8 ft along the house, 5 to 10 ft along fences.
+
+- 7 of 8 pass. 37 calls, 337k tokens (228k in, 108k out).
+- Touched area rose 2 to 6 times: the smallest redo design on the sample lot went from 160 to 1,897 sq ft. Formal designs now plant at the same scale as the others.
+- Area rework fails on overlap (mean 0.31): three designs in a 1,500 sq ft strip share plants.
+
+### Sun model wired in
+
+The sun session's `sunClassAt(p, at)` (`8100775`, `513ad87`) is now the default `sun` for the engine and the checks. Rescoring iteration 3 with real sun drops about 10% more ops, mostly part-shade plants (woodland phlox, wild geranium, impatiens) placed in full sun. The model did not see sun in that run.
+
+A replace and a reshape of the same bed are now merged into one replace op, instead of dropping the second. That was the most common drop (16).
+
+### 4. Sun map in the prompt
+
+The model now sees full, part, and shade ground in the text map. The checks judge a bed or row by the sun class that covers most of it, not by its center.
+
+- 8 of 8 pass. 37 calls, 335k tokens (230k in, 105k out).
+- Survival 0.89 to 1.0. Mean overlap 0.04 to 0.24; max 0.5. Goal fit 0.95 to 1.0. No dial, hardscape, scope, or safety breaks.
+- Touched area: light 250 to 430 sq ft, refresh 840 to 2,330, redo 810 to 1,930, area rework 270 to 300.
+- 25 ops dropped in 31 designs, almost all sun: part-shade groundcovers (woodland phlox, wild geranium, sedge) put in sun the model judged shaded by a tree. The checks catch these, so the designs stay valid.
+- Area rework now passes overlap (0.24 mean).
+
+## Spend so far
+
+158 model calls: 5 smoke, 4 full runs of 37. About 1.2M tokens.

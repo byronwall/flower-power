@@ -531,8 +531,8 @@ function placeProblem(p: Property, item: Planting | Thing, ctx: Ctx): string | n
   const plant = item as Planting;
   const at = plant.type === "single" ? plant.at : center(pts);
 
-  // Sun at the plant, or at the bed's center.
-  const sun = ctx.ask.sun?.(at) ?? "unknown";
+  // Sun at the plant, or the class that covers most of a bed or row.
+  const sun = ctx.ask.sun ? (plant.type === "single" ? ctx.ask.sun(at) : mostSun(plant.type === "region" ? sample(plant.outline) : plant.path, ctx.ask.sun)) : "unknown";
   if (sun !== "unknown" && !pl.sun.includes(sun)) return `${pl.commonName} needs ${pl.sun.join(" or ")} sun, but this spot is ${sun}`;
 
   if (plant.type === "single") {
@@ -558,6 +558,12 @@ function placeProblem(p: Property, item: Planting | Thing, ctx: Ctx): string | n
     if (area(plant.outline) < 4) return "the bed is too small";
   }
   return null;
+}
+
+function mostSun(pts: Point[], sun: SunAt): Sun {
+  const count = { full: 0, part: 0, shade: 0, unknown: 0 };
+  for (const q of pts) count[sun(q)]++;
+  return (["full", "part", "shade", "unknown"] as const).reduce((best, k) => (count[k] > count[best] ? k : best));
 }
 
 export function hash(s: string) {
