@@ -53,7 +53,11 @@ Coordinates: give every point on a 0-1000 grid over the aerial. (0,0) is the top
 
 Scale: estimate how many feet the full aerial width covers. Use objects of known size: cars are about 15 ft long and 6 ft wide, residential streets are about 30 ft from curb to curb, sidewalks are about 5 ft wide, and a one-car garage door is about 9 ft wide. Say what you used.
 
-Lot: use fences, driveways, mow lines, hedges, and the spacing of neighbor houses. Lots in this area are often 50 to 100 ft wide and 120 to 200 ft deep. The lot runs from the street edge of the front yard to the back line.
+Lot: use fences, driveways, mow lines, hedges, and the spacing of neighbor houses. Lots in this area are often 40 to 100 ft wide and 100 to 200 ft deep.
+- The front line is about 10 to 15 ft behind the curb, at the yard side of the sidewalk when there is one. The street, the sidewalk, and the strip between them are not part of the lot.
+- Side lines run about midway between this house and the neighbor houses, or along a fence or mow line between them.
+- The back line is at the back fence, the alley edge, or midway to the house behind.
+- Do not include neighbor yards, alleys, or a shared corner of a cul-de-sac. On a corner lot, the lot stops behind both sidewalks.
 
 Trace:
 - house: the main roof outline. Give its roof ridge height in feet.
@@ -156,3 +160,4 @@ export function toProperty(raw: ImportRaw, opts: { id: string; name: string; aer
 }
 
 const round4 = (n: number) => Math.round(n * 10000) / 10000;
+
