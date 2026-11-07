@@ -44,6 +44,8 @@ function build() {
     review: reviewSchema.optional(),
     summary: z.string().optional(),
     ops: z.array(op),
+    // Proposed ops a person has not accepted or rejected yet. They draw as ghosts over the plan.
+    pending: z.array(op).optional(),
     // What validation dropped, so a person can see why.
     dropped: z.array(z.string()).optional(),
   });

@@ -1,8 +1,7 @@
 import { createMemo, createResource, createSignal, For, Show } from "solid-js";
 import { PlanView } from "../../components/PlanView";
-import { Ghost, opTone } from "../../design/Ghost";
-import { applyOps, find, type Design, type Op, type Review } from "../../model/design";
-import { plantsById } from "../../model/library";
+import { Ghost, opLabel, opTone } from "../../design/Ghost";
+import { applyOps, type Design, type Review } from "../../model/design";
 import type { Point, Property } from "../../model/property";
 import type { ViewTime } from "../../render/look";
 
@@ -114,15 +113,6 @@ function Spots(props: { title: string; list: Review["works"] }) {
       </ul>
     </div>
   );
-}
-
-export function opLabel(base: Property, o: Op) {
-  const name = (id: string) => plantsById.get(id)?.commonName ?? id;
-  const what = (item: any) => (item.plantId ? name(item.plantId) : item.kind);
-  if (o.op === "add" || o.op === "addFeature") return what(o.item);
-  const old = find(base, o.id)?.item;
-  if (o.op === "replace") return `${old ? what(old) : o.id} → ${what(o.item)}`;
-  return old ? what(old) : o.id;
 }
 
 function DesignCard(props: { base: Property; d: Design; row?: Row }) {

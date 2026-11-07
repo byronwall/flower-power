@@ -19,6 +19,12 @@ import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
 import type { ViewTime } from "../render/look";
 import type { Weather } from "../render/life";
+import { AreaPick } from "../design/AreaPick";
+import { DesignPanel } from "../design/DesignPanel";
+import { createDesigns } from "../design/designs";
+import { Ghost } from "../design/Ghost";
+import type { Op } from "../model/design";
+import type { Point } from "../model/property";
 
 // Sends a person who is not logged in to /login, then loads only their properties.
 // ?id= picks the property to open. Files from "New from photos" on /projects import on open.
@@ -52,6 +58,13 @@ type PlannerProps = { email: string; properties: Property[]; initialId?: string;
 function Planner(props: PlannerProps) {
   // With no saved properties yet, the sample is the starting point until the import replaces it.
   const ed = createEditor(props.properties.find((p) => p.id === props.initialId) ?? props.properties[0] ?? sample);
+  // Design ideas: the editor shows the active design, and saving folds edits back into it.
+  const ds = createDesigns(ed);
+  ds.open(ed.property());
+  const [showIdeas, setShowIdeas] = createSignal(false);
+  const [scope, setScope] = createSignal<Point[] | null>(null);
+  const [picking, setPicking] = createSignal(false);
+  const [hoverOp, setHoverOp] = createSignal<Op | null>(null);
   const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
   const [weather, setWeather] = createSignal<Weather>("sunny");
   // The tour plays once on a first visit, and any time from the welcome card.
@@ -132,8 +145,9 @@ function Planner(props: PlannerProps) {
   async function save() {
     setStatus("Saving…");
     try {
-      await saveProperty(ed.property());
-      props.onSaved(ed.property());
+      const p = ds.forSave();
+      await saveProperty(p);
+      props.onSaved(p);
       ed.setDirty(false);
       setStatus("Saved");
     } catch (e) {
@@ -154,7 +168,8 @@ function Planner(props: PlannerProps) {
 
   function pick(id: string) {
     if (ed.dirty() && !window.confirm("Discard unsaved changes?")) return;
-    ed.load(props.properties.find((p) => p.id === id)!);
+    ds.open(props.properties.find((p) => p.id === id)!);
+    setScope(null);
     setScaleBasis(null);
   }
 
@@ -170,7 +185,7 @@ function Planner(props: PlannerProps) {
     setImporting(files.length);
     try {
       const res = await importPhotos(files, `New lot ${n}`);
-      ed.load(res.property);
+      ds.open(res.property);
       ed.setDirty(true);
       setPhoto({ ...photo(), on: true });
       setScaleBasis(res.raw.scaleBasis);
@@ -364,6 +379,15 @@ function Planner(props: PlannerProps) {
               </For>
             </div>
             <TimeBar part="year" time={time()} onChange={setTime} />
+            <button type="button" class="ideas-toggle" aria-pressed={showIdeas()} onClick={() => setShowIdeas(!showIdeas())} title="Goals, a review of your yard, and design ideas">
+              <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                <path d="M8 1.5l1.5 4 4 1.5-4 1.5L8 12.5l-1.5-4-4-1.5 4-1.5zM13 11l.6 1.4L15 13l-1.4.6L13 15l-.6-1.4L11 13l1.4-.6z" fill="currentColor" />
+              </svg>
+              Design ideas
+              <Show when={ds.active()}>
+                {(a) => <span class="ideas-active">· {a().name}</span>}
+              </Show>
+            </button>
             <button
               type="button"
               class="panel-toggle icon-btn"
@@ -416,7 +440,20 @@ function Planner(props: PlannerProps) {
                 time={time()}
                 weather={weather()}
                 photoOpacity={photo().on ? photo().opacity : 0}
-                overlay={(view) => <EditLayer editor={ed} view={view} time={time()} />}
+                overlay={(view) => (
+                  <>
+                    <Ghost base={ed.property()} ops={ds.active()?.pending ?? []} scope={scope() ?? undefined} hover={hoverOp()} review={showIdeas() ? ds.review() : null} />
+                    <EditLayer editor={ed} view={view} time={time()} />
+                    <Show when={picking()}>
+                      <AreaPick
+                        onPick={(s) => {
+                          setScope(s);
+                          setPicking(false);
+                        }}
+                      />
+                    </Show>
+                  </>
+                )}
                 onBackgroundClick={() => {
                   ed.setSelected(null);
                   setPreview(null);
@@ -453,8 +490,29 @@ function Planner(props: PlannerProps) {
             </Show>
           </div>
         </div>
-        <Show when={showDetails()}>
-          <Inspector editor={ed} time={time()} preview={preview()} onClosePreview={() => setPreview(null)} onPreview={(id) => setPreview(id)} onTour={() => setTour(true)} />
+        <Show
+          when={showIdeas()}
+          fallback={
+            <Show when={showDetails()}>
+              <Inspector editor={ed} time={time()} preview={preview()} onClosePreview={() => setPreview(null)} onPreview={(id) => setPreview(id)} onTour={() => setTour(true)} />
+            </Show>
+          }
+        >
+          <DesignPanel
+            editor={ed}
+            designs={ds}
+            time={time()}
+            scope={scope()}
+            picking={picking()}
+            onPickArea={setPicking}
+            onScope={setScope}
+            hover={hoverOp()}
+            onHover={setHoverOp}
+            onClose={() => {
+              setShowIdeas(false);
+              setPicking(false);
+            }}
+          />
         </Show>
       </main>
       <Show when={tour()}>

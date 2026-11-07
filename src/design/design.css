@@ -4,6 +4,20 @@
   stroke-width: 2;
   cursor: pointer;
 }
+.ghost-still,
+.ghost-still * {
+  pointer-events: none;
+}
+.ghost-pin circle {
+  fill: #1d4ed8;
+  stroke: white;
+}
+.ghost-pin text {
+  font: 700 2.4px var(--f-ui);
+  fill: white;
+  text-anchor: middle;
+  stroke: none;
+}
 .ghost-add {
   fill: rgb(46 160 67 / 0.18);
   stroke: #2e8f43;
@@ -164,4 +178,194 @@ line.ghost-swap {
 }
 .dd-dropped {
   color: #8a6d3b;
+}
+
+/* Design ideas in the editor */
+.ideas-toggle {
+  gap: 6px;
+  color: var(--moss-dark);
+}
+.ideas-toggle[aria-pressed="true"] {
+  background: var(--moss-soft);
+  border-color: var(--moss);
+}
+.ideas-active {
+  max-width: 14ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--muted);
+}
+.design-panel {
+  width: 380px;
+  gap: 18px;
+}
+.design-panel section {
+  display: grid;
+  gap: 8px;
+}
+.design-panel h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.design-panel h4 {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.design-panel ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+}
+.design-panel p {
+  margin: 0;
+  font-size: 14px;
+}
+.dp-goals textarea {
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  resize: vertical;
+}
+.dp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.dp-group {
+  width: 64px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.dp-chips .chip,
+.dp-fav {
+  height: 28px;
+  padding: 0 9px;
+  font-size: 13px;
+  border-radius: 999px;
+  box-shadow: none;
+}
+.dp-fav {
+  width: auto;
+  padding-right: 26px;
+}
+.dp-chips .chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+.dp-dial {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.dp-dial button {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+}
+.dp-dial button + button {
+  border-left: 1px solid var(--line-strong);
+}
+.dp-dial button[aria-checked="true"] {
+  background: var(--moss);
+  color: white;
+}
+.dp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.dp-busy {
+  color: var(--moss-dark);
+}
+.dp-review {
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--moss-soft);
+}
+.dp-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.dp-card {
+  position: relative;
+}
+.dp-card-main {
+  width: 100%;
+  height: auto;
+  padding: 6px;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  white-space: normal;
+  text-align: left;
+}
+.dp-card.on .dp-card-main {
+  border-color: var(--moss);
+  box-shadow: 0 0 0 2px var(--moss);
+}
+.design-thumb {
+  display: block;
+  justify-self: center;
+  border-radius: 6px;
+}
+.dp-card-name {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.25;
+}
+.dp-card-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.dp-card-x {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+.dp-oplist {
+  list-style: none;
+  padding: 0 !important;
+  display: grid;
+  gap: 2px;
+}
+.dp-oplist li {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  align-items: start;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.dp-oplist li.on {
+  background: #e8eefc;
+}
+.dp-op-text b {
+  font-weight: 600;
+}
+.dp-op-btns {
+  display: flex;
+  gap: 2px;
+}
+.dp-op-btns button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+.area-pick-catch {
+  fill: transparent;
+  cursor: crosshair;
 }

@@ -4,6 +4,7 @@ import { loadPlants, makeDesigns, reviewYard, sunOf } from "../../../ai/design";
 import { checkOps, styles, type RawDesign, type Style } from "../../../ai/designShape";
 import { dials, goalsSchema, type Design } from "../../../model/design";
 import { propertySchema } from "../../../model/property";
+import { unauthorized, userDir } from "../../../server/auth";
 import { z } from "zod";
 
 // The design engine for the editor. JSON body: { action: "review" | "designs", property, goals, dial, styles?, scope? }.
@@ -19,6 +20,7 @@ const body = z.object({
 });
 
 export async function POST({ request }: APIEvent) {
+  if (!userDir(request)) return unauthorized();
   const parsed = body.safeParse(await request.json());
   if (!parsed.success) return Response.json({ error: parsed.error.message }, { status: 400 });
   const b = parsed.data;
