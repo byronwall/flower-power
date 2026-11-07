@@ -1,0 +1,31 @@
+{
+  "id": "partridgeberry",
+  "commonName": "Partridgeberry",
+  "botanicalName": "Mitchella repens",
+  "category": "groundcover",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": true,
+  "placement": "region",
+  "size": { "heightFt": 0.25, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 3, "spacingFt": 1 },
+  "sun": ["part", "shade"],
+  "soil": ["moist", "well-drained", "organic", "acidic"],
+  "water": "medium",
+  "bloom": { "months": [6, 7], "colors": ["#f4eee8"] },
+  "fruit": { "months": [9, 10, 11, 12], "color": "#c73536" },
+  "foliage": { "spring": "#55834d", "summer": "#477541", "fall": "#477541", "winter": "#477541" },
+  "zones": [3, 8],
+  "care": [{ "month": 5, "task": "Keep the soil evenly moist while plants establish" }, { "month": 10, "task": "Clear excess leaves from the low mat" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds"],
+  "effort": 2,
+  "render": { "form": "mat" },
+  "sources": [
+    { "label": "NC State Extension, Partridgeberry", "url": "https://plants.ces.ncsu.edu/plants/mitchella-repens/common-name/partridgeberry/" },
+    { "label": "Dubois County Soil and Water Conservation District, Native Groundcover Alternatives", "url": "https://www.duboisswcd.org/uploads/1/3/9/4/139458443/groundcover-nativealternativeshandout-final.pdf" }
+  ],
+  "verified": false
+}

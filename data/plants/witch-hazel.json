@@ -1,0 +1,98 @@
+{
+  "id": "witch-hazel",
+  "commonName": "Witch hazel",
+  "botanicalName": "Hamamelis virginiana",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 12,
+    "spreadFt": 12,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      10,
+      11
+    ],
+    "colors": [
+      "#e6c44a"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#8a5b29"
+  },
+  "foliage": {
+    "spring": "#8cac58",
+    "summer": "#527541",
+    "fall": "#e2bb45",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Remove damaged or crossing branches"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds",
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs and Small Trees",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Shrubs%20and%20Small%20Trees.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "fall bloom"
+  ]
+}

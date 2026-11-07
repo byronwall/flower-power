@@ -148,6 +148,9 @@ for (const p of src.plants) {
     j.moisture ??= p.moisture;
     j.tags ??= p.tags;
     if (p.edible) j.edible ??= true;
+    if (p.status.startsWith("invasive") && p.alternatives) {
+      j.alternatives ??= p.alternatives.map((a) => idOf.get(a)).filter(Boolean);
+    }
     writeFileSync(join(dir, hit.file), JSON.stringify(j, null, 2) + "\n");
     enriched++;
     continue;

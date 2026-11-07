@@ -1,0 +1,31 @@
+{
+  "id": "petunia",
+  "commonName": "Garden petunia",
+  "botanicalName": "Petunia × hybrida",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "either",
+  "size": { "heightFt": 1, "spreadFt": 2, "plantedSpreadFt": 0.5, "yearsToMature": 1, "spacingFt": 1 },
+  "sun": ["full", "part"],
+  "soil": ["light", "well-drained", "average"],
+  "water": "medium",
+  "bloom": { "months": [5, 6, 7, 8, 9, 10], "colors": ["#855aa7", "#d65f8c", "#ca4851", "#ffffff", "#e8d85c"] },
+  "fruit": null,
+  "foliage": { "spring": "#568345", "summer": "#4d783d", "fall": "#4d783d", "winter": null },
+  "zones": [10, 11],
+  "care": [{ "month": 5, "task": "Pinch young plants and water after planting" }, { "month": 7, "task": "Deadhead or pinch leggy growth for continued flowering" }, { "month": 9, "task": "Water containers when potting mix dries" }],
+  "plantingMonths": [5, 6],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["pollinators", "hummingbirds", "butterflies"],
+  "effort": 2,
+  "render": { "form": "mound" },
+  "sources": [
+    { "label": "NC State Extension, Garden Petunia", "url": "https://plants.ces.ncsu.edu/plants/petunia-x-hybrida/" },
+    { "label": "ASPCA, Petunia toxicity profile", "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/petunia" }
+  ],
+  "verified": false
+}

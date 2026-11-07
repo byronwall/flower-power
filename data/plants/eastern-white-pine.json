@@ -8,33 +8,52 @@
   "evergreen": true,
   "placement": "single",
   "size": {
-    "heightFt": 82,
-    "spreadFt": 33,
+    "heightFt": 70,
+    "spreadFt": 35,
     "plantedSpreadFt": 3,
-    "yearsToMature": 20,
-    "spacingFt": 33
+    "yearsToMature": 30,
+    "spacingFt": 30
   },
   "sun": [
     "full",
     "part"
   ],
   "soil": [
-    "average"
+    "average",
+    "moist",
+    "well-drained",
+    "loam",
+    "sand"
   ],
   "water": "medium",
   "bloom": null,
-  "fruit": null,
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#95764f"
+  },
   "foliage": {
-    "spring": "#55824d",
-    "summer": "#2e6438",
-    "fall": "#2e6438",
-    "winter": "#36613a"
+    "spring": "#4e7654",
+    "summer": "#4e7654",
+    "fall": "#4e7654",
+    "winter": "#4e7654"
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -44,15 +63,21 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "birds"
+  ],
   "effort": 1,
   "render": {
-    "form": "columnar"
+    "form": "canopy"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/pinus-strobus/common-name/white-pine/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
     }
   ],
   "verified": false,

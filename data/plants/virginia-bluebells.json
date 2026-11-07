@@ -6,21 +6,21 @@
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 1.5,
-    "spreadFt": 1,
-    "plantedSpreadFt": 1,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
     "yearsToMature": 3,
-    "spacingFt": 1
+    "spacingFt": 1.25
   },
   "sun": [
     "part",
     "shade"
   ],
   "soil": [
-    "average",
-    "moist"
+    "moist",
+    "rich"
   ],
   "water": "high",
   "bloom": {
@@ -29,21 +29,31 @@
       5
     ],
     "colors": [
-      "#6f8fd6"
+      "#83b9db",
+      "#d98fa2"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#82ab72",
-    "summer": "#6a9a6a",
-    "fall": "#808652",
+    "spring": "#7da56b",
+    "summer": "#71975f",
+    "fall": null,
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -52,15 +62,21 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "pollinators"
+  ],
   "effort": 1,
   "render": {
-    "form": "upright"
+    "form": "mound"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Missouri Department of Conservation, Virginia bluebells",
+      "url": "https://mdc.mo.gov/discover-nature/field-guide/virginia-bluebells"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
     }
   ],
   "verified": false,

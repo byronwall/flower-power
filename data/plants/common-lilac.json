@@ -8,16 +8,18 @@
   "evergreen": false,
   "placement": "either",
   "size": {
-    "heightFt": 10,
-    "spreadFt": 8,
-    "plantedSpreadFt": 1.5,
-    "yearsToMature": 5,
-    "spacingFt": 8
+    "heightFt": 12,
+    "spreadFt": 10,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
   },
   "sun": [
-    "full"
+    "full",
+    "part"
   ],
   "soil": [
+    "well-drained",
     "average"
   ],
   "water": "medium",
@@ -26,21 +28,27 @@
       5
     ],
     "colors": [
-      "#b79ad8"
+      "#b39acb",
+      "#eee8e0"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#619352",
-    "summer": "#3f7a3f",
-    "fall": "#94903e",
+    "spring": "#8bac5a",
+    "summer": "#50763d",
+    "fall": "#b7aa61",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    7
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 6,
+      "task": "Remove spent flower clusters after bloom"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -50,15 +58,26 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
-  "effort": 1,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 2,
   "render": {
     "form": "mound"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Purdue Extension, Taking Care of Your Yard",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-236-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
     }
   ],
   "verified": false,

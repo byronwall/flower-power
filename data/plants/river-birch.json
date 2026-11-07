@@ -8,11 +8,11 @@
   "evergreen": false,
   "placement": "single",
   "size": {
-    "heightFt": 49,
-    "spreadFt": 33,
-    "plantedSpreadFt": 3,
+    "heightFt": 60,
+    "spreadFt": 45,
+    "plantedSpreadFt": 4,
     "yearsToMature": 20,
-    "spacingFt": 33
+    "spacingFt": 35
   },
   "sun": [
     "full",
@@ -20,40 +20,71 @@
   ],
   "soil": [
     "average",
-    "moist"
+    "moist",
+    "wet",
+    "clay",
+    "loam",
+    "sand"
   ],
   "water": "high",
-  "bloom": null,
-  "fruit": null,
+  "bloom": {
+    "months": [
+      3,
+      4
+    ],
+    "colors": [
+      "#a4b05b"
+    ]
+  },
+  "fruit": {
+    "months": [
+      5,
+      6
+    ],
+    "color": "#b9a178"
+  },
   "foliage": {
-    "spring": "#6d9f4e",
-    "summer": "#4f8a3a",
-    "fall": "#99953d",
+    "spring": "#a9bf67",
+    "summer": "#507b43",
+    "fall": "#d4bd43",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    4,
+    9
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
   "plantingMonths": [
     4,
-    5,
-    9,
-    10
+    5
   ],
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "birds"
+  ],
   "effort": 1,
   "render": {
     "form": "canopy"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/betula-nigra/common-name/water-birch/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
     }
   ],
   "verified": false,

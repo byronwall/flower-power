@@ -9,41 +9,59 @@
   "placement": "region",
   "size": {
     "heightFt": 0.5,
-    "spreadFt": 1,
-    "plantedSpreadFt": 1,
-    "yearsToMature": 3,
-    "spacingFt": 1
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.5
   },
   "sun": [
     "full",
     "part"
   ],
   "soil": [
+    "moist",
     "dry",
-    "average"
+    "well-drained",
+    "sandy loam"
   ],
-  "water": "low",
+  "water": "medium",
   "bloom": {
     "months": [
       4,
       5
     ],
     "colors": [
-      "#f5f3ea"
+      "#ffffff"
     ]
   },
-  "fruit": null,
+  "fruit": {
+    "months": [
+      5,
+      6,
+      7
+    ],
+    "color": "#cf3d35"
+  },
   "foliage": {
-    "spring": "#6d9f50",
-    "summer": "#4f8a3c",
-    "fall": "#788144",
+    "spring": "#6a9b4d",
+    "summer": "#568142",
+    "fall": "#8b6948",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 5,
+      "task": "Water new plants during dry weather"
+    },
+    {
+      "month": 7,
+      "task": "Thin runners if the patch grows beyond its bounds"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -52,15 +70,23 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "pollinators",
+    "birds",
+    "butterflies"
+  ],
   "effort": 1,
   "render": {
     "form": "mat"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "NC State Extension, Wild Strawberry",
+      "url": "https://plants.ces.ncsu.edu/plants/fragaria-virginiana/"
+    },
+    {
+      "label": "The Nature Conservancy, Wild Strawberry plant guide",
+      "url": "https://mgnv.org/wp-content/uploads/2025/03/Fragaria_virginiana2025.pdf"
     }
   ],
   "verified": false,

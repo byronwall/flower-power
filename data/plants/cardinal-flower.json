@@ -6,12 +6,12 @@
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
-    "heightFt": 3.5,
-    "spreadFt": 2,
-    "plantedSpreadFt": 1,
-    "yearsToMature": 3,
+    "heightFt": 3,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
     "spacingFt": 1.5
   },
   "sun": [
@@ -19,7 +19,8 @@
     "part"
   ],
   "soil": [
-    "moist"
+    "moist",
+    "wet"
   ],
   "water": "high",
   "bloom": {
@@ -29,21 +30,30 @@
       9
     ],
     "colors": [
-      "#c8102e"
+      "#c9263b"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#618a4a",
-    "summer": "#3f6f35",
-    "fall": "#747942",
+    "spring": "#668d58",
+    "summer": "#5d814e",
+    "fall": "#8e8651",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    9
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -51,18 +61,23 @@
   ],
   "liftAndStore": false,
   "thorns": false,
-  "toxicToPets": false,
+  "toxicToPets": true,
   "wildlife": [
-    "hummingbirds"
+    "hummingbirds",
+    "pollinators"
   ],
-  "effort": 1,
+  "effort": 2,
   "render": {
     "form": "upright"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "NC State Extension, cardinal flower",
+      "url": "https://plants.ces.ncsu.edu/plants/lobelia-cardinalis/common-name/cardinal-flower/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Shade Gardening plants",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Shade%20Gardening%20-%20Plants25.pdf"
     }
   ],
   "verified": false,

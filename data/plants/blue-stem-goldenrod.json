@@ -1,0 +1,84 @@
+{
+  "id": "blue-stem-goldenrod",
+  "commonName": "Blue-stem goldenrod",
+  "botanicalName": "Solidago caesia",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "well-drained",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "colors": [
+      "#e2c33b"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#718d5b",
+    "summer": "#657f50",
+    "fall": "#a28f59",
+    "winter": null
+  },
+  "zones": [
+    4,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/plant-finder"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}

@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createSignal, onCleanup, onMount, untrack, type JSX } from "solid-js";
+import { createEffect, createMemo, createSignal, onCleanup, onMount, Show, untrack, type JSX } from "solid-js";
 import type { Point, Property } from "../model/property";
 import { bounds } from "../render/geometry";
 import type { ViewTime } from "../render/look";
@@ -20,6 +20,8 @@ type Props = {
   onBackgroundClick?: () => void;
   // Weather shown over the plan, animated.
   weather?: Weather;
+  // How strongly the property's aerial shows over the painting. 0 hides it.
+  photoOpacity?: number;
 };
 
 // Room around the lot when fitted. The bottom leaves space for the scale bar and zoom controls.
@@ -270,7 +272,23 @@ export function PlanView(props: Props) {
     >
       <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} />
       <svg class="plan-overlay" width={size().w} height={size().h}>
-        <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>{untrack(() => props.overlay?.(liveView))}</g>
+        <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>
+          <Show when={props.property.underlay && props.photoOpacity ? props.property.underlay : undefined}>
+            {(u) => (
+              <image
+                class="underlay"
+                href={`/api/images/${u().file}`}
+                x={u().originFt[0]}
+                y={u().originFt[1]}
+                width={u().sizePx[0] * u().ftPerPx}
+                height={u().sizePx[1] * u().ftPerPx}
+                opacity={props.photoOpacity}
+                preserveAspectRatio="none"
+              />
+            )}
+          </Show>
+          {untrack(() => props.overlay?.(liveView))}
+        </g>
         <PlanMarks property={props.property} view={view()} height={size().h} />
       </svg>
       <canvas class="life-canvas" ref={lifeCanvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} aria-hidden="true" />

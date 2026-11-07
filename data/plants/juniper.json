@@ -1,0 +1,80 @@
+{
+  "id": "juniper",
+  "commonName": "Chinese juniper",
+  "botanicalName": "Juniperus chinensis",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 6,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "well-drained",
+    "dry"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#64788a"
+  },
+  "foliage": {
+    "spring": "#5d7d45",
+    "summer": "#52713e",
+    "fall": "#52713e",
+    "winter": "#49673d"
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Remove dead tips and maintain form"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Needled Evergreens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/needled-evergreens"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

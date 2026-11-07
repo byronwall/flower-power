@@ -1,0 +1,92 @@
+{
+  "id": "blazing-star",
+  "commonName": "Dense blazing star",
+  "botanicalName": "Liatris spicata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 1,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#a84caa"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#638d4b",
+    "summer": "#577e43",
+    "fall": "#9a8551",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, Liatris",
+      "url": "https://plants.ces.ncsu.edu/plants/liatris/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Recommended Perennials",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Growing%20Perennials18.pdf"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "drought tolerant"
+  ]
+}

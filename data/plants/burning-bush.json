@@ -10,31 +10,51 @@
   "size": {
     "heightFt": 10,
     "spreadFt": 10,
-    "plantedSpreadFt": 1.5,
-    "yearsToMature": 5,
-    "spacingFt": 10
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
   },
   "sun": [
     "full",
-    "part"
+    "part",
+    "shade"
   ],
   "soil": [
-    "average"
+    "average",
+    "well-drained"
   ],
   "water": "medium",
-  "bloom": null,
-  "fruit": null,
+  "bloom": {
+    "months": [
+      5
+    ],
+    "colors": [
+      "#b5ae7e"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#d98832"
+  },
   "foliage": {
-    "spring": "#6a9f4e",
-    "summer": "#4a8a3a",
-    "fall": "#97953d",
+    "spring": "#78a052",
+    "summer": "#4e7739",
+    "fall": "#d84328",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    4,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Prune to shape before spring growth"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -44,15 +64,25 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "birds"
+  ],
   "effort": 1,
   "render": {
     "form": "mound"
   },
   "sources": [
     {
-      "label": "Indiana DNR Terrestrial Plant Rule (312 IAC 18-3-25)",
-      "url": "https://www.in.gov/dnr/entomology/"
+      "label": "Missouri Botanical Garden, Shrubs for Clay Soils",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Clay%20Soils%20-%20Shrubs7.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
     }
   ],
   "verified": false,

@@ -5,6 +5,7 @@ import { YardView3D } from "../components/YardView3D";
 import { Mascot } from "../components/Mascot";
 import { Tour } from "../components/Tour";
 import { EditLayer } from "../editor/EditLayer";
+import { ImportButton, importPhotos, ImportProgress, ScaleBanner } from "../editor/ImportFlow";
 import { Inspector } from "../editor/Inspector";
 import { ModeBanner } from "../editor/ModeBanner";
 import { createEditor, droppedPlanting, itemOf, newId, pointsOf, withPoints, type Item } from "../editor/state";
@@ -19,7 +20,7 @@ export default function Home() {
   const [list, { mutate }] = createResource(loadProperties);
   return (
     <Show when={list()} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
-      {(l) => <Planner properties={l()} onSaved={(p) => mutate(l().map((x) => (x.id === p.id ? p : x)))} />}
+      {(l) => <Planner properties={l()} onSaved={(p) => mutate(l().some((x) => x.id === p.id) ? l().map((x) => (x.id === p.id ? p : x)) : [...l(), p])} />}
     </Show>
   );
 }
@@ -47,6 +48,12 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
   };
   const [status, setStatus] = createSignal("");
   const [preview, setPreview] = createSignal<string | null>(null);
+  const [photo, setPhoto] = createSignal({ on: true, opacity: 0.55 });
+  const [importing, setImporting] = createSignal(0);
+  const [importError, setImportError] = createSignal("");
+  const [scaleBasis, setScaleBasis] = createSignal<string | null>(null);
+  const [dropping, setDropping] = createSignal(false);
+  const isNew = () => !props.properties.some((p) => p.id === ed.property().id);
   // Side panels can fold away to give the plan the whole window. Remembered per browser.
   const saved = (() => {
     try {
@@ -123,7 +130,33 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
   function pick(id: string) {
     if (ed.dirty() && !window.confirm("Discard unsaved changes?")) return;
     ed.load(props.properties.find((p) => p.id === id)!);
+    setScaleBasis(null);
   }
+
+  // The result opens as a new, unsaved property. A failure leaves the current plan as it was.
+  async function runImport(files: File[]) {
+    if (importing()) return;
+    if (ed.dirty() && !window.confirm("Discard unsaved changes?")) return;
+    const ids = new Set(props.properties.map((p) => p.id));
+    let n = 1;
+    while (ids.has(`new-lot-${n}`)) n++;
+    setImportError("");
+    setScaleBasis(null);
+    setImporting(files.length);
+    try {
+      const res = await importPhotos(files, `New lot ${n}`);
+      ed.load(res.property);
+      ed.setDirty(true);
+      setPhoto({ ...photo(), on: true });
+      setScaleBasis(res.raw.scaleBasis);
+    } catch (e) {
+      setImportError((e as Error).message);
+    } finally {
+      setImporting(0);
+    }
+  }
+
+  const hasFiles = (e: DragEvent) => e.dataTransfer?.types.includes("Files") ?? false;
 
   onMount(() => {
     const key = (e: KeyboardEvent) => {
@@ -164,7 +197,23 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
   });
 
   return (
-    <div class="app">
+    <div
+      class="app"
+      onDragOver={(e) => {
+        if (!hasFiles(e)) return;
+        e.preventDefault();
+        setDropping(true);
+      }}
+      onDragLeave={(e) => {
+        if (!e.relatedTarget) setDropping(false);
+      }}
+      onDrop={(e) => {
+        if (!hasFiles(e)) return;
+        e.preventDefault();
+        setDropping(false);
+        runImport([...e.dataTransfer!.files]);
+      }}
+    >
       <header class="app-bar">
         <span class="brand">
           <Mascot size={44} plantId="purple-coneflower" class="brand-mascot" />
@@ -173,9 +222,39 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
         <label class="property-pick">
           <span class="eyebrow">Plan</span>
           <select id="property" value={ed.property().id} onChange={(e) => pick(e.currentTarget.value)} aria-label="Property">
-            <For each={props.properties}>{(p) => <option value={p.id}>{p.name}</option>}</For>
+            <For each={props.properties}>
+              {(p) => (
+                <option value={p.id} selected={p.id === ed.property().id}>
+                  {p.name}
+                </option>
+              )}
+            </For>
+            <Show when={isNew()}>
+              <option value={ed.property().id} selected>
+                {ed.property().name} (unsaved)
+              </option>
+            </Show>
           </select>
         </label>
+        <ImportButton onFiles={runImport} disabled={!!importing()} />
+        <Show when={ed.property().underlay}>
+          <div class="photo-controls">
+            <label class="check">
+              <input id="photo-toggle" type="checkbox" checked={photo().on} onChange={(e) => setPhoto({ ...photo(), on: e.currentTarget.checked })} />
+              Photo
+            </label>
+            <input
+              type="range"
+              min="0.1"
+              max="1"
+              step="0.05"
+              value={photo().opacity}
+              disabled={!photo().on}
+              onInput={(e) => setPhoto({ ...photo(), opacity: Number(e.currentTarget.value) })}
+              aria-label="Photo opacity"
+            />
+          </div>
+        </Show>
         <div class="file-actions">
           <div class="btn-group">
             <button type="button" class="icon-btn" onClick={ed.undo} disabled={!ed.canUndo()} title={ed.canUndo() ? "Undo (⌘Z)" : "Nothing to undo yet"} aria-label="Undo">
@@ -202,6 +281,12 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
         <Toolbar editor={ed} />
       </header>
       <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails() }}>
+        <Show when={importing()}>
+          <ImportProgress count={importing()} />
+        </Show>
+        <Show when={dropping()}>
+          <div class="drop-hint">Drop an aerial and any listing photos to start a new plan</div>
+        </Show>
         <Show when={showPlants() || showDetails()}>
           <div
             class="drawer-scrim"
@@ -283,12 +368,25 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
               </div>
             </div>
           </div>
+          <Show when={importError()}>
+            <div class="import-banner error" role="alert">
+              <span>The import failed: {importError()} Your plan is unchanged.</span>
+              <span class="spacer" />
+              <button type="button" onClick={() => setImportError("")}>
+                Dismiss
+              </button>
+            </div>
+          </Show>
+          <Show when={scaleBasis() !== null}>
+            <ScaleBanner editor={ed} basis={scaleBasis()!} onClose={() => setScaleBasis(null)} />
+          </Show>
           <div class="views" classList={{ split: mode() === "both" }}>
             <div class="view-slot" classList={{ hidden: mode() === "3d" }}>
               <PlanView
                 property={ed.property()}
                 time={time()}
                 weather={weather()}
+                photoOpacity={photo().on ? photo().opacity : 0}
                 overlay={(view) => <EditLayer editor={ed} view={view} time={time()} />}
                 onBackgroundClick={() => {
                   ed.setSelected(null);

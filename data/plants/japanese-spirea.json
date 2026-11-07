@@ -1,0 +1,86 @@
+{
+  "id": "japanese-spirea",
+  "commonName": "Japanese spirea",
+  "botanicalName": "Spiraea japonica",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 4.2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "colors": [
+      "#db7b9a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#8caf52",
+    "summer": "#4c783a",
+    "fall": "#b56a38",
+    "winter": null
+  },
+  "zones": [
+    4,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Prune before spring growth if needed"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden Plant Finder",
+      "url": "https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?basic=Spiraea+japonica&isprofile=1&taxonid=253816"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

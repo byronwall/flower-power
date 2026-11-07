@@ -2,47 +2,62 @@
   "id": "common-blue-violet",
   "commonName": "Common blue violet",
   "botanicalName": "Viola sororia",
-  "category": "perennial",
+  "category": "groundcover",
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 0.5,
-    "spreadFt": 0.5,
+    "spreadFt": 1.5,
     "plantedSpreadFt": 0.5,
-    "yearsToMature": 3,
-    "spacingFt": 0.5
+    "yearsToMature": 2,
+    "spacingFt": 1
   },
   "sun": [
+    "full",
     "part",
     "shade"
   ],
   "soil": [
+    "moist",
     "average"
   ],
   "water": "medium",
   "bloom": {
     "months": [
+      3,
       4,
-      5
+      5,
+      6
     ],
     "colors": [
-      "#6a4cb0"
+      "#6252a3"
     ]
   },
-  "fruit": null,
+  "fruit": {
+    "months": [
+      5,
+      6
+    ],
+    "color": "#6b654f"
+  },
   "foliage": {
-    "spring": "#6da251",
-    "summer": "#4f8f3e",
-    "fall": "#788245",
+    "spring": "#6f9a50",
+    "summer": "#5e8345",
+    "fall": "#7c8154",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 5,
+      "task": "Water new patches during prolonged dry weather"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -52,16 +67,21 @@
   "thorns": false,
   "toxicToPets": false,
   "wildlife": [
+    "pollinators",
     "butterflies"
   ],
   "effort": 1,
   "render": {
-    "form": "upright"
+    "form": "mat"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Indiana Plant Atlas, Common Blue Violet",
+      "url": "https://indiana.plantatlas.usf.edu/plant.aspx?id=276"
+    },
+    {
+      "label": "Iowa State University Extension, Common Blue Violet",
+      "url": "https://naturalresources.extension.iastate.edu/encyclopedia/dooryardcommon-blue-violet"
     }
   ],
   "verified": false,

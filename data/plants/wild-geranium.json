@@ -6,44 +6,53 @@
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 1.5,
     "spreadFt": 1.5,
-    "plantedSpreadFt": 1,
-    "yearsToMature": 3,
-    "spacingFt": 1
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.25
   },
   "sun": [
     "part",
     "shade"
   ],
   "soil": [
-    "average"
+    "well-drained",
+    "moist"
   ],
   "water": "medium",
   "bloom": {
     "months": [
       4,
-      5,
-      6
+      5
     ],
     "colors": [
-      "#d79ac8"
+      "#c38ab5"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#6d9f50",
-    "summer": "#4f8a3c",
-    "fall": "#788144",
+    "spring": "#70945b",
+    "summer": "#6c8954",
+    "fall": "#c0a878",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -52,15 +61,21 @@
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "pollinators"
+  ],
   "effort": 1,
   "render": {
-    "form": "upright"
+    "form": "mound"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Missouri Department of Conservation, wild geranium",
+      "url": "https://mdc.mo.gov/discover-nature/field-guide/wild-geranium-cranes-bill"
+    },
+    {
+      "label": "Missouri Botanical Garden, Signs of Spring",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Signs%20of%20Spring.pdf"
     }
   ],
   "verified": false,

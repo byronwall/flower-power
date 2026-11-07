@@ -1,24 +1,25 @@
 {
   "id": "tulip",
   "commonName": "Tulip",
-  "botanicalName": "Tulipa",
+  "botanicalName": "Tulipa gesneriana",
   "category": "perennial",
   "nativeToIndiana": false,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 1.5,
-    "spreadFt": 1,
-    "plantedSpreadFt": 1,
-    "yearsToMature": 3,
-    "spacingFt": 1
+    "spreadFt": 0.5,
+    "plantedSpreadFt": 0.3,
+    "yearsToMature": 1,
+    "spacingFt": 0.5
   },
   "sun": [
-    "full"
+    "full",
+    "part"
   ],
   "soil": [
-    "average"
+    "well-drained"
   ],
   "water": "medium",
   "bloom": {
@@ -27,47 +28,58 @@
       5
     ],
     "colors": [
-      "#e0333f"
+      "#d64847"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#79a266",
-    "summer": "#5f8f5a",
-    "fall": "#7d824d",
+    "spring": "#638547",
+    "summer": null,
+    "fall": null,
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
-    4,
-    5,
-    9
+    9,
+    10,
+    11
   ],
   "liftAndStore": false,
   "thorns": false,
-  "toxicToPets": false,
-  "wildlife": [],
-  "effort": 1,
+  "toxicToPets": true,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 2,
   "render": {
     "form": "upright"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Purdue Extension, flowering bulbs",
+      "url": "https://extension.purdue.edu/news/county/whitley/2022/09/enhancing-your-landscape-aesthetics-with-flowering-bulbs.html"
+    },
+    {
+      "label": "Purdue Extension, Taking Care of Your Yard",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-236-W.pdf"
+    },
+    {
+      "label": "ASPCA, tulip toxicity",
+      "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/tulip"
     }
   ],
-  "verified": false,
-  "indianaStatus": "introduced",
-  "moisture": [
-    "medium"
-  ],
-  "tags": [
-    "garden",
-    "bulb"
-  ]
+  "verified": false
 }

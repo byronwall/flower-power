@@ -8,51 +8,80 @@
   "evergreen": false,
   "placement": "single",
   "size": {
-    "heightFt": 82,
-    "spreadFt": 53.5,
-    "plantedSpreadFt": 3,
-    "yearsToMature": 20,
-    "spacingFt": 53.5
+    "heightFt": 80,
+    "spreadFt": 80,
+    "plantedSpreadFt": 6,
+    "yearsToMature": 40,
+    "spacingFt": 60
   },
   "sun": [
-    "full"
+    "full",
+    "part"
   ],
   "soil": [
-    "dry",
-    "average"
+    "average",
+    "moist",
+    "well-drained",
+    "loam"
   ],
   "water": "low",
-  "bloom": null,
-  "fruit": null,
+  "bloom": {
+    "months": [
+      5
+    ],
+    "colors": [
+      "#a7ad43"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#795331"
+  },
   "foliage": {
-    "spring": "#619349",
-    "summer": "#3e7a33",
-    "fall": "#93903b",
+    "spring": "#9aad58",
+    "summer": "#53783d",
+    "fall": "#913d31",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    9
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
   "plantingMonths": [
     4,
-    5,
-    9,
-    10
+    5
   ],
   "liftAndStore": false,
   "thorns": false,
-  "toxicToPets": false,
-  "wildlife": [],
+  "toxicToPets": true,
+  "wildlife": [
+    "birds"
+  ],
   "effort": 1,
   "render": {
     "form": "canopy"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/quercus-alba/common-name/forked-leaf-white-oak/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
     }
   ],
   "verified": false,

@@ -1,0 +1,31 @@
+{
+  "id": "impatiens",
+  "commonName": "Garden impatiens",
+  "botanicalName": "Impatiens walleriana",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 1, "spreadFt": 1, "plantedSpreadFt": 0.5, "yearsToMature": 1, "spacingFt": 1 },
+  "sun": ["part", "shade"],
+  "soil": ["moist", "well-drained", "organic"],
+  "water": "high",
+  "bloom": { "months": [5, 6, 7, 8, 9, 10], "colors": ["#e88a9c", "#cc5365", "#e77a47", "#8870ac", "#ffffff"] },
+  "fruit": { "months": [9, 10], "color": "#71934f" },
+  "foliage": { "spring": "#70a357", "summer": "#5e914a", "fall": "#5e914a", "winter": null },
+  "zones": [10, 11],
+  "care": [{ "month": 5, "task": "Plant after frost and keep soil moist" }, { "month": 8, "task": "Trim leggy stems by up to one-third to encourage fresh growth" }, { "month": 9, "task": "Water during hot dry periods" }],
+  "plantingMonths": [5, 6],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["pollinators", "butterflies"],
+  "effort": 2,
+  "render": { "form": "mound" },
+  "sources": [
+    { "label": "NC State Extension, Garden Impatiens", "url": "https://plants.ces.ncsu.edu/plants/impatiens-walleriana/common-name/garden-impatiens/" },
+    { "label": "ASPCA, Impatiens toxicity profile", "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/impatience-plant" }
+  ],
+  "verified": false
+}

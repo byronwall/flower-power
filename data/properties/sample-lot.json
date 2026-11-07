@@ -430,7 +430,7 @@
     {
       "id": "dense-blazing-star-1",
       "type": "region",
-      "plantId": "dense-blazing-star",
+      "plantId": "blazing-star",
       "outline": [
         [39.6, 118.6],
         [44, 118.6],

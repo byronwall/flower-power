@@ -8,11 +8,11 @@
   "evergreen": false,
   "placement": "single",
   "size": {
-    "heightFt": 26,
-    "spreadFt": 23,
+    "heightFt": 30,
+    "spreadFt": 30,
     "plantedSpreadFt": 3,
-    "yearsToMature": 20,
-    "spacingFt": 23
+    "yearsToMature": 25,
+    "spacingFt": 25
   },
   "sun": [
     "part",
@@ -20,40 +20,69 @@
   ],
   "soil": [
     "average",
-    "moist"
+    "moist",
+    "clay",
+    "loam",
+    "sand"
   ],
-  "water": "high",
-  "bloom": null,
-  "fruit": null,
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4
+    ],
+    "colors": [
+      "#a6ad54"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#8a6b3d"
+  },
   "foliage": {
-    "spring": "#6b9f50",
-    "summer": "#4c8a3c",
-    "fall": "#98953d",
+    "spring": "#9bb65d",
+    "summer": "#527747",
+    "fall": "#bd4b35",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    3,
+    9
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
   "plantingMonths": [
     4,
-    5,
-    9,
-    10
+    5
   ],
   "liftAndStore": false,
   "thorns": false,
   "toxicToPets": false,
-  "wildlife": [],
+  "wildlife": [
+    "birds"
+  ],
   "effort": 1,
   "render": {
     "form": "canopy"
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/carpinus-caroliniana/common-name/american-hornbeam/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
     }
   ],
   "verified": false,

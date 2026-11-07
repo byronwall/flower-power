@@ -1,0 +1,84 @@
+{
+  "id": "colorado-blue-spruce",
+  "commonName": "Colorado blue spruce",
+  "botanicalName": "Picea pungens",
+  "category": "tree",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "single",
+  "size": {
+    "heightFt": 50,
+    "spreadFt": 15,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 30,
+    "spacingFt": 15
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "well-drained",
+    "clay",
+    "loam",
+    "sand"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#9a7952"
+  },
+  "foliage": {
+    "spring": "#557c82",
+    "summer": "#557c82",
+    "fall": "#557c82",
+    "winter": "#557c82"
+  },
+  "zones": [
+    2,
+    7
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "columnar"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/picea-pungens-glauca/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

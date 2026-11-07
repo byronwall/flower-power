@@ -8,42 +8,53 @@
   "evergreen": false,
   "placement": "either",
   "size": {
-    "heightFt": 10,
-    "spreadFt": 10,
-    "plantedSpreadFt": 1.5,
-    "yearsToMature": 5,
-    "spacingFt": 10
+    "heightFt": 9,
+    "spreadFt": 9,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
   },
   "sun": [
     "part",
     "shade"
   ],
   "soil": [
-    "average",
-    "moist"
+    "moist",
+    "well-drained"
   ],
-  "water": "high",
+  "water": "medium",
   "bloom": {
     "months": [
       3,
       4
     ],
     "colors": [
-      "#e6d34a"
+      "#c9d54b"
     ]
   },
-  "fruit": null,
+  "fruit": {
+    "months": [
+      8,
+      9
+    ],
+    "color": "#c82f35"
+  },
   "foliage": {
-    "spring": "#6da050",
-    "summer": "#4f8c3c",
-    "fall": "#99963d",
+    "spring": "#9bbd64",
+    "summer": "#5f8a42",
+    "fall": "#e7d34c",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    4,
+    9
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 7,
+      "task": "Prune after flowering only to shape"
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -54,6 +65,7 @@
   "thorns": false,
   "toxicToPets": false,
   "wildlife": [
+    "birds",
     "butterflies"
   ],
   "effort": 1,
@@ -62,8 +74,16 @@
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "Missouri Botanical Garden, Shrubs and Small Trees",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Shrubs%20and%20Small%20Trees.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
     }
   ],
   "verified": false,

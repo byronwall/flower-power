@@ -104,11 +104,37 @@ export function Inspector(props: InspectorProps) {
 
 function PlantingFields(props: { editor: Editor; planting: Property["plantings"][number]; set: (f: string, v: unknown) => void; time: ViewTime }) {
   const plant = () => plantsById.get(props.planting.plantId);
+  // Picking any plant, the guess or another one, means a person has checked it.
+  const choose = (plantId: string) => {
+    const s = props.editor.selected();
+    if (s) props.editor.updateItem(s, (x) => ({ ...x, plantId, guess: undefined }));
+  };
+  const others = () => plants.filter((p) => p.category === plant()?.category && p.id !== props.planting.plantId).slice(0, 4);
   return (
     <>
       <Show when={plant()}>{(p) => <Picture plant={p()} time={props.time} />}</Show>
+
+      <Show when={props.planting.guess}>
+        <div class="guess-box">
+          <strong>Guessed from the photos</strong>
+          <p>Confirm or change: is this {plant() ? `a ${plant()!.commonName}` : "plant right"}?</p>
+          <div class="guess-actions">
+            <button type="button" class="primary" id="guess-confirm" onClick={() => choose(props.planting.plantId)}>
+              Confirm
+            </button>
+            <For each={others()}>
+              {(p) => (
+                <button type="button" onClick={() => choose(p.id)}>
+                  {p.commonName}
+                </button>
+              )}
+            </For>
+          </div>
+          <span class="muted">Or pick any plant below.</span>
+        </div>
+      </Show>
       <Field label="Plant">
-        <select id="inspector-plant" value={props.planting.plantId} onChange={(e) => props.set("plantId", e.currentTarget.value)}>
+        <select id="inspector-plant" value={props.planting.plantId} onChange={(e) => choose(e.currentTarget.value)}>
           <For each={plants.filter((x) => !x.indianaStatus?.startsWith("invasive"))}>{(p) => <option value={p.id}>{p.commonName}</option>}</For>
         </select>
       </Field>

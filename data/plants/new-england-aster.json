@@ -6,22 +6,23 @@
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 4,
     "spreadFt": 2.5,
-    "plantedSpreadFt": 1,
+    "plantedSpreadFt": 0.5,
     "yearsToMature": 3,
     "spacingFt": 2
   },
   "sun": [
-    "full"
+    "full",
+    "part"
   ],
   "soil": [
-    "average",
-    "moist"
+    "moist",
+    "well-drained"
   ],
-  "water": "high",
+  "water": "medium",
   "bloom": {
     "months": [
       8,
@@ -29,21 +30,30 @@
       10
     ],
     "colors": [
-      "#7d4fb3"
+      "#9253ad"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#6d964e",
-    "summer": "#4e7f3a",
-    "fall": "#787e44",
+    "spring": "#66894e",
+    "summer": "#60804a",
+    "fall": "#aa805a",
     "winter": null
   },
   "zones": [
-    5,
-    6
+    4,
+    8
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -53,7 +63,8 @@
   "thorns": false,
   "toxicToPets": false,
   "wildlife": [
-    "pollinators"
+    "pollinators",
+    "butterflies"
   ],
   "effort": 1,
   "render": {
@@ -61,8 +72,12 @@
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "NC State Extension, New England aster",
+      "url": "https://plants.ces.ncsu.edu/plants/symphyotrichum-novae-angliae/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
     }
   ],
   "verified": false,

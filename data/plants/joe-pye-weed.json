@@ -1,0 +1,92 @@
+{
+  "id": "joe-pye-weed",
+  "commonName": "Sweet Joe-Pye weed",
+  "botanicalName": "Eutrochium purpureum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 6,
+    "spreadFt": 4,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 4,
+    "spacingFt": 3
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "rich"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#b785ba"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#66854d",
+    "summer": "#557444",
+    "fall": "#9c8157",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, sweet Joe-Pye weed",
+      "url": "https://plants.ces.ncsu.edu/plants/eutrochium-purpureum/common-name/motherwort/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator"
+  ]
+}

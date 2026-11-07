@@ -1,0 +1,75 @@
+{
+  "id": "yew",
+  "commonName": "Yew",
+  "botanicalName": "Taxus \u00d7 media",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 4.2
+  },
+  "sun": [
+    "full",
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#4b7042",
+    "summer": "#41643b",
+    "fall": "#41643b",
+    "winter": "#365d39"
+  },
+  "zones": [
+    4,
+    7
+  ],
+  "care": [
+    {
+      "month": 6,
+      "task": "Shear lightly after new growth"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Needled Evergreens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/needled-evergreens"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "ASPCA, Yew",
+      "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/yew"
+    }
+  ],
+  "verified": false
+}

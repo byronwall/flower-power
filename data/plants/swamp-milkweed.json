@@ -6,19 +6,21 @@
   "nativeToIndiana": true,
   "lifecycle": "perennial",
   "evergreen": false,
-  "placement": "either",
+  "placement": "region",
   "size": {
     "heightFt": 4,
-    "spreadFt": 2.5,
-    "plantedSpreadFt": 1,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
     "yearsToMature": 3,
     "spacingFt": 2
   },
   "sun": [
-    "full"
+    "full",
+    "part"
   ],
   "soil": [
-    "moist"
+    "moist",
+    "wet"
   ],
   "water": "high",
   "bloom": {
@@ -27,21 +29,30 @@
       8
     ],
     "colors": [
-      "#d6699a"
+      "#d57fa6"
     ]
   },
   "fruit": null,
   "foliage": {
-    "spring": "#6b9f50",
-    "summer": "#4c8a3c",
-    "fall": "#778144",
+    "spring": "#6f9655",
+    "summer": "#64874c",
+    "fall": "#9c8050",
     "winter": null
   },
   "zones": [
-    5,
+    3,
     6
   ],
-  "care": [],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
   "plantingMonths": [
     4,
     5,
@@ -49,9 +60,10 @@
   ],
   "liftAndStore": false,
   "thorns": false,
-  "toxicToPets": false,
+  "toxicToPets": true,
   "wildlife": [
-    "butterflies"
+    "butterflies",
+    "pollinators"
   ],
   "effort": 1,
   "render": {
@@ -59,8 +71,12 @@
   },
   "sources": [
     {
-      "label": "Flower Power Indiana plant list (hand-curated)",
-      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+      "label": "NC State Extension, swamp milkweed",
+      "url": "https://plants.ces.ncsu.edu/plants/asclepias-incarnata/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
     }
   ],
   "verified": false,
