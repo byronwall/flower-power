@@ -166,7 +166,7 @@ function Planner(props: PlannerProps) {
       ed.setDirty(false);
       setStatus("Saved");
       // A public design shows its latest saved version in the gallery.
-      if (store.isPublic(ed.property().id)) store.publish(ed.property());
+      if (store.isPublic(p.id)) store.publish(p);
     } catch (e) {
       setStatus((e as Error).message);
     }
@@ -199,7 +199,7 @@ function Planner(props: PlannerProps) {
       props.onSaved(p);
       store.noteCopy(id, { id: copy.from.id, title: copy.from.title });
     }
-    ed.load(p);
+    ds.open(p);
     setScaleBasis(null);
     setStatus("");
     setParams({ view: undefined, tab: undefined, garden: undefined });
