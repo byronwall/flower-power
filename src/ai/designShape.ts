@@ -10,11 +10,16 @@ export type Sun = "full" | "part" | "shade" | "unknown";
 export type SunAt = (at: Point) => Sun;
 
 export const styles = {
-  cottage: "Cottage: loose, layered, abundant flowers, mixed drifts, soft edges, color through the seasons.",
-  prairie: "Naturalistic prairie: Indiana natives, grasses with perennials in big repeating drifts, wildlife first, little lawn.",
-  modern: "Clean modern: few species in bold repeated blocks, crisp straight edges, strong structure, calm palette, lots of foliage texture.",
-  formal: "Formal: symmetry on the house and paths, clipped shrubs and hedges in rows, framed beds, a clear central axis.",
-  woodland: "Woodland: layered shade garden under trees, ferns and shade perennials, understory trees and shrubs, a quiet path feel.",
+  cottage:
+    "Cottage: loose, layered, abundant flowers with soft curving bed edges. Use many flowering perennials, roses or flowering shrubs, and annuals, 7 to 12 species, mixed colors, tall at the back spilling to low at the front.",
+  prairie:
+    "Naturalistic prairie: Indiana natives only, native grasses woven with native perennials in big repeating drifts, turning lawn into meadow-like beds. 5 to 8 species. Wildlife first, little lawn, no clipped shrubs.",
+  modern:
+    "Clean modern: 3 to 5 species, each in a bold rectangular block or long straight row, crisp straight bed edges with edging, grasses, evergreen shrubs, and groundcovers for texture, one restrained accent color. Open lawn panels are part of the design.",
+  formal:
+    "Formal: symmetry about the house and its doors, clipped evergreen shrubs and hedges in rows, matched pairs of small trees or shrubs, framed rectangular beds with a single repeated filler plant, a clear central axis with a focal feature.",
+  woodland:
+    "Woodland: layered shade garden under trees, ferns and shade perennials, understory trees and shrubs, a quiet path feel.",
 } as const;
 export type Style = keyof typeof styles;
 
@@ -229,7 +234,7 @@ export function designPrompt(p: Property, plants: Plant[], ask: Ask) {
   const instructions = `You are a garden designer in Indiana (zone 5b to 6b). You make one design for a homeowner's yard, in one style, as a list of edit ops on their plan.
 
 Style: ${styles[ask.style]}
-Commit to the style. Choose plants, bed shapes, and features that make this design look clearly different from a design in another style.
+Other designers are making designs in other styles for this same yard, and the homeowner will compare them side by side. Commit to this style. Choose plants that only this style would choose, and avoid the generic picks every style would make. Bed shapes, edges, and features should also say the style at a glance.
 
 Change level: ${dialText[ask.dial]}
 
