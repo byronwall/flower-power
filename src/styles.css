@@ -3249,3 +3249,91 @@ b {
 .demo-bar + .gallery-time {
   margin-left: 0;
 }
+
+/* The tour as a looping player in the side panel. It reuses the tour's scenes and progress bars. */
+.reel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.reel .tour-bars {
+  gap: 3px;
+}
+
+.reel .tour-bar {
+  height: 3px;
+}
+
+.reel.paused .tour-bar .fill,
+.reel.paused .scene * {
+  animation-play-state: paused !important;
+}
+
+.reel-stage {
+  position: relative;
+}
+
+.reel-screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #eef2e4;
+  box-shadow: none;
+  cursor: zoom-in;
+}
+
+.reel-screen:hover {
+  background: #eef2e4;
+  border-color: var(--moss);
+}
+
+.reel-pause {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(47, 51, 41, 0.7);
+  color: white;
+  box-shadow: none;
+  opacity: 0.75;
+}
+
+.reel-pause:hover,
+.reel-pause:focus-visible {
+  background: rgba(47, 51, 41, 0.85);
+  opacity: 1;
+}
+
+.reel-text {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+}
+
+.reel-text strong {
+  font: 400 19px/1.2 var(--f-hand);
+}
+
+.reel-text p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  min-height: 4.2em; /* three lines, so the panel never jumps between scenes */
+}

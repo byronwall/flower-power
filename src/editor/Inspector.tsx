@@ -4,6 +4,7 @@ import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type
 import { itemOf, type Editor, type Ref } from "./state";
 import { crowding } from "./spacing";
 import { Mascot } from "../components/Mascot";
+import { TourReel } from "../components/Tour";
 import { PlantPicture } from "../gallery/PlantPicture";
 import type { Plant } from "../model/plant";
 import { monthNames, type ViewTime } from "../render/look";
@@ -294,20 +295,15 @@ function CloseButton(props: { onClick: () => void }) {
   );
 }
 
-// Shown when nothing is selected: Sprout, one line of guidance, and the tour.
+// Shown when nothing is selected: Sprout, one line of guidance, and the tour playing on a loop.
 // The step-by-step instructions live in the animated tour, so they don't fill the panel.
 function GettingStarted(props: { onTour?: () => void }) {
   const [keys, setKeys] = createSignal(false);
   return (
     <div class="start welcome">
-      <Mascot size={150} caption />
+      <Mascot size={110} caption />
       <p>Drag plants in from the list, then click anything on the plan to change it.</p>
-      <button type="button" class="primary" onClick={() => props.onTour?.()}>
-        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
-          <path d="M5 3l8 5-8 5z" fill="currentColor" />
-        </svg>
-        Watch the 30-second tour
-      </button>
+      <TourReel onExpand={() => props.onTour?.()} />
       <button type="button" class="link-btn" aria-expanded={keys()} onClick={() => setKeys(!keys())}>
         {keys() ? "Hide keyboard shortcuts" : "Keyboard shortcuts"}
       </button>

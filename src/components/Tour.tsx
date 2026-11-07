@@ -233,3 +233,87 @@ export function Tour(props: { onClose: () => void }) {
     </div>
   );
 }
+
+// The same scenes as a small player that sits in the side panel and plays on a loop by itself,
+// like a muted video. It plays only while it is on screen and the tab is open. A click on the
+// picture opens the full-size tour; the corner button pauses it for anyone who wants it still.
+export function TourReel(props: { onExpand?: () => void }) {
+  const [i, setI] = createSignal(0);
+  const [run, setRun] = createSignal(0);
+  const [playing, setPlaying] = createSignal(true);
+  const [visible, setVisible] = createSignal(true);
+  let box!: HTMLDivElement;
+  let timer = 0;
+
+  const go = (n: number) => {
+    setI((n + SCENES.length) % SCENES.length);
+    setRun(run() + 1);
+  };
+
+  createEffect(() => {
+    i();
+    run();
+    clearTimeout(timer);
+    if (playing() && visible()) timer = window.setTimeout(() => go(i() + 1), SCENE_MS);
+  });
+
+  onMount(() => {
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting && !document.hidden), { threshold: 0.3 });
+    io.observe(box);
+    const vis = () => setVisible(!document.hidden && box.getBoundingClientRect().height > 0);
+    document.addEventListener("visibilitychange", vis);
+    onCleanup(() => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", vis);
+      clearTimeout(timer);
+    });
+  });
+
+  return (
+    <div class="reel" ref={box} classList={{ paused: !playing() || !visible() }}>
+      <div class="tour-bars" aria-hidden="true">
+        <For each={SCENES}>
+          {(_, n) => (
+            <button type="button" class="tour-bar" classList={{ done: n() < i(), now: n() === i() }} onClick={() => go(n())} tabindex="-1">
+              <Show when={n() === i()}>
+                <For each={[run()]}>{() => <span class="fill" style={{ "animation-duration": `${SCENE_MS}ms` }} />}</For>
+              </Show>
+            </button>
+          )}
+        </For>
+      </div>
+      <div class="reel-stage">
+        <button type="button" class="reel-screen" onClick={() => props.onExpand?.()} aria-label="Open the tour full size" title="Watch it bigger">
+          <For each={[`${i()}-${run()}`]}>
+            {() => (
+              <svg viewBox="0 0 520 300" class={`scene scene-${i()}`} role="img" aria-label={SCENES[i()].title}>
+                {SCENES[i()].art()}
+              </svg>
+            )}
+          </For>
+        </button>
+        <button
+          type="button"
+          class="reel-pause"
+          onClick={() => {
+            if (!playing()) setRun(run() + 1);
+            setPlaying(!playing());
+          }}
+          aria-label={playing() ? "Pause the tour" : "Play the tour"}
+          title={playing() ? "Pause" : "Play"}
+        >
+          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+            <path d={playing() ? "M5 3v10M11 3v10" : "M5 3l8 5-8 5z"} fill={playing() ? "none" : "currentColor"} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <div class="reel-text" aria-live="off">
+        <span class="eyebrow">
+          How it works · {i() + 1} of {SCENES.length}
+        </span>
+        <strong>{SCENES[i()].title}</strong>
+        <p>{SCENES[i()].text}</p>
+      </div>
+    </div>
+  );
+}
