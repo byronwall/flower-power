@@ -1,6 +1,7 @@
 import { createEffect, createSignal, For, onCleanup, onMount, Show, type JSX } from "solid-js";
 import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
+import type { Weather } from "../render/life";
 import type { ViewTime } from "../render/look";
 import type { CameraView, Pick } from "../render/yard3d";
 
@@ -9,6 +10,7 @@ type Yard = ReturnType<typeof import("../render/yard3d").createYard>;
 type Props = {
   property: Property;
   time: ViewTime;
+  weather?: Weather;
   selected: Pick | null;
   onPick: (ref: Pick | null) => void;
   onDropPlant: (plantId: string, at: Point) => void;
@@ -62,7 +64,7 @@ export function YardView3D(props: Props) {
 
   createEffect(() => {
     const y = yard();
-    if (y) y.update(props.property, props.time, props.selected);
+    if (y) y.update(props.property, props.time, props.selected, props.weather ?? "sunny");
   });
   createEffect(() => yard()?.setSpin(spin()));
 

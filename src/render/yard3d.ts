@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
 import { bounds, centroid, inside, rng } from "./geometry";
+import type { Weather } from "./life";
 import { expand, hasGroundSnow, lookOf, seasonOf, type ViewTime } from "./look";
 import { feature, house, hipRoof, slabGeo, type Frame } from "./yard3d-built";
 import { blotTexture, Kit, kitMaterial, kitMesh, shade, skyDome, surfaceTexture, T, vary, type Finish } from "./yard3d-kit";
@@ -86,11 +87,17 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
   // Where plants stand (scene x, z, radius) and the lot outline, so eye level can stand clear.
   let standing: [number, number, number][] = [];
   let lotOutline: Point[] = [];
+  let weather: Weather = "sunny";
+  let base = { top: "#ffffff", horizon: "#ffffff", sunI: 1, hemi: 1 };
+  const reduce = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // ---------- rendering on demand ----------
   // Draw now; keep drawing each frame only while the camera is easing, flying or spinning.
+  // Falling rain or snow keeps it drawing too, unless the person prefers less motion.
   let frame = 0;
   let rendering = false;
+  let last = 0;
+  const falling = () => !!precip && !reduce && !document.hidden;
   let flight: { from: THREE.Vector3; to: THREE.Vector3; fromT: THREE.Vector3; toT: THREE.Vector3; start: number; ms: number } | null = null;
   const render = () => {
     frame = 0;
@@ -102,7 +109,11 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
       controls.target.lerpVectors(flight.fromT, flight.toT, e);
       if (k >= 1) flight = null;
     }
+    const now = performance.now();
+    const dt = Math.min(0.05, (now - (last || now)) / 1000);
+    last = now;
     const moving = controls.update();
+    if (falling()) stepPrecip(dt);
     sky.position.copy(camera.position);
     // Haze starts just past the lot however far back the camera stands.
     if (scene.fog instanceof THREE.Fog) {
@@ -111,7 +122,8 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     }
     renderer.render(scene, camera);
     rendering = false;
-    if (moving || controls.autoRotate || flight) frame = requestAnimationFrame(render);
+    if (moving || controls.autoRotate || flight || falling()) frame = requestAnimationFrame(render);
+    else last = 0;
   };
   const invalidate = () => {
     if (!frame && !rendering) render();
@@ -128,6 +140,9 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     camera.updateProjectionMatrix();
     invalidate();
   };
+  // Rain and snow pause in a hidden tab; pick them up again when it comes back.
+  const onVisible = () => invalidate();
+  document.addEventListener("visibilitychange", onVisible);
   const ro = new ResizeObserver(resize);
   ro.observe(container);
 
@@ -459,7 +474,7 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     const d = lotSize * 1.2;
     sun.position.set(Math.sin(az) * Math.cos(elev) * d, Math.sin(elev) * d, Math.cos(az) * Math.cos(elev) * d);
     sun.color.set(look.sun);
-    sun.intensity = look.sunI;
+    base = { top: look.top, horizon: look.horizon, sunI: look.sunI, hemi: look.hemi };
     skyMat.uniforms.sunDir.value.copy(sun.position).normalize();
     const c = sun.shadow.camera;
     c.left = c.bottom = -lotSize * 0.75;
@@ -468,7 +483,90 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     c.far = d * 3;
     c.updateProjectionMatrix();
 
+    applyWeather();
     highlight();
+  }
+
+  // ---------- weather ----------
+  // Matches the weather cards on the 2D plan: the light and sky change, and rain or snow falls over the lot.
+  const LIGHT: Record<Weather, { sky: string; mix: number; sun: number; hemi: number }> = {
+    sunny: { sky: "#fff6e0", mix: 0, sun: 1, hemi: 1 },
+    cloudy: { sky: "#c4cad0", mix: 0.6, sun: 0.35, hemi: 1.35 },
+    rain: { sky: "#8f9aa5", mix: 0.75, sun: 0.2, hemi: 1.15 },
+    snow: { sky: "#dde3e9", mix: 0.7, sun: 0.35, hemi: 1.35 },
+  };
+  let precip: THREE.Points | THREE.LineSegments | null = null;
+  let precipSpeed: Float32Array = new Float32Array();
+  const precipH = 45;
+
+  function applyWeather() {
+    const l = LIGHT[weather];
+    const tint = new THREE.Color(l.sky);
+    const horizon = new THREE.Color(base.horizon).lerp(tint, l.mix);
+    const skyMat = sky.material as THREE.ShaderMaterial;
+    skyMat.uniforms.top.value.set(base.top).lerp(tint, l.mix);
+    skyMat.uniforms.horizon.value.copy(horizon);
+    scene.background = horizon;
+    if (scene.fog instanceof THREE.Fog) scene.fog.color.copy(horizon);
+    sun.intensity = base.sunI * l.sun;
+    hemi.intensity = base.hemi * l.hemi;
+    makePrecip();
+  }
+
+  function makePrecip() {
+    if (precip) {
+      scene.remove(precip);
+      precip.geometry.dispose();
+      (precip.material as THREE.Material).dispose();
+      precip = null;
+    }
+    if (weather !== "rain" && weather !== "snow") return;
+    const rain = weather === "rain";
+    const span = lotSize * 1.3;
+    const n = Math.round(Math.min(5000, span * span * (rain ? 0.25 : 0.18)));
+    const pos = new Float32Array(n * 3 * (rain ? 2 : 1));
+    precipSpeed = new Float32Array(n);
+    const r = rng(7);
+    for (let i = 0; i < n; i++) {
+      const x = (r() - 0.5) * span, y = r() * precipH, z = (r() - 0.5) * span;
+      precipSpeed[i] = rain ? 38 + r() * 14 : 2.5 + r() * 2;
+      if (rain) pos.set([x, y, z, x + 0.25, y + 1.6, z], i * 6);
+      else pos.set([x, y, z], i * 3);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    precip = rain
+      ? new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: "#d4e0ea", transparent: true, opacity: 0.55, fog: true }))
+      : new THREE.Points(g, new THREE.PointsMaterial({ color: "#ffffff", size: 1.1, sizeAttenuation: true, transparent: true, opacity: 0.9 }));
+    precip.frustumCulled = false;
+    scene.add(precip);
+  }
+
+  let precipT = 0;
+  function stepPrecip(dt: number) {
+    if (!precip) return;
+    precipT += dt;
+    const a = precip.geometry.getAttribute("position") as THREE.BufferAttribute;
+    const p = a.array as Float32Array;
+    const rain = precip instanceof THREE.LineSegments;
+    const stride = rain ? 6 : 3;
+    for (let i = 0; i < precipSpeed.length; i++) {
+      const o = i * stride;
+      const dy = precipSpeed[i] * dt;
+      let y = p[o + 1] - dy;
+      y += y < 0 ? precipH : 0;
+      if (rain) {
+        p[o + 1] = y;
+        p[o + 4] = y + 1.6;
+        p[o] -= dy * 0.15;
+        p[o + 3] = p[o] + 0.25;
+      } else {
+        p[o + 1] = y;
+        // Snow sways a little as it falls.
+        p[o] += Math.sin(precipT * 1.3 + i) * dt * 0.6;
+      }
+    }
+    a.needsUpdate = true;
   }
 
   // Trees on the neighboring lots, past the fence line, so the yard sits in a place and
@@ -590,12 +688,17 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
   }
 
   return {
-    update(property: Property, time: ViewTime, sel: Pick | null) {
+    update(property: Property, time: ViewTime, sel: Pick | null, w: Weather = "sunny") {
       selected = sel;
+      const weatherChanged = w !== weather;
+      weather = w;
       const changed = !current || current.property !== property || current.time.month !== time.month || current.time.year !== time.year;
       current = { property, time };
       if (changed) build(property, time);
-      else highlight();
+      else {
+        if (weatherChanged) applyWeather();
+        highlight();
+      }
       if (framedFor !== property.id) {
         framedFor = property.id;
         resize();
@@ -614,6 +717,8 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(hoverFrame);
       plantCache.forEach((p) => p.geo?.dispose());
+      precip?.geometry.dispose();
+      document.removeEventListener("visibilitychange", onVisible);
       ro.disconnect();
       controls.dispose();
       renderer.domElement.removeEventListener("pointerdown", down);

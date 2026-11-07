@@ -529,6 +529,7 @@ function Planner(props: PlannerProps) {
                 <YardView3D
                   property={ed.property()}
                   time={time()}
+                  weather={weather()}
                   selected={ed.selected()}
                   onPick={(ref) => {
                     ed.setSelected(ref as never);
