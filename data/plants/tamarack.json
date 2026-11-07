@@ -1,0 +1,69 @@
+{
+  "id": "tamarack",
+  "commonName": "Tamarack",
+  "botanicalName": "Larix laricina",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "single",
+  "size": {
+    "heightFt": 59,
+    "spreadFt": 23,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 23
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#7f9f65",
+    "summer": "#668b58",
+    "fall": "#668b58",
+    "winter": "#5e7c51"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "columnar"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "fall color",
+    "wet soil"
+  ]
+}

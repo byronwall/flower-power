@@ -1,0 +1,76 @@
+{
+  "id": "zigzag-spiderwort",
+  "commonName": "Zigzag spiderwort",
+  "botanicalName": "Tradescantia subaspera",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2.5,
+    "spreadFt": 2,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      6,
+      7
+    ],
+    "colors": [
+      "#7774b7"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#709555",
+    "summer": "#537d43",
+    "fall": "#7a7d47",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society Native Plant Finder",
+      "url": "https://finder.indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "woodland",
+    "pollinator"
+  ]
+}

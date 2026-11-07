@@ -1,0 +1,77 @@
+{
+  "id": "american-wisteria",
+  "commonName": "American wisteria",
+  "botanicalName": "Wisteria frutescens",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 19.5,
+    "spreadFt": 6.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#9e83bf"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6a9353",
+    "summer": "#4a7a40",
+    "fall": "#777c46",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society Native Plant Finder",
+      "url": "https://finder.indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator"
+  ]
+}

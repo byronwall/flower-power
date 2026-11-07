@@ -1,0 +1,76 @@
+{
+  "id": "swamp-rose-mallow",
+  "commonName": "Swamp rose mallow",
+  "botanicalName": "Hibiscus moscheutos",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 3.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 3
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#df8aa7"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6a9354",
+    "summer": "#4b7a42",
+    "fall": "#777c46",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "rain garden"
+  ]
+}

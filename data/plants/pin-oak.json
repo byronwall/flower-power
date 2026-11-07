@@ -1,0 +1,69 @@
+{
+  "id": "pin-oak",
+  "commonName": "Pin oak",
+  "botanicalName": "Quercus palustris",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 72,
+    "spreadFt": 46,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 46
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#659051",
+    "summer": "#44773e",
+    "fall": "#9e5e31",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "keystone",
+    "fall color",
+    "rain garden"
+  ]
+}

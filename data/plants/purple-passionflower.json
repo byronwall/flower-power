@@ -1,0 +1,81 @@
+{
+  "id": "purple-passionflower",
+  "commonName": "Purple passionflower",
+  "botanicalName": "Passiflora incarnata",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 13,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#a678bc"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6c9654",
+    "summer": "#4d7f42",
+    "fall": "#787e46",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society Native Plant Finder",
+      "url": "https://finder.indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "host plant"
+  ],
+  "edible": true
+}
