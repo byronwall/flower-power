@@ -1,0 +1,68 @@
+{
+  "id": "northern-maidenhair-fern",
+  "commonName": "Northern maidenhair fern",
+  "botanicalName": "Adiantum pedatum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 2,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9f65",
+    "summer": "#4f8a58",
+    "fall": "#78814d",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "rosette"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "woodland",
+    "shade"
+  ]
+}

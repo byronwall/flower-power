@@ -1,0 +1,79 @@
+{
+  "id": "woodland-sunflower",
+  "commonName": "Woodland sunflower",
+  "botanicalName": "Helianthus divaricatus",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#edc832"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#70934f",
+    "summer": "#527a3b",
+    "fall": "#797c44",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "woodland",
+    "pollinator",
+    "host plant"
+  ]
+}

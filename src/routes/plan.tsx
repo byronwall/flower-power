@@ -20,7 +20,7 @@ import { browserStorage, createLocalStore, type SavedCopy } from "../gallery/sto
 import { Toolbar } from "../editor/Toolbar";
 import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
-import type { ViewTime } from "../render/look";
+import { snowCanFall, type ViewTime } from "../render/look";
 import type { Weather } from "../render/life";
 import { AreaPick } from "../design/AreaPick";
 import { DesignPanel } from "../design/DesignPanel";
@@ -70,14 +70,23 @@ function Planner(props: PlannerProps) {
   const [hoverOp, setHoverOp] = createSignal<Op | null>(null);
   const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
   const [weather, setWeather] = createSignal<Weather>("sunny");
+  // Snow is only offered in winter; leaving winter while it snows clears the sky.
+  const weathers = () => WEATHERS.filter((w) => w.id !== "snow" || snowCanFall(time().month));
+  createEffect(() => {
+    if (weather() === "snow" && !snowCanFall(time().month)) setWeather("sunny");
+  });
   // The tour plays once on a first visit, and any time from the welcome card.
+  // With an import on the way in, it waits for the import, so it never hides the progress.
   const [tour, setTour] = createSignal(false);
-  onMount(() => {
+  const firstTour = () => {
     try {
       if (!localStorage.getItem("fp.toured")) setTour(true);
     } catch {
       // No storage: don't force the tour on every visit.
     }
+  };
+  onMount(() => {
+    if (!props.pending) firstTour();
   });
   const closeTour = () => {
     setTour(false);
@@ -235,6 +244,7 @@ function Planner(props: PlannerProps) {
       setImportError((e as Error).message);
     } finally {
       setImporting(0);
+      firstTour();
     }
   }
 
@@ -394,6 +404,17 @@ function Planner(props: PlannerProps) {
             }}
           />
         </Show>
+        {/* On a phone the drawers cover the panel toggles, so each open drawer gets its own close button. */}
+        <Show when={showPlants()}>
+          <button type="button" class="drawer-close icon-btn left" onClick={() => setShowPlants(false)} aria-label="Close the plant list" title="Close">
+            <CloseIcon />
+          </button>
+        </Show>
+        <Show when={showDetails() && !showIdeas()}>
+          <button type="button" class="drawer-close icon-btn right" onClick={() => setShowDetails(false)} aria-label="Close the details panel" title="Close">
+            <CloseIcon />
+          </button>
+        </Show>
         <Show when={showPlants()}>
           <PlantGallery
             editor={ed}
@@ -504,7 +525,7 @@ function Planner(props: PlannerProps) {
                 <Toolbar editor={ed} />
                 <ModeBanner editor={ed} />
                 <div class="card-group weather-cards" role="radiogroup" aria-label="Weather on the plan">
-                  <For each={WEATHERS}>
+                  <For each={weathers()}>
                     {(w) => (
                       <button
                         type="button"
@@ -512,7 +533,7 @@ function Planner(props: PlannerProps) {
                         class="time-card weather-card"
                         aria-checked={weather() === w.id}
                         aria-label={w.name}
-                        title={`${w.name} on the 2D plan`}
+                        title={w.id === "snow" ? "Snow (winter only)" : `${w.name} weather`}
                         onClick={() => setWeather(w.id)}
                       >
                         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -529,6 +550,7 @@ function Planner(props: PlannerProps) {
                 <YardView3D
                   property={ed.property()}
                   time={time()}
+                  weather={weather()}
                   selected={ed.selected()}
                   onPick={(ref) => {
                     ed.setSelected(ref as never);
@@ -597,6 +619,14 @@ function PanelIcon(props: { side: "left" | "right" }) {
     <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
       <rect x="1.75" y="2.75" width="12.5" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" />
       <path d={props.side === "left" ? "M6 3v10" : "M10 3v10"} stroke="currentColor" stroke-width="1.4" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
     </svg>
   );
 }

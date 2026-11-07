@@ -1,0 +1,79 @@
+{
+  "id": "narrow-leaved-mountain-mint",
+  "commonName": "Narrow-leaved mountain mint",
+  "botanicalName": "Pycnanthemum tenuifolium",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#f4f2e8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#879e66",
+    "summer": "#71895a",
+    "fall": "#83814d",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "prairie",
+    "pollinator",
+    "drought tolerant"
+  ]
+}

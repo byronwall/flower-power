@@ -1,6 +1,7 @@
-import { createEffect, createMemo, createSignal, onCleanup, onMount, Show, untrack, type JSX } from "solid-js";
+import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show, untrack, type JSX } from "solid-js";
+import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
-import { bounds } from "../render/geometry";
+import { bounds, centroid } from "../render/geometry";
 import type { ViewTime } from "../render/look";
 import { chirp, createLife, type Weather } from "../render/life";
 import { paint, type View } from "../render/paint";
@@ -125,7 +126,10 @@ export function PlanView(props: Props) {
       const k = e.ctrlKey ? 0.012 : e.deltaMode === 1 ? 0.05 : 0.0022;
       zooming = true;
       clearTimeout(zoomTimer);
-      zoomTimer = window.setTimeout(() => (zooming = false), 120);
+      zoomTimer = window.setTimeout(() => {
+        zooming = false;
+        setSettled((n) => n + 1);
+      }, 140);
       zoomAt(Math.exp(-e.deltaY * k), e.clientX - r.left, e.clientY - r.top);
     };
     box.addEventListener("wheel", wheel, { passive: false });
@@ -229,26 +233,43 @@ export function PlanView(props: Props) {
     });
   });
 
-  // Repaint at most once a frame while panning or zooming; otherwise paint right away.
+  // While panning or zooming, the browser moves and scales the last painting with a CSS
+  // transform (no repaint), and the plan paints properly once the view settles. Any change to
+  // the plan, time, or weather paints on the next frame, so a burst of changes paints once.
+  const [settled, setSettled] = createSignal(0);
   let frame = 0;
+  let shown: View | null = null;
+  let shownKey: unknown[] = [];
   createEffect(() => {
     const { w, h } = size();
     const v = view();
-    const property = props.property, time = props.time;
+    settled();
+    const property = props.property, time = props.time, weather = props.weather;
     if (!w || !h) return;
-    const draw = () => {
+    const dpr = window.devicePixelRatio || 1;
+    const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
+    const key = [property, time.month, time.year, weather, cw, ch];
+    const same = shown && key.every((k, i) => k === shownKey[i]);
+    if (frame) cancelAnimationFrame(frame);
+    if ((panning() || zooming) && same) {
       frame = 0;
-      const dpr = window.devicePixelRatio || 1;
-      const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
+      const k = v.scale / shown!.scale;
+      canvas.style.transform = `translate(${v.offX - shown!.offX * k}px, ${v.offY - shown!.offY * k}px) scale(${k})`;
+      return;
+    }
+    frame = requestAnimationFrame(() => {
+      frame = 0;
       if (canvas.width !== cw || canvas.height !== ch) {
         canvas.width = cw;
         canvas.height = ch;
       }
-      paint(canvas, property, time, v);
-    };
-    if (frame) cancelAnimationFrame(frame);
-    if (panning() || zooming) frame = requestAnimationFrame(draw);
-    else draw();
+      const t0 = performance.now();
+      paint(canvas, property, time, v, { weather });
+      if (import.meta.env.DEV) performance.measure("plan-paint", { start: t0 });
+      canvas.style.transform = "";
+      shown = v;
+      shownKey = key;
+    });
   });
 
   const pct = () => Math.round(cam().zoom * 100);
@@ -257,6 +278,8 @@ export function PlanView(props: Props) {
     <div
       class="plan-view"
       classList={{ panning: panning() }}
+      // Paper behind the canvas, so the strip a pan uncovers matches until the plan repaints.
+      style={{ background: "#efe9dc" }}
       ref={box}
       onDragOver={(e) => {
         if (!e.dataTransfer?.types.includes("text/plant")) return;
@@ -274,8 +297,10 @@ export function PlanView(props: Props) {
         props.onDropPlant(id, toFt(e.clientX, e.clientY));
       }}
     >
-      <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} />
+      <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px`, "transform-origin": "0 0" }} />
       <svg class="plan-overlay" width={size().w} height={size().h}>
+        {/* Under the editor overlay, so its hover labels and handles stay on top. */}
+        <PlantTags property={props.property} view={view()} width={size().w} height={size().h} />
         <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>
           <Show when={props.property.underlay && props.photoOpacity ? props.property.underlay : undefined}>
             {(u) => (
@@ -340,6 +365,51 @@ function PlanMarks(props: { property: Property; view: View; height: number }) {
       <text y="-6">0</text>
       <text x={bar().px} y="-6" text-anchor="middle">{bar().ft}</text>
       <text x={bar().px * 2} y="-6" text-anchor="middle">{bar().ft * 2} ft</text>
+    </g>
+  );
+}
+
+// Plant names written on the plan, like the callouts on a planting plan. They appear once you
+// zoom in far enough to read them, and a name that would overlap another is left out.
+const TAG_SCALE = 8;
+
+function PlantTags(props: { property: Property; view: View; width: number; height: number }) {
+  const tags = createMemo(() => {
+    const v = props.view;
+    if (v.scale < TAG_SCALE) return [];
+    const placed: { x: number; y: number; w: number; text: string }[] = [];
+    const items = props.property.plantings.map((p) => {
+      const plant = plantsById.get(p.plantId);
+      const at: Point = p.type === "single" ? p.at : p.type === "row" ? p.path[Math.floor(p.path.length / 2)] : centroid(p.outline);
+      const size = p.type === "single" ? (plant?.size.spreadFt ?? 2) : 0;
+      return { at, name: plant?.commonName ?? p.plantId, size };
+    }).map((it) => {
+      // A single plant's name sits just under it, so the plant itself stays visible.
+      const drop = it.size ? Math.min(it.size * 0.3 * v.scale, 46) + 12 : 4;
+      return { ...it, x: v.offX + it.at[0] * v.scale, y: v.offY + it.at[1] * v.scale + drop };
+    });
+    // Big plants first, so trees keep their names when space runs out.
+    items.sort((a, z) => z.size - a.size);
+    for (const it of items) {
+      const { x, y } = it;
+      const w = it.name.length * 7 + 10;
+      // Stay clear of the edges, the zoom buttons at top right, and the scale bar at the bottom.
+      if (x - w / 2 < 4 || x + w / 2 > props.width - 4 || y < 16 || y > props.height - 64) continue;
+      if (x + w / 2 > props.width - 190 && y < 70) continue;
+      if (placed.some((p) => Math.abs(p.x - x) < (p.w + w) / 2 && Math.abs(p.y - y) < 18)) continue;
+      placed.push({ x, y, w, text: it.name });
+    }
+    return placed;
+  });
+  return (
+    <g class="plant-tags" pointer-events="none" text-anchor="middle" style={{ font: "14px var(--f-hand)" }} fill="#33342c">
+      <For each={tags()}>
+        {(t) => (
+          <text x={t.x} y={t.y + 4} stroke="#f7f3ea" stroke-width="3" stroke-opacity="0.85" stroke-linejoin="round" paint-order="stroke">
+            {t.text}
+          </text>
+        )}
+      </For>
     </g>
   );
 }

@@ -1,0 +1,81 @@
+{
+  "id": "highbush-blueberry",
+  "commonName": "Highbush blueberry",
+  "botanicalName": "Vaccinium corymbosum",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 6.5,
+    "spreadFt": 6.5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 6.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#f5f0e3"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9150",
+    "summer": "#4f783c",
+    "fall": "#a15e31",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "edible fruit",
+    "pollinator",
+    "fall color"
+  ],
+  "edible": true
+}

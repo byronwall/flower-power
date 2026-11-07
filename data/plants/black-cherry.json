@@ -1,0 +1,82 @@
+{
+  "id": "black-cherry",
+  "commonName": "Black cherry",
+  "botanicalName": "Prunus serotina",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 78.5,
+    "spreadFt": 49,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 49
+  },
+  "sun": [
+    "full",
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#f7f3e9"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#678d51",
+    "summer": "#47733e",
+    "fall": "#968e3e",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "keystone",
+    "pollinator",
+    "host plant"
+  ]
+}

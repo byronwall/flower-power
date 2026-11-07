@@ -1,0 +1,79 @@
+{
+  "id": "grape-honeysuckle",
+  "commonName": "Grape honeysuckle",
+  "botanicalName": "Lonicera reticulata",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 10,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#e7d8a7"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9355",
+    "summer": "#4f7b43",
+    "fall": "#787c47",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "hummingbirds",
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "pollinator",
+    "hummingbird",
+    "berries"
+  ]
+}

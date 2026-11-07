@@ -1,0 +1,70 @@
+{
+  "id": "canada-wild-rye",
+  "commonName": "Canada wild rye",
+  "botanicalName": "Elymus canadensis",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 3.5,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#7f9872",
+    "summer": "#66816a",
+    "fall": "#9f804c",
+    "winter": "#b9a07a"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "prairie",
+    "host plant"
+  ]
+}

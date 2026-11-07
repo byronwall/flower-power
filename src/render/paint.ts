@@ -1,72 +1,217 @@
 import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
-import { blob, clipTo, dots, ink, INK, paperGrain, rgba, shade, trace, wash, type Brush } from "./brush";
+import type { Plant } from "../model/plant";
+import { blob, circlePts, clipTo, dots, ink, INK, paperGrain, rgba, shade, trace, wash, type Brush } from "./brush";
 import { bounds, hashString, rng } from "./geometry";
-import { expand, lookOf, seasonOf, type ViewTime } from "./look";
-import { drawPlant, plantShadow } from "./plants";
+import type { Weather } from "./life";
+import { sweepPath, lightOf, roofImage, type Light } from "./light";
+import { expand, hasGroundSnow, lookOf, seasonOf, type Look, type ViewTime } from "./look";
+import { stampPlant } from "./sprites";
 
 export type View = { scale: number; offX: number; offY: number };
 
 const LAWN = { spring: "#9cbc68", summer: "#8fb35e", fall: "#a8b366", winter: "#bdbb8f" } as const;
+const PAPER = "#f4f0e6";
 const SHADOW = "#4d5866";
 
-export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewTime, view: View) {
+export type PaintOpts = { weather?: Weather };
+
+// How strongly the sun shows: full on a clear day, faint under cloud or rain.
+const SUN: Record<Weather, number> = { sunny: 1, cloudy: 0.35, rain: 0.25, snow: 0.7 };
+
+export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewTime, view: View, opts: PaintOpts = {}) {
   const ctx = canvas.getContext("2d")!;
   const dpr = window.devicePixelRatio || 1;
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = "#f4f0e6";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.setTransform(dpr * view.scale, 0, 0, dpr * view.scale, dpr * view.offX, dpr * view.offY);
-  const b: Brush = { ctx, px: (n) => n / view.scale };
+  const { width: cw, height: ch } = canvas;
+  const toPlan = (c: CanvasRenderingContext2D) => c.setTransform(dpr * view.scale, 0, 0, dpr * view.scale, dpr * view.offX, dpr * view.offY);
   const season = seasonOf(time.month);
+  const weather = opts.weather ?? "sunny";
+  // Snow lies on the ground in December and January, and while it is snowing.
+  const snow = weather === "snow" || hasGroundSnow(time.month);
+  const sun = { ...lightOf(time.month, property.headingDeg), k: SUN[weather] };
   const s = (id: string) => hashString(property.id + id);
+  const lot = property.lot.outline;
 
-  // Ground: the whole lot is lawn unless a surface covers it.
-  wash(b, property.lot.outline, LAWN[season], s("lot"), { alpha: 0.22, layers: 3, rim: 0.12 });
-  clipTo(ctx, property.lot.outline, () => grassTexture(b, property.lot.outline, LAWN[season], s("grass")));
+  // The ground does not change with the month inside a season, the year, or the plants,
+  // so it is painted once to its own canvas and copied in while those change.
+  const groundKey = [cw, ch, dpr, view.scale, view.offX, view.offY, season, weather, snow, property.id, lot, property.surfaces, property.structures, property.edges, property.fences];
+  const ground = cached(canvas, "ground", groundKey, cw, ch, (g) => {
+    g.fillStyle = PAPER;
+    g.fillRect(0, 0, cw, ch);
+    toPlan(g);
+    const gb: Brush = { ctx: g, px: (n) => n / view.scale };
+    // Ground: the whole lot is lawn unless a surface covers it.
+    wash(gb, lot, LAWN[season], s("lot"), { alpha: 0.22, layers: 3, rim: 0.12 });
+    clipTo(g, lot, () => {
+      lawnTone(gb, lot, LAWN[season], s("tone"));
+      if (season !== "winter") mowStripes(gb, lot, LAWN[season]);
+      grassTexture(gb, lot, LAWN[season], s("grass"));
+    });
+    for (const sf of property.surfaces) surface(gb, sf.kind, sf.outline, LAWN[season], s(sf.id));
+    if (snow) clipTo(g, lot, () => snowCover(gb, lot, s("snow")));
+    if (weather === "rain") clipTo(g, lot, () => wet(gb, lot));
+    for (const st of property.structures) structure(gb, st.kind, st.outline, s(st.id));
+    for (const e of property.edges) edge(gb, e.kind, e.path, s(e.id));
+    for (const f of property.fences) fence(gb, f.kind, f.path, f.heightFt, s(f.id));
+  });
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalCompositeOperation = "copy";
+  ctx.drawImage(ground, 0, 0);
+  ctx.globalCompositeOperation = "source-over";
+  toPlan(ctx);
+  const b: Brush = { ctx, px: (n) => n / view.scale };
 
-  for (const sf of property.surfaces) surface(b, sf.kind, sf.outline, LAWN[season], s(sf.id));
+  house(b, property.house.outline, s("house"), sun, snow);
 
-  // Height hints: buildings and walls cast a soft shadow down and to the right.
-  castShadow(b, property.house.outline, property.house.heightFt, s("house-shadow"));
-  for (const st of property.structures) castShadow(b, st.outline, st.heightFt, s(st.id + "shadow"));
-  for (const st of property.structures) structure(b, st.kind, st.outline, s(st.id));
-
-  for (const e of property.edges) edge(b, e.kind, e.path, s(e.id));
-  for (const f of property.fences) fence(b, f.kind, f.path, f.heightFt, s(f.id));
-
-  house(b, property.house.outline, s("house"));
+  // Buildings cast real shadows: the sun for this month at 2 pm, so winter shadows run long.
+  // They fall on the ground only, never on the roofs that cast them.
+  const roofs = [property.house.outline, ...property.structures.filter((st) => st.kind !== "pergola").map((st) => st.outline)];
+  except(ctx, lot, roofs, () => {
+    castShadow(b, property.house.outline, property.house.heightFt, sun, snow, 1);
+    for (const st of property.structures) castShadow(b, st.outline, st.heightFt, sun, snow, st.kind === "pergola" ? 0.45 : 1);
+  });
 
   // Plants: all shadows first, then plants from shortest to tallest so trees overhang beds.
+  // Plants whose crown and shadow are both off screen are skipped.
+  const seen = { minX: -view.offX / view.scale, minY: -view.offY / view.scale, maxX: (cw / dpr - view.offX) / view.scale, maxY: (ch / dpr - view.offY) / view.scale };
   const items = property.plantings.flatMap((p) => {
     const plant = plantsById.get(p.plantId);
     if (!plant) return [];
     return expand(p, plant).flatMap((inst) => {
       const look = lookOf(plant, time, inst.existing, inst.scale);
-      return look ? [{ inst, plant, look }] : [];
+      if (!look) return [];
+      const m = look.spreadFt / 2 + look.heightFt * sun.reach + 1;
+      const [x, y] = inst.at;
+      if (x + m < seen.minX || x - m > seen.maxX || y + m < seen.minY || y - m > seen.maxY) return [];
+      return [{ inst, plant, look }];
     });
   });
   items.sort((a, z) => a.look.heightFt - z.look.heightFt);
-  for (const { inst, look } of items) plantShadow(b, inst.at, look, inst.seed);
-  for (const { inst, plant, look } of items) drawPlant(b, plant, inst.at, look, inst.seed);
+  // Leaves and shadows land on the lot; past the property line is only paper.
+  clipTo(ctx, lot, () => {
+    if (time.month === 10 || time.month === 11) {
+      for (const { inst, plant, look } of items) if (sheds(plant)) leafLitter(b, inst.at, look, plant.foliage.fall!, inst.seed, time.month === 11 ? 1.6 : 0.8);
+    }
+    for (const { inst, plant, look } of items) castPlant(b, plant, inst.at, look, sun, snow, inst.seed);
+  });
+  for (const { inst, plant, look } of items) {
+    stampPlant(b, plant, inst.at, look, inst.seed);
+    volume(b, plant, inst.at, look, sun);
+  }
 
   for (const f of property.features) feature(b, f.kind, f.at, s(f.id));
 
   // Property line: the dash-dot line used on site plans.
-  ink(b, property.lot.outline, s("lot-line"), {
+  ink(b, lot, s("lot-line"), {
     closed: true,
     alpha: 0.7,
     width: b.px(1.3),
     dash: [b.px(14), b.px(4), b.px(2), b.px(4)],
   });
 
-  // Paper grain over everything, so the washes sit in the paper.
+  // Paper grain over everything, so the washes sit in the paper, and a soft darkening toward the edges.
+  // Both are made once per canvas size and laid on with one multiply.
+  const paper = cached(canvas, "paper", [cw, ch], cw, ch, (g) => {
+    g.fillStyle = "#ffffff";
+    g.fillRect(0, 0, cw, ch);
+    g.globalCompositeOperation = "multiply";
+    g.globalAlpha = 0.55;
+    g.fillStyle = g.createPattern(paperGrain(), "repeat")!;
+    g.fillRect(0, 0, cw, ch);
+    g.globalAlpha = 1;
+    const edgeTone = g.createRadialGradient(cw / 2, ch / 2, Math.min(cw, ch) * 0.45, cw / 2, ch / 2, Math.hypot(cw, ch) * 0.62);
+    edgeTone.addColorStop(0, "rgba(255,255,255,0)");
+    edgeTone.addColorStop(1, "rgba(214,202,178,0.55)");
+    g.fillStyle = edgeTone;
+    g.fillRect(0, 0, cw, ch);
+  });
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalCompositeOperation = "multiply";
+  ctx.drawImage(paper, 0, 0);
+  ctx.globalCompositeOperation = "source-over";
+}
+
+// Offscreen layers kept per target canvas. A layer is redrawn only when its key changes.
+const layers = new WeakMap<HTMLCanvasElement, Map<string, { key: unknown[]; canvas: HTMLCanvasElement }>>();
+
+function cached(target: HTMLCanvasElement, name: string, key: unknown[], w: number, h: number, draw: (g: CanvasRenderingContext2D) => void) {
+  let mine = layers.get(target);
+  if (!mine) layers.set(target, (mine = new Map()));
+  const hit = mine.get(name);
+  if (hit && hit.key.length === key.length && hit.key.every((k, i) => k === key[i])) return hit.canvas;
+  const canvas = hit?.canvas ?? document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const g = canvas.getContext("2d")!;
+  g.save();
+  draw(g);
+  g.restore();
+  mine.set(name, { key, canvas });
+  return canvas;
+}
+
+type Sun = Light & { k: number };
+
+// Draws only outside the holes (and inside the lot), with an even-odd clip.
+function except(ctx: CanvasRenderingContext2D, lot: Point[], holes: Point[][], draw: () => void) {
+  const box = bounds(lot);
+  ctx.save();
+  trace(ctx, lot);
+  ctx.clip();
+  ctx.beginPath();
+  ctx.rect(box.minX - 200, box.minY - 200, box.w + 400, box.h + 400);
+  for (const h of holes) {
+    h.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.closePath();
+  }
+  ctx.clip("evenodd");
+  draw();
+  ctx.restore();
+}
+
+// Large soft patches of lighter and darker grass, so the lawn is not one flat color.
+function lawnTone(b: Brush, outline: Point[], color: string, seed: number) {
+  const box = bounds(outline);
+  const r = rng(seed);
+  const n = Math.round((box.w * box.h) / 260) + 4;
+  for (let i = 0; i < n; i++) {
+    const at: Point = [box.minX + r() * box.w, box.minY + r() * box.h];
+    blob(b, at, 5 + r() * 9, shade(color, r() < 0.5 ? -0.18 : 0.2), seed + i, { alpha: 0.07, layers: 1, jitter: 0.5 });
+  }
+}
+
+// Faint mowing stripes, 3 ft wide, across the lot.
+function mowStripes(b: Brush, outline: Point[], color: string) {
+  const { ctx } = b;
+  const box = bounds(outline);
+  ctx.save();
+  ctx.fillStyle = rgba(shade(color, 0.35), 0.07);
+  for (let y = box.minY, i = 0; y < box.maxY; y += 3, i++) if (i % 2) ctx.fillRect(box.minX, y, box.w, 3);
+  ctx.restore();
+}
+
+// A blanket of snow with the odd patch of grass and paving showing through.
+function snowCover(b: Brush, outline: Point[], seed: number) {
+  const { ctx } = b;
+  const box = bounds(outline);
+  ctx.save();
+  ctx.fillStyle = "rgba(251,250,246,0.8)";
+  ctx.fillRect(box.minX, box.minY, box.w, box.h);
+  ctx.restore();
+  const r = rng(seed);
+  for (let i = 0; i < Math.round((box.w * box.h) / 180); i++) {
+    blob(b, [box.minX + r() * box.w, box.minY + r() * box.h], 1 + r() * 3, "#b9c4cf", seed + i, { alpha: 0.12, layers: 1, jitter: 0.6 });
+  }
+}
+
+// Rain darkens everything on the ground a little.
+function wet(b: Brush, outline: Point[]) {
+  const { ctx } = b;
+  const box = bounds(outline);
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
-  ctx.globalAlpha = 0.55;
-  ctx.fillStyle = ctx.createPattern(paperGrain(), "repeat")!;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(150,160,172,0.22)";
+  ctx.fillRect(box.minX, box.minY, box.w, box.h);
   ctx.restore();
 }
 
@@ -74,7 +219,7 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
 function knockout(b: Brush, outline: Point[]) {
   b.ctx.save();
   trace(b.ctx, outline);
-  b.ctx.fillStyle = "#f4f0e6";
+  b.ctx.fillStyle = PAPER;
   b.ctx.fill();
   b.ctx.restore();
 }
@@ -98,10 +243,86 @@ function grassTexture(b: Brush, outline: Point[], color: string, seed: number) {
   ctx.restore();
 }
 
-function castShadow(b: Brush, outline: Point[], heightFt: number, seed: number) {
-  const off = Math.min(6, heightFt * 0.22);
-  const moved = outline.map(([x, y]) => [x + off, y + off * 0.8] as Point);
-  wash(b, moved, SHADOW, seed, { alpha: 0.12, layers: 2, rim: 0 });
+function castShadow(b: Brush, outline: Point[], heightFt: number, sun: Sun, snow: boolean, density: number) {
+  const { ctx } = b;
+  const len = heightFt * sun.reach;
+  const color = snow ? "#6f86a8" : SHADOW;
+  ctx.save();
+  ctx.globalCompositeOperation = "multiply";
+  // Two passes, the second a little shorter, give the shadow a soft far edge.
+  for (const [k, a] of [[1, 0.1], [0.9, 0.08]] as const) {
+    ctx.beginPath();
+    sweepPath(ctx, outline, [sun.dir[0] * len * k, sun.dir[1] * len * k]);
+    ctx.fillStyle = rgba(color, a * density * sun.k * (snow ? 1.6 : 1.4));
+    ctx.fill("nonzero");
+  }
+  ctx.restore();
+}
+
+// A deciduous plant: it has fall color and nothing in winter.
+function sheds(plant: Plant) {
+  return plant.render.form === "canopy" && !!plant.foliage.fall && !plant.foliage.winter;
+}
+
+// Fallen leaves in the tree's fall colors, thickest under the crown and drifting downwind.
+function leafLitter(b: Brush, at: Point, look: Look, color: string, seed: number, amount: number) {
+  const r = look.spreadFt / 2;
+  const center: Point = [at[0] + r * 0.15, at[1] + r * 0.1];
+  dots(b, center, r * 1.3, Math.round(r * r * 1.4 * amount), Math.max(0.1, b.px(0.9)), color, 0.4, seed + 301);
+  dots(b, center, r * 1.45, Math.round(r * r * 0.5 * amount), Math.max(0.08, b.px(0.8)), shade(color, -0.3), 0.4, seed + 302);
+}
+
+// A plant's shadow: the crown's outline thrown along the sun, stretched by how low the sun is.
+function castPlant(b: Brush, plant: Plant, at: Point, look: Look, sun: Sun, snow: boolean, seed: number) {
+  const bare = !look.foliage && !look.bloom;
+  if (bare && plant.render.form !== "canopy") return;
+  const r = look.spreadFt / 2;
+  const crown = plant.render.form === "canopy" ? 0.6 : 0.5;
+  const off = Math.min(look.heightFt * sun.reach * crown, r * 1.2 + look.heightFt * 0.9);
+  const stretch = 1 + Math.min(0.9, sun.reach * 0.3);
+  const [dx, dy] = sun.dir;
+  const c: Point = [at[0] + dx * off, at[1] + dy * off];
+  const rand = rng(seed + 5);
+  const pts = circlePts([0, 0], r * 0.95, 18, 0.18, rand).map(([x, y]) => {
+    const along = (x * dx + y * dy) * stretch, across = -x * dy + y * dx;
+    return [c[0] + along * dx - across * dy, c[1] + along * dy + across * dx] as Point;
+  });
+  const color = snow ? "#6f86a8" : SHADOW;
+  // Bare branches let most light through.
+  const alpha = (bare ? 0.04 : 0.1) * sun.k * (snow ? 1.4 : 1);
+  wash(b, pts, color, seed + 6, { alpha, layers: 2, rim: 0, wobble: r * 0.06 });
+  if (plant.render.form === "canopy" && look.heightFt > 6) {
+    // The trunk's thin shadow from the base out to the crown's.
+    ink(b, [at, c], seed + 7, { color, alpha: 0.18 * sun.k, width: Math.max(b.px(1), r * 0.06) });
+  }
+}
+
+// Light from the sun side and shade on the far side, so crowns read as round.
+function volume(b: Brush, plant: Plant, at: Point, look: Look, sun: Sun) {
+  const form = plant.render.form;
+  if (!look.foliage || !(form === "canopy" || form === "mound" || form === "columnar")) return;
+  const r = look.spreadFt / 2;
+  // Too small on screen to read as round: skip the two gradients.
+  if (r / b.px(1) < 7) return;
+  const { ctx } = b;
+  const [dx, dy] = sun.dir;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(at[0], at[1], r * 0.97, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.globalCompositeOperation = "multiply";
+  const dark = ctx.createRadialGradient(at[0] - dx * r * 0.5, at[1] - dy * r * 0.5, r * 0.6, at[0] - dx * r * 0.3, at[1] - dy * r * 0.3, r * 1.5);
+  dark.addColorStop(0, rgba(shade(look.foliage, -0.5), 0));
+  dark.addColorStop(1, rgba(shade(look.foliage, -0.5), 0.45 * sun.k));
+  ctx.fillStyle = dark;
+  ctx.fillRect(at[0] - r, at[1] - r, r * 2, r * 2);
+  ctx.globalCompositeOperation = "source-over";
+  const lit = ctx.createRadialGradient(at[0] - dx * r * 0.4, at[1] - dy * r * 0.4, 0, at[0] - dx * r * 0.4, at[1] - dy * r * 0.4, r * 0.7);
+  lit.addColorStop(0, rgba(shade(look.foliage, 0.6), 0.28 * sun.k));
+  lit.addColorStop(1, rgba(shade(look.foliage, 0.6), 0));
+  ctx.fillStyle = lit;
+  ctx.fillRect(at[0] - r, at[1] - r, r * 2, r * 2);
+  ctx.restore();
 }
 
 function surface(b: Brush, kind: Property["surfaces"][number]["kind"], outline: Point[], lawn: string, seed: number) {
@@ -231,23 +452,19 @@ function structure(b: Brush, kind: Property["structures"][number]["kind"], outli
   }
 }
 
-function house(b: Brush, outline: Point[], seed: number) {
+// The roof plan: hip roof planes lit by the sun, with ridges and shingle courses.
+function house(b: Brush, outline: Point[], seed: number, sun: Sun, snow: boolean) {
   const { ctx } = b;
   const box = bounds(outline);
   knockout(b, outline);
-  wash(b, outline, "#e3dccf", seed, { alpha: 0.5, layers: 2, rim: 0 });
-  wash(b, outline, "#b7aa98", seed + 1, { alpha: 0.18, layers: 2, rim: 0.3 });
-  // Roof hatch at 45 degrees.
-  clipTo(ctx, outline, () => {
-    ctx.strokeStyle = rgba(INK, 0.16);
-    ctx.lineWidth = b.px(0.9);
-    ctx.beginPath();
-    for (let d = -box.h; d < box.w; d += 1.4) {
-      ctx.moveTo(box.minX + d, box.maxY);
-      ctx.lineTo(box.minX + d + box.h, box.minY);
-    }
-    ctx.stroke();
-  });
+  const pxPerFt = ctx.getTransform().a;
+  const img = roofImage(outline, sun, pxPerFt, snow ? "#eeeeea" : "#cbbda8", INK);
+  const res = (img.width - 2) / box.w;
+  ctx.save();
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(img, box.minX - 1 / res, box.minY - 1 / res, img.width / res, img.height / res);
+  ctx.restore();
+  wash(b, outline, snow ? "#c9d3dc" : "#b7aa98", seed + 1, { alpha: 0.14, layers: 2, rim: 0.3 });
   ink(b, outline, seed + 2, { closed: true, width: b.px(2.6), alpha: 0.9 });
 }
 

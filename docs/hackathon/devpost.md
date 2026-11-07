@@ -18,7 +18,7 @@ We wanted a planner where you start from your own house, not a blank grid. Take 
 - **Get design ideas.** Say what you want (calm, songbirds, safe for kids) and pick a dial: Light touch, Refresh or Redo. The app reviews the yard as it is, then draws 3 to 5 designs in different styles, such as cottage, prairie and modern. Each design is a list of changes on your plan. Accept or reject each change, or draw a box to rework just one bed.
 - **Browse the gallery.** Best shows the top 10 gardens, New lets you rate recent ones, and Mine holds your designs with a Public switch. A public garden shows the design you picked, never the address or the aerial photo.
 - **153 Indiana plants**, filterable by type, sun and bloom color. The 15 invasive ones are flagged so you know what to pull, not plant.
-- **Accounts.** Register with an email and password, and you only see your own plans.
+- **Accounts.** Register with an email and password, and you only see your own plans. A share link shows the design you picked, so a partner sees the same plan you do. To try it, log in as `demo@flower.test` / `flowerdemo`. That account resets to the sample lot each time you log in.
 
 ## How we built it
 
@@ -28,7 +28,7 @@ We started at about 11 AM with an empty repo. The idea came from a nine-minute v
 
 **One data shape.** Then ten more questions on the 2D plan, and the first build went in as a stack of four PRs: the property and plant data model, the watercolor renderer, the editor, and the plant gallery. Everything reads one `Property` file, checked by a Zod schema. The editor, the 2D plan, the 3D view, the sun model and the AI all use that one shape, so nothing gets translated between them.
 
-**Fan the work out.** By early afternoon one Claude Code session ran as the coordinator. It wrote briefs and started six worker sessions, each in its own git worktree with the files it owned spelled out: photo import, an eval loop for that import, import in the editor, the sun model, the design engine, and accounts. Codex grew the plant library from 25 to 95 plants and fixed the deploy. At the same time two teammates worked straight on `main`: Meghaj Kabra built the first version of the JSON database and then the public gallery, and Shrestha Shakila built the zoomable editor, the 3D yard view, the time cards, the plant illustrations and the landing page. The workers rebased onto their changes as they landed.
+**Fan the work out.** By early afternoon one Claude Code session ran as the coordinator. It wrote briefs and started six worker sessions, each in its own git worktree with the files it owned spelled out: photo import, an eval loop for that import, import in the editor, the sun model, the design engine, and accounts. Codex grew the plant library from 25 to 95 plants and fixed the deploy. At the same time two teammates worked straight on `main`: Meghaj built the first version of the JSON database and then the public gallery, and Shakila built the zoomable editor, the 3D yard view, the time cards, the plant illustrations and the landing page. The workers rebased onto their changes as they landed.
 
 **Evals for the AI import.** The photo import sends the images to OpenAI (`gpt-6.1-terra`) with a strict JSON schema. The model traces shapes on a 0–1000 grid and code turns that into feet, so the model never does unit math. We pulled 12 real listings in 46220, added 10 harder cases (off-center aerials, other zoom levels, no photos), and ran each one 3 times, scoring scale error, house overlap and lot size. A dev page draws every run in the real renderer, so you can see a bad import, not just read a score.
 
@@ -36,8 +36,8 @@ We started at about 11 AM with an empty repo. The idea came from a nine-minute v
 
 ## How we kept it trustworthy
 
-- **Tests where it would break.** 208 tests in 10 files, and all of them pass on `main`. They cover every plant and property file, unknown plant references, mature plant spacing, that a rescale is one undo step and keeps every point over the same aerial pixel, the sun math, and that one user cannot read another user's plan (and a forged cookie gets a 401).
-- **Agent work went through PRs.** 18 merged PRs today, each with a description and screenshots. Each worker ran `pnpm typecheck` and `pnpm test` and checked the change in a browser before handing it back. Teammates committed straight to `main`, and the workers rebased onto it.
+- **Tests where it would break.** 209 tests in 10 files, and all of them pass on `main`. They cover every plant and property file, unknown plant references, mature plant spacing, that a rescale is one undo step and keeps every point over the same aerial pixel, the sun math, and that one user cannot read another user's plan (and a forged cookie gets a 401).
+- **Agent work went through PRs.** 22 merged PRs today, each with a description and screenshots. Each worker ran `pnpm typecheck` and `pnpm test` and checked the change in a browser before handing it back. Teammates committed straight to `main`, and the workers rebased onto it.
 - **The AI output gets checked.** The import result has to pass the schema. The design engine drops any AI change that breaks a rule and tells you which ideas it left out. The rules: library plants only, nothing on the house or paths, tree spacing, no patios unless you ask, kid- and pet-safe plants when you say so, and sun from the sun model. It passes 8 of 8 eval cases.
 - **Real addresses stay out of the repo.** Listing photos, aerials and saved AI runs are gitignored. The test lots from real addresses were deleted after each check. The public gallery leaves out the address and the aerial.
 - **Secrets stay out too.** The OpenAI key lives in a gitignored `.env`. `AI_FAKE=1` replays saved AI runs, so UI work and tests make no paid calls.
@@ -53,7 +53,7 @@ We started at about 11 AM with an empty repo. The idea came from a nine-minute v
 - A real yard goes from photos to an editable watercolor plan, and you can see whether the AI got it right.
 - The eval loop told us something useful: the import passes 53 of 66 runs (80%). That's short of our 90% target, and we know where it fails.
 - The sun model is fast enough to rerun on every edit (about 20 ms for a 100 × 200 ft lot), and turning the plan moves the shadows the right way.
-- Three people and a set of agent sessions merged 18 PRs in one afternoon.
+- Three people and a set of agent sessions merged 22 PRs in one afternoon.
 
 ## What we learned
 

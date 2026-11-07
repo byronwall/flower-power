@@ -1,0 +1,73 @@
+{
+  "id": "pussy-willow",
+  "commonName": "Pussy willow",
+  "botanicalName": "Salix discolor",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 13,
+    "spreadFt": 13,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 13
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#719055",
+    "summer": "#547743",
+    "fall": "#9a9040",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "rain garden",
+    "host plant"
+  ]
+}

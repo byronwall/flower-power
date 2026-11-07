@@ -1,0 +1,80 @@
+{
+  "id": "virginia-mountain-mint",
+  "commonName": "Virginia mountain mint",
+  "botanicalName": "Pycnanthemum virginianum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 2,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#f4f2e8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#829e65",
+    "summer": "#6b8958",
+    "fall": "#81814d",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "prairie",
+    "pollinator",
+    "rain garden"
+  ]
+}

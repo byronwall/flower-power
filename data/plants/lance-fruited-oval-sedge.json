@@ -1,0 +1,66 @@
+{
+  "id": "lance-fruited-oval-sedge",
+  "commonName": "Lance-fruited oval sedge",
+  "botanicalName": "Carex scoparia",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2.5,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#7a9f5e",
+    "summer": "#608b4f",
+    "fall": "#9e8344",
+    "winter": "#b9a07a"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "wet"
+  ],
+  "tags": [
+    "rain garden",
+    "wet soil"
+  ]
+}

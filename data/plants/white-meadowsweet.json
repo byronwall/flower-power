@@ -1,0 +1,80 @@
+{
+  "id": "white-meadowsweet",
+  "commonName": "White meadowsweet",
+  "botanicalName": "Spiraea alba",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8
+    ],
+    "colors": [
+      "#f8f4eb"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6b9052",
+    "summer": "#4c773f",
+    "fall": "#98903e",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "rain garden"
+  ]
+}

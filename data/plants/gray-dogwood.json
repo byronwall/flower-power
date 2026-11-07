@@ -1,0 +1,80 @@
+{
+  "id": "gray-dogwood",
+  "commonName": "Gray dogwood",
+  "botanicalName": "Cornus racemosa",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 11.5,
+    "spreadFt": 11.5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 11.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#f5f2e9"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d8d52",
+    "summer": "#4f733f",
+    "fall": "#998e3e",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "berries",
+    "pollinator"
+  ]
+}

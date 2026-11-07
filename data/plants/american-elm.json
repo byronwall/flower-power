@@ -1,0 +1,71 @@
+{
+  "id": "american-elm",
+  "commonName": "American elm",
+  "botanicalName": "Ulmus americana",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 78.5,
+    "spreadFt": 59,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 59
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9350",
+    "summer": "#4e7b3d",
+    "fall": "#a15f31",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "host plant",
+    "fall color"
+  ]
+}

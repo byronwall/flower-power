@@ -1,0 +1,79 @@
+{
+  "id": "blue-vervain",
+  "commonName": "Blue vervain",
+  "botanicalName": "Verbena hastata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average",
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#7775c6"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9554",
+    "summer": "#4f7d42",
+    "fall": "#787d46",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society Native Plant Finder",
+      "url": "https://finder.indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "rain garden"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "id": "gray-headed-coneflower",
+  "commonName": "Gray-headed coneflower",
+  "botanicalName": "Ratibida pinnata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#e6b82e"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#789850",
+    "summer": "#5d813d",
+    "fall": "#7d7e45",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "prairie",
+    "pollinator"
+  ]
+}

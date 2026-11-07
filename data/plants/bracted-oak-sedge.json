@@ -1,0 +1,69 @@
+{
+  "id": "bracted-oak-sedge",
+  "commonName": "Bracted oak sedge",
+  "botanicalName": "Carex cephalophora",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 1,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#749558",
+    "summer": "#587d47",
+    "fall": "#9b7f41",
+    "winter": "#b9a07a"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "woodland",
+    "drought tolerant"
+  ]
+}

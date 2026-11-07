@@ -1,0 +1,80 @@
+{
+  "id": "aromatic-aster",
+  "commonName": "Aromatic aster",
+  "botanicalName": "Symphyotrichum oblongifolium",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2.5,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      9,
+      10,
+      11
+    ],
+    "colors": [
+      "#8d79bb"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7c985a",
+    "summer": "#63814a",
+    "fall": "#7e7e49",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "pollinator",
+    "fall bloom",
+    "drought tolerant"
+  ]
+}

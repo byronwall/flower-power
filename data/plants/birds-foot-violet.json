@@ -1,0 +1,80 @@
+{
+  "id": "birds-foot-violet",
+  "commonName": "Bird's-foot violet",
+  "botanicalName": "Viola pedata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 0.5,
+    "spreadFt": 1,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#8b78b9"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#7c9656",
+    "summer": "#627f45",
+    "fall": "#7e7e47",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "prairie",
+    "pollinator",
+    "host plant"
+  ]
+}

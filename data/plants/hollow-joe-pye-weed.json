@@ -1,0 +1,77 @@
+{
+  "id": "hollow-joe-pye-weed",
+  "commonName": "Hollow Joe-Pye weed",
+  "botanicalName": "Eutrochium fistulosum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 6.5,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#c77ba6"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9455",
+    "summer": "#4f7c43",
+    "fall": "#787d47",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "wet"
+  ],
+  "tags": [
+    "pollinator",
+    "rain garden"
+  ]
+}

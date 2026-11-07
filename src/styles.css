@@ -1317,6 +1317,48 @@ polyline.sel-line {
   color: var(--muted);
 }
 
+.yard3d-views {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.yard3d-views button {
+  border: 0;
+  background: transparent;
+  padding: 4px 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.yard3d-views button[aria-checked="true"] {
+  background: var(--moss);
+  color: white;
+}
+
+.yard3d-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 3px 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+
 @container (max-width: 560px) {
   .yard3d-hint {
     display: none;
@@ -1479,7 +1521,8 @@ polyline.sel-line {
 }
 
 /* Narrow windows: the side panels become drawers over the plan. */
-.drawer-scrim {
+.drawer-scrim,
+.drawer-close {
   display: none;
 }
 
@@ -1508,6 +1551,23 @@ polyline.sel-line {
     inset: 0;
     z-index: 15;
     background: rgba(47, 51, 41, 0.18);
+  }
+  /* Sits on the scrim, just past the drawer's inner edge, because the drawer covers the panel toggles. */
+  .drawer-close {
+    display: inline-flex;
+    position: absolute;
+    top: 10px;
+    z-index: 21;
+    width: 36px;
+    height: 36px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+  .drawer-close.left {
+    left: calc(min(320px, 86vw) + 8px);
+  }
+  .drawer-close.right {
+    right: calc(min(320px, 86vw) + 8px);
   }
   .toolbar-sep {
     display: none;
@@ -3279,6 +3339,14 @@ b {
 
 .app-bar > .user-menu {
   margin-left: auto;
+}
+
+/* A phone is too narrow for one row: wrap, so the header never widens the page. */
+@media (max-width: 760px) {
+  .app-bar {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
 }
 
 /* Drawing tools float as a rail on the plan they draw on. */

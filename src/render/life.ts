@@ -110,6 +110,7 @@ export function createLife(canvas: HTMLCanvasElement, read: () => State) {
   }
 
   // ---------- weather ----------
+  let dropKind: Weather | null = null;
   function weather(s: State, dt: number) {
     const { width: w, height: h } = s;
     // Cloud shadows drift across the plan; more of them when it is cloudy or raining.
@@ -154,6 +155,9 @@ export function createLife(canvas: HTMLCanvasElement, read: () => State) {
     // Rain streaks with splashes where they land; snow drifts down and sways.
     const area = w * h;
     if (s.weather === "rain" || s.weather === "snow") {
+      // Raindrops and flakes differ in size and speed, so start fresh when switching between them.
+      if (dropKind !== s.weather) drops.length = 0;
+      dropKind = s.weather;
       const n = Math.round(area / (s.weather === "rain" ? 2600 : 3800));
       while (drops.length < n) drops.push({ x: rand() * w, y: rand() * h, v: s.weather === "rain" ? 520 + rand() * 260 : 30 + rand() * 30, len: s.weather === "rain" ? 10 + rand() * 10 : 1.4 + rand() * 2 });
       drops.length = n;

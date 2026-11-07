@@ -1,0 +1,80 @@
+{
+  "id": "common-persimmon",
+  "commonName": "Common persimmon",
+  "botanicalName": "Diospyros virginiana",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 59,
+    "spreadFt": 39.5,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 39.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "average",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#d8c894"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#64874b",
+    "summer": "#426b36",
+    "fall": "#9d5a2f",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "edible fruit",
+    "fall color"
+  ],
+  "edible": true
+}

@@ -1,0 +1,77 @@
+{
+  "id": "white-trout-lily",
+  "commonName": "White trout lily",
+  "botanicalName": "Erythronium albidum",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 0.5,
+    "spreadFt": 1,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      3,
+      4
+    ],
+    "colors": [
+      "#f4f0df"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#798f57",
+    "summer": "#5f7546",
+    "fall": "#7d7b47",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Purdue Extension POL-6-W: Indiana-native plants for pollinators",
+      "url": "https://extension.purdue.edu/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "spring ephemeral",
+    "woodland",
+    "pollinator"
+  ]
+}
