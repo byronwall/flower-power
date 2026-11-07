@@ -135,3 +135,22 @@ export function newId(p: Property, prefix: string) {
   while (used.has(`${prefix}-${i}`)) i++;
   return `${prefix}-${i}`;
 }
+
+// Stretches every point and the underlay by `k` around the plan's origin, for a scale fix after an import.
+// Heights and plant spacing are real sizes, so they stay the same.
+export function scaleProperty(p: Property, k: number): Property {
+  const pts = (list: Point[]) => list.map(([x, y]) => snap([x * k, y * k]));
+  const each = <T extends object>(items: T[]) => items.map((x) => withPoints(x, pts(pointsOf(x))));
+  return {
+    ...p,
+    lot: { outline: pts(p.lot.outline) },
+    house: { ...p.house, outline: pts(p.house.outline) },
+    fences: each(p.fences),
+    surfaces: each(p.surfaces),
+    structures: each(p.structures),
+    edges: each(p.edges),
+    features: each(p.features),
+    plantings: each(p.plantings),
+    underlay: p.underlay && { ...p.underlay, ftPerPx: Math.round(p.underlay.ftPerPx * k * 10000) / 10000, originFt: snap([p.underlay.originFt[0] * k, p.underlay.originFt[1] * k]) },
+  };
+}
