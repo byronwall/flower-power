@@ -1,6 +1,7 @@
-import { createEffect, createMemo, createSignal, onCleanup, onMount, Show, untrack, type JSX } from "solid-js";
+import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show, untrack, type JSX } from "solid-js";
+import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
-import { bounds } from "../render/geometry";
+import { bounds, centroid } from "../render/geometry";
 import type { ViewTime } from "../render/look";
 import { chirp, createLife, type Weather } from "../render/life";
 import { paint, type View } from "../render/paint";
@@ -125,7 +126,10 @@ export function PlanView(props: Props) {
       const k = e.ctrlKey ? 0.012 : e.deltaMode === 1 ? 0.05 : 0.0022;
       zooming = true;
       clearTimeout(zoomTimer);
-      zoomTimer = window.setTimeout(() => (zooming = false), 120);
+      zoomTimer = window.setTimeout(() => {
+        zooming = false;
+        setSettled((n) => n + 1);
+      }, 140);
       zoomAt(Math.exp(-e.deltaY * k), e.clientX - r.left, e.clientY - r.top);
     };
     box.addEventListener("wheel", wheel, { passive: false });
@@ -229,25 +233,50 @@ export function PlanView(props: Props) {
     });
   });
 
-  // Repaint at most once a frame while panning or zooming; otherwise paint right away.
+  // While panning or zooming, show the last full painting moved and scaled (cheap), then paint
+  // properly once the view settles. Any change to the plan, time, or weather paints right away.
+  const [settled, setSettled] = createSignal(0);
   let frame = 0;
+  let snap: HTMLCanvasElement | null = null;
+  let snapView: View | null = null;
+  let snapKey: unknown[] = [];
   createEffect(() => {
     const { w, h } = size();
     const v = view();
-    const property = props.property, time = props.time;
+    settled();
+    const property = props.property, time = props.time, weather = props.weather;
     if (!w || !h) return;
+    const dpr = window.devicePixelRatio || 1;
+    const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
+    const key = [property, time.month, time.year, weather, cw, ch];
+    const same = snapView && key.every((k, i) => k === snapKey[i]);
+    const moving = panning() || zooming;
     const draw = () => {
       frame = 0;
-      const dpr = window.devicePixelRatio || 1;
-      const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
       if (canvas.width !== cw || canvas.height !== ch) {
         canvas.width = cw;
         canvas.height = ch;
       }
-      paint(canvas, property, time, v);
+      paint(canvas, property, time, v, { weather });
+      snap ??= document.createElement("canvas");
+      snap.width = cw;
+      snap.height = ch;
+      snap.getContext("2d")!.drawImage(canvas, 0, 0);
+      snapView = v;
+      snapKey = key;
+    };
+    const preview = () => {
+      frame = 0;
+      const ctx = canvas.getContext("2d")!;
+      const k = v.scale / snapView!.scale;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.fillStyle = "#f4f0e6";
+      ctx.fillRect(0, 0, cw, ch);
+      ctx.drawImage(snap!, dpr * (v.offX - snapView!.offX * k), dpr * (v.offY - snapView!.offY * k), cw * k, ch * k);
     };
     if (frame) cancelAnimationFrame(frame);
-    if (panning() || zooming) frame = requestAnimationFrame(draw);
+    if (moving && same) frame = requestAnimationFrame(preview);
+    else if (moving) frame = requestAnimationFrame(draw);
     else draw();
   });
 
@@ -293,6 +322,7 @@ export function PlanView(props: Props) {
           </Show>
           {untrack(() => props.overlay?.(liveView))}
         </g>
+        <PlantTags property={props.property} view={view()} width={size().w} height={size().h} />
         <PlanMarks property={props.property} view={view()} height={size().h} />
       </svg>
       <canvas class="life-canvas" ref={lifeCanvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} aria-hidden="true" />
@@ -340,6 +370,51 @@ function PlanMarks(props: { property: Property; view: View; height: number }) {
       <text y="-6">0</text>
       <text x={bar().px} y="-6" text-anchor="middle">{bar().ft}</text>
       <text x={bar().px * 2} y="-6" text-anchor="middle">{bar().ft * 2} ft</text>
+    </g>
+  );
+}
+
+// Plant names written on the plan, like the callouts on a planting plan. They appear once you
+// zoom in far enough to read them, and a name that would overlap another is left out.
+const TAG_SCALE = 8;
+
+function PlantTags(props: { property: Property; view: View; width: number; height: number }) {
+  const tags = createMemo(() => {
+    const v = props.view;
+    if (v.scale < TAG_SCALE) return [];
+    const placed: { x: number; y: number; w: number; text: string }[] = [];
+    const items = props.property.plantings.map((p) => {
+      const plant = plantsById.get(p.plantId);
+      const at: Point = p.type === "single" ? p.at : p.type === "row" ? p.path[Math.floor(p.path.length / 2)] : centroid(p.outline);
+      const size = p.type === "single" ? (plant?.size.spreadFt ?? 2) : 0;
+      return { at, name: plant?.commonName ?? p.plantId, size };
+    }).map((it) => {
+      // A single plant's name sits just under it, so the plant itself stays visible.
+      const drop = it.size ? Math.min(it.size * 0.3 * v.scale, 46) + 12 : 4;
+      return { ...it, x: v.offX + it.at[0] * v.scale, y: v.offY + it.at[1] * v.scale + drop };
+    });
+    // Big plants first, so trees keep their names when space runs out.
+    items.sort((a, z) => z.size - a.size);
+    for (const it of items) {
+      const { x, y } = it;
+      const w = it.name.length * 7 + 10;
+      // Stay clear of the edges, the zoom buttons at top right, and the scale bar at the bottom.
+      if (x - w / 2 < 4 || x + w / 2 > props.width - 4 || y < 16 || y > props.height - 64) continue;
+      if (x + w / 2 > props.width - 190 && y < 70) continue;
+      if (placed.some((p) => Math.abs(p.x - x) < (p.w + w) / 2 && Math.abs(p.y - y) < 18)) continue;
+      placed.push({ x, y, w, text: it.name });
+    }
+    return placed;
+  });
+  return (
+    <g class="plant-tags" pointer-events="none" text-anchor="middle" style={{ font: "14px var(--f-hand)" }} fill="#33342c">
+      <For each={tags()}>
+        {(t) => (
+          <text x={t.x} y={t.y + 4} stroke="#f7f3ea" stroke-width="3" stroke-opacity="0.85" stroke-linejoin="round" paint-order="stroke">
+            {t.text}
+          </text>
+        )}
+      </For>
     </g>
   );
 }
