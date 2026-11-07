@@ -4,7 +4,8 @@ import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type
 import { itemOf, type Editor, type Ref } from "./state";
 import { PlantPicture } from "../gallery/PlantPicture";
 import type { Plant } from "../model/plant";
-import { lookOf, monthNames, type ViewTime } from "../render/look";
+import { monthNames, type ViewTime } from "../render/look";
+import { captionOf } from "../render/portrait";
 
 const KINDS: Partial<Record<Ref["col"], readonly string[]>> = {
   surfaces: surfaceKinds,
@@ -133,14 +134,14 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
   );
 }
 
-// A large drawing of the plant, with a note when it is dormant in the month shown.
+// A large side-view illustration of the plant in the month shown.
 function Picture(props: { plant: Plant; time: ViewTime }) {
-  const dormant = () => !lookOf(props.plant, { month: props.time.month, year: 5 }, true);
   return (
     <figure class="plant-preview">
       <PlantPicture plant={props.plant} time={props.time} size={300} class="preview-canvas" />
       <figcaption>
-        {dormant() ? `Not showing in ${monthNames[props.time.month - 1]}, so drawn as in July` : `Full grown, in ${monthNames[props.time.month - 1]}`}
+        {captionOf(props.plant, props.time.month)}
+        <span class="preview-hint">Slide the month to see it through the year</span>
       </figcaption>
     </figure>
   );

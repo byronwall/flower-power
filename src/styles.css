@@ -674,7 +674,7 @@ polyline.sel-line {
 
 .plant-card {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr);
   gap: 12px;
   margin-bottom: 6px;
   padding: 10px;
@@ -993,4 +993,18 @@ polyline.sel-line {
   background: var(--card);
   border-color: var(--moss);
   box-shadow: 0 0 0 1px var(--moss), var(--shadow-sm);
+}
+
+.plant-preview figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.preview-hint {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
 }

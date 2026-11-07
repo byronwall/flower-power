@@ -136,7 +136,7 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing
                 e.dataTransfer!.effectAllowed = "copy";
               }}
             >
-              <PlantPicture plant={p} time={props.time} size={56} />
+              <PlantPicture plant={p} time={props.time} size={64} best />
               <div class="plant-info">
                 <strong>{p.commonName}</strong>
                 <span class="botanical">{p.botanicalName}</span>
