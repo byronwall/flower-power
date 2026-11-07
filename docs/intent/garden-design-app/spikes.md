@@ -123,6 +123,7 @@ Do them in three groups:
 - **Try:** 500 saved thumbnails on a canvas that you can pan and zoom. Load a sharper image as you zoom in, and open the full project at the closest zoom.
 - **Decide:** How thumbnails are made and stored, and the zoom method.
 - **Fallback:** A normal grid of cards that you scroll, with a link to each garden.
+- **Result (2026-11-07):** Decided. About 440 watercolor thumbnails on a pan-and-zoom canvas, painted a few per frame and paused while panning, felt smooth. The wall stays. See [public gallery](../public-gallery/implementation-plan.md).
 
 ## Decided, not spikes
 

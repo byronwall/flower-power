@@ -13,7 +13,10 @@ import { ImportButton, importPhotos, ImportProgress, ScaleBanner } from "../edit
 import { Inspector } from "../editor/Inspector";
 import { ModeBanner } from "../editor/ModeBanner";
 import { createEditor, droppedPlanting, itemOf, newId, pointsOf, withPoints, type Item } from "../editor/state";
+import { makeCommunity, makeDemoGarden } from "../gallery/community";
+import { Gallery, GalleryBar, type GalleryTab } from "../gallery/Gallery";
 import { draggingPlant, PlantGallery } from "../gallery/PlantGallery";
+import { browserStorage, createLocalStore, type SavedCopy } from "../gallery/store";
 import { Toolbar } from "../editor/Toolbar";
 import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
@@ -91,6 +94,18 @@ function Planner(props: PlannerProps) {
   const [importError, setImportError] = createSignal("");
   const [scaleBasis, setScaleBasis] = createSignal<string | null>(null);
   const [dropping, setDropping] = createSignal(false);
+  // My design or the Gallery, the gallery tab, and an open garden live in the URL so a refresh keeps them.
+  const [params, setParams] = useSearchParams<{ view?: string; tab?: string; garden?: string; demo?: string }>();
+  const inGallery = () => params.view === "gallery";
+  const tab = (): GalleryTab => (params.tab === "new" || params.tab === "mine" ? params.tab : "best");
+  const setTab = (t: GalleryTab) => setParams({ tab: t === "best" ? undefined : t, garden: undefined });
+  const [galleryOpened, setGalleryOpened] = createSignal(false);
+  createEffect(() => {
+    if (inGallery()) setGalleryOpened(true);
+  });
+  // ?demo=1 adds one rising garden and a bar to follow it from New into Best.
+  const demo = params.demo === "1";
+  const store = createLocalStore(demo ? [makeDemoGarden(), ...makeCommunity(500)] : makeCommunity(500), browserStorage(props.email));
   const isNew = () => !props.properties.some((p) => p.id === ed.property().id);
   // Side panels can fold away to give the plan the whole window. Remembered per browser.
   const saved = (() => {
@@ -150,6 +165,8 @@ function Planner(props: PlannerProps) {
       props.onSaved(p);
       ed.setDirty(false);
       setStatus("Saved");
+      // A public design shows its latest saved version in the gallery.
+      if (store.isPublic(ed.property().id)) store.publish(ed.property());
     } catch (e) {
       setStatus((e as Error).message);
     }
@@ -164,6 +181,28 @@ function Planner(props: PlannerProps) {
     const id = newId(ed.property(), "plantId" in item ? item.plantId : ref.id.replace(/-\d+$/, ""));
     const moved = withPoints({ ...item, id }, pointsOf(item).map(([x, y]) => [x + 3, y + 3]));
     ed.add(ref.col, moved as Item);
+  }
+
+  // Open a saved garden as your own design. The first time, it becomes a new property.
+  async function editCopy(copy: SavedCopy) {
+    if (ed.dirty() && !window.confirm("Discard unsaved changes?")) return;
+    const id = `copy-${copy.from.id}`.toLowerCase().replace(/[^a-z0-9-]/g, "-");
+    let p = props.properties.find((x) => x.id === id);
+    if (!p) {
+      p = { ...structuredClone(copy.property), id, name: `${copy.from.title} (my copy)` };
+      try {
+        await saveProperty(p);
+      } catch (e) {
+        setStatus((e as Error).message);
+        return;
+      }
+      props.onSaved(p);
+      store.noteCopy(id, { id: copy.from.id, title: copy.from.title });
+    }
+    ed.load(p);
+    setScaleBasis(null);
+    setStatus("");
+    setParams({ view: undefined, tab: undefined, garden: undefined });
   }
 
   function pick(id: string) {
@@ -203,6 +242,8 @@ function Planner(props: PlannerProps) {
     const key = (e: KeyboardEvent) => {
       const typing = (e.target as HTMLElement).closest("input, select, textarea");
       const mod = e.metaKey || e.ctrlKey;
+      // In the gallery, only Save still acts on your design.
+      if (inGallery() && !(mod && e.key.toLowerCase() === "s")) return;
       if (mod && e.key.toLowerCase() === "z") {
         e.preventDefault();
         e.shiftKey ? ed.redo() : ed.undo();
@@ -262,7 +303,15 @@ function Planner(props: PlannerProps) {
             Flower Power
           </A>
         </span>
-        <label class="property-pick">
+        <div class="view-toggle" role="group" aria-label="Show your design or the gallery">
+          <button type="button" aria-pressed={!inGallery()} onClick={() => setParams({ view: undefined, tab: undefined, garden: undefined })}>
+            My design
+          </button>
+          <button type="button" aria-pressed={inGallery()} onClick={() => setParams({ view: "gallery" })}>
+            Gallery
+          </button>
+        </div>
+        <label class="property-pick" classList={{ hidden: inGallery() }}>
           <span class="eyebrow">Plan</span>
           <select id="property" value={ed.property().id} onChange={(e) => pick(e.currentTarget.value)} aria-label="Property">
             <For each={props.properties}>
@@ -279,8 +328,10 @@ function Planner(props: PlannerProps) {
             </Show>
           </select>
         </label>
-        <ImportButton onFiles={runImport} disabled={!!importing()} />
-        <Show when={ed.property().underlay}>
+        <Show when={!inGallery()}>
+          <ImportButton onFiles={runImport} disabled={!!importing()} />
+        </Show>
+        <Show when={ed.property().underlay && !inGallery()}>
           <div class="photo-controls">
             <label class="check">
               <input id="photo-toggle" type="checkbox" checked={photo().on} onChange={(e) => setPhoto({ ...photo(), on: e.currentTarget.checked })} />
@@ -321,10 +372,12 @@ function Planner(props: PlannerProps) {
             </Show>
           </span>
         </div>
-        <Toolbar editor={ed} />
+        <Show when={!inGallery()}>
+          <Toolbar editor={ed} />
+        </Show>
         <UserMenu email={props.email} />
       </header>
-      <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails() }}>
+      <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails(), hidden: inGallery() }}>
         <Show when={importing()}>
           <ImportProgress count={importing()} />
         </Show>
@@ -515,6 +568,23 @@ function Planner(props: PlannerProps) {
           />
         </Show>
       </main>
+      <Show when={galleryOpened()}>
+        <div class="gallery-page" classList={{ hidden: !inGallery() }}>
+          <GalleryBar tab={tab()} store={store} demo={demo ? store : undefined} onTab={setTab} time={time()} onTime={setTime} />
+          <div class="gallery-shell">
+            <Gallery
+              store={store}
+              time={time()}
+              tab={tab()}
+              gardenId={params.garden ?? null}
+              onTab={setTab}
+              onOpenGarden={(id) => setParams({ garden: id ?? undefined })}
+              designs={props.properties}
+              onEditCopy={editCopy}
+            />
+          </div>
+        </div>
+      </Show>
       <Show when={tour()}>
         <Tour onClose={closeTour} />
       </Show>
