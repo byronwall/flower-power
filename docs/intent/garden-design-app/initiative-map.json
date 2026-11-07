@@ -89,6 +89,13 @@
       "location": "conversation 2026-11-07",
       "anchor": "round 7: sharing and public gallery",
       "authority": "user"
+    },
+    {
+      "id": "Q8",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "round 8: gallery privacy",
+      "authority": "user"
     }
   ],
   "intent": {
@@ -617,6 +624,19 @@
           "Q7"
         ],
         "confidence": "high"
+      },
+      {
+        "id": "C40",
+        "statement": "The public gallery hides the address and the aerial photo.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q8"
+        ],
+        "confidence": "high"
       }
     ],
     "themes": [
@@ -662,9 +682,7 @@
       "Generalizing beyond Indiana or beyond suburban lots",
       "Accounts and multi-device sync before the core view works"
     ],
-    "open_decisions": [
-      "Proposed default: public gallery hides the address and aerial photo. Confirm."
-    ],
+    "open_decisions": [],
     "spikes_doc": "spikes.md"
   },
   "implementation": {
@@ -707,6 +725,11 @@
     {
       "date": "2026-11-07",
       "event": "Round 7: view-only sharing and a public gallery wall (S16).",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Round 8: public gallery hides address and aerial photo. No open product choices.",
       "phase": "shape"
     }
   ],
@@ -819,6 +842,17 @@
           {
             "question": "Can a shared person edit?",
             "answer": "View only for now. Also add a public gallery: mark projects public; zoomed-out small-multiples wall; zoom in to see a garden."
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "theme": "gallery privacy",
+        "source": "Q8",
+        "questions": [
+          {
+            "question": "Should the public gallery hide the address and aerial photo?",
+            "answer": "Yes, hide them."
           }
         ]
       }

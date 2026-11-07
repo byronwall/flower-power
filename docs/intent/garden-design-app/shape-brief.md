@@ -71,7 +71,7 @@ Garden design app (desktop web, Indiana)
 | Plants grow into each other by year 5 | The plan shows the overlap and suggests spacing. |
 | A reference photo has non-Indiana plants | The app uses Indiana plants with a similar look and says so. |
 | A shared person opens a project | They see every view and the slider, but they cannot edit. |
-| A project is public | The gallery shows the garden but not the address or the aerial photo (proposed). |
+| A project is public | The gallery shows the garden but not the address or the aerial photo. |
 
 ## Decisions and boundaries
 

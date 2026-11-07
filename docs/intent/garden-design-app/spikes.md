@@ -121,7 +121,7 @@ Do them in three groups:
 
 - **Accounts:** email and password only, with the simplest database. No magic links and no private links.
 - **Sharing:** share a project with another account. The other person can view it but cannot edit it.
-- **Public gallery:** a project is private until its owner marks it public. Proposed: the public view hides the address and the aerial photo.
+- **Public gallery:** a project is private until its owner marks it public. The public view hides the address and the aerial photo.
 
 ## Later research
 

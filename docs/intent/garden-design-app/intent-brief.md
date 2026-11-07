@@ -63,7 +63,7 @@ You drag a time slider through winter, spring, summer, and fall, and out to 5 ye
 - Dragging a plant out paints an area of that plant.
 - A 3D view sits beside the 2D plan and updates at once with each edit and slider move. This is the goal, if it can be made fast enough.
 - Accounts use email and password only, with the simplest database. People must not lose their work, and sharing a project is important. A shared project is view only.
-- A public gallery shows projects that their owners mark public: a zoomed-out wall of garden thumbnails, where you zoom in to see one garden.
+- A public gallery shows projects that their owners mark public: a zoomed-out wall of garden thumbnails, where you zoom in to see one garden. The public view hides the address and the aerial photo.
 
 ## Possibilities, not decisions
 
