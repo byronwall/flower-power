@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { plantSchema } from "./plant";
+import { auditPlant, plantSchema } from "./plant";
 import { propertySchema } from "./property";
 
 // Plant and property files are added by hand, so check every one of them.
@@ -19,6 +19,45 @@ describe("plant files", () => {
     const result = plantSchema.safeParse(json);
     expect(result.error?.issues ?? [], file).toEqual([]);
     expect(`plants/${json.id}.json`).toBe(file);
+  });
+});
+
+describe("plant audit", () => {
+  const plant = plantFiles[0].json;
+  const complete = {
+    ...plant,
+    lifespanYears: [3, 5],
+    pollination: { needsPartner: false },
+    emerges: 4,
+    planting: { method: "container" },
+    images: {
+      photos: [
+        {
+          url: "https://upload.wikimedia.org/example.jpg",
+          author: "Example",
+          license: "CC BY-SA 4.0",
+          sourceUrl: "https://commons.wikimedia.org/wiki/File:Example.jpg",
+        },
+      ],
+    },
+  };
+
+  it("lets an unverified plant leave the plant object fields empty", () => {
+    expect(plantSchema.safeParse({ ...plant, verified: false }).success).toBe(true);
+  });
+
+  it("names each missing field on a verified plant", () => {
+    const paths = plantSchema.safeParse({ ...plant, verified: true }).error?.issues.map((i) => i.path.join("."));
+    expect(paths).toEqual(["lifespanYears", "pollination", "emerges", "planting", "images.photos"]);
+  });
+
+  it("accepts a verified plant with every field", () => {
+    expect(plantSchema.safeParse({ ...complete, verified: true }).error?.issues ?? []).toEqual([]);
+    expect(auditPlant(complete)).toEqual([]);
+  });
+
+  it("rejects a lifespan whose shortest is more than its longest", () => {
+    expect(plantSchema.safeParse({ ...complete, lifespanYears: [9, 2] }).success).toBe(false);
   });
 });
 

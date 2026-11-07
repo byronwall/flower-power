@@ -11,13 +11,21 @@ const seasonColors = z.object({
   winter: hex.nullable(),
 });
 
-export const plantSchema = z.object({
+// A real photo of the plant. Only openly licensed photos, with credit.
+const photo = z.object({
+  url: z.url(),
+  author: z.string().min(1),
+  license: z.string().min(1),
+  sourceUrl: z.url(),
+});
+
+const plantFields = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   commonName: z.string().min(1),
   botanicalName: z.string().min(1),
   category: z.enum(["tree", "shrub", "perennial", "grass", "groundcover", "annual"]),
   nativeToIndiana: z.boolean(),
-  lifecycle: z.enum(["annual", "perennial", "tender-perennial", "woody"]),
+  lifecycle: z.enum(["annual", "biennial", "perennial", "tender-perennial", "woody"]),
   evergreen: z.boolean(),
   // How a person usually places it. "either" lets them choose each time.
   placement: z.enum(["single", "region", "either"]),
@@ -48,6 +56,53 @@ export const plantSchema = z.object({
   sources: z.array(z.object({ label: z.string(), url: z.url() })).min(1),
   // False until a person checks each fact against the sources.
   verified: z.boolean(),
+
+  // The fields below are optional while the library is being filled in.
+  // A verified plant must have all of them (see auditPlant).
+
+  // How long one plant lives, in years: [shortest, longest].
+  lifespanYears: z.tuple([z.number().positive(), z.number().positive()]).optional(),
+  // Whether it needs a second plant to fruit or set seed, such as a male winterberry.
+  pollination: z
+    .object({
+      needsPartner: z.boolean(),
+      partner: z.string().min(1).optional(),
+      note: z.string().min(1).optional(),
+    })
+    .optional(),
+  // The month it comes up or leafs out. null means it shows all year (evergreen).
+  emerges: month.nullable().optional(),
+  // How it goes in the ground.
+  planting: z
+    .object({
+      method: z.enum(["seed", "bulb", "plug", "container", "bare-root", "division"]),
+      depthIn: z.number().nonnegative().optional(),
+      note: z.string().min(1).optional(),
+    })
+    .optional(),
+  images: z.object({ photos: z.array(photo) }).optional(),
+});
+
+// The plant object checklist from the data plan. Returns what a plant is missing.
+// Size, color, lifecycle, sun, water and planting months are required by the schema itself.
+export function auditPlant(p: z.infer<typeof plantFields>): string[] {
+  const missing: string[] = [];
+  if (!p.lifespanYears) missing.push("lifespanYears");
+  if (!p.pollination) missing.push("pollination");
+  if (p.emerges === undefined) missing.push("emerges");
+  if (!p.planting) missing.push("planting");
+  if (!p.images?.photos.length) missing.push("images.photos");
+  return missing;
+}
+
+export const plantSchema = plantFields.superRefine((p, ctx) => {
+  if (p.lifespanYears && p.lifespanYears[0] > p.lifespanYears[1]) {
+    ctx.addIssue({ code: "custom", path: ["lifespanYears"], message: "shortest must not be more than longest" });
+  }
+  if (!p.verified) return;
+  for (const field of auditPlant(p)) {
+    ctx.addIssue({ code: "custom", path: field.split("."), message: "required before a plant is verified" });
+  }
 });
 
 export type Plant = z.infer<typeof plantSchema>;
