@@ -71,7 +71,29 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/phlox-subulata/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/%28MHNT%29_Phlox_subulata_%27Emerald_Cushion_Blue%27_-_Les_Martels%2C_Giroussens_Tarn.jpg/500px-%28MHNT%29_Phlox_subulata_%27Emerald_Cushion_Blue%27_-_Les_Martels%2C_Giroussens_Tarn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Didier Descouens",
+        "license": "CC BY-SA 4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:(MHNT)_Phlox_subulata_%27Emerald_Cushion_Blue%27_-_Les_Martels,_Giroussens_Tarn.jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "container",
+    "note": "Usually bought and planted as a nursery container plant. NC State propagation: division, root cutting, stem cutting."
+  },
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

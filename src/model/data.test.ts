@@ -23,7 +23,8 @@ describe("plant files", () => {
 });
 
 describe("plant audit", () => {
-  const plant = plantFiles[0].json;
+  // A plant file without the plant object fields, whatever the real file has filled in.
+  const { lifespanYears, pollination, emerges, planting, images, ...plant } = plantFiles[0].json;
   const complete = {
     ...plant,
     lifespanYears: [3, 5],

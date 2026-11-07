@@ -74,7 +74,29 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/monarda-fistulosa/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Monarda_fistulosa_Arkansas.jpg/500px-Monarda_fistulosa_Arkansas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Eric Hunt",
+        "license": "CC BY-SA 4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Monarda_fistulosa_Arkansas.jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "container",
+    "note": "Usually bought and planted as a nursery container plant. NC State propagation: seed."
+  },
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

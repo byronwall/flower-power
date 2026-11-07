@@ -79,7 +79,29 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/dahlia/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Dahlia_%27Cafe_au_Lait%27.jpg/500px-Dahlia_%27Cafe_au_Lait%27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Cillas",
+        "license": "CC BY-SA 4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dahlia_%27Cafe_au_Lait%27.jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "tuber",
+    "note": "Plant tubers after the last frost and lift them in fall. NC State propagation: division, root cutting."
+  },
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

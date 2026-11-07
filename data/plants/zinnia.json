@@ -84,7 +84,34 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/zinnia-elegans/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg/500px-Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Ermell",
+        "license": "CC BY-SA 4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "seed",
+    "depthIn": 0.25,
+    "note": "Sow outdoors after the last frost. NC State: annual, propagated by seed."
+  },
+  "lifespanYears": [
+    1,
+    1
+  ],
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

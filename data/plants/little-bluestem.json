@@ -71,7 +71,29 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/schizachyrium-scoparium/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Little_Bluestem_%28Schizachyrium_scoparium%29_-_Flickr_-_wackybadger_%282%29.jpg/500px-Little_Bluestem_%28Schizachyrium_scoparium%29_-_Flickr_-_wackybadger_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Joshua Mayer from Madison, WI, USA",
+        "license": "CC BY-SA 2.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Little_Bluestem_(Schizachyrium_scoparium)_-_Flickr_-_wackybadger_(2).jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "container",
+    "note": "Usually bought and planted as a nursery container plant. NC State propagation: seed."
+  },
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

@@ -76,7 +76,29 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/hemerocallis/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Hemerocallis_Stella_De_Oro_1zz.jpg/500px-Hemerocallis_Stella_De_Oro_1zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "Photo by David J. Stang",
+        "license": "CC BY-SA 4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hemerocallis_Stella_De_Oro_1zz.jpg"
+      }
+    ]
+  },
+  "planting": {
+    "method": "container",
+    "note": "Usually bought and planted as a nursery container plant. NC State propagation: division."
+  },
+  "pollination": {
+    "needsPartner": false,
+    "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  }
 }

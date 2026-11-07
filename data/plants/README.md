@@ -17,7 +17,7 @@ These fields are optional while a plant is a draft. The check fails if `verified
 - `lifespanYears`: how long one plant lives, as `[shortest, longest]`.
 - `pollination`: `needsPartner` is `true` when it needs a second plant to fruit, such as a male winterberry. Name the partner in `partner`.
 - `emerges`: the month it comes up or leafs out. Use `null` for evergreens.
-- `planting`: `method` is `seed`, `bulb`, `plug`, `container`, `bare-root`, or `division`. Add `depthIn` when depth matters, for example for bulbs.
+- `planting`: `method` is `seed`, `bulb`, `tuber`, `plug`, `container`, `bare-root`, or `division`. Add `depthIn` when depth matters, for example for bulbs.
 - `images.photos`: at least one real photo with `url`, `author`, `license`, and `sourceUrl`. Use only openly licensed photos, for example from Wikimedia Commons.
 
 ## Fields that drive the drawing

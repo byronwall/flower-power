@@ -80,7 +80,30 @@
     {
       "label": "Purdue Extension, Consumer Horticulture",
       "url": "https://extension.purdue.edu/"
+    },
+    {
+      "label": "NC State Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/ilex-verticillata/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "images": {
+    "photos": [
+      {
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Ilex_verticillata_fruits_and_foliage_1.JPG/500px-Ilex_verticillata_fruits_and_foliage_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "author": "User:SB_Johnny",
+        "license": "CC BY-SA 3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ilex_verticillata_fruits_and_foliage_1.JPG"
+      }
+    ]
+  },
+  "planting": {
+    "method": "container",
+    "note": "Usually bought and planted as a nursery container plant."
+  },
+  "pollination": {
+    "needsPartner": true,
+    "partner": "A male winterberry (Ilex verticillata) within about 50 ft",
+    "note": "Female plants make berries only when cross-pollinated by a male plant (NC State)."
+  }
 }

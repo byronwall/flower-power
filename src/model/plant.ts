@@ -75,7 +75,7 @@ const plantFields = z.object({
   // How it goes in the ground.
   planting: z
     .object({
-      method: z.enum(["seed", "bulb", "plug", "container", "bare-root", "division"]),
+      method: z.enum(["seed", "bulb", "tuber", "plug", "container", "bare-root", "division"]),
       depthIn: z.number().nonnegative().optional(),
       note: z.string().min(1).optional(),
     })
