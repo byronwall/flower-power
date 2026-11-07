@@ -264,6 +264,14 @@ export function DesignPanel(props: Props) {
                 </For>
               </ul>
             </Show>
+            <Show when={a().dropped?.length}>
+              <details class="dp-dropped">
+                <summary>{a().dropped!.length} ideas did not fit and were left out</summary>
+                <ul>
+                  <For each={a().dropped}>{(x) => <li>{x}</li>}</For>
+                </ul>
+              </details>
+            </Show>
           </section>
         )}
       </Show>

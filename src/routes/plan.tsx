@@ -442,7 +442,7 @@ function Planner(props: PlannerProps) {
                 photoOpacity={photo().on ? photo().opacity : 0}
                 overlay={(view) => (
                   <>
-                    <Ghost base={ed.property()} ops={ds.active()?.pending ?? []} scope={scope() ?? undefined} hover={hoverOp()} review={showIdeas() ? ds.review() : null} />
+                    <Ghost base={ed.property()} ops={ds.active()?.pending ?? []} scope={scope() ?? (showIdeas() ? ds.active()?.scope : undefined)} hover={hoverOp()} review={showIdeas() ? ds.review() : null} />
                     <EditLayer editor={ed} view={view} time={time()} />
                     <Show when={picking()}>
                       <AreaPick
