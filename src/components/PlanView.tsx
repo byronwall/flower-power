@@ -233,13 +233,13 @@ export function PlanView(props: Props) {
     });
   });
 
-  // While panning or zooming, show the last full painting moved and scaled (cheap), then paint
-  // properly once the view settles. Any change to the plan, time, or weather paints right away.
+  // While panning or zooming, the browser moves and scales the last painting with a CSS
+  // transform (no repaint), and the plan paints properly once the view settles. Any change to
+  // the plan, time, or weather paints on the next frame, so a burst of changes paints once.
   const [settled, setSettled] = createSignal(0);
   let frame = 0;
-  let snap: HTMLCanvasElement | null = null;
-  let snapView: View | null = null;
-  let snapKey: unknown[] = [];
+  let shown: View | null = null;
+  let shownKey: unknown[] = [];
   createEffect(() => {
     const { w, h } = size();
     const v = view();
@@ -249,35 +249,27 @@ export function PlanView(props: Props) {
     const dpr = window.devicePixelRatio || 1;
     const cw = Math.round(w * dpr), ch = Math.round(h * dpr);
     const key = [property, time.month, time.year, weather, cw, ch];
-    const same = snapView && key.every((k, i) => k === snapKey[i]);
-    const moving = panning() || zooming;
-    const draw = () => {
+    const same = shown && key.every((k, i) => k === shownKey[i]);
+    if (frame) cancelAnimationFrame(frame);
+    if ((panning() || zooming) && same) {
+      frame = 0;
+      const k = v.scale / shown!.scale;
+      canvas.style.transform = `translate(${v.offX - shown!.offX * k}px, ${v.offY - shown!.offY * k}px) scale(${k})`;
+      return;
+    }
+    frame = requestAnimationFrame(() => {
       frame = 0;
       if (canvas.width !== cw || canvas.height !== ch) {
         canvas.width = cw;
         canvas.height = ch;
       }
+      const t0 = performance.now();
       paint(canvas, property, time, v, { weather });
-      snap ??= document.createElement("canvas");
-      snap.width = cw;
-      snap.height = ch;
-      snap.getContext("2d")!.drawImage(canvas, 0, 0);
-      snapView = v;
-      snapKey = key;
-    };
-    const preview = () => {
-      frame = 0;
-      const ctx = canvas.getContext("2d")!;
-      const k = v.scale / snapView!.scale;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.fillStyle = "#f4f0e6";
-      ctx.fillRect(0, 0, cw, ch);
-      ctx.drawImage(snap!, dpr * (v.offX - snapView!.offX * k), dpr * (v.offY - snapView!.offY * k), cw * k, ch * k);
-    };
-    if (frame) cancelAnimationFrame(frame);
-    if (moving && same) frame = requestAnimationFrame(preview);
-    else if (moving) frame = requestAnimationFrame(draw);
-    else draw();
+      if (import.meta.env.DEV) performance.measure("plan-paint", { start: t0 });
+      canvas.style.transform = "";
+      shown = v;
+      shownKey = key;
+    });
   });
 
   const pct = () => Math.round(cam().zoom * 100);
@@ -286,6 +278,8 @@ export function PlanView(props: Props) {
     <div
       class="plan-view"
       classList={{ panning: panning() }}
+      // Paper behind the canvas, so the strip a pan uncovers matches until the plan repaints.
+      style={{ background: "#efe9dc" }}
       ref={box}
       onDragOver={(e) => {
         if (!e.dataTransfer?.types.includes("text/plant")) return;
@@ -303,7 +297,7 @@ export function PlanView(props: Props) {
         props.onDropPlant(id, toFt(e.clientX, e.clientY));
       }}
     >
-      <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} />
+      <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px`, "transform-origin": "0 0" }} />
       <svg class="plan-overlay" width={size().w} height={size().h}>
         {/* Under the editor overlay, so its hover labels and handles stay on top. */}
         <PlantTags property={props.property} view={view()} width={size().w} height={size().h} />
