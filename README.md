@@ -16,7 +16,8 @@ Flower Power is a garden planner for Indiana homeowners. Start from photos of yo
 - **Design ideas.** Give goals and a dial (Light touch, Refresh, Redo). You get a review of the yard, then 3 to 5 designs in different styles. Accept or reject each change, or rework one area.
 - **Gallery.** Best, New and Mine, with a Public switch. Public gardens leave out the address and aerial. The community is sample data for now.
 - **153 Indiana plants**, with the 15 invasive ones flagged.
-- **Accounts.** Email and password; you see only your own plans.
+- **Accounts.** Email and password; you see only your own plans. A share link shows the design you picked.
+- **Demo login.** `demo@flower.test` / `flowerdemo`. Each login resets it to the sample lot. `demo/README.md` has a 5-minute demo script.
 
 | Design ideas | 2D and 3D |
 | --- | --- |
