@@ -23,6 +23,7 @@ export function Toolbar(props: { editor: Editor }) {
       <button
         type="button"
         class="tool-select"
+        aria-label="Select and move"
         aria-pressed={ed.tool().mode === "select"}
         onClick={() => ed.setTool({ mode: "select" })}
         title="Click things on the plan to edit them. Drag to move, drag a dot to reshape."
@@ -30,7 +31,7 @@ export function Toolbar(props: { editor: Editor }) {
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
           <path d="M3 2l10 5.5-4.5 1L6.5 13z" fill="currentColor" />
         </svg>
-        Select &amp; move
+        <span class="tool-select-label">Select</span>
       </button>
       <span class="toolbar-sep" aria-hidden="true" />
       <span class="toolbar-label">Draw on the plan</span>

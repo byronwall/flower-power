@@ -20,6 +20,8 @@ const single = z.object({
   at: point,
   // Already in the yard at full size, so the age slider does not shrink it.
   existing: z.boolean().optional(),
+  // Size relative to the plant's usual mature size, set by resizing it on the plan.
+  scale: z.number().min(0.2).max(4).optional(),
 });
 const region = z.object({
   id,

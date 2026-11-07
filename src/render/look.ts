@@ -22,7 +22,7 @@ export type Look = {
 };
 
 // How a plant looks in a given month and year after planting.
-export function lookOf(plant: Plant, time: ViewTime, existing = false): Look | null {
+export function lookOf(plant: Plant, time: ViewTime, existing = false, scale = 1): Look | null {
   const season = seasonOf(time.month);
   const foliage = plant.foliage[season];
   const bloom = plant.bloom?.months.includes(time.month) ? plant.bloom.colors : null;
@@ -34,19 +34,20 @@ export function lookOf(plant: Plant, time: ViewTime, existing = false): Look | n
   const t = existing || seasonal ? 1 : Math.min(1, time.year / yearsToMature);
   const grow = 1 - Math.pow(1 - t, 1.6);
   return {
-    spreadFt: plantedSpreadFt + (spreadFt - plantedSpreadFt) * grow,
-    heightFt: heightFt * Math.max(0.15, grow),
+    spreadFt: (plantedSpreadFt + (spreadFt - plantedSpreadFt) * grow) * scale,
+    heightFt: heightFt * Math.max(0.15, grow) * scale,
     foliage,
     bloom,
     fruit,
   };
 }
 
-export type Instance = { key: string; plantingId: string; plantId: string; at: Point; seed: number; existing: boolean };
+export type Instance = { key: string; plantingId: string; plantId: string; at: Point; seed: number; existing: boolean; scale: number };
 
 // Turns each planting into the plants it holds. Regions and rows place plants from spacing and seed.
 export function expand(planting: Planting, plant: Plant): Instance[] {
   const existing = planting.existing ?? false;
+  const scale = (planting.type === "single" && planting.scale) || 1;
   const spacing = (planting.type !== "single" && planting.spacingFt) || plant.size.spacingFt;
   const pts =
     planting.type === "single" ? [planting.at]
@@ -60,5 +61,6 @@ export function expand(planting: Planting, plant: Plant): Instance[] {
     at,
     seed: base * 31 + i * 7919,
     existing,
+    scale,
   }));
 }

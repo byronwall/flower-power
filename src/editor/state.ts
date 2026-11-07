@@ -40,6 +40,8 @@ export function createEditor(initial: Property) {
   const [selected, setSelected] = createSignal<Ref | null>(null);
   const [tool, setTool] = createSignal<Tool>({ mode: "select" });
   const [dirty, setDirty] = createSignal(false);
+  // A plant being dragged in from the gallery, and where it would land.
+  const [ghost, setGhost] = createSignal<{ plantId: string; at: Point } | null>(null);
   const past: Property[] = [];
   const future: Property[] = [];
   // Bumped whenever history changes, so buttons can show whether undo/redo apply.
@@ -110,7 +112,7 @@ export function createEditor(initial: Property) {
     setDirty(false);
   }
 
-  return { property, selected, setSelected, tool, setTool, dirty, setDirty, update, updateItem, checkpoint, add, remove, undo, redo, canUndo, canRedo, load };
+  return { property, selected, setSelected, tool, setTool, ghost, setGhost, dirty, setDirty, update, updateItem, checkpoint, add, remove, undo, redo, canUndo, canRedo, load };
 }
 
 export type Editor = ReturnType<typeof createEditor>;

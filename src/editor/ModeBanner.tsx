@@ -22,16 +22,7 @@ export function ModeBanner(props: { editor: Editor }) {
   };
 
   return (
-    <Show
-      when={info()}
-      fallback={
-        <Show when={!ed.selected()}>
-          <div class="mode-banner idle" role="status">
-            Drag a plant from the left onto the plan, or click anything on the plan to edit it.
-          </div>
-        </Show>
-      }
-    >
+    <Show when={info()}>
       {(i) => (
         <div class="mode-banner" role="status">
           <span class="mode-dot" aria-hidden="true" />

@@ -2,6 +2,8 @@ import { For, Show, type JSX } from "solid-js";
 import { plants, plantsById } from "../model/library";
 import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type Property } from "../model/property";
 import { itemOf, type Editor, type Ref } from "./state";
+import { crowding } from "./spacing";
+import { Mascot } from "../components/Mascot";
 import { PlantPicture } from "../gallery/PlantPicture";
 import type { Plant } from "../model/plant";
 import { monthNames, type ViewTime } from "../render/look";
@@ -83,8 +85,11 @@ export function Inspector(props: InspectorProps) {
               <PlantingFields editor={ed} planting={c().item} set={set} time={props.time} />
             </Show>
             {props.extra?.(c().ref)}
+            <p class="hint-line">
+              Drag it on the plan to move it. Arrow keys nudge it; ⌘D makes a copy.
+            </p>
             <Show when={c().ref.col !== "house"}>
-              <button type="button" class="danger" onClick={() => ed.remove(c().ref)}>
+              <button type="button" class="danger" onClick={() => ed.remove(c().ref)} title="Delete (⌫). Undo with ⌘Z.">
                 Delete
               </button>
             </Show>
@@ -108,6 +113,43 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
       <Field label="Placed as">
         <span>{label(props.planting.type)}</span>
       </Field>
+      <Show when={props.planting.type === "single" && plant()}>
+        {(p) => {
+          const scale = () => (props.planting as { scale?: number }).scale ?? 1;
+          return (
+            <Field label="Width grown">
+              <span class="with-unit">
+                <input
+                  id="inspector-width"
+                  type="number"
+                  min="0.5"
+                  step="0.5"
+                  value={Math.round(p().size.spreadFt * scale() * 10) / 10}
+                  onChange={(e) => {
+                    const v = Number(e.currentTarget.value);
+                    if (v > 0) props.set("scale", Math.min(4, Math.max(0.2, v / p().size.spreadFt)) === 1 ? undefined : Math.min(4, Math.max(0.2, v / p().size.spreadFt)));
+                  }}
+                />
+                <span>ft</span>
+                <Show when={scale() !== 1}>
+                  <button type="button" class="link-btn" onClick={() => props.set("scale", undefined)} title={`Back to the usual ${p().size.spreadFt} ft`}>
+                    Reset
+                  </button>
+                </Show>
+              </span>
+            </Field>
+          );
+        }}
+      </Show>
+      <Show when={props.planting.type === "single" && crowding(props.editor.property(), props.planting.id)}>
+        {(list) => (
+          <Show when={list().length > 0}>
+            <p class="warn">
+              When grown, this will crowd {list().slice(0, 3).map((c) => `${c.name} (${c.overlapFt} ft overlap)`).join(", ")}. Move it apart or make it smaller.
+            </p>
+          </Show>
+        )}
+      </Show>
       <Show when={props.planting.type !== "single"}>
         <Field label="Spacing (ft)">
           <input
@@ -196,7 +238,8 @@ function CloseButton(props: { onClick: () => void }) {
 function GettingStarted() {
   return (
     <div class="start">
-      <h2>How to plan your yard</h2>
+      <Mascot size={200} caption />
+      <h2>Plan your yard</h2>
       <ol class="steps">
         <li>
           <strong>Add plants.</strong> Drag one from the list on the left onto the plan, or use <em>+ One</em>, <em>Fill area</em> or <em>Row</em>.
@@ -205,10 +248,13 @@ function GettingStarted() {
           <strong>Add paths, beds and more.</strong> Use the <em>Draw on the plan</em> menus at the top.
         </li>
         <li>
-          <strong>Edit anything.</strong> Click it on the plan. Drag to move it, or drag its dots to reshape.
+          <strong>Edit anything.</strong> Click it on the plan. Drag to move it, drag its dots to reshape or resize it.
         </li>
         <li>
-          <strong>See it grow.</strong> Slide the month and year at the top right to preview each season.
+          <strong>Get closer.</strong> Scroll or pinch to zoom, drag empty ground to move around.
+        </li>
+        <li>
+          <strong>See it grow.</strong> Slide the month and year at the top of the plan to preview each season.
         </li>
       </ol>
       <div class="shortcuts">
@@ -234,6 +280,22 @@ function GettingStarted() {
             <kbd>Esc</kbd>
           </dt>
           <dd>Cancel or deselect</dd>
+          <dt>
+            <kbd>←</kbd> <kbd>→</kbd>
+          </dt>
+          <dd>Nudge 1 ft (⇧ for 5 ft)</dd>
+          <dt>
+            <kbd>⌘</kbd> <kbd>D</kbd>
+          </dt>
+          <dd>Duplicate selected</dd>
+          <dt>
+            <kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd>
+          </dt>
+          <dd>Zoom in, out, fit</dd>
+          <dt>
+            <kbd>\</kbd>
+          </dt>
+          <dd>Hide or show both panels</dd>
         </dl>
       </div>
     </div>

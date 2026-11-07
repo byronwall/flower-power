@@ -42,7 +42,7 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
     const plant = plantsById.get(p.plantId);
     if (!plant) return [];
     return expand(p, plant).flatMap((inst) => {
-      const look = lookOf(plant, time, inst.existing);
+      const look = lookOf(plant, time, inst.existing, inst.scale);
       return look ? [{ inst, plant, look }] : [];
     });
   });

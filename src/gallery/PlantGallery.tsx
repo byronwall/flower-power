@@ -6,6 +6,9 @@ import type { Plant } from "../model/plant";
 import { monthNames, type ViewTime } from "../render/look";
 import { PlantPicture } from "./PlantPicture";
 
+// The plant being dragged from the list, so the plan can preview it before the drop.
+export const [draggingPlant, setDraggingPlant] = createSignal<string | null>(null);
+
 const CATEGORIES = ["tree", "shrub", "perennial", "grass", "groundcover", "annual"] as const;
 
 // Bloom colors grouped into families a person would name.
@@ -100,13 +103,15 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing
           Only plants blooming in {monthNames[props.time.month - 1]}
         </label>
       </header>
-      <p class="gallery-tip">Drag a plant onto the plan, or pick how to plant it.</p>
+      <Show when={shown().length > 0}>
+        <p class="gallery-tip">Drag a plant onto the plan, or pick how to plant it.</p>
+      </Show>
       <ul class="plant-list">
         <For
           each={shown()}
           fallback={
             <li class="empty">
-              No plants match these filters.
+              {query().trim() ? `No plants match "${query().trim()}".` : "No plants match these filters."}
               <button
                 type="button"
                 onClick={() => {
@@ -134,6 +139,11 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing
               onDragStart={(e) => {
                 e.dataTransfer!.setData("text/plant", p.id);
                 e.dataTransfer!.effectAllowed = "copy";
+                setDraggingPlant(p.id);
+              }}
+              onDragEnd={() => {
+                setDraggingPlant(null);
+                props.editor.setGhost(null);
               }}
             >
               <PlantPicture plant={p} time={props.time} size={64} best />
