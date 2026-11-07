@@ -12,10 +12,24 @@ This script is for ChatGPT agent mode in the ChatGPT desktop app. The agent play
 
    The pack has one folder for each persona. Each folder has `aerial.jpg` (the overhead image) and `photo-NN.jpg` (the Zillow listing photos).
 
-2. In the ChatGPT desktop app, start a new chat and turn on agent mode.
-3. Attach `flower-power-test-pack.zip` to the chat.
-4. Paste everything in the "Prompt" section below as the message.
-5. When the agent asks, take over its browser once and sign in to GitHub. The agent uses that session to file issues.
+2. Run the app locally and open a tunnel to it. The ChatGPT agent runs in the cloud, so it cannot open `localhost`. `app.config.ts` lets `*.trycloudflare.com` reach the dev server.
+
+   ```bash
+   pnpm dev --port 3210
+   ```
+
+   ```bash
+   cloudflared tunnel --no-autoupdate --url http://localhost:3210
+   ```
+
+   If `pnpm dev` picks a different port, use that port in the tunnel command. Copy the `https://<words>.trycloudflare.com` URL that cloudflared prints. The URL changes each time the tunnel starts.
+
+3. In the ChatGPT desktop app, start a new chat and turn on agent mode.
+4. Attach `flower-power-test-pack.zip` to the chat.
+5. Paste everything in the "Prompt" section below as the message. Replace `APP_URL` with the tunnel URL.
+6. When the agent asks, take over its browser once and sign in to GitHub. The agent uses that session to file issues.
+
+Keep the dev server and the tunnel running for the whole test. A fix that you save reloads in the agent's browser at once.
 
 To fix issues while the test runs, Claude Code watches for new issues with the `user-test` label.
 
@@ -23,7 +37,9 @@ To fix issues while the test runs, Claude Code watches for new issues with the `
 
 You are a usability tester. You play five real people who just found a web app called **Flower Power**. Each person wants to plan a garden for their own home. Use the app only as a real user would: look at the screen, read the words, click, type, and drag. Do not read the page source, and do not call the API directly.
 
-**App:** https://flower-power.apps.byroni.us
+**App:** APP_URL
+
+This is a test copy of the app. It can reload while you use it, because developers fix bugs during the test. If the page reloads by itself, go on from where you were.
 
 **Bug tracker:** https://github.com/byronwall/flower-power/issues
 
@@ -36,7 +52,7 @@ I attached `flower-power-test-pack.zip`. Unzip it. It has one folder for each pe
 A **blocker** is anything that stops the persona from finishing a step the way a real user would. These are all blockers:
 
 - An error message, a crash, a blank page, or a page that does not load.
-- A spinner or progress bar that runs for more than 90 seconds.
+- A spinner or progress bar that runs for more than 3 minutes. The photo import and "Make designs" each take 1 to 2 minutes; that is slow but not a blocker. Note the time as a UX problem.
 - Work that is lost: a save that is not there after a reload, or a plan that changes by itself.
 - A control the persona cannot find after 2 minutes of honest looking.
 - A result so wrong that the persona would quit, such as a house traced in the wrong place or a lot that is clearly the wrong size.
@@ -126,17 +142,19 @@ Do every step for each persona, in order. The persona notes above say where to l
 
 **Step 2. Sign up.** Make the account. Try one mistake first: a password that is too short. Note how clear the error is. Then sign up for real.
 
-**Step 3. Start a project.** Find how to start a plan for the persona's home. Name it with the street address.
+**Step 3. Start a project.** Find how to start a plan for the persona's home from their photos. If a tour opens, Maria and Dave watch all of it and say if it helped. The others skip it. Note whether a new user could find the tour again later.
 
-**Step 4. Import the home.** Upload `aerial.jpg` and all the `photo-NN.jpg` files from the persona's folder. Note how the app tells you to pick the files, how long it takes, and what the progress looks like.
+**Step 4. Import the home.** Upload `aerial.jpg` and all the `photo-NN.jpg` files from the persona's folder in one pick. Note how the app tells you which files to pick, how long the import takes, and whether the progress message is honest about the wait.
 
 **Step 5. Check the import.** Compare the plan to `aerial.jpg`:
 - Is the house in the right place and about the right shape?
 - Is the lot outline about right? Compare its size to the lot size in the table.
 - Are the driveway, fence, trees, and beds there if the aerial shows them?
-- Does the app tell you what it guessed and how to fix it? Fix one thing it got wrong, if you can.
+- The app shows its size estimate. Is it clear what to do with it? Fix the size if it is wrong.
+- Does the app tell you which plants it guessed and how to fix them? Fix one thing it got wrong.
+- Is it clear that the import is not saved yet? Save it. Then give the project the street address as its name. Note how easy it is to find where to rename it.
 
-**Step 6. Set goals and get design ideas.** Tell the app what the persona wants (see each persona). Ask for design ideas. Look at all of them. Pick the one the persona likes best and say why. Check that the plants fit the sun and shade where they go.
+**Step 6. Set goals and get design ideas.** Tell the app what the persona wants (see each persona), in their own words and with any goal or style choices the app offers. Ask the app for designs. Look at every design and compare each one with the yard as it is now. Pick the one the persona likes best, use it, and say why. Check that the plants fit the sun and shade where they go. Lena also tries every style and the option to rework only one area of the yard.
 
 **Step 7. Edit the plan.** Make at least five changes the persona would make: add a plant, move a plant, delete something, draw a new bed or path, and change a plant to a different one. Use undo and redo once each. Dave uses the keyboard where he can. Jordan does this step twice: once on desktop and once with the browser set to a phone size (390 × 844).
 
@@ -148,7 +166,7 @@ Do every step for each persona, in order. The persona notes above say where to l
 
 **Step 11. Share.** Make a share link. Open it in a private window while signed out. Check that it shows the plan and does not let a stranger edit it.
 
-**Step 12. Gallery.** Open the gallery. Post the persona's plan if the app allows it. Look at other people's gardens.
+**Step 12. Gallery.** Open the gallery. Look at other people's gardens. Post the persona's plan if the app allows it, then find it in the gallery.
 
 **Step 13. Account.** Open the account page. Lena changes her password, signs out, and signs in with the new one. Lena also makes a second project and deletes it. The others only look at the account page.
 
