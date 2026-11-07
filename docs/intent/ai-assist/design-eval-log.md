@@ -81,6 +81,17 @@ The model now sees full, part, and shade ground in the text map. The checks judg
 - 25 ops dropped in 31 designs, almost all sun: part-shade groundcovers (woodland phlox, wild geranium, sedge) put in sun the model judged shaded by a tree. The checks catch these, so the designs stay valid.
 - Area rework now passes overlap (0.24 mean).
 
-## Spend so far
+## Editor (Phase 2)
 
-158 model calls: 5 smoke, 4 full runs of 37. About 1.2M tokens.
+The editor's **Design ideas** panel calls `/api/ai/design`, which requires login. Designs save on the user's own property through `/api/properties/<id>`. The property file keeps the yard as it is, plus `designs` and `activeDesignId`. Each design keeps accepted `ops` and proposed `pending` ops. Edits made while a design is active save into it as `diff(base, shown)`.
+
+Browser proof with a test user, in `tmp/proof-designs/1x-*.jpg`:
+- Sample lot, live model: a review with numbered empty spots, then 4 designs.
+- Sample lot, `AI_FAKE` replay: accept, reject, and accept all; switch the active design; save and reload; rework a dragged area on top of the active design.
+- Imported lot A (import replayed into the user's folder), live model: a review, 4 designs, accept all, save.
+
+The rebased branch rescores 8 of 8 with no calls.
+
+## Spend
+
+168 model calls in all: 5 smoke, 4 eval runs of 37, and 10 in the editor proof (two reviews and two sets of 4 designs). About 1.3M tokens. One set of 4 editor designs was lost to a hot reload before it was saved.
