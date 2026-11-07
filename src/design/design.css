@@ -41,7 +41,7 @@ line.ghost-swap {
 /* Dev contact page for the design engine */
 .dev-designs {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 240px minmax(0, 1fr);
   height: 100vh;
 }
 .dd-cases {
@@ -66,6 +66,10 @@ line.ghost-swap {
   background: white;
   cursor: pointer;
   overflow-wrap: anywhere;
+  white-space: normal;
+  display: block;
+  height: auto;
+  line-height: 1.35;
 }
 .dd-cases button.on {
   border-color: var(--moss);
@@ -109,7 +113,7 @@ line.ghost-swap {
 }
 .dd-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
 }
 .dd-card {
@@ -117,7 +121,7 @@ line.ghost-swap {
   border-radius: 10px;
   background: var(--panel);
   display: grid;
-  grid-template-rows: auto 520px auto;
+  grid-template-rows: auto 460px 1fr;
   overflow: hidden;
 }
 .dd-card header {
