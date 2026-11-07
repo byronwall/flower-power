@@ -1,0 +1,4 @@
+interface:
+  display_name: "Consider and Contrast"
+  short_description: "Compare options on task-specific dimensions"
+  default_prompt: "Use $consider-contrast inline with only domain-specific dimensions, then choose the best or hybrid option."
