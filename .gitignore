@@ -8,3 +8,5 @@ node_modules/
 tmp/
 .claude/*
 !.claude/skills/
+.env
+data/ai-runs/
