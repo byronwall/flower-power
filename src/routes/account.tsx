@@ -1,11 +1,14 @@
 import { useNavigate } from "@solidjs/router";
 import { createResource, createSignal, Show } from "solid-js";
+import { Avatar, AvatarPicker } from "../account/Avatar";
+import { isAvatar, type AvatarId } from "../account/avatars";
 import PageBar from "../account/PageBar";
-import { changePassword, deleteAccount, fetchMe, logout } from "../account/session";
+import { changePassword, deleteAccount, fetchMe, logout, updateProfile, type Me } from "../account/session";
+import "../account/profile.css";
 
 export default function Account() {
   const navigate = useNavigate();
-  const [me] = createResource(async () => (await fetchMe()) ?? void navigate("/login", { replace: true }));
+  const [me, { mutate }] = createResource(async () => (await fetchMe()) ?? void navigate("/login", { replace: true }));
   const [msg, setMsg] = createSignal<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = createSignal(false);
 
@@ -43,6 +46,8 @@ export default function Account() {
                 <h1>Account</h1>
               </div>
             </div>
+
+            <ProfilePanel me={m()} onSaved={mutate} />
 
             <section class="panel">
               <h2>Email</h2>
@@ -105,5 +110,61 @@ export default function Account() {
         )}
       </Show>
     </div>
+  );
+}
+
+// Avatar and name. The avatar saves as soon as it is picked; the name saves on Enter or when the field loses focus.
+function ProfilePanel(props: { me: Me; onSaved: (m: Me) => void }) {
+  const [avatar, setAvatar] = createSignal<AvatarId>(isAvatar(props.me.avatar) ? props.me.avatar : "sprout");
+  const [note, setNote] = createSignal<{ ok: boolean; text: string } | null>(null);
+  let timer = 0;
+
+  async function save(p: { avatar?: string; name?: string }) {
+    try {
+      props.onSaved(await updateProfile(p));
+      setNote({ ok: true, text: "Saved." });
+    } catch (err) {
+      setNote({ ok: false, text: (err as Error).message });
+    }
+    clearTimeout(timer);
+    timer = window.setTimeout(() => setNote(null), 2000);
+  }
+
+  return (
+    <section class="panel profile-panel">
+      <div class="profile-head">
+        <Avatar id={avatar()} size={72} class="profile-big" />
+        <div>
+          <h2>Your avatar</h2>
+          <p class="muted">It shows in the corner of every page, next to your projects.</p>
+        </div>
+        <Show when={note()}>
+          {(n) => (
+            <span classList={{ "save-note": true, bad: !n().ok }} role="status">
+              {n().text}
+            </span>
+          )}
+        </Show>
+      </div>
+      <AvatarPicker
+        value={avatar()}
+        onChange={(id) => {
+          setAvatar(id);
+          save({ avatar: id });
+        }}
+      />
+      <label class="field">
+        <span>Name</span>
+        <input
+          type="text"
+          maxLength={40}
+          value={props.me.name ?? ""}
+          placeholder="What should we call you?"
+          autocomplete="given-name"
+          onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
+          onChange={(e) => save({ name: e.currentTarget.value })}
+        />
+      </label>
+    </section>
   );
 }

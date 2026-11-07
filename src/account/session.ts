@@ -1,5 +1,6 @@
 // Client calls for the auth routes. The session itself is an HTTP-only cookie.
-export type Me = { id: string; email: string };
+export type Me = { id: string; email: string; avatar: string | null; name: string | null };
+export type ProfileInput = { avatar?: string; name?: string };
 
 export async function fetchMe(): Promise<Me | null> {
   const res = await fetch("/api/auth/me");
@@ -7,11 +8,11 @@ export async function fetchMe(): Promise<Me | null> {
 }
 
 // Returns an error message, or null when the person is now logged in.
-export async function sendCreds(kind: "login" | "register", email: string, password: string): Promise<string | null> {
+export async function sendCreds(kind: "login" | "register", email: string, password: string, profile: ProfileInput = {}): Promise<string | null> {
   const res = await fetch(`/api/auth/${kind}`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, ...profile }),
   });
   return res.ok ? null : ((await res.json()).error ?? `Failed with status ${res.status}.`);
 }
@@ -35,6 +36,7 @@ export const shareUrl = (token: string) => `${location.origin}/share/${token}`;
 export const deleteProperty = (id: string) => send(`/api/properties/${id}`, "DELETE");
 export const changePassword = (current: string, next: string) => send("/api/auth/password", "POST", { current, next });
 export const deleteAccount = () => send("/api/auth/me", "DELETE");
+export const updateProfile = (p: ProfileInput): Promise<Me> => send("/api/auth/me", "PATCH", p);
 
 // Files picked on /projects for "New from photos". /plan takes them and runs the import.
 let pending: File[] | null = null;

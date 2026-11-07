@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { beforeAll, expect, it } from "vitest";
 import * as login from "../routes/api/auth/login";
+import * as me from "../routes/api/auth/me";
 import * as register from "../routes/api/auth/register";
 import * as one from "../routes/api/properties/[id]";
 import * as list from "../routes/api/properties/index";
@@ -57,4 +58,19 @@ it("gives read-only access through a share link until it is turned off", async (
 
   await call(shares.DELETE, {}, ann, on);
   expect((await call(share.GET, undefined, "", { token })).status).toBe(404);
+});
+
+it("keeps an avatar and name on the account, and lets the person change them", async () => {
+  const res = await call(register.POST, { email: "cam@example.com", password: "password-c", avatar: "bee", name: "  Cam  " });
+  expect(await res.json()).toMatchObject({ email: "cam@example.com", avatar: "bee", name: "Cam" });
+  const cam = cookieOf(res);
+  const patch = (body: unknown) => me.PATCH({ request: new Request("http://x/", { method: "PATCH", headers: { cookie: cam }, body: JSON.stringify(body) }) } as never);
+
+  expect(await (await patch({ avatar: "cardinal" })).json()).toMatchObject({ avatar: "cardinal", name: "Cam" });
+  expect((await patch({ avatar: "dragon" })).status).toBe(400);
+  expect(await (await patch({ name: "" })).json()).toMatchObject({ avatar: "cardinal", name: null });
+  expect(await (await call(me.GET, undefined, cam)).json()).toMatchObject({ avatar: "cardinal", name: null });
+
+  // A made-up avatar never blocks signing up.
+  expect(await (await call(register.POST, { email: "dee@example.com", password: "password-d", avatar: "dragon" })).json()).toMatchObject({ avatar: null });
 });

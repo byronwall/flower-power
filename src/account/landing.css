@@ -1681,3 +1681,214 @@ html:has(.landing) {
 .hero .demo-bar {
   border-radius: 0 0 14px 14px;
 }
+
+/* ---------- Sprout, the guide in the corner ---------- */
+
+.guide {
+  position: fixed;
+  right: 20px;
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+  transform: translateY(160%);
+  transition: transform 0.7s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.guide.shown {
+  transform: none;
+}
+
+.guide > * {
+  pointer-events: auto;
+}
+
+.guide-char {
+  width: 96px;
+  height: 120px;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  flex: none;
+}
+
+.guide-char:hover {
+  background: none;
+}
+
+.guide-char:focus-visible {
+  outline: 3px solid var(--moss);
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+.guide-char.hop {
+  animation: guide-hop 0.6s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+@keyframes guide-hop {
+  30% {
+    transform: translateY(-22px) scale(1.05, 0.95);
+  }
+  60% {
+    transform: translateY(0) scale(1.08, 0.9);
+  }
+}
+
+.g-bob {
+  animation: guide-bob 3s ease-in-out infinite;
+  transform-origin: 60px 140px;
+}
+
+@keyframes guide-bob {
+  50% {
+    transform: translateY(-4px) rotate(-1.5deg);
+  }
+}
+
+.g-shadow {
+  animation: guide-shadow 3s ease-in-out infinite;
+  transform-origin: 60px 143px;
+}
+
+@keyframes guide-shadow {
+  50% {
+    transform: scaleX(0.85);
+  }
+}
+
+.g-arm {
+  transform-origin: 59px 76px;
+  animation: guide-wave 2.6s ease-in-out infinite;
+}
+
+@keyframes guide-wave {
+  0%,
+  55%,
+  100% {
+    transform: rotate(0);
+  }
+  65% {
+    transform: rotate(28deg);
+  }
+  75% {
+    transform: rotate(-6deg);
+  }
+  85% {
+    transform: rotate(24deg);
+  }
+}
+
+.g-leaf-r {
+  transform-origin: 60px 70px;
+  animation: sway 3.4s ease-in-out infinite alternate;
+}
+
+.g-flower {
+  transform-origin: 60px 36px;
+  animation: spin 18s linear infinite;
+}
+
+.g-eyes {
+  transform-origin: 60px 110px;
+  animation: guide-blink 4.2s infinite;
+}
+
+@keyframes guide-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+.guide-bubble {
+  position: relative;
+  max-width: 250px;
+  margin-bottom: 70px;
+  padding: 12px 30px 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: var(--shadow);
+  font-size: 15px;
+  line-height: 1.4;
+  animation: pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  transform-origin: 100% 100%;
+}
+
+.guide-bubble::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  background: var(--card);
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  transform: rotate(-45deg);
+}
+
+.guide-bubble p {
+  margin: 0;
+}
+
+.guide-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--moss-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.guide-link:hover {
+  text-decoration: underline;
+}
+
+.guide-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.guide-close:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (max-width: 560px) {
+  .guide {
+    right: 8px;
+    bottom: 8px;
+  }
+  .guide-char {
+    width: 60px;
+    height: 76px;
+  }
+  .guide-bubble {
+    max-width: 200px;
+    margin-bottom: 44px;
+    font-size: 14px;
+  }
+}

@@ -4,11 +4,15 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import { z } from "zod";
+import { AVATARS } from "../account/avatars";
 
 // Accounts live in data/users.json. Each user's files live in data/users/<id>/.
 // The session cookie holds the user id and an HMAC of it, so the server keeps no session state.
 
-export type User = { id: string; email: string; hash: string; created: string };
+export type User = { id: string; email: string; hash: string; created: string; avatar?: string; name?: string };
+
+// What the client sees of an account.
+export const publicUser = (u: User) => ({ id: u.id, email: u.email, avatar: u.avatar ?? null, name: u.name ?? null });
 
 const scryptAsync = promisify(scrypt) as (pw: string, salt: string, len: number) => Promise<Buffer>;
 const cookieName = "fp_session";
@@ -40,9 +44,9 @@ export async function checkPassword(pw: string, stored: string) {
 export const writeUsers = (users: User[]) => writeFile(usersFile(), JSON.stringify(users, null, 2) + "\n");
 
 // Adds the user and gives them a copy of the sample lot to start from.
-export async function createUser(email: string, pw: string): Promise<User> {
+export async function createUser(email: string, pw: string, profile: Profile = {}): Promise<User> {
   const users = await readUsers();
-  const user = { id: randomUUID(), email, hash: await hashPassword(pw), created: new Date().toISOString() };
+  const user: User = { id: randomUUID(), email, hash: await hashPassword(pw), created: new Date().toISOString(), ...profile };
   await writeUsers([...users, user]);
   const dir = join(dataDir(), "users", user.id);
   for (const sub of ["properties", "images", "ai-runs"]) await mkdir(join(dir, sub), { recursive: true });
@@ -97,5 +101,17 @@ export function userDir(request: Request): string | null {
 }
 
 export const credsSchema = z.object({ email: z.email().transform((e) => e.trim().toLowerCase()), password: z.string().min(8) });
+
+// The parts of an account a person can change themselves: their avatar and what to call them.
+export const profileSchema = z.object({
+  avatar: z.enum(AVATARS).optional(),
+  name: z
+    .string()
+    .trim()
+    .max(40)
+    .transform((n) => n || undefined)
+    .optional(),
+});
+export type Profile = z.infer<typeof profileSchema>;
 
 export const unauthorized = () => Response.json({ error: "Log in first." }, { status: 401 });

@@ -1,0 +1,391 @@
+/* Avatars, the sign-up form, the account menu, the projects greeting, and the not-found page. */
+
+.avatar {
+  display: block;
+  flex: none;
+  border-radius: 50%;
+}
+
+.avatar .av-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---------- Avatar picker ---------- */
+
+.avatar-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+  gap: 8px;
+}
+
+.avatar-choice {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: auto;
+  aspect-ratio: 1;
+  padding: 3px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.avatar-choice:hover {
+  background: none;
+  transform: translateY(-2px) rotate(-4deg);
+}
+
+.avatar-choice .avatar {
+  width: 100%;
+  height: auto;
+}
+
+.avatar-choice[aria-checked="true"] {
+  border-color: var(--moss);
+  transform: scale(1.06);
+}
+
+.avatar-choice[aria-checked="true"]::after {
+  content: "✓";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--moss);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid var(--card);
+}
+
+/* ---------- Sign-up and log-in ---------- */
+
+.auth-card .avatar-picker {
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 4px;
+}
+
+@media (max-width: 440px) {
+  .auth-card .avatar-picker {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+}
+
+.auth-card.wide {
+  width: min(460px, 100%);
+}
+
+.auth-card {
+  animation: auth-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.auth-hello {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-hello h1 {
+  margin: 0 0 2px;
+}
+
+.auth-hello p {
+  margin: 0;
+}
+
+.auth-hello-avatar {
+  flex: none;
+  animation: av-bounce 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes av-bounce {
+  from {
+    transform: scale(0.7) rotate(-12deg);
+  }
+}
+
+.auth-card .field > span:first-child small {
+  font-size: 13px;
+}
+
+.pw-wrap {
+  position: relative;
+  display: flex;
+}
+
+.pw-wrap input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 64px;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  translate: 0 -50%;
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  background: var(--paper);
+  box-shadow: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.auth-card button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ---------- Account menu ---------- */
+
+.user-chip {
+  height: 38px;
+}
+
+.user-chip.compact {
+  width: 42px;
+  height: 42px;
+  padding: 2px;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.user-chip .user-av {
+  transition: transform 0.2s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.user-chip:hover .user-av {
+  transform: rotate(-10deg) scale(1.08);
+}
+
+.user-pop-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.user-pop-head p {
+  margin: 0;
+}
+
+.page-bar-end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-bar-link {
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--moss-dark);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.page-bar-link:hover {
+  background: var(--moss-soft);
+}
+
+/* ---------- Account page ---------- */
+
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-head h2 {
+  margin: 0 0 2px;
+}
+
+.profile-head p {
+  margin: 0;
+}
+
+.profile-head .profile-big {
+  animation: av-bounce 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.save-note {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--moss-soft);
+  color: var(--moss-dark);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.save-note.bad {
+  background: #fbeeec;
+  color: #a3352f;
+}
+
+.profile-panel .avatar-picker {
+  grid-template-columns: repeat(5, minmax(0, 64px));
+  justify-content: space-between;
+  row-gap: 12px;
+}
+
+/* ---------- Projects greeting and tips ---------- */
+
+.hello {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hello h1 {
+  margin: 0;
+}
+
+.hello-avatar {
+  animation: av-bounce 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.starter {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--moss-soft), #f6f1e2);
+  border: 1px solid var(--line);
+}
+
+.starter h2 {
+  margin: 0 0 12px;
+  font: 400 24px/1.2 var(--f-hand);
+}
+
+.starter ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.starter li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+}
+
+.starter-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--moss);
+  color: white;
+}
+
+.starter-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  box-shadow: none;
+  font-size: 20px;
+  color: var(--muted);
+}
+
+.starter-close:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 900px) {
+  .starter ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Not found ---------- */
+
+.auth-card.lost {
+  align-items: center;
+  text-align: center;
+}
+
+.auth-card.lost h1 {
+  margin-top: 4px;
+}
+
+.auth-card.lost p {
+  margin: 0;
+}
+
+.auth-card.lost code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--paper);
+  overflow-wrap: anywhere;
+}
+
+.lost-art {
+  animation: lost-wobble 3s ease-in-out infinite;
+}
+
+@keyframes lost-wobble {
+  50% {
+    transform: rotate(-8deg) translateY(-4px);
+  }
+}
+
+.lost-actions {
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-card,
+  .auth-hello-avatar,
+  .profile-big,
+  .hello-avatar,
+  .lost-art {
+    animation: none !important;
+  }
+}
+
+.eyebrow.hello-hi {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--moss-dark);
+}

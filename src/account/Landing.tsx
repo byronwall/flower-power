@@ -6,6 +6,7 @@ import { TimeBar } from "../components/TimeBar";
 import { plants } from "../model/library";
 import type { ViewTime } from "../render/look";
 import Brand from "./Brand";
+import { Guide } from "./Guide";
 import { HeroScene, Petals } from "./HeroScene";
 import { HowItWorks } from "./HowItWorks";
 import { Icon, type IconName } from "./Icon";
@@ -97,7 +98,7 @@ export default function Landing() {
         <nav class="landing-nav">{ctas(false)}</nav>
       </header>
 
-      <div class="hero-wrap">
+      <div class="hero-wrap" id="top">
         <Petals />
         <div class="hero-sun" aria-hidden="true" />
         <section class="hero">
@@ -199,7 +200,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <section class="cta-band reveal" aria-labelledby="cta-title">
+      <section class="cta-band reveal" id="start" aria-labelledby="cta-title">
         <Mascot size={120} caption />
         <div>
           <h2 id="cta-title">Ready to see your yard grow?</h2>
@@ -207,6 +208,8 @@ export default function Landing() {
           <div class="landing-cta">{ctas(true)}</div>
         </div>
       </section>
+
+      <Guide signedIn={!!me()} />
 
       {/* Gallery slot: the public gallery strip goes here, between the steps and the footer. */}
 

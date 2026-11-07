@@ -2670,3 +2670,54 @@ b {
   pointer-events: none;
   z-index: 6;
 }
+
+/* Phones: the view bar wraps instead of pushing the weather buttons off the side of the screen,
+   and the drawing tools scroll sideways in one row instead of stacking three rows deep. */
+@media (max-width: 560px) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bar-row {
+    flex-wrap: wrap;
+  }
+  /* Side by side has no room on a phone, so the 3D view goes under the plan instead. */
+  .views.split {
+    flex-direction: column;
+  }
+  .views.split .view-slot + .view-slot {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .app-bar {
+    gap: 8px 10px;
+    padding: 8px 12px;
+  }
+  /* The avatar rides on the first row, beside the plan name, instead of taking a row of its own. */
+  .app-bar > * {
+    order: 2;
+  }
+  .app-bar > .brand,
+  .app-bar > .property-pick {
+    order: 0;
+  }
+  .app-bar > .user-menu {
+    order: 1;
+    margin-left: auto;
+  }
+  .app-bar .toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+    margin-left: 0;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .app-bar .toolbar > * {
+    flex: none;
+  }
+}
+
+/* The 3D hint keeps clear of the Spin and Reset buttons when the view is narrow, as in side by side. */
+.yard3d-hint {
+  max-width: calc(100% - 230px);
+}

@@ -1,6 +1,9 @@
 import { A, useNavigate } from "@solidjs/router";
 import { createResource, createSignal, For, Show } from "solid-js";
+import { Avatar } from "../account/Avatar";
+import { Icon } from "../account/Icon";
 import PageBar from "../account/PageBar";
+import "../account/profile.css";
 import { sample } from "../account/sample";
 import { deleteProperty, fetchMe, fetchShares, setPendingImport, shareOff, shareOn, shareUrl } from "../account/session";
 import Thumb from "../account/Thumb";
@@ -14,6 +17,17 @@ export default function Projects() {
   const [list, { mutate }] = createResource(me, loadProperties);
   const [shares, { mutate: setShares }] = createResource(me, fetchShares);
   const [error, setError] = createSignal("");
+  // The getting-started tips show until the person hides them.
+  const tipsKey = "fp-hide-starter";
+  const [showTips, setShowTips] = createSignal(readFlag(tipsKey) !== "1");
+  const hideTips = () => {
+    setShowTips(false);
+    try {
+      localStorage.setItem(tipsKey, "1");
+    } catch {
+      // Storage blocked: the tips come back next visit, which is fine.
+    }
+  };
   let picker!: HTMLInputElement;
 
   const fail = (e: unknown) => setError((e as Error).message);
@@ -40,9 +54,12 @@ export default function Projects() {
       <PageBar me={me()} />
       <main class="page-main">
         <div class="page-head">
-          <div>
-            <p class="eyebrow">Your gardens</p>
-            <h1>My projects</h1>
+          <div class="hello">
+            <Show when={me()}>{(m) => <Avatar id={m().avatar} size={56} class="hello-avatar" />}</Show>
+            <div>
+              <p class="eyebrow" classList={{ "hello-hi": !!me()?.name }}>{me()?.name ? `Hi, ${me()!.name}!` : "Your gardens"}</p>
+              <h1>My projects</h1>
+            </div>
           </div>
           <div class="page-actions">
             <button type="button" onClick={fromSample}>
@@ -66,6 +83,40 @@ export default function Projects() {
             />
           </div>
         </div>
+        <Show when={showTips() && list()?.length === 1 && list()![0].id === "sample-lot"}>
+          <section class="starter" aria-label="Getting started">
+            <button type="button" class="starter-close" aria-label="Hide these tips" onClick={hideTips}>
+              ×
+            </button>
+            <h2>New here? Three ways to start</h2>
+            <ol>
+              <li>
+                <span class="starter-icon">
+                  <Icon name="map" size={22} />
+                </span>
+                <span>
+                  <strong>Look around the sample.</strong> Open it, slide through the years, and drag a plant in. Nothing breaks.
+                </span>
+              </li>
+              <li>
+                <span class="starter-icon">
+                  <Icon name="camera" size={22} />
+                </span>
+                <span>
+                  <strong>Plan your own yard.</strong> Press <em>New from photos</em> and pick a map screenshot plus a few yard photos.
+                </span>
+              </li>
+              <li>
+                <span class="starter-icon">
+                  <Icon name="share" size={22} />
+                </span>
+                <span>
+                  <strong>Show someone.</strong> <em>Share</em> makes a view-only link that works without an account.
+                </span>
+              </li>
+            </ol>
+          </section>
+        </Show>
         <Show when={error()}>
           <p class="auth-error" role="alert">
             {error()}
@@ -106,6 +157,14 @@ export default function Projects() {
       </main>
     </div>
   );
+}
+
+function readFlag(key: string) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
 }
 
 type CardProps = {

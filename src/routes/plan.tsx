@@ -1,7 +1,7 @@
 import { A, useNavigate, useSearchParams } from "@solidjs/router";
 import { createEffect, createResource, createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import { sample } from "../account/sample";
-import { fetchMe, takePendingImport } from "../account/session";
+import { fetchMe, takePendingImport, type Me } from "../account/session";
 import UserMenu from "../account/UserMenu";
 import { PlanView } from "../components/PlanView";
 import { TimeBar } from "../components/TimeBar";
@@ -42,7 +42,7 @@ export default function PlanPage() {
     <Show when={me() && list() && (list()!.length || pending) ? list() : undefined} fallback={<p class="status">{list.error ? String(list.error.message) : "Loading the plan…"}</p>}>
       {(l) => (
         <Planner
-          email={me()!.email}
+          me={me()!}
           properties={l()}
           initialId={params.id as string | undefined}
           pending={pending}
@@ -53,7 +53,7 @@ export default function PlanPage() {
   );
 }
 
-type PlannerProps = { email: string; properties: Property[]; initialId?: string; pending: File[] | null; onSaved: (p: Property) => void };
+type PlannerProps = { me: Me; properties: Property[]; initialId?: string; pending: File[] | null; onSaved: (p: Property) => void };
 
 function Planner(props: PlannerProps) {
   // With no saved properties yet, the sample is the starting point until the import replaces it.
@@ -322,7 +322,7 @@ function Planner(props: PlannerProps) {
           </span>
         </div>
         <Toolbar editor={ed} />
-        <UserMenu email={props.email} />
+        <UserMenu me={props.me} compact />
       </header>
       <main class="app-main" classList={{ "drawer-open": showPlants() || showDetails() }}>
         <Show when={importing()}>
