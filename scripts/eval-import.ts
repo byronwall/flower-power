@@ -8,6 +8,7 @@ import { model } from "../src/ai/openai";
 // Runs the image import on each case in tmp/listings that has a truth.json, scores it, and writes
 // tmp/import-eval/<iteration>/ with one JSON per run and summary.json for the /dev/eval page.
 // Usage: pnpm tsx scripts/eval-import.ts --iter base [--runs 3] [--jobs 6] [case ...]
+// --rescore scores the saved runs of an iteration again against the current truth, with no API calls.
 // A case name with no "@" also matches its variants, so "circle" runs circle and circle@zoom160.
 
 export type Truth = {
@@ -19,6 +20,9 @@ export type Truth = {
   lotFt2?: number;
   trees?: [number, number];
   houseBoxPx: [number, number, number, number];
+  lotPx?: [number, number][];
+  buildingPx?: [number, number][];
+  parcelFt2?: number;
   expect: { driveway?: boolean; minPlants: number; minBeds: number; fence?: boolean; structure?: boolean };
 };
 
@@ -27,6 +31,7 @@ const opt = (k: string, d: string) => (args.includes(k) ? args[args.indexOf(k) +
 const runs = Number(opt("--runs", "3"));
 const jobs = Number(opt("--jobs", "6"));
 const iter = opt("--iter", "scratch");
+const rescore = args.includes("--rescore");
 const only = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
 const root = join(process.cwd(), "tmp/listings");
 const out = join(process.cwd(), "tmp/import-eval", iter);
@@ -57,6 +62,15 @@ await Promise.all(Array.from({ length: jobs }, async () => {
     const photoFiles = (await readdir(join(dir, "photos")).catch(() => [])).filter((f) => /\.(jpe?g|png)$/i.test(f)).sort();
     const photos = await Promise.all(photoFiles.map((f) => readImage(join(dir, "photos", f))));
     try {
+      if (rescore) {
+        const saved = JSON.parse(await readFile(join(out, `${name}-${run}.json`), "utf8").catch(() => "null"));
+        if (saved) {
+          const row = { ...saved.row, ...score(saved.raw, truth, aerial.width, aerial.height) };
+          rows.push(row);
+          await writeFile(join(out, `${name}-${run}.json`), JSON.stringify({ ...saved, row, truth }, null, 2));
+        } else rows.push({ case: name, run, pass: false, fails: "error", error: "no saved run", calls: 1 } as Row);
+        continue;
+      }
       const res = await importLayout({ name: truth.name, aerial, photos, plants });
       const s = score(res.raw, truth, aerial.width, aerial.height);
       const row: Row = { case: name, run, ...s, tokens: res.usage.total_tokens, inTokens: res.usage.input_tokens, outTokens: res.usage.output_tokens, calls: (res as { calls?: number }).calls ?? 1, sec: Math.round(res.ms / 1000) };
@@ -76,7 +90,7 @@ const med = (xs: number[]) => {
   const s = [...xs].sort((a, b) => a - b);
   return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : NaN;
 };
-const stat = (k: "scaleErr" | "houseIoU" | "lotErr", worst: "max" | "min") => ({
+const stat = (k: "scaleErr" | "houseIoU" | "lotErr" | "lotShapeErr" | "lotIoU", worst: "max" | "min") => ({
   median: +med(ok.map((r) => r[k])).toFixed(3),
   worst: +(worst === "max" ? Math.max(...ok.map((r) => r[k])) : Math.min(...ok.map((r) => r[k]))).toFixed(3),
 });
@@ -95,12 +109,14 @@ const summary = {
   scaleErr: stat("scaleErr", "max"),
   houseIoU: stat("houseIoU", "min"),
   lotErr: stat("lotErr", "max"),
+  lotShapeErr: stat("lotShapeErr", "max"),
+  lotIoU: stat("lotIoU", "min"),
   byCase,
   rows,
 };
 await writeFile(join(out, "summary.json"), JSON.stringify(summary, null, 2));
 console.table(byCase);
-console.log(`\n${iter} · ${model()}: ${summary.passed} of ${summary.runs} runs pass. Scale err median ${summary.scaleErr.median}, worst ${summary.scaleErr.worst}. House IoU median ${summary.houseIoU.median}, worst ${summary.houseIoU.worst}. Lot err median ${summary.lotErr.median}, worst ${summary.lotErr.worst}. ${summary.calls} calls, ${summary.tokens.input} in / ${summary.tokens.output} out tokens.`);
+console.log(`\n${iter} · ${model()}: ${summary.passed} of ${summary.runs} runs pass. Scale err median ${summary.scaleErr.median}, worst ${summary.scaleErr.worst}. House IoU median ${summary.houseIoU.median}, worst ${summary.houseIoU.worst}. Lot err median ${summary.lotErr.median}, worst ${summary.lotErr.worst}. Lot err at true scale median ${summary.lotShapeErr.median}, worst ${summary.lotShapeErr.worst}. Lot IoU median ${summary.lotIoU.median}, worst ${summary.lotIoU.worst}. ${summary.calls} calls, ${summary.tokens.input} in / ${summary.tokens.output} out tokens.`);
 
 type Row = ReturnType<typeof score> & { case: string; run: number; tokens: number; inTokens: number; outTokens: number; calls: number; sec: number; error?: string };
 
@@ -116,18 +132,23 @@ function score(raw: ImportRaw, t: Truth, w: number, h: number) {
   // Lot area from the model's own scale, against the listing's lot size.
   const lotFt2 = area(raw.lot.map(px)) * (raw.imageWidthFt / w) ** 2;
   const lotErr = t.lotFt2 ? Math.abs(lotFt2 - t.lotFt2) / t.lotFt2 : 0;
+  // The same lot at the true scale: how well the lot is traced once a person fixes the scale.
+  const lotShapeErr = t.lotFt2 ? Math.abs(area(raw.lot.map(px)) * t.ftPerPx ** 2 - t.lotFt2) / t.lotFt2 : 0;
+  // Overlap with the county parcel, counted on a 4 px raster.
+  const lotIoU = t.lotPx ? polyIoU(raw.lot.map(px), t.lotPx, w, h) : NaN;
   const treesOk = !t.trees || (raw.plants.length >= t.trees[0] && raw.plants.length <= t.trees[1]);
   const fails: string[] = [];
   if (scaleErr > 0.25) fails.push("scale");
   if (houseIoU < 0.5) fails.push("house");
   if (!houseInLot) fails.push("lot");
-  if (lotErr > 0.35) fails.push("lot size");
+  // Lots only need to be close: the person corrects the lot lines (Byron, 2026-11-07).
+  if (lotErr > 0.5) fails.push("lot size");
   if (t.expect.driveway !== undefined && driveway !== t.expect.driveway) fails.push("driveway");
   if (t.expect.fence && !raw.fences.length) fails.push("fence");
   if (t.expect.structure && !raw.structures.some((s) => s.kind === "shed")) fails.push("structure");
   if (raw.plants.length < t.expect.minPlants) fails.push("plants");
   if (raw.beds.length < t.expect.minBeds) fails.push("beds");
-  return { pass: !fails.length, scaleErr: +scaleErr.toFixed(3), houseIoU: +houseIoU.toFixed(3), houseInLot, lotErr: +lotErr.toFixed(3), plants: raw.plants.length, treesOk, beds: raw.beds.length, fails: fails.join(" ") };
+  return { pass: !fails.length, scaleErr: +scaleErr.toFixed(3), houseIoU: +houseIoU.toFixed(3), houseInLot, lotErr: +lotErr.toFixed(3), lotShapeErr: +lotShapeErr.toFixed(3), lotIoU: +lotIoU.toFixed(3), plants: raw.plants.length, treesOk, beds: raw.beds.length, fails: fails.join(" ") };
 }
 
 function area(o: (readonly [number, number])[]) {
@@ -142,6 +163,19 @@ function iou(a: number[], b: number[]) {
   const inter = ix * iy;
   const ar = (r: number[]) => (r[2] - r[0]) * (r[3] - r[1]);
   return inter / (ar(a) + ar(b) - inter);
+}
+
+function polyIoU(a: (readonly [number, number])[], b: (readonly [number, number])[], w: number, h: number) {
+  let both = 0;
+  let either = 0;
+  for (let y = 2; y < h; y += 4)
+    for (let x = 2; x < w; x += 4) {
+      const ia = inside([x, y], a);
+      const ib = inside([x, y], b);
+      if (ia && ib) both++;
+      if (ia || ib) either++;
+    }
+  return either ? both / either : 0;
 }
 
 function inside([x, y]: readonly [number, number], poly: (readonly [number, number])[]) {

@@ -9,10 +9,10 @@ import type { ViewTime } from "../../render/look";
 // the converted plan in the real renderer (aerial underlay optional), and the scores.
 // Data comes from tmp/import-eval/<iteration>/, written by scripts/eval-import.ts.
 
-type Row = { case: string; run: number; pass: boolean; scaleErr: number; houseIoU: number; lotErr: number; plants: number; treesOk: boolean; beds: number; fails: string; tokens: number; calls: number; sec: number; error?: string };
+type Row = { case: string; run: number; pass: boolean; scaleErr: number; houseIoU: number; lotErr: number; lotIoU?: number; plants: number; treesOk: boolean; beds: number; fails: string; tokens: number; calls: number; sec: number; error?: string };
 type Stat = { median: number; worst: number };
-type Summary = { iter: string; model: string; passed: number; runs: number; calls: number; tokens: { input: number; output: number }; scaleErr: Stat; houseIoU: Stat; lotErr: Stat; rows: Row[]; byCase: { case: string; passed: number; runs: number }[] };
-type Truth = { name: string; tags?: string[]; variant?: string; houseBoxPx: number[]; lotFt2?: number; trees?: [number, number] };
+type Summary = { iter: string; model: string; passed: number; runs: number; calls: number; tokens: { input: number; output: number }; scaleErr: Stat; houseIoU: Stat; lotErr: Stat; lotIoU?: Stat; rows: Row[]; byCase: { case: string; passed: number; runs: number }[] };
+type Truth = { name: string; tags?: string[]; variant?: string; houseBoxPx: number[]; lotPx?: number[][]; lotFt2?: number; trees?: [number, number] };
 type Run = { row: Row; truth: Truth; raw: ImportRaw; property: Property; aerial: { file: string; width: number; height: number }; photos: number };
 
 const files = (p: string) => `/dev/files/${p}`;
@@ -51,6 +51,7 @@ export default function EvalDev() {
               <span>Scale err median {pct(s().scaleErr.median)}, worst {pct(s().scaleErr.worst)}</span>
               <span>House IoU median {s().houseIoU.median.toFixed(2)}, worst {s().houseIoU.worst.toFixed(2)}</span>
               <span>Lot err median {pct(s().lotErr.median)}, worst {pct(s().lotErr.worst)}</span>
+              <Show when={s().lotIoU}>{(l) => <span>Parcel IoU median {l().median.toFixed(2)}</span>}</Show>
               <span class="muted">
                 {s().model} · {s().calls} calls · {Math.round(s().tokens.input / 1000)}k in / {Math.round(s().tokens.output / 1000)}k out
               </span>
@@ -128,7 +129,10 @@ function Metrics(props: { run: Run }) {
     <div class="ev-metrics">
       <span classList={{ bad: r().scaleErr > 0.25 }}>scale {pct(r().scaleErr)}</span>
       <span classList={{ bad: r().houseIoU < 0.5 }}>house IoU {r().houseIoU.toFixed(2)}</span>
-      <span classList={{ bad: r().lotErr > 0.35 }}>lot {pct(r().lotErr)}</span>
+      <span classList={{ bad: r().lotErr > 0.5 }}>lot {pct(r().lotErr)}</span>
+      <Show when={r().lotIoU !== undefined}>
+        <span>parcel IoU {r().lotIoU!.toFixed(2)}</span>
+      </Show>
       <span>lot {lot()}</span>
       <span classList={{ warn: !r().treesOk }}>
         {r().plants} trees{props.run.truth.trees ? ` (want ${props.run.truth.trees.join("-")})` : ""}
@@ -147,7 +151,8 @@ function Metrics(props: { run: Run }) {
   );
 }
 
-// The model's trace on its 0-1000 grid over the aerial, with the hand-labeled house box dashed.
+// The model's trace on its 0-1000 grid over the aerial, with the hand-labeled house box (white) and
+// the county parcel (cyan) dashed.
 function Trace(props: { run: Run; src: string }) {
   const raw = () => props.run.raw;
   const a = () => props.run.aerial;
@@ -166,6 +171,9 @@ function Trace(props: { run: Run; src: string }) {
       <For each={raw().structures}>{(s) => <polygon points={pts(s.outline)} fill="none" stroke="#af52de" stroke-width="3" />}</For>
       <For each={raw().beds}>{(b) => <polygon points={pts(b.outline)} fill="rgba(191,90,242,.25)" stroke="#bf5af2" stroke-width="3" />}</For>
       <polygon points={pts(raw().house.outline)} fill="rgba(255,59,48,.2)" stroke="#ff3b30" stroke-width="4" />
+      <Show when={props.run.truth.lotPx}>
+        {(l) => <polygon points={l().map(([x, y]) => `${(x / a().width) * 1000},${(y / a().height) * 1000}`).join(" ")} fill="none" stroke="#5ff" stroke-width="2" stroke-dasharray="6 6" />}
+      </Show>
       <rect x={box().x} y={box().y} width={box().w} height={box().h} fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 7" />
       <For each={raw().fences}>{(f) => <polyline points={pts(f.path)} fill="none" stroke="#ff9500" stroke-width="5" />}</For>
       <For each={raw().plants}>{(p) => <circle cx={p.at.x} cy={p.at.y} r="9" fill="#30d158" stroke="#000" stroke-width="2" />}</For>

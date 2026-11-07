@@ -3,7 +3,8 @@ import { join } from "node:path";
 import { fetchAerial } from "./fetch-aerial";
 
 // Builds robustness cases from base listings: other zoom levels, an aerial not centered on the house,
-// no photos, and a non-square screenshot crop. Truth comes from the base truth by geometry.
+// no photos, and a non-square screenshot crop. Truth comes from the base truth by geometry,
+// so run scripts/fetch-parcels.ts first.
 // Usage: pnpm tsx scripts/make-variants.ts [tag ...]
 
 type V = { base: string; tag: string; meters?: number; w?: number; h?: number; east?: number; north?: number; photos?: boolean | string[]; ext?: string };
@@ -46,7 +47,8 @@ for (const v of variants.filter((v) => !only.length || only.includes(v.tag))) {
   const fy = (p: number) => (((p - 512) * truth.ftPerPx + north * 3.28084) / ftPerPx) + h / 2;
   const [x0, y0, x1, y1] = truth.houseBoxPx;
   const houseBoxPx = [fx(x0), fy(y0), fx(x1), fy(y1)].map(Math.round);
-  await writeFile(join(dir, "truth.json"), JSON.stringify({ ...truth, base: v.base, variant: v.tag, ftPerPx: +ftPerPx.toFixed(4), houseBoxPx }));
+  const move = (r?: number[][]) => r?.map(([x, y]) => [Math.round(fx(x) * 10) / 10, Math.round(fy(y) * 10) / 10]);
+  await writeFile(join(dir, "truth.json"), JSON.stringify({ ...truth, base: v.base, variant: v.tag, ftPerPx: +ftPerPx.toFixed(4), houseBoxPx, lotPx: move(truth.lotPx), buildingPx: move(truth.buildingPx) }));
   if (v.photos === true || v.photos === undefined) await cp(join(src, "photos"), join(dir, "photos"), { recursive: true });
   if (Array.isArray(v.photos)) {
     await mkdir(join(dir, "photos"), { recursive: true });
