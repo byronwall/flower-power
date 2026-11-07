@@ -1,0 +1,3311 @@
+{
+ "_meta": {
+  "region": "Indiana, USA",
+  "version": 2,
+  "notes": "Hand-curated starter set for the hackathon. Heights and colors are approximate typical mature values for rendering, not botanical reference. 'invasive_banned' = on Indiana's Terrestrial Plant Rule (312 IAC 18-3-25); verify any status against in.gov/dnr before showing it to users as fact. 'invasive_listed' = on the Indiana Invasive Species Council list but not banned from sale.",
+  "status_values": [
+   "native",
+   "introduced",
+   "invasive_banned",
+   "invasive_listed"
+  ],
+  "habit_values": [
+   "tree_broadleaf",
+   "tree_conifer",
+   "shrub",
+   "forb",
+   "grass",
+   "vine",
+   "fern"
+  ],
+  "source_keys": {
+   "curated": "Hand-curated for this app (typical Indiana landscape/garden plant)",
+   "inat_popular": "Top observed plant species in Indiana on iNaturalist",
+   "inps_garden_worthy": "Indiana Native Plant (and Wildflower) Society \u2014 'Landscaping with Plants Native to Indiana' garden-worthy list",
+   "inps_finder": "Indiana Native Plant Society Native Plant Finder (finder.indiananativeplants.org)",
+   "purdue_pol6": "Purdue Extension POL-6-W Recommended Indiana-native Plants for Attracting Pollinators",
+   "purdue_id464": "Purdue Extension ID-464-W / Landscape Report \u2014 native alternatives to invasive landscape plants",
+   "lbj_indiana": "Lady Bird Johnson Wildflower Center \u2014 Indiana Recommended list",
+   "dnr_tpr": "Indiana DNR Terrestrial Plant Rule (312 IAC 18-3-25) \u2014 banned from sale",
+   "iisc_list": "Indiana Invasive Species Council official invasive plant list (not banned)",
+   "user": "Added by a user in the app"
+  },
+  "sun_values": [
+   "full",
+   "part",
+   "shade"
+  ],
+  "moisture_values": [
+   "dry",
+   "medium",
+   "wet"
+  ],
+  "recommended_rule": "native and not a skin irritant; list sources in 'sources' show which outside lists confirm it",
+  "editable_params": [
+   "common",
+   "habit",
+   "height_m",
+   "spread_m",
+   "flower",
+   "foliage",
+   "bloom",
+   "sun",
+   "moisture",
+   "status",
+   "notes"
+  ]
+ },
+ "plants": [
+  {
+   "id": "liriodendron-tulipifera",
+   "common": "Tulip tree",
+   "sci": "Liriodendron tulipifera",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 30,
+   "flower": "#d9c45a",
+   "foliage": "#4f8a3a",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "state tree"
+   ],
+   "spread_m": 19.5,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "acer-saccharum",
+   "common": "Sugar maple",
+   "sci": "Acer saccharum",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#3f7f35",
+   "bloom": [
+    4
+   ],
+   "tags": [
+    "fall color"
+   ],
+   "spread_m": 16.25,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "acer-rubrum",
+   "common": "Red maple",
+   "sci": "Acer rubrum",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 20,
+   "flower": "#b8322a",
+   "foliage": "#4a8a3c",
+   "bloom": [
+    3,
+    4
+   ],
+   "tags": [
+    "fall color"
+   ],
+   "spread_m": 13.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "cercis-canadensis",
+   "common": "Eastern redbud",
+   "sci": "Cercis canadensis",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 8,
+   "flower": "#c4569b",
+   "foliage": "#5a9440",
+   "bloom": [
+    4
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 5.2,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "cornus-florida",
+   "common": "Flowering dogwood",
+   "sci": "Cornus florida",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 8,
+   "flower": "#f4f1e6",
+   "foliage": "#4d8a3e",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [],
+   "spread_m": 5.2,
+   "sun": [
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "quercus-alba",
+   "common": "White oak",
+   "sci": "Quercus alba",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#3e7a33",
+   "bloom": [
+    5
+   ],
+   "tags": [
+    "keystone"
+   ],
+   "spread_m": 16.25,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "quercus-rubra",
+   "common": "Northern red oak",
+   "sci": "Quercus rubra",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#3b7531",
+   "bloom": [
+    5
+   ],
+   "tags": [
+    "keystone"
+   ],
+   "spread_m": 16.25,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "quercus-macrocarpa",
+   "common": "Bur oak",
+   "sci": "Quercus macrocarpa",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#40782f",
+   "bloom": [
+    5
+   ],
+   "tags": [
+    "keystone"
+   ],
+   "spread_m": 16.25,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "platanus-occidentalis",
+   "common": "American sycamore",
+   "sci": "Platanus occidentalis",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 30,
+   "flower": null,
+   "foliage": "#5c9446",
+   "bloom": [
+    5
+   ],
+   "tags": [],
+   "spread_m": 19.5,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "juglans-nigra",
+   "common": "Black walnut",
+   "sci": "Juglans nigra",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#5a9a3f",
+   "bloom": [
+    5
+   ],
+   "tags": [],
+   "spread_m": 16.25,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "asimina-triloba",
+   "common": "Pawpaw",
+   "sci": "Asimina triloba",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 6,
+   "flower": "#6b2230",
+   "foliage": "#4f8f3a",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "edible fruit"
+   ],
+   "spread_m": 3.9,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": true,
+   "recommended": true
+  },
+  {
+   "id": "amelanchier-arborea",
+   "common": "Serviceberry",
+   "sci": "Amelanchier arborea",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 8,
+   "flower": "#f5f3ea",
+   "foliage": "#4c8a3b",
+   "bloom": [
+    4
+   ],
+   "tags": [
+    "edible fruit",
+    "pollinator"
+   ],
+   "spread_m": 5.2,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": true,
+   "recommended": true
+  },
+  {
+   "id": "juniperus-virginiana",
+   "common": "Eastern red cedar",
+   "sci": "Juniperus virginiana",
+   "status": "native",
+   "habit": "tree_conifer",
+   "height_m": 12,
+   "flower": null,
+   "foliage": "#2f5e34",
+   "bloom": [],
+   "tags": [],
+   "spread_m": 4.8,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "pinus-strobus",
+   "common": "Eastern white pine",
+   "sci": "Pinus strobus",
+   "status": "native",
+   "habit": "tree_conifer",
+   "height_m": 25,
+   "flower": null,
+   "foliage": "#2e6438",
+   "bloom": [],
+   "tags": [],
+   "spread_m": 10.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "lindera-benzoin",
+   "common": "Spicebush",
+   "sci": "Lindera benzoin",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": "#e6d34a",
+   "foliage": "#4f8c3c",
+   "bloom": [
+    3,
+    4
+   ],
+   "tags": [
+    "host plant"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "cephalanthus-occidentalis",
+   "common": "Buttonbush",
+   "sci": "Cephalanthus occidentalis",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": "#f2efe2",
+   "foliage": "#4a8a3a",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "tags": [
+    "pollinator",
+    "wet soil"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "wet"
+   ],
+   "sources": [
+    "curated",
+    "inps_garden_worthy"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "physocarpus-opulifolius",
+   "common": "Ninebark",
+   "sci": "Physocarpus opulifolius",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 2.5,
+   "flower": "#f4eee6",
+   "foliage": "#5b8a3e",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 2.5,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated",
+    "purdue_id464"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "sambucus-canadensis",
+   "common": "American elderberry",
+   "sci": "Sambucus canadensis",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": "#f3f0de",
+   "foliage": "#4e8d3b",
+   "bloom": [
+    6,
+    7
+   ],
+   "tags": [
+    "edible fruit",
+    "pollinator"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": true,
+   "recommended": true
+  },
+  {
+   "id": "viburnum-dentatum",
+   "common": "Arrowwood viburnum",
+   "sci": "Viburnum dentatum",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": "#f4f2e8",
+   "foliage": "#47863a",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "echinacea-purpurea",
+   "common": "Purple coneflower",
+   "sci": "Echinacea purpurea",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.0,
+   "flower": "#b5579e",
+   "foliage": "#4b7f37",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 0.6,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "rudbeckia-hirta",
+   "common": "Black-eyed Susan",
+   "sci": "Rudbeckia hirta",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.7,
+   "flower": "#f2b51c",
+   "foliage": "#4f7f36",
+   "bloom": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 0.42,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "asclepias-tuberosa",
+   "common": "Butterfly milkweed",
+   "sci": "Asclepias tuberosa",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.6,
+   "flower": "#f07a1d",
+   "foliage": "#4d8538",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "tags": [
+    "monarch host",
+    "pollinator"
+   ],
+   "spread_m": 0.36,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "asclepias-syriaca",
+   "common": "Common milkweed",
+   "sci": "Asclepias syriaca",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.2,
+   "flower": "#d99ab8",
+   "foliage": "#5a8f4a",
+   "bloom": [
+    6,
+    7
+   ],
+   "tags": [
+    "monarch host",
+    "pollinator"
+   ],
+   "spread_m": 0.72,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "asclepias-incarnata",
+   "common": "Swamp milkweed",
+   "sci": "Asclepias incarnata",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.2,
+   "flower": "#d6699a",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "monarch host",
+    "wet soil"
+   ],
+   "spread_m": 0.72,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "monarda-fistulosa",
+   "common": "Wild bergamot",
+   "sci": "Monarda fistulosa",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.0,
+   "flower": "#b79ad1",
+   "foliage": "#5b8746",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 0.6,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "symphyotrichum-novae-angliae",
+   "common": "New England aster",
+   "sci": "Symphyotrichum novae-angliae",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.2,
+   "flower": "#7d4fb3",
+   "foliage": "#4e7f3a",
+   "bloom": [
+    8,
+    9,
+    10
+   ],
+   "tags": [
+    "pollinator",
+    "fall bloom"
+   ],
+   "spread_m": 0.72,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "solidago-canadensis",
+   "common": "Canada goldenrod",
+   "sci": "Solidago canadensis",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.5,
+   "flower": "#e8c21e",
+   "foliage": "#56873c",
+   "bloom": [
+    8,
+    9,
+    10
+   ],
+   "tags": [
+    "pollinator",
+    "fall bloom"
+   ],
+   "spread_m": 0.9,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "liatris-pycnostachya",
+   "common": "Prairie blazing star",
+   "sci": "Liatris pycnostachya",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.2,
+   "flower": "#9a4fb0",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "spread_m": 0.72,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "aquilegia-canadensis",
+   "common": "Wild columbine",
+   "sci": "Aquilegia canadensis",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.5,
+   "flower": "#d23a2a",
+   "foliage": "#5c8f4c",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "hummingbird"
+   ],
+   "spread_m": 0.3,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "mertensia-virginica",
+   "common": "Virginia bluebells",
+   "sci": "Mertensia virginica",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.5,
+   "flower": "#6f8fd6",
+   "foliage": "#6a9a6a",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "spring ephemeral"
+   ],
+   "spread_m": 0.3,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "podophyllum-peltatum",
+   "common": "Mayapple",
+   "sci": "Podophyllum peltatum",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.4,
+   "flower": "#f5f2e6",
+   "foliage": "#5c9446",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "woodland"
+   ],
+   "spread_m": 0.24,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "lobelia-cardinalis",
+   "common": "Cardinal flower",
+   "sci": "Lobelia cardinalis",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.0,
+   "flower": "#c8102e",
+   "foliage": "#3f6f35",
+   "bloom": [
+    7,
+    8,
+    9
+   ],
+   "tags": [
+    "hummingbird",
+    "wet soil"
+   ],
+   "spread_m": 0.6,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "viola-sororia",
+   "common": "Common blue violet",
+   "sci": "Viola sororia",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.15,
+   "flower": "#6a4cb0",
+   "foliage": "#4f8f3e",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "host plant"
+   ],
+   "spread_m": 0.15,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "schizachyrium-scoparium",
+   "common": "Little bluestem",
+   "sci": "Schizachyrium scoparium",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.9,
+   "flower": null,
+   "foliage": "#7a9a8a",
+   "bloom": [
+    8,
+    9
+   ],
+   "tags": [
+    "prairie"
+   ],
+   "spread_m": 0.54,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "andropogon-gerardi",
+   "common": "Big bluestem",
+   "sci": "Andropogon gerardi",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 2.0,
+   "flower": null,
+   "foliage": "#6f8f6a",
+   "bloom": [
+    8,
+    9
+   ],
+   "tags": [
+    "prairie"
+   ],
+   "spread_m": 1.2,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "panicum-virgatum",
+   "common": "Switchgrass",
+   "sci": "Panicum virgatum",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 1.5,
+   "flower": null,
+   "foliage": "#7c9c5c",
+   "bloom": [
+    7,
+    8,
+    9
+   ],
+   "tags": [
+    "prairie"
+   ],
+   "spread_m": 0.9,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "sporobolus-heterolepis",
+   "common": "Prairie dropseed",
+   "sci": "Sporobolus heterolepis",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.6,
+   "flower": null,
+   "foliage": "#6f9a4f",
+   "bloom": [
+    8,
+    9
+   ],
+   "tags": [
+    "prairie"
+   ],
+   "spread_m": 0.36,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "parthenocissus-quinquefolia",
+   "common": "Virginia creeper",
+   "sci": "Parthenocissus quinquefolia",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 10,
+   "flower": null,
+   "foliage": "#4a8a3a",
+   "bloom": [
+    6
+   ],
+   "tags": [
+    "fall color"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "toxicodendron-radicans",
+   "common": "Poison ivy",
+   "sci": "Toxicodendron radicans",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 3,
+   "flower": null,
+   "foliage": "#4f8f35",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "caution: skin irritant"
+   ],
+   "spread_m": 0.9,
+   "sun": [
+    "full",
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "dry",
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "polystichum-acrostichoides",
+   "common": "Christmas fern",
+   "sci": "Polystichum acrostichoides",
+   "status": "native",
+   "habit": "fern",
+   "height_m": 0.5,
+   "flower": null,
+   "foliage": "#2f6a35",
+   "bloom": [],
+   "tags": [
+    "woodland",
+    "evergreen"
+   ],
+   "spread_m": 0.5,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "paeonia-lactiflora",
+   "common": "Peony",
+   "sci": "Paeonia lactiflora",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.9,
+   "flower": "#e88aa8",
+   "foliage": "#3f7a35",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "state flower",
+    "garden"
+   ],
+   "spread_m": 0.54,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "hosta",
+   "common": "Hosta",
+   "sci": "Hosta",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.6,
+   "flower": "#b9a6d8",
+   "foliage": "#5a8f5a",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "garden",
+    "shade"
+   ],
+   "spread_m": 0.36,
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "hydrangea-macrophylla",
+   "common": "Bigleaf hydrangea",
+   "sci": "Hydrangea macrophylla",
+   "status": "introduced",
+   "habit": "shrub",
+   "height_m": 1.5,
+   "flower": "#7f9fe0",
+   "foliage": "#3f7f3f",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "tags": [
+    "garden"
+   ],
+   "spread_m": 1.5,
+   "sun": [
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "tulipa",
+   "common": "Tulip",
+   "sci": "Tulipa",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.45,
+   "flower": "#e0333f",
+   "foliage": "#5f8f5a",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "garden",
+    "bulb"
+   ],
+   "spread_m": 0.27,
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "poa-pratensis",
+   "common": "Kentucky bluegrass (lawn)",
+   "sci": "Poa pratensis",
+   "status": "introduced",
+   "habit": "grass",
+   "height_m": 0.1,
+   "flower": null,
+   "foliage": "#4f9a45",
+   "bloom": [],
+   "tags": [
+    "lawn"
+   ],
+   "spread_m": 0.15,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "lonicera-maackii",
+   "common": "Amur honeysuckle",
+   "sci": "Lonicera maackii",
+   "status": "invasive_banned",
+   "habit": "shrub",
+   "height_m": 5,
+   "flower": "#f5f0dc",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 5.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "lindera-benzoin",
+    "viburnum-dentatum",
+    "sambucus-canadensis"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "berberis-thunbergii",
+   "common": "Japanese barberry",
+   "sci": "Berberis thunbergii",
+   "status": "invasive_banned",
+   "habit": "shrub",
+   "height_m": 1.5,
+   "flower": "#e8d24a",
+   "foliage": "#8a3a3a",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 1.5,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "rhus-aromatica",
+    "physocarpus-opulifolius",
+    "rosa-carolina"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "euonymus-alatus",
+   "common": "Burning bush",
+   "sci": "Euonymus alatus",
+   "status": "invasive_banned",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": null,
+   "foliage": "#4a8a3a",
+   "bloom": [
+    5
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "physocarpus-opulifolius",
+    "ilex-verticillata",
+    "rhus-aromatica"
+   ],
+   "alternatives_source": "purdue_id464 (ninebark); others curated"
+  },
+  {
+   "id": "euonymus-fortunei",
+   "common": "Wintercreeper",
+   "sci": "Euonymus fortunei",
+   "status": "invasive_banned",
+   "habit": "vine",
+   "height_m": 0.5,
+   "flower": null,
+   "foliage": "#2f6a35",
+   "bloom": [
+    6
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 0.15,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "asarum-canadense",
+    "carex-pensylvanica",
+    "polystichum-acrostichoides"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "elaeagnus-umbellata",
+   "common": "Autumn olive",
+   "sci": "Elaeagnus umbellata",
+   "status": "invasive_banned",
+   "habit": "shrub",
+   "height_m": 5,
+   "flower": "#efe7c0",
+   "foliage": "#8fa58a",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 5.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "amelanchier-arborea",
+    "sambucus-canadensis",
+    "viburnum-trilobum"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "rosa-multiflora",
+   "common": "Multiflora rose",
+   "sci": "Rosa multiflora",
+   "status": "invasive_banned",
+   "habit": "shrub",
+   "height_m": 3,
+   "flower": "#f6f2ea",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 3.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "rosa-carolina",
+    "physocarpus-opulifolius",
+    "cephalanthus-occidentalis"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "ailanthus-altissima",
+   "common": "Tree of heaven",
+   "sci": "Ailanthus altissima",
+   "status": "invasive_banned",
+   "habit": "tree_broadleaf",
+   "height_m": 20,
+   "flower": "#d8d48a",
+   "foliage": "#5a9a40",
+   "bloom": [
+    6
+   ],
+   "tags": [
+    "remove",
+    "spotted lanternfly host"
+   ],
+   "spread_m": 13.0,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "rhus-typhina",
+    "gymnocladus-dioicus",
+    "celtis-occidentalis"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "alliaria-petiolata",
+   "common": "Garlic mustard",
+   "sci": "Alliaria petiolata",
+   "status": "invasive_banned",
+   "habit": "forb",
+   "height_m": 0.8,
+   "flower": "#f6f6f0",
+   "foliage": "#4f8f3e",
+   "bloom": [
+    4,
+    5
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 0.48,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "asarum-canadense",
+    "mertensia-virginica",
+    "geranium-maculatum"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "celastrus-orbiculatus",
+   "common": "Oriental bittersweet",
+   "sci": "Celastrus orbiculatus",
+   "status": "invasive_banned",
+   "habit": "vine",
+   "height_m": 12,
+   "flower": null,
+   "foliage": "#5a9440",
+   "bloom": [
+    5,
+    6
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 3.6,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "celastrus-scandens",
+    "parthenocissus-quinquefolia",
+    "bignonia-capreolata"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "microstegium-vimineum",
+   "common": "Japanese stiltgrass",
+   "sci": "Microstegium vimineum",
+   "status": "invasive_banned",
+   "habit": "grass",
+   "height_m": 0.6,
+   "flower": null,
+   "foliage": "#7aa64f",
+   "bloom": [
+    8,
+    9
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 0.36,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "carex-pensylvanica",
+    "chasmanthium-latifolium",
+    "elymus-hystrix"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "morus-alba",
+   "common": "White mulberry",
+   "sci": "Morus alba",
+   "status": "invasive_banned",
+   "habit": "tree_broadleaf",
+   "height_m": 12,
+   "flower": null,
+   "foliage": "#4f9a3e",
+   "bloom": [
+    5
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 7.8,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "amelanchier-arborea",
+    "asimina-triloba",
+    "cercis-canadensis"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "lythrum-salicaria",
+   "common": "Purple loosestrife",
+   "sci": "Lythrum salicaria",
+   "status": "invasive_banned",
+   "habit": "forb",
+   "height_m": 1.5,
+   "flower": "#b3388f",
+   "foliage": "#4c7f3a",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "remove",
+    "wetland"
+   ],
+   "spread_m": 0.9,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "asclepias-incarnata",
+    "iris-virginica",
+    "lobelia-siphilitica"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "pueraria-montana",
+   "common": "Kudzu",
+   "sci": "Pueraria montana",
+   "status": "invasive_banned",
+   "habit": "vine",
+   "height_m": 15,
+   "flower": "#8a4fa0",
+   "foliage": "#4f8f3a",
+   "bloom": [
+    7,
+    8
+   ],
+   "tags": [
+    "remove"
+   ],
+   "spread_m": 4.5,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "dnr_tpr"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "bignonia-capreolata",
+    "lonicera-sempervirens",
+    "aristolochia-tomentosa"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "pyrus-calleryana",
+   "common": "Callery (Bradford) pear",
+   "sci": "Pyrus calleryana",
+   "status": "invasive_listed",
+   "habit": "tree_broadleaf",
+   "height_m": 12,
+   "flower": "#f8f6f0",
+   "foliage": "#3f7f35",
+   "bloom": [
+    3,
+    4
+   ],
+   "tags": [
+    "replace"
+   ],
+   "spread_m": 7.8,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "iisc_list"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "amelanchier-arborea",
+    "cercis-canadensis",
+    "cornus-florida"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "acer-platanoides",
+   "common": "Norway maple",
+   "sci": "Acer platanoides",
+   "status": "invasive_listed",
+   "habit": "tree_broadleaf",
+   "height_m": 15,
+   "flower": "#d8d860",
+   "foliage": "#2f6a2f",
+   "bloom": [
+    4
+   ],
+   "tags": [
+    "replace"
+   ],
+   "spread_m": 9.75,
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "iisc_list"
+   ],
+   "edible": false,
+   "recommended": false,
+   "alternatives": [
+    "acer-rubrum",
+    "acer-saccharum",
+    "nyssa-sylvatica"
+   ],
+   "alternatives_source": "curated"
+  },
+  {
+   "id": "allium-cernuum",
+   "common": "Nodding onion",
+   "sci": "Allium cernuum",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.45,
+   "spread_m": 0.3,
+   "flower": "#d9a0c8",
+   "foliage": "#6f9a6a",
+   "bloom": [
+    7,
+    8
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "sorghastrum-nutans",
+   "common": "Indian grass",
+   "sci": "Sorghastrum nutans",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 1.8,
+   "spread_m": 0.8,
+   "flower": null,
+   "foliage": "#7f9a5f",
+   "bloom": [
+    8,
+    9
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "prairie"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "ilex-verticillata",
+   "common": "Winterberry holly",
+   "sci": "Ilex verticillata",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 2.5,
+   "spread_m": 2.5,
+   "flower": "#f3f0e2",
+   "foliage": "#3f7a35",
+   "bloom": [
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "winter berries"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "chasmanthium-latifolium",
+   "common": "Northern sea oats",
+   "sci": "Chasmanthium latifolium",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.9,
+   "spread_m": 0.6,
+   "flower": null,
+   "foliage": "#6f9a4f",
+   "bloom": [
+    8,
+    9
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "shade"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "elymus-hystrix",
+   "common": "Bottlebrush grass",
+   "sci": "Elymus hystrix",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.9,
+   "spread_m": 0.4,
+   "flower": null,
+   "foliage": "#6f9a5a",
+   "bloom": [
+    6,
+    7
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "woodland"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "diarrhena-americana",
+   "common": "American beak grass",
+   "sci": "Diarrhena americana",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.8,
+   "spread_m": 0.5,
+   "flower": null,
+   "foliage": "#4f8a45",
+   "bloom": [
+    7,
+    8
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "woodland"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "viburnum-trilobum",
+   "common": "American cranberrybush",
+   "sci": "Viburnum trilobum",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 3.5,
+   "spread_m": 3,
+   "flower": "#f4f2e6",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "berries"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "aristolochia-tomentosa",
+   "common": "Woolly dutchman's pipe",
+   "sci": "Aristolochia tomentosa",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 6,
+   "spread_m": 1.5,
+   "flower": "#b59a4a",
+   "foliage": "#4f8f3a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "host plant"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "bignonia-capreolata",
+   "common": "Crossvine",
+   "sci": "Bignonia capreolata",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 9,
+   "spread_m": 1.5,
+   "flower": "#d9532a",
+   "foliage": "#3f7a35",
+   "bloom": [
+    4,
+    5
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "hummingbird"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "rhus-aromatica",
+   "common": "Fragrant sumac",
+   "sci": "Rhus aromatica",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 1.5,
+   "spread_m": 2,
+   "flower": "#e0cf4a",
+   "foliage": "#4f8a3a",
+   "bloom": [
+    4
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [
+    "erosion control",
+    "fall color"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "sisyrinchium-angustifolium",
+   "common": "Blue-eyed grass",
+   "sci": "Sisyrinchium angustifolium",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.3,
+   "spread_m": 0.15,
+   "flower": "#6f7fd6",
+   "foliage": "#5a8f4a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "sisyrinchium-albidum",
+   "common": "White blue-eyed grass",
+   "sci": "Sisyrinchium albidum",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.25,
+   "spread_m": 0.15,
+   "flower": "#f2f2f8",
+   "foliage": "#5a8f4a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "inps_garden_worthy"
+   ],
+   "tags": [],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "rhus-typhina",
+   "common": "Staghorn sumac",
+   "sci": "Rhus typhina",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 5,
+   "spread_m": 4,
+   "flower": "#c9c45a",
+   "foliage": "#4f8a3a",
+   "bloom": [
+    6,
+    7
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "lbj_indiana"
+   ],
+   "tags": [
+    "fall color"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "hydrangea-arborescens",
+   "common": "Smooth hydrangea",
+   "sci": "Hydrangea arborescens",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 1.2,
+   "spread_m": 1.5,
+   "flower": "#f4f4ea",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    6,
+    7
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "liatris-spicata",
+   "common": "Dense blazing star",
+   "sci": "Liatris spicata",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.0,
+   "spread_m": 0.4,
+   "flower": "#a34fb8",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "pollinator",
+    "drought tolerant"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "asarum-canadense",
+   "common": "Wild ginger",
+   "sci": "Asarum canadense",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.15,
+   "spread_m": 0.3,
+   "flower": "#6b2a30",
+   "foliage": "#3f7f45",
+   "bloom": [
+    4,
+    5
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "groundcover",
+    "shade"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "carex-pensylvanica",
+   "common": "Pennsylvania sedge",
+   "sci": "Carex pensylvanica",
+   "status": "native",
+   "habit": "grass",
+   "height_m": 0.2,
+   "spread_m": 0.3,
+   "flower": null,
+   "foliage": "#6f9a4f",
+   "bloom": [
+    4
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "lawn alternative",
+    "shade"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "iris-virginica",
+   "common": "Southern blue flag iris",
+   "sci": "Iris virginica",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.8,
+   "spread_m": 0.5,
+   "flower": "#6f5fc8",
+   "foliage": "#5a8f6a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "rain garden"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "rosa-carolina",
+   "common": "Carolina rose",
+   "sci": "Rosa carolina",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 1.0,
+   "spread_m": 1.0,
+   "flower": "#e88aa8",
+   "foliage": "#4c8a3c",
+   "bloom": [
+    6
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "celastrus-scandens",
+   "common": "American bittersweet",
+   "sci": "Celastrus scandens",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 6,
+   "spread_m": 1.5,
+   "flower": null,
+   "foliage": "#4f8f3a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "native look-alike of Oriental bittersweet"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "lonicera-sempervirens",
+   "common": "Trumpet honeysuckle",
+   "sci": "Lonicera sempervirens",
+   "status": "native",
+   "habit": "vine",
+   "height_m": 4,
+   "spread_m": 1.5,
+   "flower": "#d23a2a",
+   "foliage": "#4f8a4a",
+   "bloom": [
+    5,
+    6,
+    7
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "hummingbird",
+    "native honeysuckle"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "eutrochium-purpureum",
+   "common": "Sweet Joe-Pye weed",
+   "sci": "Eutrochium purpureum",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.8,
+   "spread_m": 0.9,
+   "flower": "#c79ab8",
+   "foliage": "#4f7f3a",
+   "bloom": [
+    7,
+    8,
+    9
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "zizia-aurea",
+   "common": "Golden Alexanders",
+   "sci": "Zizia aurea",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.6,
+   "spread_m": 0.4,
+   "flower": "#e8d22a",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "host plant",
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "penstemon-digitalis",
+   "common": "Foxglove beardtongue",
+   "sci": "Penstemon digitalis",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.9,
+   "spread_m": 0.4,
+   "flower": "#f4f0f4",
+   "foliage": "#4f7f3a",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "eryngium-yuccifolium",
+   "common": "Rattlesnake master",
+   "sci": "Eryngium yuccifolium",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 1.2,
+   "spread_m": 0.5,
+   "flower": "#dfe6d0",
+   "foliage": "#7a9a8a",
+   "bloom": [
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "prairie",
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "geranium-maculatum",
+   "common": "Wild geranium",
+   "sci": "Geranium maculatum",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.5,
+   "spread_m": 0.4,
+   "flower": "#d79ac8",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    4,
+    5,
+    6
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "woodland"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "lobelia-siphilitica",
+   "common": "Great blue lobelia",
+   "sci": "Lobelia siphilitica",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.8,
+   "spread_m": 0.3,
+   "flower": "#4f5fc8",
+   "foliage": "#4f7f3a",
+   "bloom": [
+    8,
+    9
+   ],
+   "sun": [
+    "part"
+   ],
+   "moisture": [
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "rain garden",
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "symphyotrichum-laeve",
+   "common": "Smooth blue aster",
+   "sci": "Symphyotrichum laeve",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.9,
+   "spread_m": 0.5,
+   "flower": "#9a9ae0",
+   "foliage": "#5a7f5a",
+   "bloom": [
+    8,
+    9,
+    10
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "fall bloom",
+    "pollinator"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "fragaria-virginiana",
+   "common": "Wild strawberry",
+   "sci": "Fragaria virginiana",
+   "status": "native",
+   "habit": "forb",
+   "height_m": 0.15,
+   "spread_m": 0.3,
+   "flower": "#f5f3ea",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    4,
+    5
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "groundcover"
+   ],
+   "edible": true,
+   "recommended": true
+  },
+  {
+   "id": "matteuccia-struthiopteris",
+   "common": "Ostrich fern",
+   "sci": "Matteuccia struthiopteris",
+   "status": "native",
+   "habit": "fern",
+   "height_m": 1.2,
+   "spread_m": 1.0,
+   "flower": null,
+   "foliage": "#3f7f3a",
+   "bloom": [],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "shade"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "onoclea-sensibilis",
+   "common": "Sensitive fern",
+   "sci": "Onoclea sensibilis",
+   "status": "native",
+   "habit": "fern",
+   "height_m": 0.6,
+   "spread_m": 0.6,
+   "flower": null,
+   "foliage": "#5a9446",
+   "bloom": [],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "wet soil"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "betula-nigra",
+   "common": "River birch",
+   "sci": "Betula nigra",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 15,
+   "spread_m": 10,
+   "flower": null,
+   "foliage": "#4f8a3a",
+   "bloom": [
+    4
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "peeling bark"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "quercus-bicolor",
+   "common": "Swamp white oak",
+   "sci": "Quercus bicolor",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 18,
+   "spread_m": 15,
+   "flower": null,
+   "foliage": "#3f7a33",
+   "bloom": [
+    5
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "keystone"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "nyssa-sylvatica",
+   "common": "Blackgum",
+   "sci": "Nyssa sylvatica",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 15,
+   "spread_m": 9,
+   "flower": null,
+   "foliage": "#3f7f3a",
+   "bloom": [
+    5
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "fall color"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "gymnocladus-dioicus",
+   "common": "Kentucky coffeetree",
+   "sci": "Gymnocladus dioicus",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 20,
+   "spread_m": 13,
+   "flower": null,
+   "foliage": "#4f8a45",
+   "bloom": [
+    5,
+    6
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "street tree"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "celtis-occidentalis",
+   "common": "Common hackberry",
+   "sci": "Celtis occidentalis",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 18,
+   "spread_m": 15,
+   "flower": null,
+   "foliage": "#4f8a3c",
+   "bloom": [
+    4,
+    5
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "dry",
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "host plant"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "carpinus-caroliniana",
+   "common": "American hornbeam",
+   "sci": "Carpinus caroliniana",
+   "status": "native",
+   "habit": "tree_broadleaf",
+   "height_m": 8,
+   "spread_m": 7,
+   "flower": null,
+   "foliage": "#4c8a3c",
+   "bloom": [
+    4
+   ],
+   "sun": [
+    "part",
+    "shade"
+   ],
+   "moisture": [
+    "medium",
+    "wet"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "understory"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "hamamelis-virginiana",
+   "common": "American witch hazel",
+   "sci": "Hamamelis virginiana",
+   "status": "native",
+   "habit": "shrub",
+   "height_m": 5,
+   "spread_m": 5,
+   "flower": "#e8d24a",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    10,
+    11
+   ],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "fall bloom"
+   ],
+   "edible": false,
+   "recommended": true
+  },
+  {
+   "id": "syringa-vulgaris",
+   "common": "Common lilac",
+   "sci": "Syringa vulgaris",
+   "status": "introduced",
+   "habit": "shrub",
+   "height_m": 3,
+   "spread_m": 2.5,
+   "flower": "#b79ad8",
+   "foliage": "#3f7a3f",
+   "bloom": [
+    5
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "garden",
+    "fragrant"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "buxus",
+   "common": "Boxwood",
+   "sci": "Buxus",
+   "status": "introduced",
+   "habit": "shrub",
+   "height_m": 1.2,
+   "spread_m": 1.2,
+   "flower": null,
+   "foliage": "#2f6a35",
+   "bloom": [],
+   "sun": [
+    "full",
+    "part"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "garden",
+    "hedge",
+    "evergreen"
+   ],
+   "edible": false,
+   "recommended": false
+  },
+  {
+   "id": "solanum-lycopersicum",
+   "common": "Tomato",
+   "sci": "Solanum lycopersicum",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 1.2,
+   "spread_m": 0.6,
+   "flower": "#f2d22a",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "vegetable"
+   ],
+   "edible": true,
+   "recommended": false
+  },
+  {
+   "id": "capsicum-annuum",
+   "common": "Pepper",
+   "sci": "Capsicum annuum",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.6,
+   "spread_m": 0.4,
+   "flower": "#f4f2ea",
+   "foliage": "#3f7a35",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "vegetable"
+   ],
+   "edible": true,
+   "recommended": false
+  },
+  {
+   "id": "ocimum-basilicum",
+   "common": "Sweet basil",
+   "sci": "Ocimum basilicum",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.45,
+   "spread_m": 0.3,
+   "flower": "#f4f2f4",
+   "foliage": "#4f9a45",
+   "bloom": [
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "herb"
+   ],
+   "edible": true,
+   "recommended": false
+  },
+  {
+   "id": "cucurbita-pepo",
+   "common": "Zucchini / squash",
+   "sci": "Cucurbita pepo",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 0.6,
+   "spread_m": 1.2,
+   "flower": "#f2b51c",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    6,
+    7,
+    8
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "vegetable"
+   ],
+   "edible": true,
+   "recommended": false
+  },
+  {
+   "id": "helianthus-annuus",
+   "common": "Common sunflower",
+   "sci": "Helianthus annuus",
+   "status": "introduced",
+   "habit": "forb",
+   "height_m": 2.0,
+   "spread_m": 0.5,
+   "flower": "#f2c21c",
+   "foliage": "#4f8a3c",
+   "bloom": [
+    7,
+    8,
+    9
+   ],
+   "sun": [
+    "full"
+   ],
+   "moisture": [
+    "dry",
+    "medium"
+   ],
+   "sources": [
+    "curated"
+   ],
+   "tags": [
+    "garden",
+    "pollinator"
+   ],
+   "edible": true,
+   "recommended": false
+  }
+ ]
+}
