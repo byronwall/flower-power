@@ -1,19 +1,178 @@
+/* Layout: a slim tool bar over a full-bleed drawing sheet. */
 :root {
-  color: #23302a;
-  background: #f7f6f1;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --paper: #f4f0e6;
+  --panel: #fbf9f3;
+  --ink: #2f3329;
+  --muted: #6c7064;
+  --line: #ddd6c6;
+  --moss: #45704f;
+  --bloom: #b0457a;
+  --f-ui: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-hand: "Architects Daughter", "Comic Sans MS", cursive;
+  color: var(--ink);
+  background: var(--paper);
+  font: 14px/1.4 var(--f-ui);
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
+html,
+body,
+#app {
+  height: 100%;
   margin: 0;
 }
 
-.data-summary {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 40px 16px;
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font: 400 20px/1 var(--f-hand);
+  color: var(--moss);
+}
+
+select {
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+}
+
+.app-main {
+  position: relative;
+  min-height: 0;
+  display: flex;
+}
+
+.plan-view {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.plan-view canvas,
+.plan-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.plan-marks text {
+  font: 13px var(--f-hand);
+  fill: var(--ink);
+}
+
+.plan-marks circle {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.plan-marks path {
+  fill: var(--ink);
+}
+
+.plan-marks .bar-dark {
+  fill: var(--ink);
+}
+
+.plan-marks .bar-light {
+  fill: none;
+  stroke: var(--ink);
+}
+
+.time-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.time-label {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 92px;
+}
+
+.time-label em {
+  font-style: normal;
+  text-transform: capitalize;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.time-month {
+  display: grid;
+  grid-template-columns: auto 220px;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.time-month input {
+  width: 220px;
+  accent-color: var(--moss);
+  margin: 0;
+}
+
+.time-ticks {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.time-years {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.time-years .time-label {
+  min-width: 0;
+  margin-right: 4px;
+}
+
+.time-years button {
+  width: 28px;
+  height: 26px;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.time-years button[aria-pressed="true"] {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--bloom);
+  outline-offset: 2px;
 }

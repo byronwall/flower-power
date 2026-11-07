@@ -36,7 +36,7 @@
   ],
   "plantings": [
     { "id": "maple", "type": "single", "plantId": "red-maple", "at": [12, 17], "existing": true },
-    { "id": "redbud", "type": "single", "plantId": "eastern-redbud", "at": [48, 76] },
+    { "id": "redbud", "type": "single", "plantId": "eastern-redbud", "at": [20, 118] },
     { "id": "arborvitae-screen", "type": "row", "plantId": "green-giant-arborvitae", "path": [[76, 4], [76, 18]] },
     { "id": "coneflowers", "type": "region", "plantId": "purple-coneflower", "outline": [[20, 6], [36, 4], [38, 12], [24, 13]], "seed": 7 },
     { "id": "susans", "type": "region", "plantId": "black-eyed-susan", "outline": [[38, 4], [52, 4], [56, 12], [40, 12]], "seed": 11 },

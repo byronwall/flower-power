@@ -1,24 +1,26 @@
-import { For } from "solid-js";
-import { plants, properties } from "../model/library";
+import { createSignal, For } from "solid-js";
+import { PlanView } from "../components/PlanView";
+import { TimeBar } from "../components/TimeBar";
+import { properties } from "../model/library";
+import type { ViewTime } from "../render/look";
 
 export default function Home() {
+  const [propertyId, setPropertyId] = createSignal(properties[0].id);
+  const [time, setTime] = createSignal<ViewTime>({ month: 6, year: 3 });
+  const property = () => properties.find((p) => p.id === propertyId())!;
+
   return (
-    <main class="data-summary">
-      <h1>Flower Power</h1>
-      <h2>Properties</h2>
-      <ul>
-        <For each={properties}>
-          {(p) => (
-            <li>
-              {p.name}: {p.plantings.length} plantings, {p.fences.length} fences, {p.surfaces.length} surfaces
-            </li>
-          )}
-        </For>
-      </ul>
-      <h2>Plants ({plants.length})</h2>
-      <ul>
-        <For each={plants}>{(p) => <li>{p.commonName} ({p.botanicalName})</li>}</For>
-      </ul>
-    </main>
+    <div class="app">
+      <header class="app-bar">
+        <span class="brand">Flower Power</span>
+        <select id="property" value={propertyId()} onChange={(e) => setPropertyId(e.currentTarget.value)} aria-label="Property">
+          <For each={properties}>{(p) => <option value={p.id}>{p.name}</option>}</For>
+        </select>
+        <TimeBar time={time()} onChange={setTime} />
+      </header>
+      <main class="app-main">
+        <PlanView property={property()} time={time()} />
+      </main>
+    </div>
   );
 }
