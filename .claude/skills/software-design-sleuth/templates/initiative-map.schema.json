@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/software-design-sleuth/initiative-map.schema.json",
+  "title": "Software Design Sleuth initiative map",
+  "type": "object",
+  "required": ["schema_version", "initiative", "artifacts", "intent", "brainstorm", "shape", "implementation", "history"],
+  "properties": {
+    "schema_version": {"const": "0.5.0"},
+    "initiative": {
+      "type": "object",
+      "required": ["title", "slug", "scale", "current_phase", "last_updated", "summary", "status", "next_action"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "scale": {"enum": ["feature", "capability", "program"]},
+        "current_phase": {"enum": ["intent", "brainstorm", "shape", "plan", "execution", "reconciliation"]},
+        "last_updated": {"type": "string"},
+        "summary": {"type": "string"},
+        "status": {"enum": ["planned", "active", "paused", "completed", "cancelled", null]},
+        "next_action": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["intent_brief", "brainstorm", "shape_brief", "implementation_plan"],
+      "properties": {
+        "intent_brief": {"$ref": "#/$defs/artifact"},
+        "brainstorm": {"$ref": "#/$defs/artifact"},
+        "shape_brief": {"$ref": "#/$defs/artifact"},
+        "implementation_plan": {"$ref": "#/$defs/artifact"}
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "intent": {
+      "type": "object",
+      "required": ["claims", "themes", "conflicts", "human_questions"],
+      "properties": {
+        "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "themes": {"type": "array", "items": {"type": "string"}},
+        "conflicts": {"type": "array"},
+        "human_questions": {"type": "array", "maxItems": 3}
+      },
+      "additionalProperties": true
+    },
+    "brainstorm": {
+      "type": "object",
+      "required": ["status", "requested_count", "options", "selected_option"],
+      "properties": {
+        "status": {"enum": ["not-requested", "draft", "complete", "stale"]},
+        "requested_count": {"type": "integer", "minimum": 3, "maximum": 10},
+        "options": {"type": "array", "items": {"$ref": "#/$defs/option"}},
+        "selected_option": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "shape": {
+      "type": "object",
+      "required": ["status", "appetite", "problem", "recommended_shape", "success_moves", "first_proof", "rabbit_holes", "open_decisions"],
+      "properties": {
+        "status": {"enum": ["not-started", "draft", "current", "stale"]},
+        "appetite": {"type": ["string", "null"]},
+        "problem": {"type": ["string", "null"]},
+        "recommended_shape": {"type": ["object", "string", "null"]},
+        "success_moves": {"type": "array", "minItems": 0, "maxItems": 6, "items": {"type": "string"}},
+        "first_proof": {"type": ["object", "null"]},
+        "rabbit_holes": {"type": "array", "items": {"type": "string"}},
+        "open_decisions": {"type": "array", "maxItems": 2}
+      },
+      "additionalProperties": true
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["status", "repository_snapshot", "dependencies", "fast_local_loop", "milestones", "cut_line", "open_decisions"],
+      "properties": {
+        "status": {"enum": ["not-started", "draft", "current", "stale"]},
+        "repository_snapshot": {"type": "object"},
+        "dependencies": {"type": "array", "items": {"$ref": "#/$defs/dependency"}},
+        "fast_local_loop": {"type": ["object", "null"]},
+        "milestones": {"type": "array", "items": {"$ref": "#/$defs/milestone"}},
+        "cut_line": {"type": "array", "items": {"type": "string"}},
+        "open_decisions": {"type": "array", "maxItems": 3}
+      },
+      "additionalProperties": true
+    },
+    "closure": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "summary",
+        "reason",
+        "evidence",
+        "reconciliation",
+        "documentation",
+        "follow_ups",
+        "retirement_files"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reconciliation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "claim_id",
+              "disposition",
+              "evidence"
+            ],
+            "properties": {
+              "claim_id": {
+                "type": "string"
+              },
+              "disposition": {
+                "enum": [
+                  "delivered",
+                  "changed",
+                  "omitted",
+                  "unresolved"
+                ]
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "documentation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "follow_ups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "retirement_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "history": {"type": "array"},
+    "question_rounds": {
+      "type": "object",
+      "properties": {
+        "focus": {"type": ["string", "null"]},
+        "per_round": {"type": "integer", "minimum": 1},
+        "planned_rounds": {"type": "integer", "minimum": 1},
+        "status": {"enum": ["in-progress", "complete", "stopped-early"]},
+        "rounds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["round", "questions"],
+            "properties": {
+              "round": {"type": "integer", "minimum": 1},
+              "theme": {"type": "string"},
+              "source": {"type": "string"},
+              "questions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["question"],
+                  "properties": {
+                    "n": {"type": "integer"},
+                    "question": {"type": "string"},
+                    "answer": {"type": ["string", "null"]},
+                    "effect": {"type": ["string", "null"]}
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": ["path", "status", "updated_at"],
+      "properties": {
+        "path": {"type": "string"},
+        "status": {"enum": ["not-requested", "not-created", "draft", "current", "stale", "superseded"]},
+        "updated_at": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "required": ["id", "type", "location", "anchor", "authority"],
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string"},
+        "location": {"type": "string"},
+        "anchor": {"type": "string"},
+        "authority": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "claim": {
+      "type": "object",
+      "required": ["id", "type", "statement", "commitment", "importance", "status", "time_horizon", "sources"],
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string"},
+        "statement": {"type": "string"},
+        "commitment": {"enum": ["explicit", "repeated", "tentative", "illustrative", "derived"]},
+        "importance": {"enum": ["core", "supporting", "peripheral"]},
+        "status": {"enum": ["active", "rejected", "superseded", "resolved"]},
+        "time_horizon": {"type": "string"},
+        "sources": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "option": {
+      "type": "object",
+      "required": ["id", "name", "premise"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "premise": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["id", "name", "material", "application_seam", "failure_modes", "proof_rungs", "local_proof", "live_proof", "rollout"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "material": {"type": "boolean"},
+        "application_seam": {"type": "string"},
+        "failure_modes": {"type": "array", "items": {"type": "string"}},
+        "proof_rungs": {"type": "array", "items": {"type": "string"}},
+        "first_proof_role": {
+          "type": "object",
+          "required": ["mode", "rationale"],
+          "properties": {
+            "mode": {"enum": ["absent", "local-substitute", "real"]},
+            "rationale": {"type": "string"}
+          }
+        },
+        "local_proof": {"type": "string"},
+        "live_proof": {"type": "string"},
+        "rollout": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "milestone": {
+      "type": "object",
+      "required": ["id", "title", "outcome", "dependencies_introduced", "proof", "valid_intermediate_state", "rollback", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "title": {"type": "string"},
+        "outcome": {"type": "string"},
+        "dependencies_introduced": {"type": "array", "items": {"type": "string"}},
+        "proof": {"type": "string"},
+        "valid_intermediate_state": {"type": "string"},
+        "rollback": {"type": "string"},
+        "status": {"enum": ["planned", "active", "completed", "cancelled"]},
+        "evidence": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

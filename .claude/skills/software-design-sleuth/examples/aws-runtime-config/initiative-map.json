@@ -1,0 +1,495 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "AWS-backed runtime configuration",
+    "slug": "aws-runtime-config",
+    "scale": "capability",
+    "current_phase": "plan",
+    "last_updated": "2026-08-11",
+    "summary": "Preserve startup and runtime configuration persistence while moving from Railway to AWS, with a fast local loop and a reversible provider integration.",
+    "status": "planned",
+    "next_action": "Start the first proof when implementation is requested"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "current",
+      "updated_at": "2026-08-11"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "current",
+      "updated_at": "2026-08-11"
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "current",
+      "updated_at": "2026-08-11"
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "current",
+      "updated_at": "2026-08-11"
+    }
+  },
+  "sources": [
+    {
+      "id": "SRC-001",
+      "type": "direct-user-input",
+      "location": "migration transcript",
+      "anchor": "section describing TOML/environment startup, Railway persistence, and AWS target",
+      "authority": "direct current intent",
+      "supports": [
+        "INT-001",
+        "INT-002",
+        "INT-003",
+        "INT-004"
+      ]
+    },
+    {
+      "id": "SRC-002",
+      "type": "repository",
+      "location": "existing configuration loading and mutation paths",
+      "anchor": "replace with exact paths and symbols during a real run",
+      "authority": "current implementation reality",
+      "supports": [
+        "REAL-001",
+        "REAL-002"
+      ]
+    },
+    {
+      "id": "SRC-003",
+      "type": "external-primary-documentation",
+      "location": "AWS, LocalStack, and Testcontainers documentation",
+      "anchor": "service support and test-environment behavior",
+      "authority": "implementation research",
+      "supports": [
+        "SHAPE-002",
+        "DEP-001",
+        "DEP-002"
+      ]
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "INT-001",
+        "type": "outcome",
+        "statement": "Runtime configuration changes remain durable across process restarts after the move to AWS.",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "time_horizon": "first-release",
+        "sources": [
+          "SRC-001"
+        ]
+      },
+      {
+        "id": "INT-002",
+        "type": "required-behavior",
+        "statement": "The application loads a validated snapshot at startup and can persist an authorized update while running.",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "time_horizon": "first-release",
+        "sources": [
+          "SRC-001"
+        ]
+      },
+      {
+        "id": "INT-003",
+        "type": "implementation-hypothesis",
+        "statement": "Use Parameter Store for ordinary values and Secrets Manager for sensitive values.",
+        "commitment": "tentative",
+        "importance": "supporting",
+        "status": "active",
+        "time_horizon": "first-release",
+        "sources": [
+          "SRC-001"
+        ]
+      },
+      {
+        "id": "INT-004",
+        "type": "constraint",
+        "statement": "The integration must be practical to develop and failure-test locally.",
+        "commitment": "repeated",
+        "importance": "core",
+        "status": "active",
+        "time_horizon": "proof",
+        "sources": [
+          "SRC-001"
+        ]
+      },
+      {
+        "id": "REAL-001",
+        "type": "current-repository-reality",
+        "statement": "Configuration already loads from TOML and environment variables.",
+        "commitment": "derived",
+        "importance": "supporting",
+        "status": "active",
+        "time_horizon": "current",
+        "sources": [
+          "SRC-002"
+        ]
+      },
+      {
+        "id": "REAL-002",
+        "type": "current-repository-reality",
+        "statement": "The current runtime persistence hook is Railway-specific.",
+        "commitment": "derived",
+        "importance": "supporting",
+        "status": "active",
+        "time_horizon": "current",
+        "sources": [
+          "SRC-002"
+        ]
+      }
+    ],
+    "themes": [
+      "durable runtime configuration",
+      "secret and non-secret separation",
+      "fast local feedback",
+      "reversible platform migration"
+    ],
+    "conflicts": [],
+    "human_questions": [
+      {
+        "id": "HQ-001",
+        "question": "May the running application write secrets, or must secret changes use an operator-controlled path?",
+        "reason": "This is an authority and security-policy decision.",
+        "status": "open"
+      },
+      {
+        "id": "HQ-002",
+        "question": "Can multiple actors update configuration concurrently?",
+        "reason": "This determines the minimum commit and conflict protocol.",
+        "status": "open"
+      }
+    ]
+  },
+  "brainstorm": {
+    "status": "complete",
+    "requested_count": 7,
+    "options": [
+      {
+        "id": "OPT-001",
+        "name": "Deployment-time materialization",
+        "premise": "Configuration changes are deployment changes."
+      },
+      {
+        "id": "OPT-002",
+        "name": "Narrow in-process adapters",
+        "premise": "The application owns runtime persistence behind small ports."
+      },
+      {
+        "id": "OPT-003",
+        "name": "Local mirror with asynchronous sync",
+        "premise": "Local durable state remains authoritative during provider outages."
+      },
+      {
+        "id": "OPT-004",
+        "name": "Configuration sidecar",
+        "premise": "A companion process owns provider access."
+      },
+      {
+        "id": "OPT-005",
+        "name": "Dedicated configuration service",
+        "premise": "Configuration is a shared platform capability."
+      },
+      {
+        "id": "OPT-006",
+        "name": "Read from AWS, write through operations",
+        "premise": "Applications should not hold configuration write authority."
+      },
+      {
+        "id": "OPT-007",
+        "name": "Representative slice, then hybridize",
+        "premise": "Prove the immediate lifecycle before selecting a larger operational model."
+      }
+    ],
+    "selected_option": "OPT-007"
+  },
+  "shape": {
+    "status": "current",
+    "appetite": "Bounded integration capability; one representative ordinary value and one secret value before broader migration.",
+    "problem": "Preserve a coherent startup and runtime configuration lifecycle after moving from Railway to AWS.",
+    "recommended_shape": {
+      "summary": "Application-owned coordinator over narrow parameter and secret ports, with deterministic fakes, LocalStack adapter contracts, a real AWS sandbox smoke, and reversible source selection.",
+      "selected_option": "OPT-007",
+      "provisional_choices": [
+        "revision commit protocol",
+        "runtime secret write authority"
+      ]
+    },
+    "success_moves": [
+      "Prove the lifecycle against deterministic local stores before integrating AWS.",
+      "Introduce Parameter Store and Secrets Manager in separate slices.",
+      "Use a shared application-semantic contract across fake, emulator, and live adapter where useful.",
+      "Keep the existing source selectable during rollout.",
+      "Make partial writes and revision activation explicit.",
+      "Add value-safe diagnostics with the first real adapter."
+    ],
+    "first_proof": {
+      "question": "Can the application update and recover one coherent configuration revision without Railway or AWS?",
+      "artifact": "Focused provider-free lifecycle harness and deterministic failure tests.",
+      "decision_rule": "Proceed when no partial revision becomes active and the suite runs locally without network or deployment."
+    },
+    "rabbit_holes": [
+      "generic multi-provider framework",
+      "rotation",
+      "multi-region replication",
+      "configuration UI",
+      "live-cloud-only testing"
+    ],
+    "open_decisions": [
+      "HQ-001",
+      "HQ-002"
+    ]
+  },
+  "implementation": {
+    "status": "current",
+    "repository_snapshot": {
+      "root": "<target-repository>",
+      "revision": "<inspect during real run>",
+      "worktree_status": "<inspect during real run>",
+      "subsystems": [
+        "existing configuration parser and validator",
+        "runtime configuration mutation path",
+        "Railway persistence adapter",
+        "deployment configuration",
+        "test harness and observability"
+      ],
+      "test_commands": [
+        "./scripts/test-runtime-config-local.sh"
+      ],
+      "deployment_surfaces": [
+        "application runtime identity",
+        "AWS resource configuration",
+        "source-selection deployment setting"
+      ]
+    },
+    "dependencies": [
+      {
+        "id": "DEP-001",
+        "name": "AWS Systems Manager Parameter Store",
+        "material": true,
+        "application_seam": "ParameterStorePort",
+        "semantic_contract": [
+          "read named value",
+          "persist expected revision",
+          "missing",
+          "denied",
+          "timeout",
+          "malformed",
+          "conflict"
+        ],
+        "failure_modes": [
+          "missing key",
+          "access denied",
+          "timeout",
+          "malformed payload",
+          "stale revision",
+          "throttling"
+        ],
+        "proof_rungs": [
+          "deterministic-fake",
+          "local-emulator",
+          "contract-test",
+          "live-sandbox",
+          "deployed-proof"
+        ],
+        "local_proof": "Shared parameter contract against an in-memory fake and LocalStack.",
+        "live_proof": "Small sandbox create/read/update/restart/cleanup smoke under intended IAM.",
+        "rollout": "Introduce for one setting behind explicit source selection.",
+        "first_proof_role": {
+          "mode": "absent",
+          "rationale": "The first lifecycle proof uses a deterministic parameter-store fake; SSM is introduced only after application behavior is stable."
+        }
+      },
+      {
+        "id": "DEP-002",
+        "name": "AWS Secrets Manager",
+        "material": true,
+        "application_seam": "SecretStorePort",
+        "semantic_contract": [
+          "read secret",
+          "persist secret revision",
+          "missing",
+          "denied",
+          "timeout",
+          "malformed",
+          "version mismatch"
+        ],
+        "failure_modes": [
+          "missing secret",
+          "access denied",
+          "KMS denied",
+          "timeout",
+          "malformed secret",
+          "partial revision write"
+        ],
+        "proof_rungs": [
+          "deterministic-fake",
+          "local-emulator",
+          "contract-test",
+          "live-sandbox",
+          "deployed-proof"
+        ],
+        "local_proof": "Shared secret contract against an in-memory fake and LocalStack with redaction checks.",
+        "live_proof": "Sandbox read/write and KMS/IAM smoke with isolated resources.",
+        "rollout": "Add after Parameter Store semantics are stable; keep old source available.",
+        "first_proof_role": {
+          "mode": "absent",
+          "rationale": "The first proof uses a deterministic secret-store fake; Secrets Manager is added after the parameter adapter is proven."
+        }
+      },
+      {
+        "id": "DEP-003",
+        "name": "AWS runtime identity and deployment wiring",
+        "material": true,
+        "application_seam": "Deployment source selection and SDK credential chain",
+        "semantic_contract": [
+          "obtain intended identity",
+          "reach intended account and region",
+          "least-privilege access",
+          "clear diagnostics"
+        ],
+        "failure_modes": [
+          "wrong account",
+          "wrong region",
+          "missing credentials",
+          "policy denied",
+          "network unavailable"
+        ],
+        "proof_rungs": [
+          "live-sandbox",
+          "deployed-proof"
+        ],
+        "local_proof": "Not faithfully provable with a fake; configuration parsing can be checked locally.",
+        "live_proof": "Sandbox suite and staged deployment under the actual runtime identity.",
+        "rollout": "Read-only or limited environment before production authority.",
+        "first_proof_role": {
+          "mode": "absent",
+          "rationale": "Runtime identity and deployment wiring are not needed to prove the configuration lifecycle or local provider contracts."
+        }
+      }
+    ],
+    "fast_local_loop": {
+      "command": "./scripts/test-runtime-config-local.sh",
+      "network_required": false,
+      "shared_infrastructure_required": false,
+      "dependencies_started": [
+        "LocalStack only for adapter-contract milestones"
+      ],
+      "failure_injection": [
+        "named in-memory modes",
+        "fixture-driven LocalStack setup"
+      ],
+      "slower_confirmation": "Tagged AWS sandbox smoke and staged deployed restart."
+    },
+    "milestones": [
+      {
+        "id": "M1",
+        "title": "Prove durable runtime configuration without AWS",
+        "outcome": "One real update path persists and reloads a secret and non-secret setting through deterministic local stores.",
+        "dependencies_introduced": [],
+        "proof": "Provider-free lifecycle suite covers restart and partial failure.",
+        "valid_intermediate_state": "The application can use the new coordinator locally while retaining the existing source.",
+        "rollback": "Select the original source.",
+        "status": "planned"
+      },
+      {
+        "id": "M2",
+        "title": "Prove the Parameter Store adapter locally",
+        "outcome": "One ordinary setting survives a LocalStack-backed update and restart.",
+        "dependencies_introduced": [
+          "DEP-001"
+        ],
+        "proof": "Shared contract passes against fake and LocalStack.",
+        "valid_intermediate_state": "Parameter Store is integrated locally while secrets remain on the deterministic store.",
+        "rollback": "Use the fake or original source.",
+        "status": "planned"
+      },
+      {
+        "id": "M3",
+        "title": "Add Secrets Manager and coherent revision commits",
+        "outcome": "A complete mixed revision becomes visible only after both value classes are durable.",
+        "dependencies_introduced": [
+          "DEP-002"
+        ],
+        "proof": "Failure injection never exposes a mixed revision.",
+        "valid_intermediate_state": "Both AWS services work locally through a reversible source selection.",
+        "rollback": "Activate the prior committed revision or original source.",
+        "status": "planned"
+      },
+      {
+        "id": "M4",
+        "title": "Confirm real AWS identity, permissions, and service behavior",
+        "outcome": "The intended runtime identity can complete the isolated provider smoke safely.",
+        "dependencies_introduced": [
+          "DEP-003"
+        ],
+        "proof": "Tagged sandbox create/read/update/restart/cleanup and denied-path checks pass.",
+        "valid_intermediate_state": "Real AWS is proven without making it authoritative in production.",
+        "rollback": "No runtime cutover has occurred.",
+        "status": "planned"
+      },
+      {
+        "id": "M5",
+        "title": "Introduce AWS as a reversible runtime source",
+        "outcome": "One controlled environment uses the AWS revision through normal deployment identity and can revert.",
+        "dependencies_introduced": [],
+        "proof": "Staged read/update/restart and rollback are observed with diagnostics.",
+        "valid_intermediate_state": "The AWS path is live for a representative slice while compatibility remains.",
+        "rollback": "Change source selection and restart on the prior source.",
+        "status": "planned"
+      },
+      {
+        "id": "M6",
+        "title": "Expand safely and complete operations",
+        "outcome": "In-scope fields use the proven lifecycle with diagnostics, retries, fallback policy, and cleanup.",
+        "dependencies_introduced": [],
+        "proof": "Field-group migrations, outage tests, metrics, and compatibility-removal gate pass.",
+        "valid_intermediate_state": "Each migrated group operates independently before the next group moves.",
+        "rollback": "Restore prior source or prior committed revision within the agreed window.",
+        "status": "planned"
+      }
+    ],
+    "cut_line": [
+      "generic multi-provider framework",
+      "automated rotation",
+      "multi-region replication",
+      "configuration UI",
+      "push invalidation",
+      "broad audit platform"
+    ],
+    "open_decisions": [
+      "HQ-001",
+      "HQ-002",
+      "outage-policy"
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-08-11",
+      "phase": "intent",
+      "change": "Recovered durable runtime-persistence intent from AWS implementation ideas."
+    },
+    {
+      "date": "2026-08-11",
+      "phase": "brainstorm",
+      "change": "Generated seven approaches and selected representative-slice-first shaping."
+    },
+    {
+      "date": "2026-08-11",
+      "phase": "shape",
+      "change": "Added provider-free lifecycle proof, local adapter contracts, sandbox confirmation, and reversible rollout."
+    },
+    {
+      "date": "2026-08-11",
+      "phase": "plan",
+      "change": "Sequenced six valid intermediate systems with one material dependency introduced at a time."
+    }
+  ],
+  "closure": null
+}

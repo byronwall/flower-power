@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "",
+    "slug": "",
+    "scale": "capability",
+    "current_phase": "intent",
+    "last_updated": "",
+    "summary": "",
+    "status": "planned",
+    "next_action": ""
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": ""
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [],
+  "intent": {
+    "claims": [],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": []
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [],
+  "closure": null
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "100x UI Craft"
+  short_description: "Pixel-level craft pass after a 10x redesign"
+  default_prompt: "Use $100x on <target>. Start from the 10x handoff, build the state matrix and defect ledger, fix everything, and prove it with before/after shots."

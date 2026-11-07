@@ -1,0 +1,4 @@
+interface:
+  display_name: "10x UI"
+  short_description: "Make a UI radically better in one structural pass"
+  default_prompt: "Use $10x on <target> -- <who uses it and what for>. Ground in the running app, pick the strongest ideas, implement, verify, and write the 100x handoff."

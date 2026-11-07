@@ -6,4 +6,5 @@
 dist/
 node_modules/
 tmp/
-.claude/
+.claude/*
+!.claude/skills/
