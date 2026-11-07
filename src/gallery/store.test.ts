@@ -87,6 +87,15 @@ describe("public copy", () => {
     expect(propertySchema.safeParse(out).success).toBe(true);
   });
 
+  it("publishes the plan the active design shows, not the bare yard or its ideas", () => {
+    const yard = design();
+    const gone = yard.plantings[0].id;
+    const withDesign = { ...yard, designs: [{ id: "d1", name: "Idea", ops: [{ op: "remove", id: gone, reason: "" }] }], activeDesignId: "d1" } as Property;
+    const out = toPublic(withDesign);
+    expect(out.plantings.some((x) => x.id === gone)).toBe(false);
+    expect(out.designs).toBeUndefined();
+  });
+
   it("has a decision for every property field", () => {
     const decided = new Set<string>([...PUBLIC_FIELDS, ...PRIVATE_FIELDS]);
     expect(Object.keys(propertySchema.shape).filter((k) => !decided.has(k))).toEqual([]);
