@@ -5,7 +5,7 @@ import { Icon } from "../account/Icon";
 import PageBar from "../account/PageBar";
 import "../account/profile.css";
 import { sample } from "../account/sample";
-import { deleteProperty, fetchMe, fetchShares, setPendingImport, shareOff, shareOn, shareUrl } from "../account/session";
+import { deleteProperty, fetchMe, fetchShares, shareOff, shareOn, shareUrl } from "../account/session";
 import Thumb from "../account/Thumb";
 import { loadProperties, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
@@ -28,7 +28,6 @@ export default function Projects() {
       // Storage blocked: the tips come back next visit, which is fine.
     }
   };
-  let picker!: HTMLInputElement;
 
   const fail = (e: unknown) => setError((e as Error).message);
   const nextId = (base: string) => {
@@ -65,22 +64,9 @@ export default function Projects() {
             <button type="button" onClick={fromSample}>
               Start from sample
             </button>
-            <button type="button" class="primary" onClick={() => picker.click()} title="Pick one aerial image and any listing photos">
+            <button type="button" class="primary" onClick={() => navigate("/new")} title="Add one aerial image and any listing photos">
               New from photos
             </button>
-            <input
-              ref={picker}
-              type="file"
-              accept="image/jpeg,image/png"
-              multiple
-              hidden
-              onChange={(e) => {
-                const files = [...(e.currentTarget.files ?? [])];
-                if (!files.length) return;
-                setPendingImport(files);
-                navigate("/plan?import=1");
-              }}
-            />
           </div>
         </div>
         <Show when={showTips() && list()?.length === 1 && list()![0].id === "sample-lot"}>
