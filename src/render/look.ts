@@ -13,6 +13,12 @@ export function seasonOf(month: number): Season {
   return "fall";
 }
 
+// Snow lies on the ground in the coldest months. This is separate from the falling-snow weather,
+// which is only the sky; the two can be on at the same time.
+export function hasGroundSnow(month: number): boolean {
+  return month === 12 || month === 1;
+}
+
 export type Look = {
   spreadFt: number;
   heightFt: number;

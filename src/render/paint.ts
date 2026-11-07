@@ -5,7 +5,7 @@ import { blob, circlePts, clipTo, dots, ink, INK, paperGrain, rgba, shade, trace
 import { bounds, hashString, rng } from "./geometry";
 import type { Weather } from "./life";
 import { sweepPath, lightOf, roofImage, type Light } from "./light";
-import { expand, lookOf, seasonOf, type Look, type ViewTime } from "./look";
+import { expand, hasGroundSnow, lookOf, seasonOf, type Look, type ViewTime } from "./look";
 import { stampPlant } from "./sprites";
 
 export type View = { scale: number; offX: number; offY: number };
@@ -26,14 +26,15 @@ export function paint(canvas: HTMLCanvasElement, property: Property, time: ViewT
   const toPlan = (c: CanvasRenderingContext2D) => c.setTransform(dpr * view.scale, 0, 0, dpr * view.scale, dpr * view.offX, dpr * view.offY);
   const season = seasonOf(time.month);
   const weather = opts.weather ?? "sunny";
-  const snow = weather === "snow";
+  // Snow lies on the ground in December and January, and while it is snowing.
+  const snow = weather === "snow" || hasGroundSnow(time.month);
   const sun = { ...lightOf(time.month, property.headingDeg), k: SUN[weather] };
   const s = (id: string) => hashString(property.id + id);
   const lot = property.lot.outline;
 
   // The ground does not change with the month inside a season, the year, or the plants,
   // so it is painted once to its own canvas and copied in while those change.
-  const groundKey = [cw, ch, dpr, view.scale, view.offX, view.offY, season, weather, property.id, lot, property.surfaces, property.structures, property.edges, property.fences];
+  const groundKey = [cw, ch, dpr, view.scale, view.offX, view.offY, season, weather, snow, property.id, lot, property.surfaces, property.structures, property.edges, property.fences];
   const ground = cached(canvas, "ground", groundKey, cw, ch, (g) => {
     g.fillStyle = PAPER;
     g.fillRect(0, 0, cw, ch);

@@ -3,7 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { plantsById } from "../model/library";
 import type { Point, Property } from "../model/property";
 import { bounds, centroid, inside, rng } from "./geometry";
-import { expand, lookOf, seasonOf, type ViewTime } from "./look";
+import { expand, hasGroundSnow, lookOf, seasonOf, type ViewTime } from "./look";
 import { feature, house, hipRoof, slabGeo, type Frame } from "./yard3d-built";
 import { blotTexture, Kit, kitMaterial, kitMesh, shade, skyDome, surfaceTexture, T, vary, type Finish } from "./yard3d-kit";
 import { plantParts, type Spot } from "./yard3d-plants";
@@ -22,7 +22,7 @@ type Options = {
 
 type Season = ReturnType<typeof seasonOf>;
 
-// Light and color per season. Winter (Dec to Feb) has a light snow cover.
+// Light and color per season. Winter has a light snow cover in December and January.
 const SEASON: Record<Season, { top: string; horizon: string; lawn: string; sun: string; elev: number; sunI: number; hemi: number }> = {
   spring: { top: "#7fb0d8", horizon: "#e4eef0", lawn: "#86ad58", sun: "#fff3dc", elev: 50, sunI: 2.7, hemi: 1.15 },
   summer: { top: "#6aa3d6", horizon: "#e2edf2", lawn: "#77a14c", sun: "#fff1d6", elev: 62, sunI: 2.9, hemi: 1.1 },
@@ -257,8 +257,9 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     }
 
     const season = seasonOf(time.month);
-    const look = SEASON[season];
-    const snow = season === "winter";
+    const snow = hasGroundSnow(time.month);
+    // Late winter without snow shows dormant, straw-colored grass.
+    const look = season === "winter" && !snow ? { ...SEASON.winter, lawn: "#b3b089" } : SEASON[season];
     const lb = bounds(property.lot.outline);
     frameOf.center = [lb.minX + lb.w / 2, lb.minY + lb.h / 2];
     lotSize = Math.max(lb.w, lb.h);
@@ -450,7 +451,7 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
     const toGarden = new THREE.Vector2(count ? sum.x / count : 0, count ? sum.y / count : 1).sub(new THREE.Vector2(hc[0] - frameOf.center[0], hc[1] - frameOf.center[1]));
     facing = toGarden.lengthSq() > 1 ? toGarden.normalize() : new THREE.Vector2(0, 1);
 
-    world.add(neighborhood(season, property.lot.outline));
+    world.add(neighborhood(season, property.lot.outline, snow));
 
     // Sun from the south (toward plan +y when north is up), high in summer and low in winter.
     const elev = look.elev * (Math.PI / 180);
@@ -472,7 +473,7 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
 
   // Trees on the neighboring lots, past the fence line, so the yard sits in a place and
   // the horizon isn't bare. They fade into the fog and can't be picked.
-  function neighborhood(season: Season, lot: Point[]) {
+  function neighborhood(season: Season, lot: Point[], snow: boolean) {
     const kit = new Kit();
     const rand = rng(lot.length * 131 + Math.round(lotSize));
     const leafy: Record<Season, string[]> = {
@@ -490,7 +491,7 @@ export function createYard(container: HTMLElement, opts: Options = {}) {
       const evergreen = rand() < 0.25;
       if (evergreen) {
         for (let t = 0; t < 3; t++) kit.add(T.cone, vary("#3f5f3a", rand, 0.1), [x, h * t * 0.22, z], [r * 0.62 * (1 - t * 0.22), h * (1 - t * 0.22), r * 0.62 * (1 - t * 0.22)], [0, rand() * 3, 0], 0.4);
-        if (season === "winter") kit.add(T.cone, SNOW, [x, h * 0.45, z], [r * 0.32, h * 0.5, r * 0.32], [0, 0, 0], 0.1);
+        if (snow) kit.add(T.cone, SNOW, [x, h * 0.45, z], [r * 0.32, h * 0.5, r * 0.32], [0, 0, 0], 0.1);
         continue;
       }
       kit.add(T.limb, "#5f5044", [x, 0, z], [r * 0.1, h * 0.55, r * 0.1]);
