@@ -76,13 +76,17 @@ function Planner(props: PlannerProps) {
     if (weather() === "snow" && !snowCanFall(time().month)) setWeather("sunny");
   });
   // The tour plays once on a first visit, and any time from the welcome card.
+  // With an import on the way in, it waits for the import, so it never hides the progress.
   const [tour, setTour] = createSignal(false);
-  onMount(() => {
+  const firstTour = () => {
     try {
       if (!localStorage.getItem("fp.toured")) setTour(true);
     } catch {
       // No storage: don't force the tour on every visit.
     }
+  };
+  onMount(() => {
+    if (!props.pending) firstTour();
   });
   const closeTour = () => {
     setTour(false);
@@ -240,6 +244,7 @@ function Planner(props: PlannerProps) {
       setImportError((e as Error).message);
     } finally {
       setImporting(0);
+      firstTour();
     }
   }
 
