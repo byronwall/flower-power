@@ -90,23 +90,23 @@ function Check(props: { properties: Property[] }) {
     property().surfaces.filter((s) => s.kind === "mulch").map((s) => ({ id: s.id, cls: sunClassOfArea(property(), s.outline, { season: season() }) })),
   );
 
+  // PlanView builds the overlay once and hands it a live view, so everything below reads signals inside JSX.
   const overlay = (v: View) => {
     view = v;
-    const g = run().g;
-    const outline = property().lot.outline.map((p) => p.join(",")).join(" ");
+    const g = () => run().g;
     return (
       <>
         <defs>
           <clipPath id="sun-lot">
-            <polygon points={outline} />
+            <polygon points={property().lot.outline.map((p) => p.join(",")).join(" ")} />
           </clipPath>
         </defs>
         <image
           href={image()}
-          x={g.minX}
-          y={g.minY}
-          width={g.cols * g.cell}
-          height={g.rows * g.cell}
+          x={g().minX}
+          y={g().minY}
+          width={g().cols * g().cell}
+          height={g().rows * g().cell}
           preserveAspectRatio="none"
           clip-path="url(#sun-lot)"
         />

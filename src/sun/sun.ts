@@ -94,9 +94,9 @@ function casters(p: Property, g: SunGrid): Caster[] {
   for (const pl of p.plantings) {
     const plant = plantsById.get(pl.plantId);
     if (!plant || (plant.category !== "tree" && plant.category !== "shrub")) continue;
-    const r = plant.size.spreadFt / 2;
     for (const inst of expand(pl, plant)) {
-      const c: Caster = { kind: "disk", at: inst.at, r, h: plant.size.heightFt, evergreen: plant.evergreen };
+      const r = (plant.size.spreadFt / 2) * inst.scale;
+      const c: Caster = { kind: "disk", at: inst.at, r, h: plant.size.heightFt * inst.scale, evergreen: plant.evergreen };
       // People plant under a tree, but a shrub fills its own spot.
       if (plant.category === "shrub") {
         c.own = new Uint8Array(g.cols * g.rows);
