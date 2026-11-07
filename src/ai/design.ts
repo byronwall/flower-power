@@ -5,6 +5,7 @@ import { plantSchema, type Plant } from "../model/plant";
 import type { Point, Property } from "../model/property";
 import { checkOps, designPrompt, designSchemaJson, reviewPrompt, reviewSchemaJson, toReview, type RawDesign, type Style, type SunAt } from "./designShape";
 import { respond, type Usage } from "./openai";
+import { sunClassAt } from "../sun/sun";
 
 // The design engine: a short review of the yard, then one design per style, made in parallel. Server and scripts only.
 
@@ -16,7 +17,10 @@ export async function loadPlants(): Promise<Plant[]> {
   return all.flatMap((r) => (r.success ? [r.data] : []));
 }
 
-export async function reviewYard(property: Property, plants: Plant[], goals: Goals, sun?: SunAt) {
+// Sun comes from the sun model on the yard as it is, unless the caller passes its own.
+export const sunOf = (p: Property): SunAt => (at) => sunClassAt(p, at);
+
+export async function reviewYard(property: Property, plants: Plant[], goals: Goals, sun: SunAt = sunOf(property)) {
   const { instructions, text } = reviewPrompt(property, plants, goals, sun);
   const run = await respond<Parameters<typeof toReview>[0]>({ feature: "design-review", instructions, parts: [{ type: "input_text", text }], schema: reviewSchemaJson });
   return { review: toReview(run.data), usage: run.usage, ms: run.ms };
@@ -28,7 +32,7 @@ export async function makeDesigns(property: Property, plants: Plant[], goals: Go
   const byId = new Map(plants.map((p) => [p.id, p]));
   const runs = await Promise.allSettled(
     opts.styles.map(async (style) => {
-      const ask = { goals, dial: opts.dial, style, scope: opts.scope, review: opts.review, sun: opts.sun };
+      const ask = { goals, dial: opts.dial, style, scope: opts.scope, review: opts.review, sun: opts.sun ?? sunOf(property) };
       const { instructions, text } = designPrompt(property, plants, ask);
       const run = await respond<RawDesign>({ feature: "design", instructions, parts: [{ type: "input_text", text }], schema: designSchemaJson(plants.map((p) => p.id)) });
       const id = `${style}-${Date.now().toString(36)}`;

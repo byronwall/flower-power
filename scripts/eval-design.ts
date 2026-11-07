@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { loadPlants, makeDesigns, reviewYard, sum } from "../src/ai/design";
+import { loadPlants, makeDesigns, reviewYard, sum, sunOf } from "../src/ai/design";
 import { bloomColors as bloomNames, checkOps, hardscape, type RawDesign, type Style } from "../src/ai/designShape";
 import { toProperty, type ImportRaw } from "../src/ai/importShape";
 import { readImage } from "../src/ai/files";
@@ -69,7 +69,7 @@ async function runCase(c: Case): Promise<CaseResult> {
   if (rescore) {
     const old = prev.results.find((r: CaseResult) => r.case.id === c.id);
     const designs = old.designs.map((d: Design & { raw: RawDesign }) => {
-      const ask = { goals, dial: c.dial, style: d.style as Style, scope: c.scope };
+      const ask = { goals, dial: c.dial, style: d.style as Style, scope: c.scope, sun: sunOf(property) };
       return { ...d, ...checkOps(property, byId, d.raw.ops, ask, d.id), raw: d.raw };
     });
     return { case: c, property, review: old.review, designs, score: score(c, property, designs), usage: old.usage, errors: old.errors };

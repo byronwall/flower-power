@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import type { APIEvent } from "@solidjs/start/server";
-import { loadPlants, makeDesigns, reviewYard } from "../../../ai/design";
+import { loadPlants, makeDesigns, reviewYard, sunOf } from "../../../ai/design";
 import { checkOps, styles, type RawDesign, type Style } from "../../../ai/designShape";
 import { dials, goalsSchema, type Design } from "../../../model/design";
 import { propertySchema } from "../../../model/property";
@@ -43,7 +43,7 @@ async function fake(b: z.infer<typeof body>, plants: Awaited<ReturnType<typeof l
   const byId = new Map(plants.map((p) => [p.id, p]));
   const designs = pick.designs.map((d) => {
     const id = `${d.style}-${Date.now().toString(36)}`;
-    const ask = { goals: b.goals, dial: b.dial, style: d.style as Style, scope: b.scope };
+    const ask = { goals: b.goals, dial: b.dial, style: d.style as Style, scope: b.scope, sun: sunOf(b.property) };
     const { ops, dropped } = checkOps(b.property, byId, d.raw.ops, ask, id);
     return { id, name: d.name, style: d.style, dial: b.dial, goals: b.goals, scope: b.scope, summary: d.summary, ops, dropped } satisfies Design;
   });

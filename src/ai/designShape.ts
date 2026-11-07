@@ -299,7 +299,8 @@ export function checkOps(base: Property, plants: Map<string, Plant>, raw: RawOp[
   const ctx: Ctx = { base, plants, ask };
   const ops: Op[] = [];
   const dropped: string[] = [];
-  const touched = new Set<string>();
+  // Index in `ops` of the op on each existing item. A bed may get both a replace and a reshape, merged into one replace.
+  const touched = new Map<string, number>();
   const rule = dialRules[ask.dial];
   const startCount = base.plantings.length;
   let removals = 0;
@@ -337,7 +338,9 @@ export function checkOps(base: Property, plants: Map<string, Plant>, raw: RawOp[
       no(`there is no item "${r.id}"`);
       continue;
     }
-    if (touched.has(hit.item.id)) {
+    const prev = touched.get(hit.item.id);
+    const pair = prev !== undefined && [ops[prev].op, r.op].sort().join() === "replace,reshape";
+    if (prev !== undefined && !pair) {
       no("this item already has an op");
       continue;
     }
@@ -422,9 +425,14 @@ export function checkOps(base: Property, plants: Map<string, Plant>, raw: RawOp[
       }
     }
     if (wasThere && hit.list === "plantings" && (op.op === "remove" || op.op === "replace")) removals++;
-    touched.add(hit.item.id);
-    ops.push(op);
     state = applyOps(state, [op]);
+    if (pair) {
+      const item = find(state, hit.item.id)!.item as Planting;
+      ops[prev] = { op: "replace", id: hit.item.id, item, reason: `${ops[prev].reason} ${r.reason}`.trim() };
+      continue;
+    }
+    touched.set(hit.item.id, ops.length);
+    ops.push(op);
   }
   return { ops, dropped };
 }
