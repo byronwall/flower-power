@@ -10,3 +10,4 @@ tmp/
 !.claude/skills/
 .env
 data/ai-runs/
+data/images/
