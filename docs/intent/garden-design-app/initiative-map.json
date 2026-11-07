@@ -8,10 +8,16 @@
     "last_updated": "2026-11-07",
     "summary": "Desktop web app for Indiana homeowners: address and photos become an illustrated plan of the whole property; sun-aware AI designs; season and 5-year slider; a step-by-step planting and care plan.",
     "status": "planned",
-    "next_action": "Run spikes S1, S5, S15, S2, then the first proof.",
+    "next_action": "Byron answers the open question in each part (see docs/intent/README.md); run spikes S1, S5, S15, S2, then the first proof.",
     "repo": "https://github.com/byronwall/flower-power",
     "children": [
-      "../plan-views"
+      "../property-capture",
+      "../sun-and-shade",
+      "../plant-library",
+      "../design-assistant",
+      "../plan-views",
+      "../garden-plan",
+      "../accounts-and-gallery"
     ]
   },
   "artifacts": {
@@ -758,6 +764,11 @@
     {
       "date": "2026-11-07",
       "event": "Started splitting intent by part: added docs/intent/README.md index and plan-views initiative; added spike S17.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Split intent into seven part folders, each with a brief, a map, and one open question.",
       "phase": "shape"
     }
   ],

@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Accounts and gallery",
+    "slug": "accounts-and-gallery",
+    "scale": "feature",
+    "current_phase": "intent",
+    "last_updated": "2026-11-07",
+    "summary": "Email and password accounts, view-only sharing, and an opt-in public gallery wall that hides addresses.",
+    "status": "planned",
+    "next_action": "Byron answers the password reset question; run spike S16 when the gallery is next.",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C36, C38, C39, C40",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "A1",
+        "statement": "Accounts with email and password only and the simplest database; no magic or private links.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C36",
+        "confidence": "high"
+      },
+      {
+        "id": "A2",
+        "statement": "Shared projects are view only.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C38",
+        "confidence": "high"
+      },
+      {
+        "id": "A3",
+        "statement": "Opt-in public gallery as a zoomable wall of thumbnails.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C39",
+        "confidence": "high"
+      },
+      {
+        "id": "A4",
+        "statement": "Public view hides the address and the aerial photo.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C40",
+        "confidence": "high"
+      }
+    ],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": [
+      "How does a person reset a forgotten password?"
+    ]
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Split from the garden design app intent.",
+      "phase": "intent"
+    }
+  ],
+  "closure": null
+}

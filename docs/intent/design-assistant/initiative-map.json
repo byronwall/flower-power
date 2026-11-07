@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Design assistant",
+    "slug": "design-assistant",
+    "scale": "feature",
+    "current_phase": "intent",
+    "last_updated": "2026-11-07",
+    "summary": "Turns a feeling, theme, favorite plant, reference photo, or yard review into 3 to 5 sun-aware designs the person controls.",
+    "status": "planned",
+    "next_action": "Byron answers the budget question; run spike S12.",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C17, C18, C19, C22",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "D1",
+        "statement": "Start from a feeling, color, wildlife, safety, favorite plants, a reference photo, or a review of the yard now.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C17",
+        "confidence": "high"
+      },
+      {
+        "id": "D2",
+        "statement": "Beginners pick from 3 to 5 designs and give feedback; experienced users give constraints and lock plants.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C22",
+        "confidence": "high"
+      },
+      {
+        "id": "D3",
+        "statement": "Reference-photo ideas are labeled as borrowed and mapped to Indiana plants.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C19",
+        "confidence": "high"
+      },
+      {
+        "id": "D4",
+        "statement": "Honest review of the current yard: what works, what does not, empty spots.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C18",
+        "confidence": "high"
+      }
+    ],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": [
+      "Should budget limit designs in the first version, or come later?"
+    ]
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Split from the garden design app intent.",
+      "phase": "intent"
+    }
+  ],
+  "closure": null
+}

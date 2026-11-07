@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Garden plan",
+    "slug": "garden-plan",
+    "scale": "feature",
+    "current_phase": "intent",
+    "last_updated": "2026-11-07",
+    "summary": "Shopping list and a planting and care calendar generated from the design and plant facts.",
+    "status": "planned",
+    "next_action": "Byron answers the return question; build after the plant data set (S10).",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C21, C27",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "G1",
+        "statement": "A step-by-step plan from the yard now to the goal is a core output.",
+        "kind": "outcome",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C21",
+        "confidence": "high"
+      },
+      {
+        "id": "G2",
+        "statement": "Plan covers planting windows, care by month, time to grow, sun, soil, replanting work, and popular easy choices.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C27",
+        "confidence": "high"
+      },
+      {
+        "id": "G3",
+        "statement": "The plan is generated from the design and plant facts and changes with the design.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C27",
+        "confidence": "high"
+      }
+    ],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": [
+      "Do people come back over months to follow the plan, or take it away once?"
+    ]
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Split from the garden design app intent.",
+      "phase": "intent"
+    }
+  ],
+  "closure": null
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Plant library",
+    "slug": "plant-library",
+    "scale": "feature",
+    "current_phase": "intent",
+    "last_updated": "2026-11-07",
+    "summary": "About 100 popular Indiana plants with sourced facts, growth over time, and a visual gallery with filters.",
+    "status": "planned",
+    "next_action": "Byron answers the natives question; run spike S10.",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C24, C26, C27, C31",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "L1",
+        "statement": "About 100 popular Indiana plants; beginners see popular, easy, local plants first.",
+        "kind": "scope",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C26",
+        "confidence": "high"
+      },
+      {
+        "id": "L2",
+        "statement": "Visual gallery filtered by color, bloom time, sun, and effort; drag plants onto the plan.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C24",
+        "confidence": "high"
+      },
+      {
+        "id": "L3",
+        "statement": "Plant facts include size, growth time, sun, soil, bloom, annual or perennial, lifespan, care, lift and store, thorns, toxicity, wildlife value, effort; each fact has a source.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C27",
+        "confidence": "high"
+      },
+      {
+        "id": "L4",
+        "statement": "Low-effort options include artificial plants that never die.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "anchor": "C31",
+        "confidence": "high"
+      }
+    ],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": [
+      "Favor Indiana natives, or include popular non-native plants on equal terms?"
+    ]
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Split from the garden design app intent.",
+      "phase": "intent"
+    }
+  ],
+  "closure": null
+}

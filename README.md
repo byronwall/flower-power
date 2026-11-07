@@ -10,7 +10,7 @@ The [Flower Power plan overview](https://claude.ai/artifact/LLiJW3prBD1RbqrwGhM5
 
 ## Planning documents
 
-The [intent index](docs/intent/README.md) lists each part of the product and where its intent lives. The [plan views](docs/intent/plan-views/intent-brief.md) part covers the 2D plan, the 3D pane, and height layers.
+The [intent index](docs/intent/README.md) lists the seven parts of the product, such as property capture, the plant library, and plan views. Each part has its own intent brief and open question.
 
 The product documents are in [docs/intent/garden-design-app/](docs/intent/garden-design-app/):
 
