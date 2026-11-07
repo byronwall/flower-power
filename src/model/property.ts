@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { designSchema } from "./design";
 
 // All positions are in feet from the lot's top-left corner. y grows downward.
 // The ground is flat; heights only feed shade and the 3D view.
@@ -63,6 +64,9 @@ export const propertySchema = z.object({
   plantings: z.array(plantingSchema),
   // An aerial photo drawn under the plan, for tracing. Its top-left pixel sits at originFt.
   underlay: z.object({ file: z.string(), sizePx: z.tuple([z.number(), z.number()]), ftPerPx: z.number().positive(), originFt: point }).optional(),
+  // Design ideas kept as edit ops on this plan. The active one is the plan a person sees.
+  designs: z.array(z.lazy(() => designSchema)).optional(),
+  activeDesignId: z.string().optional(),
 });
 
 export type Point = z.infer<typeof point>;
