@@ -15,3 +15,5 @@ data/users.json
 data/users/
 data/shares.json
 data/session-secret
+demo/data/
+demo/files/
