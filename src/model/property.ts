@@ -22,6 +22,8 @@ const single = z.object({
   existing: z.boolean().optional(),
   // Size relative to the plant's usual mature size, set by resizing it on the plan.
   scale: z.number().min(0.2).max(4).optional(),
+  // The AI picked this plant from a photo. A person has not confirmed it.
+  guess: z.boolean().optional(),
 });
 const region = z.object({
   id,
@@ -31,6 +33,7 @@ const region = z.object({
   seed: z.number().int(),
   spacingFt: z.number().positive().optional(),
   existing: z.boolean().optional(),
+  guess: z.boolean().optional(),
 });
 const row = z.object({
   id,
@@ -39,6 +42,7 @@ const row = z.object({
   path,
   spacingFt: z.number().positive().optional(),
   existing: z.boolean().optional(),
+  guess: z.boolean().optional(),
 });
 
 export const plantingSchema = z.discriminatedUnion("type", [single, region, row]);
@@ -57,6 +61,8 @@ export const propertySchema = z.object({
   edges: z.array(z.object({ id, kind: z.enum(edgeKinds), path })),
   features: z.array(z.object({ id, kind: z.enum(featureKinds), at: point })),
   plantings: z.array(plantingSchema),
+  // An aerial photo drawn under the plan, for tracing. Its top-left pixel sits at originFt.
+  underlay: z.object({ file: z.string(), sizePx: z.tuple([z.number(), z.number()]), ftPerPx: z.number().positive(), originFt: point }).optional(),
 });
 
 export type Point = z.infer<typeof point>;

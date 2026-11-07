@@ -1694,3 +1694,70 @@ b {
     width: 114px;
   }
 }
+
+/* Dev page for the image import */
+.dev-import {
+  display: grid;
+  grid-template-columns: 300px 1fr 1fr;
+  height: 100vh;
+}
+.dev-side {
+  overflow: auto;
+  padding: 16px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dev-side h1 {
+  font-size: 18px;
+  margin: 0;
+}
+.dev-side h2 {
+  font-size: 14px;
+  margin: 12px 0 4px;
+}
+.dev-side p {
+  margin: 0;
+}
+.dev-error {
+  color: #b3261e;
+}
+.dev-runs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+.dev-runs button {
+  width: 100%;
+  text-align: left;
+  font-size: 12px;
+}
+.dev-trace,
+.dev-plan {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.dev-trace figcaption,
+.dev-plan figcaption {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #555;
+}
+.dev-trace-svg {
+  width: 100%;
+  max-height: calc(100vh - 40px);
+}
+.dev-plan .plan-view {
+  flex: 1;
+}
+.dev-empty {
+  grid-column: 2 / 4;
+  display: grid;
+  place-items: center;
+}
