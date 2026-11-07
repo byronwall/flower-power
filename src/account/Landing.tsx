@@ -18,7 +18,8 @@ import "./pages.css";
 import "./landing.css";
 
 // Lists whichever pages exist under src/routes/dev, so new ones show up here on their own.
-const devPages = Object.keys(import.meta.glob("../routes/dev/*.tsx")).map((f) => `/dev/${f.split("/").pop()!.replace(/\.tsx$/, "")}`);
+// Only on the dev server: visitors to the real site never see them.
+const devPages = !import.meta.env.DEV ? [] : Object.keys(import.meta.glob("../routes/dev/*.tsx")).map((f) => `/dev/${f.split("/").pop()!.replace(/\.tsx$/, "")}`);
 
 const features: { icon: IconName; title: string; body: string }[] = [
   { icon: "sun", title: "Sun and shade", body: "The plan works out how many hours of sun each spot gets, past the house, fences and trees, so each plant goes where it will thrive." },
