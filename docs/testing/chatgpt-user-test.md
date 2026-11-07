@@ -4,7 +4,7 @@ This script is for ChatGPT agent mode in the ChatGPT desktop app. The agent play
 
 ## Before you start (Byron)
 
-1. Make the image pack. It is not in git, because `tmp/` is ignored:
+1. Find the image pack. It is not in git, because `tmp/` is ignored:
 
    ```bash
    ls tmp/user-test/flower-power-test-pack.zip
@@ -12,24 +12,12 @@ This script is for ChatGPT agent mode in the ChatGPT desktop app. The agent play
 
    The pack has one folder for each persona. Each folder has `aerial.jpg` (the overhead image) and `photo-NN.jpg` (the Zillow listing photos).
 
-2. Run the app locally and open a tunnel to it. The ChatGPT agent runs in the cloud, so it cannot open `localhost`. `app.config.ts` lets `*.trycloudflare.com` reach the dev server.
+2. In the ChatGPT desktop app, start a new chat and turn on agent mode.
+3. Attach `flower-power-test-pack.zip` to the chat.
+4. Paste everything in the "Prompt" section below as the message.
+5. When the agent asks, take over its browser once and sign in to GitHub. The agent uses that session to file issues.
 
-   ```bash
-   pnpm dev --port 3210
-   ```
-
-   ```bash
-   cloudflared tunnel --no-autoupdate --url http://localhost:3210
-   ```
-
-   If `pnpm dev` picks a different port, use that port in the tunnel command. Copy the `https://<words>.trycloudflare.com` URL that cloudflared prints. The URL changes each time the tunnel starts.
-
-3. In the ChatGPT desktop app, start a new chat and turn on agent mode.
-4. Attach `flower-power-test-pack.zip` to the chat.
-5. Paste everything in the "Prompt" section below as the message. Replace `APP_URL` with the tunnel URL.
-6. When the agent asks, take over its browser once and sign in to GitHub. The agent uses that session to file issues.
-
-Keep the dev server and the tunnel running for the whole test. A fix that you save reloads in the agent's browser at once.
+The test runs against the live site. A fix reaches the agent only after it merges to `main` and deploys.
 
 To fix issues while the test runs, Claude Code watches for new issues with the `user-test` label.
 
@@ -37,9 +25,9 @@ To fix issues while the test runs, Claude Code watches for new issues with the `
 
 You are a usability tester. You play five real people who just found a web app called **Flower Power**. Each person wants to plan a garden for their own home. Use the app only as a real user would: look at the screen, read the words, click, type, and drag. Do not read the page source, and do not call the API directly.
 
-**App:** APP_URL
+**App:** https://flower-power.apps.byroni.us/
 
-This is a test copy of the app. It can reload while you use it, because developers fix bugs during the test. If the page reloads by itself, go on from where you were.
+Developers fix bugs while you test. If a blocker you filed earlier works again later, note it and go on.
 
 **Bug tracker:** https://github.com/byronwall/flower-power/issues
 
