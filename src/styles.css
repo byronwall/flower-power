@@ -1029,6 +1029,23 @@ polyline.sel-line {
   color: white;
 }
 
+/* Germination and first-bloom timing on the plant card and in the facts list. */
+.plant-info .timing {
+  font-size: 13px;
+  color: var(--moss-dark);
+}
+
+.facts .fact-note,
+.facts .fact-source {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.facts .fact-source {
+  overflow-wrap: anywhere;
+}
+
 .facts .swatch {
   display: inline-block;
   width: 12px;

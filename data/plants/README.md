@@ -14,11 +14,18 @@ Each plant is one JSON file in this folder. The file name must be the plant's `i
 
 These fields are optional while a plant is a draft. The check fails if `verified` is `true` and any of them is missing. The plan is in [the plant data plan](../../docs/intent/plant-library/data-plan.md).
 
-- `lifespanYears`: how long one plant lives, as `[shortest, longest]`.
+- `lifespanYears`: how long one plant lives, as `[shortest, longest]`. When no source gives it, estimate it from similar plants and add `lifespanEstimate: { basis }` saying which kind of plant it is based on. The app labels it as an estimate. Replace it with a sourced value when you find one, and remove `lifespanEstimate`.
 - `pollination`: `needsPartner` is `true` when it needs a second plant to fruit, such as a male winterberry. Name the partner in `partner`.
 - `emerges`: the month it comes up or leafs out. Use `null` for evergreens.
 - `planting`: `method` is `seed`, `bulb`, `tuber`, `plug`, `container`, `bare-root`, or `division`. Add `depthIn` when depth matters, for example for bulbs.
 - `images.photos`: at least one real photo with `url`, `author`, `license`, and `sourceUrl`. Use only openly licensed photos, for example from Wikimedia Commons.
+
+## Optional timing fields
+
+Fill these only from a source, and put that source inside the field.
+
+- `germination`: days for a seed to sprout as `days: [fastest, slowest]`, the conditions in `note`, and `source: { label, url }`.
+- `firstBloom`: time to the first flowers as `after: [shortest, longest]` with `unit` (`days`, `weeks`, or `years`), `from` (`seed` or `planting`), an optional `note`, and `source`.
 
 ## Fields that drive the drawing
 

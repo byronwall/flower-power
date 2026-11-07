@@ -113,5 +113,28 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "germination": {
+    "days": [
+      3,
+      5
+    ],
+    "note": "At 80–85°F soil. Slower when cooler: 5–7 days at 70–75°F.",
+    "source": {
+      "label": "Johnny's Selected Seeds, Benary's Giant zinnia",
+      "url": "https://www.johnnyseeds.com/flowers/zinnias/benarys-giant-series/benarys-giant-bright-pink-zinnia-seed-1359.html"
+    }
+  },
+  "firstBloom": {
+    "after": [
+      75,
+      90
+    ],
+    "unit": "days",
+    "from": "seed",
+    "source": {
+      "label": "Johnny's Selected Seeds, Benary's Giant zinnia",
+      "url": "https://www.johnnyseeds.com/flowers/zinnias/benarys-giant-series/benarys-giant-bright-pink-zinnia-seed-1359.html"
+    }
   }
 }

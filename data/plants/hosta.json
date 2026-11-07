@@ -99,5 +99,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    15,
+    30
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: very long-lived clump-forming perennials such as hosta and peony"
   }
 }

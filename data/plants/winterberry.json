@@ -105,5 +105,12 @@
     "needsPartner": true,
     "partner": "A male winterberry (Ilex verticillata) within about 50 ft",
     "note": "Female plants make berries only when cross-pollinated by a male plant (NC State)."
+  },
+  "lifespanYears": [
+    30,
+    50
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: long-lived shrubs and hollies"
   }
 }

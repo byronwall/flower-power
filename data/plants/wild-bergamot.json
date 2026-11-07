@@ -98,5 +98,36 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "germination": {
+    "days": [
+      7,
+      14
+    ],
+    "note": "At 60–70°F.",
+    "source": {
+      "label": "Johnny's Selected Seeds, Wild Bergamot",
+      "url": "https://www.johnnyseeds.com/flowers/monarda-bee-balm/wild-bergamot-monarda-seed-827.html"
+    }
+  },
+  "firstBloom": {
+    "after": [
+      365,
+      365
+    ],
+    "unit": "days",
+    "from": "seed",
+    "note": "Flowers in the second year after planting from seed.",
+    "source": {
+      "label": "Johnny's Selected Seeds, Wild Bergamot",
+      "url": "https://www.johnnyseeds.com/flowers/monarda-bee-balm/wild-bergamot-monarda-seed-827.html"
+    }
+  },
+  "lifespanYears": [
+    5,
+    10
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: clump-forming perennials that need dividing every few years"
   }
 }

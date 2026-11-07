@@ -99,5 +99,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    5,
+    10
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: clump-forming perennials that need dividing every few years"
   }
 }

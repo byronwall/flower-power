@@ -105,5 +105,35 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "germination": {
+    "days": [
+      10,
+      15
+    ],
+    "note": "At 65–70°F.",
+    "source": {
+      "label": "Johnny's Selected Seeds, Echinacea purpurea",
+      "url": "https://www.johnnyseeds.com/herbs/echinacea-coneflower/echinacea-purpurea-echinacea-seed-842.html"
+    }
+  },
+  "firstBloom": {
+    "after": [
+      300,
+      365
+    ],
+    "unit": "days",
+    "from": "seed",
+    "source": {
+      "label": "Johnny's Selected Seeds, Echinacea purpurea",
+      "url": "https://www.johnnyseeds.com/herbs/echinacea-coneflower/echinacea-purpurea-echinacea-seed-842.html"
+    }
+  },
+  "lifespanYears": [
+    3,
+    5
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: short-lived clump-forming perennials"
   }
 }

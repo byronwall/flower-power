@@ -5,6 +5,7 @@ import { plants } from "../model/library";
 import type { Plant } from "../model/plant";
 import { monthNames, type ViewTime } from "../render/look";
 import { PlantPhoto } from "./PlantPhoto";
+import { bloomsIn, sproutsIn } from "../model/timing";
 
 const CATEGORIES = ["tree", "shrub", "perennial", "grass", "groundcover", "annual"] as const;
 
@@ -143,6 +144,11 @@ export function PlantGallery(props: { editor: Editor; time: ViewTime; previewing
                 <span class="tags">
                   {label(p.category)} · {p.size.heightFt} ft · {p.sun.map(label).join("/")}
                 </span>
+                <Show when={sproutsIn(p) || bloomsIn(p)}>
+                  <span class="timing" title="Grown from seed. Click the plant for the conditions and source.">
+                    {[sproutsIn(p) && `Sprouts in ${sproutsIn(p)}`, bloomsIn(p) && `Blooms ${bloomsIn(p)}`].filter(Boolean).join(" · ")}
+                  </span>
+                </Show>
                 <Show when={p.nativeToIndiana || p.bloom?.months.includes(props.time.month)}>
                   <span class="badges">
                     <Show when={p.bloom?.months.includes(props.time.month)}>

@@ -11,6 +11,11 @@ const seasonColors = z.object({
   winter: hex.nullable(),
 });
 
+// [shortest, longest], for facts that vary.
+const range = z.tuple([z.number().positive(), z.number().positive()]);
+// Where one fact came from.
+const source = z.object({ label: z.string().min(1), url: z.url() });
+
 // A real photo of the plant. Only openly licensed photos, with credit.
 const photo = z.object({
   url: z.url(),
@@ -62,6 +67,9 @@ const plantFields = z.object({
 
   // How long one plant lives, in years: [shortest, longest].
   lifespanYears: z.tuple([z.number().positive(), z.number().positive()]).optional(),
+  // Set when lifespanYears is estimated from similar plants rather than taken from a source.
+  // The basis says which kind of plant it was estimated from.
+  lifespanEstimate: z.object({ basis: z.string().min(1) }).optional(),
   // Whether it needs a second plant to fruit or set seed, such as a male winterberry.
   pollination: z
     .object({
@@ -81,6 +89,18 @@ const plantFields = z.object({
     })
     .optional(),
   images: z.object({ photos: z.array(photo) }).optional(),
+  // How long a seed takes to sprout, in days: [fastest, slowest], with the conditions in the note.
+  germination: z.object({ days: range, note: z.string().min(1).optional(), source }).optional(),
+  // How long until the first flowers, counted from sowing seed or from planting.
+  firstBloom: z
+    .object({
+      after: range,
+      unit: z.enum(["days", "weeks", "years"]),
+      from: z.enum(["seed", "planting"]),
+      note: z.string().min(1).optional(),
+      source,
+    })
+    .optional(),
 });
 
 // The plant object checklist from the data plan. Returns what a plant is missing.

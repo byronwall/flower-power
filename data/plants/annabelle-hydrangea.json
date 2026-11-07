@@ -96,5 +96,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    20,
+    40
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: deciduous landscape shrubs"
   }
 }

@@ -4,6 +4,7 @@ import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type
 import { itemOf, type Editor, type Ref } from "./state";
 import { PlantPicture } from "../gallery/PlantPicture";
 import { photoOf, PlantPhoto } from "../gallery/PlantPhoto";
+import { bloomsIn, sproutsIn } from "../model/timing";
 import type { Plant } from "../model/plant";
 import { lookOf, monthNames, type ViewTime } from "../render/look";
 
@@ -187,6 +188,14 @@ const PLANTING: Record<NonNullable<Plant["planting"]>["method"], string> = {
   division: "From a division",
 };
 
+function SourceLink(props: { source: { label: string; url: string } }) {
+  return (
+    <a class="fact-source" href={props.source.url} target="_blank" rel="noreferrer">
+      Source: {props.source.label}
+    </a>
+  );
+}
+
 function PlantFacts(props: { plant: Plant }) {
   const p = () => props.plant;
   return (
@@ -215,7 +224,21 @@ function PlantFacts(props: { plant: Plant }) {
       <dt>Lifecycle</dt>
       <dd>
         {label(p().lifecycle)}
-        <Show when={p().lifespanYears}>{(l) => <>, lives {l()[0] === l()[1] ? l()[0] : `${l()[0]}–${l()[1]}`} yr</>}</Show>
+        <Show when={p().lifespanYears}>
+          {(l) => (
+            <>
+              , lives {p().lifespanEstimate ? "about " : ""}
+              {l()[0] === l()[1] ? l()[0] : `${l()[0]}–${l()[1]}`} yr
+              <Show when={p().lifespanEstimate}>
+                {(e) => (
+                  <span class="fact-note" title={e().basis}>
+                    Estimate, {e().basis.replace(/^Estimated from /, "from ")}
+                  </span>
+                )}
+              </Show>
+            </>
+          )}
+        </Show>
       </dd>
       <Show when={p().emerges !== undefined}>
         <dt>Comes up</dt>
@@ -223,6 +246,34 @@ function PlantFacts(props: { plant: Plant }) {
       </Show>
       <dt>Plant in</dt>
       <dd>{months(p().plantingMonths)}</dd>
+      <Show when={p().germination}>
+        {(g) => (
+          <>
+            <dt>Sprouts in</dt>
+            <dd>
+              {sproutsIn(p())} from seed
+              <Show when={g().note}>
+                <span class="fact-note">{g().note}</span>
+              </Show>
+              <SourceLink source={g().source} />
+            </dd>
+          </>
+        )}
+      </Show>
+      <Show when={p().firstBloom}>
+        {(b) => (
+          <>
+            <dt>First flowers</dt>
+            <dd>
+              {bloomsIn(p())}
+              <Show when={b().note}>
+                <span class="fact-note">{b().note}</span>
+              </Show>
+              <SourceLink source={b().source} />
+            </dd>
+          </>
+        )}
+      </Show>
       <Show when={p().planting}>
         {(pl) => (
           <>

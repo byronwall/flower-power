@@ -97,5 +97,35 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "germination": {
+    "days": [
+      14,
+      21
+    ],
+    "note": "At 65–70°F, after 7–14 days of cold, moist stratification in the refrigerator.",
+    "source": {
+      "label": "Johnny's Selected Seeds, Pleurisy Root (Asclepias tuberosa)",
+      "url": "https://www.johnnyseeds.com/flowers/asclepias-butterfly-weed/pleurisy-root-asclepias-seed-2347.html"
+    }
+  },
+  "firstBloom": {
+    "after": [
+      365,
+      365
+    ],
+    "unit": "days",
+    "from": "seed",
+    "source": {
+      "label": "Johnny's Selected Seeds, Pleurisy Root (Asclepias tuberosa)",
+      "url": "https://www.johnnyseeds.com/flowers/asclepias-butterfly-weed/pleurisy-root-asclepias-seed-2347.html"
+    }
+  },
+  "lifespanYears": [
+    10,
+    20
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: long-lived perennials, ferns and grasses with deep roots or rhizomes"
   }
 }

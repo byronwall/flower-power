@@ -103,5 +103,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    40,
+    80
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: understory flowering trees"
   }
 }

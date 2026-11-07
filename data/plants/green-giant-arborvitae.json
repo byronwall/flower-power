@@ -89,5 +89,12 @@
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
   },
-  "emerges": null
+  "emerges": null,
+  "lifespanYears": [
+    40,
+    60
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: fast-growing arborvitae and similar conifers"
+  }
 }

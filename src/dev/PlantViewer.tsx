@@ -117,7 +117,8 @@ export default function PlantViewer() {
 
 function urlsOf(f: PlantFile): string[] {
   const photos = (f.data.images?.photos ?? []).flatMap((p: any) => [p?.url, p?.sourceUrl]);
-  return [...(f.data.sources ?? []).map((s: any) => s?.url), ...photos].filter(Boolean);
+  const timing = [f.data.germination?.source?.url, f.data.firstBloom?.source?.url];
+  return [...new Set([...(f.data.sources ?? []).map((s: any) => s?.url), ...photos, ...timing].filter(Boolean))];
 }
 
 function Stat(props: { label: string; value: number; bad?: boolean }) {
@@ -154,7 +155,7 @@ function PlantCard(props: { file: PlantFile; checks: Record<string, Check>; onCh
 
         <h3>Plant object</h3>
         <dl class="dev-props">
-          <Prop label="Lifespan" value={p.lifespanYears ? `${p.lifespanYears[0]}–${p.lifespanYears[1]} years` : undefined} />
+          <Prop label="Lifespan" value={p.lifespanYears ? `${p.lifespanYears[0]}–${p.lifespanYears[1]} years${p.lifespanEstimate ? ` (estimate: ${p.lifespanEstimate.basis})` : ""}` : undefined} />
           <Prop label="Size" value={size.heightFt ? `${size.heightFt} ft tall, ${size.spreadFt} ft wide (${size.plantedSpreadFt} ft when planted, ${size.yearsToMature} yr to mature)` : undefined} />
           <Prop label="Spacing" value={size.spacingFt ? `${size.spacingFt} ft` : undefined} />
           <Prop label="Needs a mate" value={p.pollination ? (p.pollination.needsPartner ? `Yes${p.pollination.partner ? `: ${p.pollination.partner}` : ""}` : "No") : undefined} />
@@ -164,6 +165,8 @@ function PlantCard(props: { file: PlantFile; checks: Record<string, Check>; onCh
           <Prop label="Sun" value={p.sun} />
           <Prop label="Water" value={p.water} />
           <Prop label="Plant in" value={months(p.plantingMonths)} />
+          <Prop label="Sprouts in" value={p.germination ? `${p.germination.days[0]}–${p.germination.days[1]} days${p.germination.note ? ` (${p.germination.note})` : ""} · ${p.germination.source?.label}` : undefined} />
+          <Prop label="First flowers" value={p.firstBloom ? `${p.firstBloom.after[0]}–${p.firstBloom.after[1]} ${p.firstBloom.unit} from ${p.firstBloom.from} · ${p.firstBloom.source?.label}` : undefined} />
         </dl>
 
         <h3>Color</h3>

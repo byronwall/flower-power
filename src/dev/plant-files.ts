@@ -27,6 +27,7 @@ export function plantUrls(): Set<string> {
   const urls = new Set<string>();
   for (const { data } of plantFiles()) {
     for (const s of data.sources ?? []) if (s?.url) urls.add(s.url);
+    for (const f of [data.germination, data.firstBloom]) if (f?.source?.url) urls.add(f.source.url);
     for (const p of data.images?.photos ?? []) {
       if (p?.url) urls.add(p.url);
       if (p?.sourceUrl) urls.add(p.sourceUrl);

@@ -102,5 +102,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    80,
+    150
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: large shade trees such as maples"
   }
 }

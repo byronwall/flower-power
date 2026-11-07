@@ -86,5 +86,12 @@
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
   },
-  "emerges": null
+  "emerges": null,
+  "lifespanYears": [
+    30,
+    50
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: long-lived shrubs and hollies"
+  }
 }

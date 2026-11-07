@@ -95,5 +95,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    10,
+    20
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: long-lived perennials, ferns and grasses with deep roots or rhizomes"
   }
 }

@@ -97,5 +97,12 @@
   "pollination": {
     "needsPartner": false,
     "note": "No separate male or female plant needed (no partner requirement listed by NC State)."
+  },
+  "lifespanYears": [
+    20,
+    30
+  ],
+  "lifespanEstimate": {
+    "basis": "Estimated from similar plants: short-lived small flowering trees"
   }
 }
