@@ -34,7 +34,7 @@ export default function EvalDev() {
       <header class="ev-head">
         <h1>Import eval</h1>
         <select value={iter()} onChange={(e) => setParams({ iter: e.currentTarget.value })}>
-          <For each={iters() ?? []}>{(i) => <option value={i}>{i}</option>}</For>
+          <For each={iters() ?? []}>{(i) => <option value={i} selected={i === iter()}>{i}</option>}</For>
         </select>
         <label>
           <input type="checkbox" checked={underlay()} onChange={(e) => setUnderlay(e.currentTarget.checked)} /> Aerial underlay

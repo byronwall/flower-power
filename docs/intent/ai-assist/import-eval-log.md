@@ -70,3 +70,58 @@ Run the eval with `pnpm tsx scripts/eval-import.ts --iter <name> --runs 3`. See 
 
 - At the true scale, the traced lot is still 10% to 45% too large in 18 of 22 cases. The model draws its lines a few feet outside the parcel on each side. The person corrects this in the editor.
 - In 1-lot-lines, 6 of the 13 failures are the no-photo cases. They miss beds (circle) or beds and fences (newjersey).
+
+### 4-no-photo-cues: tell the model how beds and fences look from above (reverted)
+
+- Change: the prompt says how a foundation bed, a mulch edge, and a fence line look in an aerial when there are no photos.
+- 51 of 66 pass (was 53).
+- Fence misses fell from 3 to 1. Bed misses stayed at 6: in leaf-off spring aerials, beds look like bare soil.
+- Scale error: median 5.5%, worst 31%. Lot area error: median 26%, worst 105%.
+- Cost: 66 calls, 606k in, 171k out.
+- Reverted. This is the third change in a row that did not beat 1-lot-lines, so the prompt loop stops here.
+
+### Guard: a first image that is not an aerial (kept, no API calls)
+
+- When the first image is a street photo, the model says so and returns an empty lot. `toProperty` then threw a raw schema error.
+- `importLayout` now throws a plain error: "The first image does not look like an overhead aerial of the lot", plus the model's note.
+
+## Image count study
+
+Byron asked for the minimum number of images. Six listings (kessler, circle, newjersey, ralston, cherbourg, steinmeier) ran with the 1-lot-lines pipeline at four image counts. The full set comes from the 1-lot-lines runs.
+
+| Images | Runs | Pass | Scale err median / worst | House IoU median / worst | Trees median (in range) | Beds median | Runs with a fence | Plant species median | Tokens per run |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Aerial only | 18 | 4 (22%) | 4.6% / 34% | 0.93 / 0.68 | 2 (10 of 18) | 0 | 6 | 1 | 5k |
+| Aerial + front photo | 18 | 14 (78%) | 5.4% / 42% | 0.96 / 0.81 | 3.5 (15 of 18) | 1 | 9 | 3 | 7k |
+| Aerial + 3 photos | 12 | 11 (92%) | 6.1% / 37% | 0.96 / 0.87 | 4 (9 of 12) | 2 | 8 | 4 | 9k |
+| Aerial + all (6 or 7) | 18 | 16 (89%) | 4.4% / 22% | 0.94 / 0.78 | 4 (11 of 18) | 3 | 12 | 4 | 14k |
+
+- Scale, house, and lot come from the aerial alone. They do not get better with photos. The worst scale error is 22% to 42% at every image count, so it is run-to-run noise.
+- Beds, plant names, trees, and fences come from the photos. With the aerial alone, 14 of 18 runs find no bed, and most runs name one species.
+- The front photo gives most of the gain: from 4 to 14 passes. Two or three back yard photos add the back beds and fences.
+
+Images that are not a map aerial:
+
+- A top-down drone photo from the listing (cherbourg, rotated about 90°, no north): 2 of 2 runs trace the house (IoU 0.98) and get the scale within 5% of a hand estimate. One run missed the beds. The plan comes out rotated, because the import assumes north is up.
+- A street photo as the only image: the model refuses, and the import now says the image is not an aerial.
+
+## Recommendation
+
+Require two images: an overhead aerial and one photo of the front of the house. Ask for up to three back yard photos as an option.
+
+- One aerial gives the layout: scale within 5% median, house box IoU 0.93 median. But it gives almost no planting: no beds in 14 of 18 runs, one plant species, and a pass rate of 22%.
+- Adding the front photo lifts the pass rate to 78%, finds beds, and names 3 species. Three photos reach 92%.
+- Suggested upload steps:
+  1. "Top view of your lot." Accept a map screenshot or a top-down drone photo. If the image is not a top view, show the import's error and ask again.
+  2. "Front of the house, from the street." Required.
+  3. "Back yard (optional, up to 3)." Say that it finds beds and fences.
+- Keep the one-size scale fix after import. The worst scale error stays near 35% at every image count. The app can also fetch the Esri aerial itself from the address, at an exact scale. Then the person uploads only photos, and the scale is exact.
+- Ask the person to confirm north on a drone photo, or to rotate it.
+
+## Final state
+
+- Kept changes: 1-lot-lines (prompt) and the not-an-aerial guard.
+- Main set (22 cases × 3 runs, 50% lot limit): 53 of 66 pass (80%). Scale error median 5.9%, worst 34%. House IoU median 0.96, worst 0.69. Lot area error median 22%, worst 78%.
+- The target (90% pass, worst scale under 25%) is not met. The loop stopped after three changes in a row that did not improve it, and near the budget.
+- 7 of the 13 failures are no-photo or one-photo cases, which the two-image rule removes. The rest are lot size on zoomed or wooded lots, and two scale misses.
+- Total spend: 379 API calls, 3.21M input and 0.96M output tokens.

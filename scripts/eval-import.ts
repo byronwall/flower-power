@@ -32,7 +32,7 @@ const runs = Number(opt("--runs", "3"));
 const jobs = Number(opt("--jobs", "6"));
 const iter = opt("--iter", "scratch");
 const rescore = args.includes("--rescore");
-const only = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
+const only = args.filter((a, i) => !a.startsWith("--") && !["--runs", "--jobs", "--iter"].includes(args[i - 1]));
 const root = join(process.cwd(), "tmp/listings");
 const out = join(process.cwd(), "tmp/import-eval", iter);
 await mkdir(out, { recursive: true });
