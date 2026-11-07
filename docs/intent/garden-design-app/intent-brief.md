@@ -86,15 +86,7 @@ You drag a time slider through winter, spring, summer, and fall, and out to 5 ye
 
 ## Parts with their own intent
 
-This brief is the umbrella for the product. Each part has its own intent document with more detail. See the [intent index](../README.md):
-
-- [Property capture](../property-capture/intent-brief.md)
-- [Sun and shade](../sun-and-shade/intent-brief.md)
-- [Plant library](../plant-library/intent-brief.md)
-- [Design assistant](../design-assistant/intent-brief.md)
-- [Plan views](../plan-views/intent-brief.md)
-- [Garden plan](../garden-plan/intent-brief.md)
-- [Accounts and gallery](../accounts-and-gallery/intent-brief.md)
+This brief is the umbrella for the product. Each part has its own intent document with more detail: [property capture](../property-capture/intent-brief.md), [sun and shade](../sun-and-shade/intent-brief.md), [plant library](../plant-library/intent-brief.md), [design assistant](../design-assistant/intent-brief.md), [plan views](../plan-views/intent-brief.md), [garden plan](../garden-plan/intent-brief.md), and [accounts and gallery](../accounts-and-gallery/intent-brief.md). The [intent index](../README.md) lists each part's spikes and open question.
 
 ## Next step after confirmation
 
