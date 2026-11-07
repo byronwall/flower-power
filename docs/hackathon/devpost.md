@@ -10,13 +10,13 @@ We wanted a planner where you start from your own house, not a blank grid. Take 
 
 ## What it does
 
-- **Start from photos.** Drop in a top-down aerial and a photo of the front of the house. The AI traces the house, lot, beds, fences and trees, and guesses which plants are already there. You fix one number (how wide the house is) and everything rescales to match.
+- **Start from photos.** Drop a top-down aerial and a photo of the front of the house on one page, and pick which image is the aerial. The AI traces the house, lot, beds, fences and trees, and guesses which plants are already there. You fix one number (how wide the house is) and everything rescales to match.
 - **Check the guesses.** Plants the AI guessed get a dashed outline. Confirm each one or swap it for a close match from the library.
 - **Edit the plan.** The plan is drawn as a watercolor, like a landscape architect's sketch. Place one plant, draw a row, fill an area, draw beds and paths, move and resize things, undo.
 - **See it change.** Move between seasons and years 1 to 5. Trees go bare in winter, shrubs fill in, and the 3D yard view shows the same plan in depth.
 - **Know where the sun is.** A sun model works out hours of direct sun for every 2 ft square of the lot, from the house, fences and trees. Each spot comes out full sun, part sun or shade.
 - **Get design ideas.** Say what you want (calm, songbirds, safe for kids) and pick a dial: Light touch, Refresh or Redo. The app reviews the yard as it is, then draws 3 to 5 designs in different styles, such as cottage, prairie and modern. Each design is a list of changes on your plan. Accept or reject each change, or draw a box to rework just one bed.
-- **Browse the gallery.** Best shows the top 10 gardens, New lets you rate recent ones, and Mine holds your designs with a Public switch. A public garden never shows the address or the aerial photo.
+- **Browse the gallery.** Best shows the top 10 gardens, New lets you rate recent ones, and Mine holds your designs with a Public switch. A public garden shows the design you picked. A public garden never shows the address or the aerial photo.
 - **153 Indiana plants**, filterable by type, sun and bloom color. The 15 invasive ones are flagged so you know what to pull, not plant.
 - **Accounts.** Register with an email and password, and you only see your own plans.
 
@@ -36,8 +36,8 @@ We started at about 11 AM with an empty repo. The idea came from a nine-minute v
 
 ## How we kept it trustworthy
 
-- **Tests where it would break.** 207 tests in 10 files. They cover every plant and property file, unknown plant references, mature plant spacing, that a rescale is one undo step and keeps every point over the same aerial pixel, the sun math, and that one user cannot read another user's plan (and a forged cookie gets a 401). One gallery test fails on `main` as of 4:25 PM, and it's the next fix.
-- **Agent work went through PRs.** 15 merged PRs today, each with a description and screenshots. Each worker ran `pnpm typecheck` and `pnpm test` and checked the change in a browser before handing it back. Teammates committed straight to `main`, and the workers rebased onto it.
+- **Tests where it would break.** 208 tests in 10 files, and all of them pass on `main`. They cover every plant and property file, unknown plant references, mature plant spacing, that a rescale is one undo step and keeps every point over the same aerial pixel, the sun math, and that one user cannot read another user's plan (and a forged cookie gets a 401).
+- **Agent work went through PRs.** 18 merged PRs today, each with a description and screenshots. Each worker ran `pnpm typecheck` and `pnpm test` and checked the change in a browser before handing it back. Teammates committed straight to `main`, and the workers rebased onto it.
 - **The AI output gets checked.** The import result has to pass the schema. The design engine drops any AI change that breaks a rule and tells you which ideas it left out. The rules: library plants only, nothing on the house or paths, tree spacing, no patios unless you ask, kid- and pet-safe plants when you say so, and sun from the sun model. It passes 8 of 8 eval cases.
 - **Real addresses stay out of the repo.** Listing photos, aerials and saved AI runs are gitignored. The test lots from real addresses were deleted after each check. The public gallery leaves out the address and the aerial.
 - **Secrets stay out too.** The OpenAI key lives in a gitignored `.env`. `AI_FAKE=1` replays saved AI runs, so UI work and tests make no paid calls.
