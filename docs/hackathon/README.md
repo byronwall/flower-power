@@ -44,5 +44,5 @@ npx draftably@0.11.0 open docs/hackathon
 ## Still to update on Devpost
 
 - Built With tags list only typescript, solidjs and three.js. Add zod, solidstart, openai, vitest, coolify, claude-code and codex.
-- Add Shakila and Meghaj as team members.
+- Team members: Shakila was invited by email on November 7 and must accept. Meghaj joins with the private join link on the edit page (Invite your team). Don't commit that link.
 - When the design engine merges, change it from "On a branch" to "Built" in `app-flow.draft` and in the "What's next" section of `devpost.md`.
