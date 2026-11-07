@@ -13,7 +13,7 @@ This script is for ChatGPT agent mode in the ChatGPT desktop app. The agent play
    The pack has one folder for each persona. Each folder has `aerial.jpg` (the overhead image) and `photo-NN.jpg` (the Zillow listing photos).
 
 2. In the ChatGPT desktop app, start a new chat and turn on agent mode.
-3. Attach `flower-power-test-pack.zip` to the chat.
+3. The agent reads the images from `tmp/user-test/flower-power-test-pack/` on disk. Nothing to attach.
 4. Paste everything in the "Prompt" section below as the message.
 5. The agent files issues with `gh`, so check that `gh auth status` works in its shell.
 
