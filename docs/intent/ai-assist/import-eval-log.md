@@ -123,5 +123,5 @@ Require two images: an overhead aerial and one photo of the front of the house. 
 - Kept changes: 1-lot-lines (prompt) and the not-an-aerial guard.
 - Main set (22 cases × 3 runs, 50% lot limit): 53 of 66 pass (80%). Scale error median 5.9%, worst 34%. House IoU median 0.96, worst 0.69. Lot area error median 22%, worst 78%.
 - The target (90% pass, worst scale under 25%) is not met. The loop stopped after three changes in a row that did not improve it, and near the budget.
-- 7 of the 13 failures are no-photo or one-photo cases, which the two-image rule removes. The rest are lot size on zoomed or wooded lots, and two scale misses.
+- 6 of the 13 failures are the no-photo cases, which the two-image rule removes. The rest are lot size on zoomed or wooded lots, and two scale misses.
 - Total spend: 379 API calls, 3.21M input and 0.96M output tokens.
