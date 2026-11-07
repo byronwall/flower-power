@@ -5,7 +5,7 @@ import type { Collection, Editor } from "./state";
 
 // Each group says in plain words what it is for, since "surface" or "edge" alone means little.
 const GROUPS: { col: Collection; name: string; about: string; kinds: readonly string[]; shape: "outline" | "path" | "point" }[] = [
-  { col: "surfaces", name: "Ground", about: "Lawn, patio, paths, gravel, mulch or driveway", kinds: surfaceKinds, shape: "outline" },
+  { col: "surfaces", name: "Ground", about: "Lawn, patio, paths, gravel, mulch, driveway or pond", kinds: surfaceKinds, shape: "outline" },
   { col: "structures", name: "Building", about: "Deck, pergola, shed or raised bed", kinds: structureKinds, shape: "outline" },
   { col: "fences", name: "Fence", about: "Solid, semi-open or open fence along a line", kinds: fenceKinds, shape: "path" },
   { col: "edges", name: "Edging", about: "Edging, border or seat wall between areas", kinds: edgeKinds, shape: "path" },

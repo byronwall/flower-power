@@ -8,7 +8,7 @@ const path = z.array(point).min(2);
 const id = z.string().min(1);
 
 export const fenceKinds = ["solid", "semi-open", "open"] as const;
-export const surfaceKinds = ["lawn", "patio", "path", "stepping-stones", "gravel", "mulch", "driveway"] as const;
+export const surfaceKinds = ["lawn", "patio", "path", "stepping-stones", "gravel", "mulch", "driveway", "pond"] as const;
 export const structureKinds = ["deck", "pergola", "shed", "raised-bed"] as const;
 export const edgeKinds = ["edging", "border", "seat-wall"] as const;
 export const featureKinds = ["birdbath", "feeder", "bench", "fire-pit", "water-feature"] as const;

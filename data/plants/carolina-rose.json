@@ -1,0 +1,76 @@
+{
+  "id": "carolina-rose",
+  "commonName": "Carolina rose",
+  "botanicalName": "Rosa carolina",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 3.5,
+    "spreadFt": 3.5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 3.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      6
+    ],
+    "colors": [
+      "#e88aa8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6b9f50",
+    "summer": "#4c8a3c",
+    "fall": "#98953d",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": true,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "pollinator"
+  ]
+}

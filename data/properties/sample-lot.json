@@ -139,6 +139,57 @@
         [62, 55],
         [52, 50]
       ]
+    },
+    {
+      "id": "mulch-pollinator",
+      "kind": "mulch",
+      "outline": [
+        [34, 118],
+        [49, 118],
+        [49, 129],
+        [34, 129]
+      ]
+    },
+    {
+      "id": "mulch-rain-garden",
+      "kind": "mulch",
+      "outline": [
+        [69, 60],
+        [78, 59.5],
+        [79, 70],
+        [78.5, 84],
+        [70, 85],
+        [68.5, 72]
+      ]
+    },
+    {
+      "id": "mulch-woodland",
+      "kind": "mulch",
+      "outline": [
+        [1.5, 72],
+        [13, 72],
+        [13.5, 85],
+        [13, 97],
+        [1.5, 97]
+      ]
+    },
+    {
+      "id": "pond-1",
+      "kind": "pond",
+      "outline": [
+        [48.6, 106.2],
+        [48.2, 108.4],
+        [45.3, 109.8],
+        [42, 110.2],
+        [38.7, 109.8],
+        [35.8, 108.4],
+        [35.4, 106.2],
+        [36.7, 104],
+        [38.7, 102.6],
+        [42, 102.2],
+        [45.3, 102.6],
+        [47.3, 104]
+      ]
     }
   ],
   "structures": [
@@ -309,6 +360,186 @@
         [15, 105.5]
       ],
       "seed": 2
+    },
+    {
+      "id": "annabelle-hydrangea-1",
+      "type": "single",
+      "plantId": "annabelle-hydrangea",
+      "at": [51.3, 28.5]
+    },
+    {
+      "id": "black-eyed-susan-1",
+      "type": "region",
+      "plantId": "black-eyed-susan",
+      "outline": [
+        [46.8, 49.6],
+        [46, 51],
+        [44.1, 51.6],
+        [42.2, 51],
+        [41.4, 49.6],
+        [42.2, 48.2],
+        [44.1, 47.6],
+        [46, 48.2]
+      ],
+      "seed": 561
+    },
+    {
+      "id": "butterfly-weed-1",
+      "type": "region",
+      "plantId": "hosta",
+      "outline": [
+        [38.3, 34.7],
+        [37.5, 36.1],
+        [35.6, 36.7],
+        [33.7, 36.1],
+        [32.9, 34.7],
+        [33.7, 33.3],
+        [35.6, 32.7],
+        [37.5, 33.3]
+      ],
+      "seed": 1939
+    },
+    {
+      "id": "butterfly-weed-2",
+      "type": "region",
+      "plantId": "butterfly-weed",
+      "outline": [
+        [12.2, 65.2],
+        [11.4, 66.6],
+        [9.5, 67.2],
+        [7.6, 66.6],
+        [6.8, 65.2],
+        [7.6, 63.8],
+        [9.5, 63.2],
+        [11.4, 63.8]
+      ],
+      "seed": 4685
+    },
+    {
+      "id": "new-england-aster-1",
+      "type": "region",
+      "plantId": "new-england-aster",
+      "outline": [
+        [34.6, 118.6],
+        [39.4, 118.6],
+        [39.4, 128.4],
+        [34.6, 128.4]
+      ],
+      "seed": 4101
+    },
+    {
+      "id": "dense-blazing-star-1",
+      "type": "region",
+      "plantId": "dense-blazing-star",
+      "outline": [
+        [39.6, 118.6],
+        [44, 118.6],
+        [44, 128.4],
+        [39.6, 128.4]
+      ],
+      "seed": 4102
+    },
+    {
+      "id": "golden-alexanders-1",
+      "type": "region",
+      "plantId": "golden-alexanders",
+      "outline": [
+        [44.2, 118.6],
+        [48.4, 118.6],
+        [48.4, 128.4],
+        [44.2, 128.4]
+      ],
+      "seed": 4103
+    },
+    {
+      "id": "swamp-milkweed-1",
+      "type": "region",
+      "plantId": "swamp-milkweed",
+      "outline": [
+        [69.6, 60.6],
+        [77.6, 60.2],
+        [78.2, 68],
+        [69.2, 68]
+      ],
+      "seed": 4201
+    },
+    {
+      "id": "southern-blue-flag-iris-1",
+      "type": "region",
+      "plantId": "southern-blue-flag-iris",
+      "outline": [
+        [69.2, 68.4],
+        [78.2, 68.4],
+        [78.2, 76],
+        [69.6, 76]
+      ],
+      "seed": 4202
+    },
+    {
+      "id": "cardinal-flower-1",
+      "type": "region",
+      "plantId": "cardinal-flower",
+      "outline": [
+        [69.8, 76.4],
+        [78.2, 76.4],
+        [77.9, 83.6],
+        [70.4, 84.3]
+      ],
+      "seed": 4203
+    },
+    {
+      "id": "wild-geranium-1",
+      "type": "region",
+      "plantId": "wild-geranium",
+      "outline": [
+        [2, 72.6],
+        [12.6, 72.6],
+        [12.6, 80],
+        [2, 80]
+      ],
+      "seed": 4301
+    },
+    {
+      "id": "ostrich-fern-1",
+      "type": "region",
+      "plantId": "ostrich-fern",
+      "outline": [
+        [2, 80.4],
+        [12.8, 80.4],
+        [12.8, 89],
+        [2, 89]
+      ],
+      "seed": 4302
+    },
+    {
+      "id": "pennsylvania-sedge-1",
+      "type": "region",
+      "plantId": "pennsylvania-sedge",
+      "outline": [
+        [2, 89.4],
+        [12.6, 89.4],
+        [12.6, 96.4],
+        [2, 96.4]
+      ],
+      "seed": 4303
+    },
+    {
+      "id": "american-hornbeam-1",
+      "type": "single",
+      "plantId": "american-hornbeam",
+      "at": [36, 24]
+    },
+    {
+      "id": "spicebush-1",
+      "type": "single",
+      "plantId": "spicebush",
+      "at": [5, 124]
+    },
+    {
+      "id": "arrowwood-viburnum-1",
+      "type": "single",
+      "plantId": "arrowwood-viburnum",
+      "at": [5, 110]
     }
   ]
 }

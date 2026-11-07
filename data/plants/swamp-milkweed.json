@@ -1,0 +1,75 @@
+{
+  "id": "swamp-milkweed",
+  "commonName": "Swamp milkweed",
+  "botanicalName": "Asclepias incarnata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2.5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "moist"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#d6699a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6b9f50",
+    "summer": "#4c8a3c",
+    "fall": "#778144",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "wet"
+  ],
+  "tags": [
+    "monarch host",
+    "wet soil"
+  ]
+}

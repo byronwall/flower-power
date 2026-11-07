@@ -1,0 +1,79 @@
+{
+  "id": "purple-loosestrife",
+  "commonName": "Purple loosestrife",
+  "botanicalName": "Lythrum salicaria",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#b3388f"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6b964e",
+    "summer": "#4c7f3a",
+    "fall": "#777e44",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana DNR Terrestrial Plant Rule (312 IAC 18-3-25)",
+      "url": "https://www.in.gov/dnr/entomology/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "invasive_banned",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "remove",
+    "wetland"
+  ],
+  "alternatives": [
+    "swamp-milkweed",
+    "southern-blue-flag-iris",
+    "great-blue-lobelia"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "tulip-tree",
+  "commonName": "Tulip tree",
+  "botanicalName": "Liriodendron tulipifera",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 98.5,
+    "spreadFt": 64,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 64
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#d9c45a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9f4e",
+    "summer": "#4f8a3a",
+    "fall": "#99953d",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "state tree"
+  ]
+}

@@ -1,4 +1,4 @@
-import { For, Show, type JSX } from "solid-js";
+import { createSignal, For, Show, type JSX } from "solid-js";
 import { plants, plantsById } from "../model/library";
 import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type Property } from "../model/property";
 import { itemOf, type Editor, type Ref } from "./state";
@@ -35,6 +35,8 @@ type InspectorProps = {
   // A plant clicked in the gallery, shown when nothing on the plan is selected.
   preview?: string | null;
   onClosePreview?: () => void;
+  onPreview?: (id: string) => void;
+  onTour?: () => void;
   extra?: (ref: Ref) => JSX.Element;
 };
 
@@ -55,8 +57,8 @@ export function Inspector(props: InspectorProps) {
       <Show
         when={current()}
         fallback={
-          <Show when={props.preview ? plantsById.get(props.preview) : undefined} fallback={<GettingStarted />}>
-            {(p) => <PlantPreview plant={p()} time={props.time} onClose={() => props.onClosePreview?.()} />}
+          <Show when={props.preview ? plantsById.get(props.preview) : undefined} fallback={<GettingStarted onTour={props.onTour} />}>
+            {(p) => <PlantPreview plant={p()} time={props.time} onClose={() => props.onClosePreview?.()} onPreview={props.onPreview} />}
           </Show>
         }
       >
@@ -107,7 +109,7 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
       <Show when={plant()}>{(p) => <Picture plant={p()} time={props.time} />}</Show>
       <Field label="Plant">
         <select id="inspector-plant" value={props.planting.plantId} onChange={(e) => props.set("plantId", e.currentTarget.value)}>
-          <For each={plants}>{(p) => <option value={p.id}>{p.commonName}</option>}</For>
+          <For each={plants.filter((x) => !x.indianaStatus?.startsWith("invasive"))}>{(p) => <option value={p.id}>{p.commonName}</option>}</For>
         </select>
       </Field>
       <Field label="Placed as">
@@ -208,7 +210,8 @@ function PlantFacts(props: { plant: Plant }) {
 }
 
 // A plant picked in the gallery, before it is on the plan.
-function PlantPreview(props: { plant: Plant; time: ViewTime; onClose: () => void }) {
+function PlantPreview(props: { plant: Plant; time: ViewTime; onClose: () => void; onPreview?: (id: string) => void }) {
+  const invasive = () => !!props.plant.indianaStatus?.startsWith("invasive");
   return (
     <>
       <header>
@@ -217,9 +220,40 @@ function PlantPreview(props: { plant: Plant; time: ViewTime; onClose: () => void
         <h2>{props.plant.commonName}</h2>
         <span class="botanical">{props.plant.botanicalName}</span>
       </header>
+      <Show when={invasive()}>
+        <div class="invasive-card">
+          <strong>{props.plant.indianaStatus === "invasive_banned" ? "Banned from sale in Indiana" : "Invasive in Indiana"}</strong>
+          <span>
+            {props.plant.indianaStatus === "invasive_banned"
+              ? "It's on Indiana's Terrestrial Plant Rule. Don't plant it; remove it if it's in your yard."
+              : "It's on the Indiana Invasive Species Council list. It spreads into wild areas, so grow a native instead."}
+          </span>
+          <span class="hint-line">From the app's Indiana plant list. For the current rule, check the Indiana DNR at in.gov/dnr.</span>
+          <Show when={props.plant.alternatives?.length}>
+            <span class="instead">
+              Plant instead:{" "}
+              <For each={props.plant.alternatives}>
+                {(id, i) => (
+                  <>
+                    {i() > 0 ? ", " : ""}
+                    <button type="button" class="link-btn" onClick={() => props.onPreview?.(id)}>
+                      {plantsById.get(id)?.commonName ?? id}
+                    </button>
+                  </>
+                )}
+              </For>
+            </span>
+          </Show>
+        </div>
+      </Show>
       <Picture plant={props.plant} time={props.time} />
       <PlantFacts plant={props.plant} />
-      <p class="preview-tip">Drag it from the list onto the plan, or use its buttons there to place it.</p>
+      <Show when={!invasive()}>
+        <p class="preview-tip">Drag it from the list onto the plan, or use its buttons there to place it.</p>
+      </Show>
+      <Show when={!props.plant.verified}>
+        <p class="hint-line">These details are typical values, not yet checked against the sources.</p>
+      </Show>
     </>
   );
 }
@@ -234,70 +268,66 @@ function CloseButton(props: { onClick: () => void }) {
   );
 }
 
-// Shown when nothing is selected: the handful of things a first-time visitor needs to know.
-function GettingStarted() {
+// Shown when nothing is selected: Sprout, one line of guidance, and the tour.
+// The step-by-step instructions live in the animated tour, so they don't fill the panel.
+function GettingStarted(props: { onTour?: () => void }) {
+  const [keys, setKeys] = createSignal(false);
   return (
-    <div class="start">
-      <Mascot size={200} caption />
-      <h2>Plan your yard</h2>
-      <ol class="steps">
-        <li>
-          <strong>Add plants.</strong> Drag one from the list on the left onto the plan, or use <em>+ One</em>, <em>Fill area</em> or <em>Row</em>.
-        </li>
-        <li>
-          <strong>Add paths, beds and more.</strong> Use the <em>Draw on the plan</em> menus at the top.
-        </li>
-        <li>
-          <strong>Edit anything.</strong> Click it on the plan. Drag to move it, drag its dots to reshape or resize it.
-        </li>
-        <li>
-          <strong>Get closer.</strong> Scroll or pinch to zoom, drag empty ground to move around.
-        </li>
-        <li>
-          <strong>See it grow.</strong> Slide the month and year at the top of the plan to preview each season.
-        </li>
-      </ol>
+    <div class="start welcome">
+      <Mascot size={150} caption />
+      <p>Drag plants in from the list, then click anything on the plan to change it.</p>
+      <button type="button" class="primary" onClick={() => props.onTour?.()}>
+        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+          <path d="M5 3l8 5-8 5z" fill="currentColor" />
+        </svg>
+        Watch the 30-second tour
+      </button>
+      <button type="button" class="link-btn" aria-expanded={keys()} onClick={() => setKeys(!keys())}>
+        {keys() ? "Hide keyboard shortcuts" : "Keyboard shortcuts"}
+      </button>
+      <Show when={keys()}>
       <div class="shortcuts">
-        <span class="eyebrow">Shortcuts</span>
-        <dl>
-          <dt>
-            <kbd>⌘</kbd> <kbd>Z</kbd>
-          </dt>
-          <dd>Undo</dd>
-          <dt>
-            <kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>Z</kbd>
-          </dt>
-          <dd>Redo</dd>
-          <dt>
-            <kbd>⌘</kbd> <kbd>S</kbd>
-          </dt>
-          <dd>Save</dd>
-          <dt>
-            <kbd>Delete</kbd>
-          </dt>
-          <dd>Remove selected</dd>
-          <dt>
-            <kbd>Esc</kbd>
-          </dt>
-          <dd>Cancel or deselect</dd>
-          <dt>
-            <kbd>←</kbd> <kbd>→</kbd>
-          </dt>
-          <dd>Nudge 1 ft (⇧ for 5 ft)</dd>
-          <dt>
-            <kbd>⌘</kbd> <kbd>D</kbd>
-          </dt>
-          <dd>Duplicate selected</dd>
-          <dt>
-            <kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd>
-          </dt>
-          <dd>Zoom in, out, fit</dd>
-          <dt>
-            <kbd>\</kbd>
-          </dt>
-          <dd>Hide or show both panels</dd>
-        </dl>
-      </div>
+          <span class="eyebrow">Shortcuts</span>
+          <dl>
+            <dt>
+              <kbd>⌘</kbd> <kbd>Z</kbd>
+            </dt>
+            <dd>Undo</dd>
+            <dt>
+              <kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>Z</kbd>
+            </dt>
+            <dd>Redo</dd>
+            <dt>
+              <kbd>⌘</kbd> <kbd>S</kbd>
+            </dt>
+            <dd>Save</dd>
+            <dt>
+              <kbd>Delete</kbd>
+            </dt>
+            <dd>Remove selected</dd>
+            <dt>
+              <kbd>Esc</kbd>
+            </dt>
+            <dd>Cancel or deselect</dd>
+            <dt>
+              <kbd>←</kbd> <kbd>→</kbd>
+            </dt>
+            <dd>Nudge 1 ft (⇧ for 5 ft)</dd>
+            <dt>
+              <kbd>⌘</kbd> <kbd>D</kbd>
+            </dt>
+            <dd>Duplicate selected</dd>
+            <dt>
+              <kbd>+</kbd> <kbd>−</kbd> <kbd>0</kbd>
+            </dt>
+            <dd>Zoom in, out, fit</dd>
+            <dt>
+              <kbd>\</kbd>
+            </dt>
+            <dd>Hide or show both panels</dd>
+          </dl>
+        </div>
+      </Show>
     </div>
   );
 }

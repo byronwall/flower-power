@@ -1,0 +1,65 @@
+{
+  "id": "eastern-red-cedar",
+  "commonName": "Eastern red cedar",
+  "botanicalName": "Juniperus virginiana",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": true,
+  "placement": "single",
+  "size": {
+    "heightFt": 39.5,
+    "spreadFt": 15.5,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 15.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#557e4a",
+    "summer": "#2f5e34",
+    "fall": "#2f5e34",
+    "winter": "#375d38"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "columnar"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": []
+}

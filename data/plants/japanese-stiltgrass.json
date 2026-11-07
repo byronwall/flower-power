@@ -1,0 +1,70 @@
+{
+  "id": "japanese-stiltgrass",
+  "commonName": "Japanese stiltgrass",
+  "botanicalName": "Microstegium vimineum",
+  "category": "grass",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 2,
+    "spreadFt": 1,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#8eb45e",
+    "summer": "#7aa64f",
+    "fall": "#a58b44",
+    "winter": "#b9a07a"
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "grass"
+  },
+  "sources": [
+    {
+      "label": "Indiana DNR Terrestrial Plant Rule (312 IAC 18-3-25)",
+      "url": "https://www.in.gov/dnr/entomology/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "invasive_banned",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "remove"
+  ],
+  "alternatives": [
+    "pennsylvania-sedge",
+    "northern-sea-oats",
+    "bottlebrush-grass"
+  ]
+}

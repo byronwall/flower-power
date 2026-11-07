@@ -1,0 +1,71 @@
+{
+  "id": "blue-eyed-grass",
+  "commonName": "Blue-eyed grass",
+  "botanicalName": "Sisyrinchium angustifolium",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 1,
+    "spreadFt": 0.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 0.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#6f7fd6"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#76a25a",
+    "summer": "#5a8f4a",
+    "fall": "#7c8249",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": []
+}

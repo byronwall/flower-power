@@ -1,0 +1,73 @@
+{
+  "id": "tomato",
+  "commonName": "Tomato",
+  "botanicalName": "Solanum lycopersicum",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 1,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      6,
+      7,
+      8
+    ],
+    "colors": [
+      "#f2d22a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": null,
+    "summer": "#4f8a3c",
+    "fall": "#788144",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    5,
+    6
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "introduced",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "vegetable"
+  ],
+  "edible": true
+}

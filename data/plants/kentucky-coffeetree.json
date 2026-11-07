@@ -1,0 +1,67 @@
+{
+  "id": "kentucky-coffeetree",
+  "commonName": "Kentucky coffeetree",
+  "botanicalName": "Gymnocladus dioicus",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 65.5,
+    "spreadFt": 42.5,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 42.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9f56",
+    "summer": "#4f8a45",
+    "fall": "#999540",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "street tree"
+  ]
+}

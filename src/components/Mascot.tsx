@@ -13,7 +13,8 @@ export function Mascot(props: { size: number; plantId?: string; caption?: boolea
   const [ready, setReady] = createSignal(false);
 
   const another = (not?: string) => {
-    const pool = plants.filter((p) => p.id !== not);
+    // Sprout never dresses up as an invasive plant.
+    const pool = plants.filter((p) => p.id !== not && !p.indianaStatus?.startsWith("invasive"));
     return pool[Math.floor(Math.random() * pool.length)];
   };
 

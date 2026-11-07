@@ -1,0 +1,76 @@
+{
+  "id": "fragrant-sumac",
+  "commonName": "Fragrant sumac",
+  "botanicalName": "Rhus aromatica",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 5,
+    "spreadFt": 6.5,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 6.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "average"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      4
+    ],
+    "colors": [
+      "#e0cf4a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9f4e",
+    "summer": "#4f8a3a",
+    "fall": "#a16430",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium"
+  ],
+  "tags": [
+    "erosion control",
+    "fall color"
+  ]
+}

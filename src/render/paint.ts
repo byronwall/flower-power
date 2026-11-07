@@ -137,6 +137,26 @@ function surface(b: Brush, kind: Property["surfaces"][number]["kind"], outline: 
     case "stepping-stones":
       steppingStones(b, box, seed);
       return;
+    case "pond": {
+      // Deep in the middle, lighter at the edge, with a ring of stones. Fish are animated on top.
+      wash(b, outline, "#6f9fb4", seed, { alpha: 0.5, rim: 0.5 });
+      const inner = outline.map(([x, y]) => [box.minX + box.w / 2 + (x - box.minX - box.w / 2) * 0.62, box.minY + box.h / 2 + (y - box.minY - box.h / 2) * 0.62] as Point);
+      wash(b, inner, "#3f6f86", seed + 3, { alpha: 0.35, layers: 2 });
+      ink(b, outline, seed + 2, { closed: true, alpha: 0.55, width: b.px(1.6), color: "#5a6a6a" });
+      const r = rng(seed + 9);
+      for (let i = 0; i < outline.length; i++) {
+        const [x1, y1] = outline[i], [x2, y2] = outline[(i + 1) % outline.length];
+        const n = Math.max(1, Math.round(Math.hypot(x2 - x1, y2 - y1) / 1.4));
+        for (let j = 0; j < n; j++) {
+          const t = (j + r()) / n;
+          ctx.fillStyle = r() < 0.5 ? "rgba(150,146,136,0.85)" : "rgba(176,170,158,0.85)";
+          ctx.beginPath();
+          ctx.ellipse(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, 0.55 + r() * 0.3, 0.4 + r() * 0.2, r() * Math.PI, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      return;
+    }
   }
 }
 

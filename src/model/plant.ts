@@ -15,7 +15,7 @@ export const plantSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
   commonName: z.string().min(1),
   botanicalName: z.string().min(1),
-  category: z.enum(["tree", "shrub", "perennial", "grass", "groundcover", "annual"]),
+  category: z.enum(["tree", "shrub", "perennial", "grass", "groundcover", "vine", "annual"]),
   nativeToIndiana: z.boolean(),
   lifecycle: z.enum(["annual", "perennial", "tender-perennial", "woody"]),
   evergreen: z.boolean(),
@@ -46,6 +46,15 @@ export const plantSchema = z.object({
     form: z.enum(["canopy", "columnar", "mound", "upright", "grass", "rosette", "mat"]),
   }),
   sources: z.array(z.object({ label: z.string(), url: z.url() })).min(1),
+  // From the Indiana plant list (indiana_plants.json). All optional, so hand-made files stay valid.
+  // "invasive_banned" is on Indiana's Terrestrial Plant Rule; "invasive_listed" is on the
+  // Indiana Invasive Species Council list but not banned from sale.
+  indianaStatus: z.enum(["native", "introduced", "invasive_banned", "invasive_listed"]).optional(),
+  moisture: z.array(z.enum(["dry", "medium", "wet"])).optional(),
+  tags: z.array(z.string()).optional(),
+  edible: z.boolean().optional(),
+  // Native plants to grow instead of an invasive one, by plant id.
+  alternatives: z.array(z.string()).optional(),
   // False until a person checks each fact against the sources.
   verified: z.boolean(),
 });

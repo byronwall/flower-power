@@ -22,6 +22,15 @@ describe("plant files", () => {
   });
 });
 
+describe("Indiana details", () => {
+  // An invasive plant always offers something to grow instead, and those suggestions are real plants.
+  it.each(plantFiles.filter((p) => p.json.indianaStatus?.startsWith("invasive")))("$file suggests natives to plant instead", ({ json }) => {
+    expect(json.alternatives?.length ?? 0).toBeGreaterThan(0);
+    const unknown = json.alternatives.filter((id: string) => !plantIds.has(id));
+    expect(unknown).toEqual([]);
+  });
+});
+
 describe("property files", () => {
   it.each(read("properties"))("$file is valid and uses known plants", ({ file, json }) => {
     const result = propertySchema.safeParse(json);

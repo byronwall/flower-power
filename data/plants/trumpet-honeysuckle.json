@@ -1,0 +1,77 @@
+{
+  "id": "trumpet-honeysuckle",
+  "commonName": "Trumpet honeysuckle",
+  "botanicalName": "Lonicera sempervirens",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 13,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6,
+      7
+    ],
+    "colors": [
+      "#d23a2a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6d9f5a",
+    "summer": "#4f8a4a",
+    "fall": "#788149",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "hummingbirds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "hummingbird",
+    "native honeysuckle"
+  ]
+}

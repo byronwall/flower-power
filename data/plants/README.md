@@ -17,3 +17,13 @@ Each plant is one JSON file in this folder. The file name must be the plant's `i
 - `bloom` and `fruit`: the months and colors.
 - `render.form`: the shape from above: `canopy`, `columnar`, `mound`, `upright`, `grass`, `rosette`, or `mat`.
 - `placement`: `single` for plants that people place one at a time, such as a tree or a rose bush. `region` for plants that fill an area. `either` lets the person choose.
+
+## Indiana plants
+
+Most files came from `indiana_plants.json` at the repository root. To bring in new rows from it, run `node scripts/import-indiana.mjs`. The script adds a file for each new plant. For a plant that already has a file, it adds only the Indiana fields and leaves the rest alone.
+
+That list has no soil, care, or planting dates, so the script works them out from moisture, habit, and size. Each new file has `verified: false` until a person checks it.
+
+- `indianaStatus`: `native`, `introduced`, `invasive_banned` (on Indiana's Terrestrial Plant Rule, 312 IAC 18-3-25), or `invasive_listed` (on the Indiana Invasive Species Council list). The app shows invasive plants only under the Invasive filter, as plants to remove, and never lets them be placed.
+- `alternatives`: for an invasive plant, the ids of native plants to grow instead. The test checks that each one exists.
+- `moisture`, `tags`, `edible`: feed the plant list filters.

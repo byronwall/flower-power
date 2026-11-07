@@ -63,5 +63,14 @@
       "url": "https://extension.purdue.edu/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "indianaStatus": "introduced",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "garden",
+    "hedge",
+    "evergreen"
+  ]
 }

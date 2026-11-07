@@ -26,6 +26,7 @@ const SURFACE: Record<string, string> = {
   gravel: "#cfc5b2",
   mulch: "#76563d",
   driveway: "#a7a39b",
+  pond: "#5f93ab",
 };
 const STRUCTURE: Record<string, string> = { deck: "#a77b52", pergola: "#b48a5f", shed: "#9c6b4a", "raised-bed": "#8a6243" };
 const FENCE = "#b9a88d";

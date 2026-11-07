@@ -1694,3 +1694,774 @@ b {
     width: 114px;
   }
 }
+
+/* ---------- Plant list filters: three visible controls, the rest in one popover ---------- */
+.gallery header {
+  position: relative;
+}
+
+.origin {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--paper);
+  border-radius: 10px;
+}
+
+.origin button {
+  flex: 1;
+  height: 30px;
+  padding: 0 8px;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.origin button[aria-checked="true"] {
+  background: var(--card);
+  border-color: var(--line-strong);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.origin button.warn[aria-checked="true"] {
+  color: #9a2d22;
+  border-color: #e4c5bf;
+  background: #fdf3f1;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.filters-btn {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.filters-btn.on,
+.filters-btn[aria-expanded="true"] {
+  border-color: var(--moss);
+  color: var(--moss-dark);
+}
+
+.filters-count {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--moss);
+  color: white;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.active-chip {
+  height: 26px;
+  padding: 0 8px 0 10px;
+  gap: 6px;
+  font-size: 13px;
+  border-radius: 999px;
+  border-color: var(--moss);
+  background: var(--moss-soft);
+  color: var(--moss-dark);
+  box-shadow: none;
+}
+
+.active-chip svg {
+  opacity: 0.7;
+}
+
+.active-chip:hover:not(:disabled) svg {
+  opacity: 1;
+}
+
+.clear-all {
+  font-size: 13px;
+}
+
+.filters-pop {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: calc(100% - 8px);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(47, 51, 41, 0.18);
+  animation: pop-in 140ms ease-out;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filters-pop {
+    animation: none;
+  }
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.option {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 13px;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.option[aria-pressed="true"] {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+}
+
+.filters-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.filters-foot .muted {
+  margin-right: auto;
+  font-size: 13px;
+}
+
+.filters-foot .primary {
+  height: 30px;
+}
+
+/* ---------- Invasive plants ---------- */
+.invasive-note {
+  margin: 0;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #7d2a20;
+  background: #fdf3f1;
+  border-bottom: 1px solid #f1d6d0;
+}
+
+.plant-card.invasive {
+  cursor: pointer;
+}
+
+.plant-card.invasive .thumb {
+  filter: saturate(0.75);
+}
+
+.badge.danger {
+  color: #8f2a1f;
+  background: #fbe6e2;
+}
+
+.instead {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.instead .link-btn,
+.invasive-card .link-btn {
+  font-size: 13px;
+  display: inline;
+}
+
+.invasive-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #6f2a20;
+  background: #fdf3f1;
+  border: 1px solid #f1d6d0;
+  border-radius: var(--radius);
+}
+
+.invasive-card strong {
+  color: #8f2a1f;
+}
+
+/* ---------- Filter cards: one per filter, each opens its own popover ---------- */
+.filter-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.filter-card {
+  height: 44px;
+  padding: 0 8px;
+  gap: 7px;
+  justify-content: flex-start;
+  text-align: left;
+  border-radius: 10px;
+  box-shadow: none;
+  background: var(--card);
+  color: var(--muted);
+}
+
+.filter-card .fc-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.15;
+}
+
+.fc-name {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.fc-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc-caret {
+  flex: none;
+  opacity: 0.6;
+  transition: transform 140ms;
+}
+
+.filter-card[aria-expanded="true"] .fc-caret {
+  transform: rotate(180deg);
+}
+
+.filter-card.on {
+  background: var(--moss-soft);
+  border-color: var(--moss);
+  color: var(--moss-dark);
+}
+
+.filter-card.on .fc-value {
+  color: var(--moss-dark);
+}
+
+.filter-card[aria-expanded="true"] {
+  border-color: var(--moss);
+  box-shadow: 0 0 0 2px var(--moss-soft);
+}
+
+.filter-card.clear {
+  justify-content: center;
+  text-align: center;
+  border-style: dashed;
+}
+
+.filter-card.clear .fc-value {
+  color: var(--moss-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-caret {
+    transition: none;
+  }
+}
+
+/* Weather, fish, and birds sit over the plan but never block it. */
+.life-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.plan-view.over-bird,
+.plan-view.over-bird * {
+  cursor: pointer !important;
+}
+
+.weather-cards {
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+}
+
+.view-bar .weather-card {
+  width: 32px;
+  padding: 0;
+}
+
+.weather-card[aria-checked="true"] {
+  background: #eef3f8;
+  border-color: #6f8ea3;
+  color: #3e5a6c;
+}
+
+.bar-row {
+  gap: 8px;
+  align-items: center;
+}
+
+/* ===================== Animated tour ===================== */
+.tour-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(36, 40, 32, 0.42);
+  animation: fade-in 160ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.tour {
+  width: min(600px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px 14px;
+  background: var(--panel);
+  border-radius: 14px;
+  box-shadow: 0 24px 64px rgba(30, 34, 26, 0.3);
+  outline: none;
+}
+
+.tour-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.tour-bar {
+  flex: 1;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: var(--line);
+  box-shadow: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.tour-bar.done {
+  background: var(--moss);
+}
+
+.tour-bar .fill {
+  display: block;
+  height: 100%;
+  background: var(--moss);
+  transform-origin: left;
+  animation: bar-fill linear both;
+}
+
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.tour.paused .tour-bar .fill,
+.tour.paused .scene * {
+  animation-play-state: paused !important;
+}
+
+.tour-stage {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #eef2e4;
+  border: 1px solid var(--line);
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tour-text h2 {
+  margin: 2px 0 4px;
+  font: 400 26px/1.2 var(--f-hand);
+}
+
+.tour-text p {
+  margin: 0;
+  color: var(--muted);
+  min-height: 2.9em; /* two lines, so the controls never jump between steps */
+}
+
+.tour-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tour-nav {
+  display: flex;
+  gap: 6px;
+}
+
+/* Scene pieces */
+.t-lot {
+  fill: #9cbc68;
+  stroke: #5f6f4a;
+  stroke-width: 1.5;
+  stroke-dasharray: 8 3 2 3;
+}
+
+.t-house {
+  fill: #cdbfa6;
+  stroke: #6f6252;
+  stroke-width: 1.5;
+}
+
+.t-plant {
+  fill: #4f7f45;
+  stroke: #33542e;
+  stroke-width: 1.2;
+}
+
+.t-card rect:first-child {
+  fill: white;
+  stroke: var(--line-strong);
+}
+
+.t-text {
+  fill: #2f3329;
+  opacity: 0.7;
+}
+
+.t-text.light {
+  opacity: 0.35;
+}
+
+.t-cursor {
+  transform-box: view-box;
+}
+
+.t-bed {
+  fill: #a5815a;
+  opacity: 0;
+}
+
+.t-draw {
+  fill: none;
+  stroke: var(--bloom);
+  stroke-width: 2;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+}
+
+.t-dot,
+.t-handle {
+  fill: white;
+  stroke: var(--bloom);
+  stroke-width: 2;
+}
+
+.t-ring {
+  fill: none;
+  stroke: var(--bloom);
+  stroke-width: 2;
+  stroke-dasharray: 5 3;
+}
+
+.t-label {
+  font: 600 13px var(--f-ui);
+  fill: var(--ink);
+  opacity: 0;
+}
+
+.t-pond {
+  fill: #6f9fb4;
+}
+
+.t-wheel rect {
+  fill: white;
+  stroke: #2f3329;
+  stroke-width: 1.5;
+}
+
+.t-wheel line {
+  stroke: #2f3329;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.t-tree {
+  fill: #4f7f45;
+  stroke: #33542e;
+}
+
+.t-chip rect {
+  fill: white;
+  stroke: var(--line-strong);
+}
+
+.t-chip text {
+  font: 600 13px var(--f-ui);
+  fill: var(--muted);
+}
+
+/* 1: carry a plant from the card to the lot, where it grows. */
+.scene-0 .c-drag {
+  animation: c-drag 5.2s ease-in-out both;
+}
+
+@keyframes c-drag {
+  0% { transform: translate(60px, 100px); }
+  15% { transform: translate(54px, 102px); }
+  55% { transform: translate(330px, 92px); }
+  100% { transform: translate(330px, 92px); }
+}
+
+.scene-0 .t-carry {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: carry 5.2s ease-in-out both;
+}
+
+@keyframes carry {
+  0%, 15% { transform: translate(0, 0) scale(1); opacity: 0; }
+  18% { opacity: 0.85; }
+  55% { transform: translate(276px, -10px) scale(1); opacity: 0.85; }
+  70% { transform: translate(276px, -10px) scale(1.9); opacity: 1; }
+  100% { transform: translate(276px, -10px) scale(1.9); opacity: 1; }
+}
+
+/* 2: click four corners, the outline draws, the bed fills. */
+.scene-1 .c-draw {
+  animation: c-draw 5.2s ease-in-out both;
+}
+
+@keyframes c-draw {
+  0% { transform: translate(250px, 160px); }
+  12% { transform: translate(200px, 60px); }
+  28% { transform: translate(300px, 52px); }
+  44% { transform: translate(320px, 100px); }
+  60%, 100% { transform: translate(210px, 110px); }
+}
+
+.scene-1 .t-dot {
+  opacity: 0;
+  animation: pop 5.2s both;
+}
+
+.scene-1 .d1 { animation-name: pop1; }
+.scene-1 .d2 { animation-name: pop2; }
+.scene-1 .d3 { animation-name: pop3; }
+
+@keyframes pop { 0%, 11% { opacity: 0; } 13%, 100% { opacity: 1; } }
+@keyframes pop1 { 0%, 27% { opacity: 0; } 29%, 100% { opacity: 1; } }
+@keyframes pop2 { 0%, 43% { opacity: 0; } 45%, 100% { opacity: 1; } }
+@keyframes pop3 { 0%, 59% { opacity: 0; } 61%, 100% { opacity: 1; } }
+
+.scene-1 .t-draw {
+  animation: draw 5.2s ease-in-out both;
+}
+
+@keyframes draw {
+  0%, 12% { stroke-dashoffset: 360; }
+  62% { stroke-dashoffset: 90; }
+  72%, 100% { stroke-dashoffset: 0; }
+}
+
+.scene-1 .t-bed {
+  animation: bed 5.2s both;
+}
+
+@keyframes bed {
+  0%, 70% { opacity: 0; }
+  82%, 100% { opacity: 0.85; }
+}
+
+/* 3: select a plant, drag its handle out, it grows and says how big. */
+.scene-2 .c-resize {
+  animation: c-resize 5.2s ease-in-out both;
+}
+
+@keyframes c-resize {
+  0% { transform: translate(330px, 200px); }
+  20% { transform: translate(420px, 82px); }
+  35% { transform: translate(446px, 82px); }
+  70%, 100% { transform: translate(462px, 82px); }
+}
+
+.scene-2 .t-ring,
+.scene-2 .t-handle {
+  opacity: 0;
+  animation: show-ring 5.2s both;
+}
+
+@keyframes show-ring {
+  0%, 20% { opacity: 0; }
+  24%, 100% { opacity: 1; }
+}
+
+.scene-2 .t-grow {
+  transform-origin: 420px 80px;
+  animation: grow 5.2s ease-in-out both;
+}
+
+@keyframes grow {
+  0%, 35% { transform: scale(1); }
+  70%, 100% { transform: scale(1.6); }
+}
+
+.scene-2 .t-label {
+  animation: label 5.2s both;
+}
+
+@keyframes label {
+  0%, 40% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+/* 4: zoom in toward a point, then back out. */
+.scene-3 .t-zoom {
+  transform-origin: 320px 230px;
+  animation: zoom 5.2s ease-in-out both;
+}
+
+@keyframes zoom {
+  0%, 10% { transform: scale(1); }
+  45%, 60% { transform: scale(2.1); }
+  95%, 100% { transform: scale(1); }
+}
+
+.scene-3 .t-wheel line {
+  animation: wheel 0.6s ease-in-out infinite;
+}
+
+@keyframes wheel {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+  100% { transform: translateY(0); }
+}
+
+/* 5: cycle the seasons; the lot and trees change color with the highlighted chip. */
+.scene-4 .t-lot {
+  animation: lawn 5.2s step-end both;
+}
+
+@keyframes lawn {
+  0% { fill: #a8c778; }
+  25% { fill: #8fb35e; }
+  50% { fill: #a8b366; }
+  75%, 100% { fill: #d6d8c8; }
+}
+
+.scene-4 .t-tree {
+  animation: leaves 5.2s step-end both;
+}
+
+@keyframes leaves {
+  0% { fill: #b8d47a; }
+  25% { fill: #4f7f45; }
+  50% { fill: #c4532c; }
+  75%, 100% { fill: #8a7b6a; fill-opacity: 0.4; }
+}
+
+.scene-4 .t-chip rect {
+  animation: chip 5.2s step-end both;
+}
+
+.scene-4 .s1 rect { animation-name: chip1; }
+.scene-4 .s2 rect { animation-name: chip2; }
+.scene-4 .s3 rect { animation-name: chip3; }
+
+@keyframes chip { 0% { fill: #eaf3e2; stroke: #6f9a4c; } 25%, 100% { fill: white; stroke: #d3cab6; } }
+@keyframes chip1 { 0% { fill: white; } 25% { fill: #fbf1d3; stroke: #c9962a; } 50%, 100% { fill: white; stroke: #d3cab6; } }
+@keyframes chip2 { 0% { fill: white; } 50% { fill: #f8e5d6; stroke: #c06a32; } 75%, 100% { fill: white; stroke: #d3cab6; } }
+@keyframes chip3 { 0% { fill: white; } 75%, 100% { fill: #e7eef3; stroke: #6f8ea3; } }
+
+/* 6: the yard tilted like a tabletop model, turning all the way around. */
+.scene-5 .t-orbit {
+  animation: orbit 5.2s linear both;
+}
+
+@keyframes orbit {
+  from { transform: scaleY(0.55) rotate(0deg); }
+  to { transform: scaleY(0.55) rotate(360deg); }
+}
+
+.t-house.roof {
+  fill: #6f6258;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour-backdrop,
+  .tour-bar .fill,
+  .scene * {
+    animation: none !important;
+  }
+  .scene .t-bed,
+  .scene .t-dot,
+  .scene .t-ring,
+  .scene .t-handle,
+  .scene .t-label {
+    opacity: 1;
+  }
+}
+
+/* ---------- Compact welcome card (replaces the long how-to list) ---------- */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.welcome p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.welcome .primary {
+  padding: 0 16px;
+}
+
+.shortcuts-pop {
+  position: relative;
+}
+
+.shortcuts-pop .shortcuts {
+  text-align: left;
+}

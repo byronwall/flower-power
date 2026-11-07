@@ -2,6 +2,7 @@ import { createEffect, createMemo, createSignal, onCleanup, onMount, untrack, ty
 import type { Point, Property } from "../model/property";
 import { bounds } from "../render/geometry";
 import type { ViewTime } from "../render/look";
+import { chirp, createLife, type Weather } from "../render/life";
 import { paint, type View } from "../render/paint";
 
 type Props = {
@@ -17,6 +18,8 @@ type Props = {
   onDragPlantOver?: (at: Point | null) => void;
   // A click on empty ground that did not turn into a pan.
   onBackgroundClick?: () => void;
+  // Weather shown over the plan, animated.
+  weather?: Weather;
 };
 
 // Room around the lot when fitted. The bottom leaves space for the scale bar and zoom controls.
@@ -31,6 +34,7 @@ type Camera = { cx: number; cy: number; zoom: number };
 export function PlanView(props: Props) {
   let box!: HTMLDivElement;
   let canvas!: HTMLCanvasElement;
+  let lifeCanvas!: HTMLCanvasElement;
   const [size, setSize] = createSignal({ w: 0, h: 0 });
   // Only the lot's box matters for fitting, so moving a plant does not count as a change.
   const lot = createMemo(() => bounds(props.property.lot.outline), undefined, {
@@ -178,6 +182,38 @@ export function PlanView(props: Props) {
     };
     box.addEventListener("pointerdown", down, { capture: true });
 
+    // Weather, fish, and birds on their own canvas over the plan.
+    const life = createLife(lifeCanvas, () => ({ property: props.property, view: view(), weather: props.weather ?? "sunny", width: size().w, height: size().h }));
+    if (import.meta.env.DEV) (window as unknown as { __life: typeof life }).__life = life;
+    createEffect(() => {
+      props.weather;
+      props.property;
+      view();
+      life.refresh();
+    });
+    // A click on a bird startles it (and its flock) into flight, with a chirp. It wins over panning and selecting.
+    const local = (e: PointerEvent | MouseEvent) => {
+      const r = box.getBoundingClientRect();
+      return [e.clientX - r.left, e.clientY - r.top] as const;
+    };
+    const birdDown = (e: PointerEvent) => {
+      if (!box.contains(e.target as Node) || e.button !== 0) return;
+      const i = life.birdAt(...local(e));
+      if (i < 0) return;
+      e.stopPropagation();
+      e.preventDefault();
+      life.scare(i);
+      chirp();
+    };
+    const birdHover = (e: PointerEvent) => box.classList.toggle("over-bird", life.birdAt(...local(e)) >= 0);
+    window.addEventListener("pointerdown", birdDown, { capture: true });
+    box.addEventListener("pointermove", birdHover);
+    onCleanup(() => {
+      life.dispose();
+      window.removeEventListener("pointerdown", birdDown, { capture: true });
+      box.removeEventListener("pointermove", birdHover);
+    });
+
     onCleanup(() => {
       ro.disconnect();
       box.removeEventListener("wheel", wheel);
@@ -237,6 +273,7 @@ export function PlanView(props: Props) {
         <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>{untrack(() => props.overlay?.(liveView))}</g>
         <PlanMarks property={props.property} view={view()} height={size().h} />
       </svg>
+      <canvas class="life-canvas" ref={lifeCanvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} aria-hidden="true" />
       <div class="zoom-controls" role="group" aria-label="Zoom">
         <button type="button" class="icon-btn" onClick={() => zoomCenter(0.8)} title="Zoom out (−)" aria-label="Zoom out">
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">

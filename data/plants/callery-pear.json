@@ -1,0 +1,79 @@
+{
+  "id": "callery-pear",
+  "commonName": "Callery (Bradford) pear",
+  "botanicalName": "Pyrus calleryana",
+  "category": "tree",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 39.5,
+    "spreadFt": 25.5,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 25.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      3,
+      4
+    ],
+    "colors": [
+      "#f8f6f0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#61964a",
+    "summer": "#3f7f35",
+    "fall": "#94923b",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Indiana Invasive Species Council list",
+      "url": "https://www.entm.purdue.edu/iisc/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "invasive_listed",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "replace"
+  ],
+  "alternatives": [
+    "serviceberry",
+    "eastern-redbud",
+    "flowering-dogwood"
+  ]
+}

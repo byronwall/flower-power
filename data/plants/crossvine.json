@@ -1,0 +1,75 @@
+{
+  "id": "crossvine",
+  "commonName": "Crossvine",
+  "botanicalName": "Bignonia capreolata",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 29.5,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#d9532a"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#61934a",
+    "summer": "#3f7a35",
+    "fall": "#747c42",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "hummingbirds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana Native Plant Society: Landscaping with Plants Native to Indiana",
+      "url": "https://indiananativeplants.org/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "hummingbird"
+  ]
+}

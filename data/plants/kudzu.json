@@ -1,0 +1,78 @@
+{
+  "id": "kudzu",
+  "commonName": "Kudzu",
+  "botanicalName": "Pueraria montana",
+  "category": "vine",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 49,
+    "spreadFt": 15,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 12
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#8a4fa0"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6da24e",
+    "summer": "#4f8f3a",
+    "fall": "#788244",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Indiana DNR Terrestrial Plant Rule (312 IAC 18-3-25)",
+      "url": "https://www.in.gov/dnr/entomology/"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "invasive_banned",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "remove"
+  ],
+  "alternatives": [
+    "crossvine",
+    "trumpet-honeysuckle",
+    "woolly-dutchmans-pipe"
+  ]
+}

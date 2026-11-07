@@ -1,0 +1,65 @@
+{
+  "id": "american-bittersweet",
+  "commonName": "American bittersweet",
+  "botanicalName": "Celastrus scandens",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 19.5,
+    "spreadFt": 5,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#6da24e",
+    "summer": "#4f8f3a",
+    "fall": "#788244",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "native look-alike of Oriental bittersweet"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "id": "sweet-basil",
+  "commonName": "Sweet basil",
+  "botanicalName": "Ocimum basilicum",
+  "category": "annual",
+  "nativeToIndiana": false,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 1.5,
+    "spreadFt": 1,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 1,
+    "spacingFt": 1
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#f4f2f4"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": null,
+    "summer": "#4f9a45",
+    "fall": "#788647",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    5,
+    6
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "introduced",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "herb"
+  ],
+  "edible": true
+}

@@ -1,0 +1,65 @@
+{
+  "id": "northern-red-oak",
+  "commonName": "Northern red oak",
+  "botanicalName": "Quercus rubra",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 82,
+    "spreadFt": 53.5,
+    "plantedSpreadFt": 3,
+    "yearsToMature": 20,
+    "spacingFt": 53.5
+  },
+  "sun": [
+    "full"
+  ],
+  "soil": [
+    "average"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#5e8f47",
+    "summer": "#3b7531",
+    "fall": "#938f3a",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "keystone"
+  ]
+}

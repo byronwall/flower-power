@@ -80,5 +80,14 @@
       "url": "https://extension.purdue.edu/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium"
+  ],
+  "tags": [
+    "edible fruit",
+    "pollinator"
+  ],
+  "edible": true
 }

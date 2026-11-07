@@ -1,0 +1,70 @@
+{
+  "id": "poison-ivy",
+  "commonName": "Poison ivy",
+  "botanicalName": "Toxicodendron radicans",
+  "category": "vine",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 10,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 3,
+    "spacingFt": 2.5
+  },
+  "sun": [
+    "full",
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "dry",
+    "average",
+    "moist"
+  ],
+  "water": "medium",
+  "bloom": null,
+  "fruit": null,
+  "foliage": {
+    "spring": "#6da24a",
+    "summer": "#4f8f35",
+    "fall": "#788242",
+    "winter": null
+  },
+  "zones": [
+    5,
+    6
+  ],
+  "care": [],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "Flower Power Indiana plant list (hand-curated)",
+      "url": "https://github.com/byronwall/flower-power/blob/main/indiana_plants.json"
+    }
+  ],
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "dry",
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "caution: skin irritant"
+  ]
+}

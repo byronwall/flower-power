@@ -80,5 +80,13 @@
       "url": "https://extension.purdue.edu/"
     }
   ],
-  "verified": false
+  "verified": false,
+  "indianaStatus": "native",
+  "moisture": [
+    "medium",
+    "wet"
+  ],
+  "tags": [
+    "fall color"
+  ]
 }
