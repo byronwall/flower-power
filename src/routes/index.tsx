@@ -3,9 +3,10 @@ import { PlanView } from "../components/PlanView";
 import { TimeBar } from "../components/TimeBar";
 import { EditLayer } from "../editor/EditLayer";
 import { Inspector } from "../editor/Inspector";
-import { createEditor } from "../editor/state";
+import { createEditor, droppedPlanting } from "../editor/state";
+import { PlantGallery } from "../gallery/PlantGallery";
 import { Toolbar } from "../editor/Toolbar";
-import { loadProperties, saveProperty } from "../model/library";
+import { loadProperties, plantsById, saveProperty } from "../model/library";
 import type { Property } from "../model/property";
 import type { ViewTime } from "../render/look";
 
@@ -83,7 +84,16 @@ function Planner(props: { properties: Property[]; onSaved: (p: Property) => void
       </header>
       <Toolbar editor={ed} />
       <main class="app-main">
-        <PlanView property={ed.property()} time={time()} overlay={(view) => <EditLayer editor={ed} view={view} time={time()} />} />
+        <PlantGallery editor={ed} time={time()} />
+        <PlanView
+          property={ed.property()}
+          time={time()}
+          overlay={(view) => <EditLayer editor={ed} view={view} time={time()} />}
+          onDropPlant={(id, at) => {
+            const plant = plantsById.get(id);
+            if (plant) ed.add("plantings", droppedPlanting(ed.property(), plant, at));
+          }}
+        />
         <Inspector editor={ed} />
       </main>
     </div>

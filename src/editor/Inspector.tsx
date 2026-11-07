@@ -1,5 +1,5 @@
 import { For, Show, type JSX } from "solid-js";
-import { plantsById } from "../model/library";
+import { plants, plantsById } from "../model/library";
 import { edgeKinds, featureKinds, fenceKinds, structureKinds, surfaceKinds, type Property } from "../model/property";
 import { itemOf, type Editor, type Ref } from "./state";
 
@@ -78,6 +78,11 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
   const plant = () => plantsById.get(props.planting.plantId);
   return (
     <>
+      <Field label="Plant">
+        <select id="inspector-plant" value={props.planting.plantId} onChange={(e) => props.set("plantId", e.currentTarget.value)}>
+          <For each={plants}>{(p) => <option value={p.id}>{p.commonName}</option>}</For>
+        </select>
+      </Field>
       <Field label="Placed as">
         <span>{label(props.planting.type)}</span>
       </Field>

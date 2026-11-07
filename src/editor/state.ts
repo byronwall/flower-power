@@ -105,6 +105,18 @@ export function createEditor(initial: Property) {
 
 export type Editor = ReturnType<typeof createEditor>;
 
+// A plant dropped from the gallery: one plant, or a round region a few plants wide to reshape.
+export function droppedPlanting(p: Property, plant: { id: string; placement: string; size: { spacingFt: number } }, at: Point): Property["plantings"][number] {
+  const id = newId(p, plant.id);
+  if (plant.placement !== "region") return { id, type: "single", plantId: plant.id, at };
+  const r = Math.max(2, plant.size.spacingFt * 1.8);
+  const outline: Point[] = Array.from({ length: 8 }, (_, i) => {
+    const a = (i / 8) * Math.PI * 2;
+    return snap([at[0] + Math.cos(a) * r, at[1] + Math.sin(a) * r * 0.75]);
+  });
+  return { id, type: "region", plantId: plant.id, outline, seed: Math.floor(Math.random() * 10000) };
+}
+
 export function newId(p: Property, prefix: string) {
   const used = new Set([...p.surfaces, ...p.structures, ...p.edges, ...p.fences, ...p.features, ...p.plantings].map((x) => x.id));
   let i = 1;

@@ -1,5 +1,5 @@
 import { createEffect, createSignal, onCleanup, onMount, type JSX } from "solid-js";
-import type { Property } from "../model/property";
+import type { Point, Property } from "../model/property";
 import { bounds } from "../render/geometry";
 import type { ViewTime } from "../render/look";
 import { paint, type View } from "../render/paint";
@@ -9,6 +9,8 @@ type Props = {
   time: ViewTime;
   // Extra SVG drawn in plan feet, above the painting. The editor uses it.
   overlay?: (view: View) => JSX.Element;
+  // A plant dragged from the gallery and dropped on the plan, at a point in feet.
+  onDropPlant?: (plantId: string, at: Point) => void;
 };
 
 const PAD = 48;
@@ -41,7 +43,21 @@ export function PlanView(props: Props) {
   });
 
   return (
-    <div class="plan-view" ref={box}>
+    <div
+      class="plan-view"
+      ref={box}
+      onDragOver={(e) => {
+        if (e.dataTransfer?.types.includes("text/plant")) e.preventDefault();
+      }}
+      onDrop={(e) => {
+        const id = e.dataTransfer?.getData("text/plant");
+        if (!id || !props.onDropPlant) return;
+        e.preventDefault();
+        const r = box.getBoundingClientRect();
+        const v = view();
+        props.onDropPlant(id, [Math.round(((e.clientX - r.left - v.offX) / v.scale) * 10) / 10, Math.round(((e.clientY - r.top - v.offY) / v.scale) * 10) / 10]);
+      }}
+    >
       <canvas ref={canvas} style={{ width: `${size().w}px`, height: `${size().h}px` }} />
       <svg class="plan-overlay" width={size().w} height={size().h}>
         <g transform={`translate(${view().offX} ${view().offY}) scale(${view().scale})`}>{props.overlay?.(view())}</g>
