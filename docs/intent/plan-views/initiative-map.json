@@ -1,0 +1,210 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Plan views: 2D plan, 3D pane, and height layers",
+    "slug": "plan-views",
+    "scale": "feature",
+    "current_phase": "intent",
+    "last_updated": "2026-11-07",
+    "summary": "How the garden is drawn and edited: watercolor 2D plan with height hints, synced 3D pane, and a layer slicer for plants under other plants.",
+    "status": "planned",
+    "next_action": "Byron chooses fixed layers or a free slider, and whether ground-level changes are in v1; then add layer cases to spike S17.",
+    "parent": "../garden-design-app"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "draft",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "not-created",
+      "updated_at": null
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "not-created",
+      "updated_at": null
+    }
+  },
+  "sources": [
+    {
+      "id": "P1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C29, C33, C34, C35",
+      "authority": "user"
+    },
+    {
+      "id": "P2",
+      "type": "transcript",
+      "location": "conversation 2026-11-07",
+      "anchor": "dictation on heights and layers in the 2D plan",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "V1",
+        "statement": "2D plan on the left and a 3D pane on the right, kept in sync.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V2",
+        "statement": "The 2D plan uses artificial depth, such as shadows and shading, to hint at height; the 3D pane shows real heights and ground steps.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "id": "V3",
+        "statement": "When plants do not overlap, a plain top view is correct even though height is not readable.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V4",
+        "statement": "When plants sit under other plants, a layer slicer on the 2D plan shows one height band at a time.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V5",
+        "statement": "Below the canopy, a tree shows as its trunk footprint with a shaded area, so plants under it are easy to edit.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V6",
+        "statement": "The layer control appears only when the design has overlapping heights; flat formal designs never show it.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V7",
+        "statement": "Editing must stay easy; never make the user look through foliage to reach plants.",
+        "kind": "priority",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "V8",
+        "statement": "Fixed layers vs free height slider is unsettled.",
+        "kind": "implementation hypothesis",
+        "commitment": "tentative",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "P2"
+        ],
+        "confidence": "medium"
+      }
+    ],
+    "themes": [
+      "edit at every height",
+      "2D hints, 3D shows",
+      "progressive disclosure of layers"
+    ],
+    "conflicts": [],
+    "human_questions": [
+      "Fixed layers (canopy, shrubs, ground) or a free height slider?",
+      "Are ground-level changes such as steps and terraces in the first version?"
+    ]
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "not-started",
+    "appetite": null,
+    "problem": null,
+    "recommended_shape": null,
+    "success_moves": [],
+    "first_proof": null,
+    "rabbit_holes": [],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "not-started",
+    "repository_snapshot": {
+      "root": null,
+      "revision": null,
+      "worktree_status": null,
+      "subsystems": [],
+      "test_commands": [],
+      "deployment_surfaces": []
+    },
+    "dependencies": [],
+    "fast_local_loop": null,
+    "milestones": [],
+    "cut_line": [],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Split from the garden design app intent; heights and layers recovered from dictation.",
+      "phase": "intent"
+    }
+  ],
+  "closure": null
+}

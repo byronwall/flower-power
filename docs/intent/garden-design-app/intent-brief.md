@@ -84,6 +84,10 @@ You drag a time slider through winter, spring, summer, and fall, and out to 5 ye
 - An empty repository exists at `byronwall/flower-power`. There is no code yet.
 - Ten early mockups in [mockups/](mockups/) show the main views. They come from the first memo, so some show features that are now later work.
 
+## Parts with their own intent
+
+This brief is the umbrella for the product. Some parts have their own intent documents. See the [intent index](../README.md). The [plan views](../plan-views/intent-brief.md) document covers the 2D plan, the 3D pane, and height layers, such as plants under a tree.
+
 ## Next step after confirmation
 
 Shape the first product and run the spikes that decide how capture, sun, plant visuals, and design proposals work. See [shape-brief.md](shape-brief.md) and [spikes.md](spikes.md).

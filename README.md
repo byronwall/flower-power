@@ -6,11 +6,13 @@ The project is in the planning phase. There is no code yet.
 
 ## Overview
 
-The [Flower Power plan overview](https://claude.ai/artifact/LLiJW3prBD1RbqrwGhM5cB) is a one-page summary. It shows the first product, the key decisions, the first proof, and the 16 spikes in groups. The page source is [overview.html](docs/intent/garden-design-app/overview.html).
+The [Flower Power plan overview](https://claude.ai/artifact/LLiJW3prBD1RbqrwGhM5cB) is a one-page summary. It shows the first product, the key decisions, the first proof, and the 17 spikes in groups. The page source is [overview.html](docs/intent/garden-design-app/overview.html).
 
 ## Planning documents
 
-All planning documents are in [docs/intent/garden-design-app/](docs/intent/garden-design-app/):
+The [intent index](docs/intent/README.md) lists each part of the product and where its intent lives. The [plan views](docs/intent/plan-views/intent-brief.md) part covers the 2D plan, the 3D pane, and height layers.
+
+The product documents are in [docs/intent/garden-design-app/](docs/intent/garden-design-app/):
 
 - [intent-brief.md](docs/intent/garden-design-app/intent-brief.md): what the app is for and who it is for.
 - [shape-brief.md](docs/intent/garden-design-app/shape-brief.md): what the first product includes, the key decisions, and the first proof.

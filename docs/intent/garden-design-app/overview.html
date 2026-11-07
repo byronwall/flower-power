@@ -227,7 +227,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
     <div class="area"><h3>Sun and shade</h3><ul><li>Set the front-door direction</li><li>Morning and afternoon shadows; rotate until right</li><li>Each area gets full sun, part sun, or shade</li></ul></div>
     <div class="area"><h3>What you want</h3><ul><li>Feeling, color theme, wildlife, safety for kids and pets</li><li>Favorite plants to design around</li><li>Style from a reference photo, labeled as borrowed</li><li>Honest review of the yard now</li></ul></div>
     <div class="area"><h3>Designs and editor</h3><ul><li>3 to 5 designs; pick, give feedback, rework an area</li><li>Drag a plant out and paint an area at the right spacing</li><li>Plants overlap at real size, not in grid cells</li><li>Gallery filtered by color, bloom, sun, effort</li></ul></div>
-    <div class="area"><h3>Views and time</h3><ul><li>Watercolor plan; each plant painted with some randomness</li><li>2D plan beside a live 3D pane you can rotate</li><li>Slider: four seasons, then years 1 to 5, in both panes</li></ul></div>
+    <div class="area"><h3>Views and time</h3><ul><li>Watercolor plan; each plant painted with some randomness</li><li>2D plan beside a live 3D pane you can rotate</li><li>Soft shadows hint at height; a layer slicer shows plants under trees</li><li>Slider: four seasons, then years 1 to 5, in both panes</li></ul></div>
     <div class="area"><h3>Plan, accounts, sharing</h3><ul><li>Shopping list, planting and care calendar, soil and sun</li><li>Email and password accounts</li><li>Share a project, view only</li><li>Public gallery: a zoomable wall of gardens</li></ul></div>
   </div>
   <div class="horizon">
@@ -263,7 +263,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
 
 <section id="spikes">
   <div class="sec-head">
-    <span class="eyebrow">Spikes and research · 16 items</span>
+    <span class="eyebrow">Spikes and research · 17 items</span>
     <h2>What we must learn before we build</h2>
     <p class="muted col">A spike is a small throwaway prototype. Research is reading and checking sources. Each item answers one question and has a fallback if the answer is no.</p>
   </div>
@@ -332,7 +332,7 @@ const AREAS = {
 };
 const TIERS = [
   { id: "first", name: "Before the first proof", note: "These decide whether the first proof can run." },
-  { id: "next", name: "Next", note: "These unlock the 3D pane, sun and shade, the plant data, and the designs." },
+  { id: "next", name: "Next", note: "These unlock the 3D pane, height layers, sun and shade, the plant data, and the designs." },
   { id: "later", name: "Later", note: "These decide how later features work." },
 ];
 const SPIKES = [
@@ -361,6 +361,11 @@ const SPIKES = [
     how: "House raised from its footprint, plan as ground texture, painted plants. Test several hundred plants.",
     decide: "The 3D method and the plant limit before it slows down.",
     fallback: "A Render 3D button that makes a still image." },
+  { id: "S17", tier: "next", area: "visuals", kind: "Spike", title: "Height and layers in the 2D plan",
+    q: "Can the watercolor plan hint at height with soft shadows, and can a layer slicer show the plants under a tree clearly?",
+    how: "A maple with a shade bed under it, and a flat formal bed. Below the canopy, the tree becomes a trunk in a shaded area.",
+    decide: "Fixed layers or a free height slider, and the height hint style.",
+    fallback: "One hide-canopy switch that shows trees as trunks with a shaded area." },
   { id: "S8", tier: "next", area: "sun", kind: "Spike", title: "Sun and shadows",
     q: "From latitude, date, house footprint, and estimated heights, can we draw believable shadows and give each area a sun class?",
     how: "Sun position library, house height from floor count, tree height by type. Check against a real yard twice a day.",

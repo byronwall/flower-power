@@ -9,7 +9,10 @@
     "summary": "Desktop web app for Indiana homeowners: address and photos become an illustrated plan of the whole property; sun-aware AI designs; season and 5-year slider; a step-by-step planting and care plan.",
     "status": "planned",
     "next_action": "Run spikes S1, S5, S15, S2, then the first proof.",
-    "repo": "https://github.com/byronwall/flower-power"
+    "repo": "https://github.com/byronwall/flower-power",
+    "children": [
+      "../plan-views"
+    ]
   },
   "artifacts": {
     "intent_brief": {
@@ -95,6 +98,13 @@
       "type": "qa",
       "location": "conversation 2026-11-07",
       "anchor": "round 8: gallery privacy",
+      "authority": "user"
+    },
+    {
+      "id": "Q9",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "dictation: heights and layers; segment intent docs",
       "authority": "user"
     }
   ],
@@ -637,6 +647,19 @@
           "Q8"
         ],
         "confidence": "high"
+      },
+      {
+        "id": "C41",
+        "statement": "Heights and layers in the 2D plan are owned by the plan-views intent; spike S17 tests them.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "Q9"
+        ],
+        "confidence": "high"
       }
     ],
     "themes": [
@@ -730,6 +753,11 @@
     {
       "date": "2026-11-07",
       "event": "Round 8: public gallery hides address and aerial photo. No open product choices.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Started splitting intent by part: added docs/intent/README.md index and plan-views initiative; added spike S17.",
       "phase": "shape"
     }
   ],

@@ -41,7 +41,8 @@ Garden design app (desktop web, Indiana)
 │   ├── Views
 │   │   ├── Watercolor plan: each plant painted with some randomness, so it looks organic
 │   │   └── Two panes: 2D plan on the left, 3D view on the right that you can rotate
-│   │       └── An edit in 2D shows in 3D at once
+│   │       ├── An edit in 2D shows in 3D at once
+│   │       └── Layer slicer when plants sit under trees (see plan views)
 │   ├── Time slider: winter to fall, then years 1 to 5; both panes change at once
 │   ├── Your plan: shopping list, planting and care calendar, soil, sun, time to grow
 │   ├── Share a project with another account, view only

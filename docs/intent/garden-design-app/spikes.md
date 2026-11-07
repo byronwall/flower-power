@@ -12,7 +12,7 @@ Each item answers one question that changes the build. A **spike** is a small th
 
 Do them in three groups:
 - **First proof:** S1, S5, S15, and S2 decide whether the first proof is possible.
-- **Next:** S7, S8, S10, and S12 unlock the live 3D pane, sun and shade, the plant data, and the designs.
+- **Next:** S7, S17, S8, S10, and S12 unlock the live 3D pane, height layers, sun and shade, the plant data, and the designs.
 - **Later:** the rest decide how later features work.
 
 ## Property capture
@@ -62,6 +62,13 @@ Do them in three groups:
 - **Observe:** Does the 3D view look like it belongs with the watercolor plan? Does it update with no wait you can see? Can you rotate it smoothly?
 - **Decide:** The 3D method and the plant limit before it slows down.
 - **Fallback:** A "Render 3D" button that makes a still image after the plan is done.
+
+**S17. Height and layers in the 2D plan** · spike · needed with S7
+- **Question:** Can the watercolor plan hint at height with soft shadows, and can a layer slicer show the plants under a tree clearly?
+- **Try:** One maple with a shade bed under it, and one flat formal bed. Below the canopy, draw the tree as a trunk circle in a shaded area. Show the layer control only for the maple design. Compare fixed layers (canopy, shrubs, ground) with a free height slider.
+- **Observe:** Can a person edit the plants under the tree without searching? Does the 2D plan still look like a watercolor plan? Does it match the 3D pane?
+- **Decide:** Fixed layers or a free slider, and the height hint style. See [plan views](../plan-views/intent-brief.md).
+- **Fallback:** One "hide canopy" switch that shows trees as trunks with a shaded area.
 
 ## Sun and shade
 
