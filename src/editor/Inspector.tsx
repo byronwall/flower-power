@@ -205,7 +205,7 @@ function PlantingFields(props: { editor: Editor; planting: Property["plantings"]
 }
 
 // A large side-view illustration of the plant in the month shown.
-function Picture(props: { plant: Plant; time: ViewTime }) {
+export function Picture(props: { plant: Plant; time: ViewTime }) {
   return (
     <figure class="plant-preview">
       <PlantPicture plant={props.plant} time={props.time} size={300} class="preview-canvas" />
@@ -217,7 +217,7 @@ function Picture(props: { plant: Plant; time: ViewTime }) {
   );
 }
 
-function PlantFacts(props: { plant: Plant }) {
+export function PlantFacts(props: { plant: Plant }) {
   const p = () => props.plant;
   return (
     <dl class="facts">

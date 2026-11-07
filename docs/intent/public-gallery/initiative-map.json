@@ -1,0 +1,737 @@
+{
+  "schema_version": "0.5.0",
+  "initiative": {
+    "title": "Public garden gallery",
+    "slug": "public-gallery",
+    "scale": "feature",
+    "current_phase": "execution",
+    "last_updated": "2026-11-07",
+    "summary": "An opt-in public wall of garden thumbnails that anyone can pan and zoom, opening one garden at the closest zoom, without revealing where anyone lives.",
+    "status": "active",
+    "next_action": "Review and merge the gallery PR. Later: back GalleryStore with the server now that accounts exist.",
+    "parent": "../accounts-and-gallery"
+  },
+  "artifacts": {
+    "intent_brief": {
+      "path": "intent-brief.md",
+      "status": "current",
+      "updated_at": "2026-11-07"
+    },
+    "brainstorm": {
+      "path": "brainstorm.md",
+      "status": "not-requested",
+      "updated_at": null
+    },
+    "shape_brief": {
+      "path": "shape-brief.md",
+      "status": "current",
+      "updated_at": "2026-11-07"
+    },
+    "implementation_plan": {
+      "path": "implementation-plan.md",
+      "status": "current",
+      "updated_at": "2026-11-07"
+    }
+  },
+  "sources": [
+    {
+      "id": "U1",
+      "type": "qa",
+      "location": "../garden-design-app/initiative-map.json",
+      "anchor": "claims C15, C32, C39, C40",
+      "authority": "user"
+    },
+    {
+      "id": "U2",
+      "type": "doc",
+      "location": "../garden-design-app/spikes.md",
+      "anchor": "S16. Public gallery wall",
+      "authority": "inferred"
+    },
+    {
+      "id": "U3",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "disambiguation: gallery viewer = public garden gallery",
+      "authority": "user"
+    },
+    {
+      "id": "R1",
+      "type": "repo",
+      "location": "src/routes/api/properties",
+      "anchor": "properties saved as local JSON files; no accounts or database",
+      "authority": "repo"
+    },
+    {
+      "id": "qa-round-1",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "1",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-2",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "2",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-3",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "3",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-4",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "4",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-5",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "5: confirmed editable copy, asked to shape",
+      "authority": "user"
+    },
+    {
+      "id": "R2",
+      "type": "repo",
+      "location": "src/components/PlanView.tsx",
+      "anchor": "overlay and onDropPlant are optional; without them the plan is read-only",
+      "authority": "repo"
+    },
+    {
+      "id": "qa-round-6",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "6: copies stay",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-7",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "7: edited copies can go public with credit",
+      "authority": "user"
+    },
+    {
+      "id": "qa-round-8",
+      "type": "question-round",
+      "location": "conversation 2026-11-07",
+      "anchor": "8: write the plan and start implementing",
+      "authority": "user"
+    },
+    {
+      "id": "qa-s16",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "S16 observation: smooth, keep wall",
+      "authority": "user"
+    },
+    {
+      "id": "qa-top10",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "Modify the gallery to have the top 10 rated gardens",
+      "authority": "user"
+    },
+    {
+      "id": "qa-top10-only",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "Only the top 10",
+      "authority": "user"
+    },
+    {
+      "id": "qa-fair",
+      "type": "qa",
+      "location": "conversation 2026-11-07",
+      "anchor": "No, keep it fair",
+      "authority": "user"
+    }
+  ],
+  "intent": {
+    "claims": [
+      {
+        "id": "G1",
+        "statement": "Owners mark a project public to include it; everything is private by default.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G2",
+        "statement": "The gallery is a zoomed-out wall of garden thumbnails; you pan and zoom in to open one garden.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1",
+          "U3"
+        ],
+        "confidence": "high",
+        "notes": "Narrowed by G18: Best shows the top 10, not hundreds of gardens."
+      },
+      {
+        "id": "G3",
+        "statement": "The public view hides the address and the aerial photo.",
+        "kind": "constraint",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "U1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G4",
+        "statement": "Hundreds of thumbnails on one canvas, sharper images loaded as you zoom; fallback is a scrolling grid of cards.",
+        "kind": "implementation hypothesis",
+        "commitment": "derived",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "proof",
+        "sources": [
+          "U2"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "id": "G5",
+        "statement": "Public portfolios for landscape architects and community projects (Fishers) are later possibilities.",
+        "kind": "future possibility",
+        "commitment": "tentative",
+        "importance": "peripheral",
+        "status": "active",
+        "horizon": "later",
+        "sources": [
+          "U1"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "id": "G6",
+        "statement": "No accounts, server database, or public pages exist yet; projects are local JSON files.",
+        "kind": "current repository reality",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "proof",
+        "sources": [
+          "R1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G7",
+        "statement": "The public gallery's purpose is to show the community's top-rated gardens, with the top-rated ones highlighted.",
+        "kind": "outcome",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G8",
+        "statement": "One rough combined ranking from 1-10 stars and total saves picks the best gardens.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-2",
+          "qa-round-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G9",
+        "statement": "Each person has a personal gallery of their own ideas and designs to reference and look back at; newer gardens live there.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-1"
+        ],
+        "confidence": "medium"
+      },
+      {
+        "id": "G10",
+        "statement": "The owner chooses whether each garden is public or not.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-1"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G11",
+        "statement": "Saving a garden puts it in the saver's personal gallery, not the public gallery.",
+        "kind": "derived implication",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-2",
+          "qa-round-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G12",
+        "statement": "The gallery opens in its own tab inside the designer; a toggle switches between your current design and the gallery, each shown on its own rather than side by side.",
+        "kind": "desired experience",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-3"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G13",
+        "statement": "A separate New gardens tab lets people go through a few new public gardens, give each 1-10 stars, and use a yes/no toggle to save it.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G14",
+        "statement": "Zooming into one garden shows its full plan (plant layout, plants, configuration, overall landscape) like the designer, but view only, with address and aerial photo still hidden.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-4"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G15",
+        "statement": "To edit someone else's garden, you save it, open it from your personal gallery, and edit your own copy; the original never changes.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-4",
+          "qa-round-5"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G16",
+        "statement": "If an owner turns Public off, saved copies stay with the people who saved them.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-6"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G17",
+        "statement": "An edited saved copy can be made public; its public view credits the original garden.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-round-7"
+        ],
+        "confidence": "high"
+      },
+      {
+        "id": "G18",
+        "statement": "Best shows only the top 10 rated gardens, laid out as a podium with #1 largest.",
+        "kind": "required behavior",
+        "commitment": "explicit",
+        "importance": "core",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-top10",
+          "qa-top10-only"
+        ],
+        "confidence": "high",
+        "notes": "Byron chose only the top 10 over highlighting them on the full wall."
+      },
+      {
+        "id": "G19",
+        "statement": "Every rating counts the same, including your own; one person can't push a garden onto Best.",
+        "kind": "decision",
+        "commitment": "explicit",
+        "importance": "supporting",
+        "status": "active",
+        "horizon": "first release",
+        "sources": [
+          "qa-fair"
+        ],
+        "confidence": "high"
+      }
+    ],
+    "themes": [],
+    "conflicts": [],
+    "human_questions": []
+  },
+  "brainstorm": {
+    "status": "not-requested",
+    "requested_count": 7,
+    "options": [],
+    "selected_option": null
+  },
+  "shape": {
+    "status": "current",
+    "appetite": "One gallery inside the existing app: Best, New, Mine tabs, one wall, one view-only garden view, saved copies. No new editor.",
+    "problem": "People designing a garden want to see, rate, and borrow from the community's best gardens without losing their own design or exposing where anyone lives.",
+    "recommended_shape": "Design/Gallery toggle; Best wall ranked by a combined stars-and-saves score; New tab for 1-10 stars and save yes/no; view-only garden view reusing PlanView without the edit layer; Mine holds own gardens with a Public switch and saved snapshot copies. Built behind a gallery-store seam against a local generated community before accounts exist.",
+    "success_moves": [
+      {
+        "move": "Gallery-store seam with a local fake holding ~500 generated gardens",
+        "risk": "Accounts and server database do not exist; the wall UX would wait on them",
+        "benefit": "Judge the wall, rating, and saving now; real accounts plug into the same seam"
+      },
+      {
+        "move": "Reuse PlanView without overlay for the view-only garden view",
+        "risk": "Building a second renderer or a read-only editor mode",
+        "benefit": "View-only comes almost free and matches the designer exactly"
+      },
+      {
+        "move": "Publish a sanitized public copy instead of reading the private project",
+        "risk": "A future private field (address, aerial) leaking into public views",
+        "benefit": "Privacy enforced in one place, testable with a unit test"
+      },
+      {
+        "move": "Saved gardens are snapshot copies",
+        "risk": "Edits or deletions by the owner breaking savers' work",
+        "benefit": "The original never changes; savers never lose their copy"
+      },
+      {
+        "move": "Grid fallback for Best behind the same data",
+        "risk": "Pan-and-zoom canvas performance at hundreds of thumbnails",
+        "benefit": "S16 failure changes only the Best layout, not New, Mine, or ranking"
+      }
+    ],
+    "first_proof": {
+      "question": "Can a pan-and-zoom wall of ~500 real watercolor thumbnails stay smooth and make the best gardens stand out?",
+      "artifact": "Spike S16: generated gardens from the sample lot, thumbnails from the plan painter, sized by a fake score, closest zoom opens a view-only PlanView",
+      "decision_rule": "Smooth and inviting on a normal laptop: keep the wall and build New and Mine on the local store. Stutters or confusing: Best becomes a score-sorted scrolling grid; everything else unchanged."
+    },
+    "rabbit_holes": [
+      "Accounts and hosting bundled into the first proof",
+      "Exact ranking formula tuning before real ratings exist",
+      "Moderation and abuse handling",
+      "Live sync of saved copies with originals"
+    ],
+    "open_decisions": []
+  },
+  "implementation": {
+    "status": "completed",
+    "repository_snapshot": {
+      "root": ".",
+      "revision": "origin/main ada1282",
+      "worktree_status": "clean except docs/intent",
+      "subsystems": [
+        "src/routes/plan.tsx (Planner)",
+        "src/components/PlanView.tsx",
+        "src/render/paint.ts",
+        "src/model/property.ts",
+        "src/gallery"
+      ],
+      "test_commands": [
+        "pnpm test",
+        "pnpm typecheck"
+      ],
+      "deployment_surfaces": []
+    },
+    "dependencies": [
+      {
+        "name": "Accounts and server database",
+        "first_proof_role": "absent",
+        "seam": "GalleryStore (src/gallery/store.ts)",
+        "proof_strategy": "Local generated community and browser-storage store for milestones 1-3; server store added by the accounts initiative behind the same seam."
+      }
+    ],
+    "fast_local_loop": {
+      "command": "pnpm dev (flip to Gallery) and pnpm test"
+    },
+    "milestones": [
+      {
+        "id": "m1",
+        "title": "Flip to a wall of the best gardens and open one",
+        "outcome": "Toggle to a pan-and-zoom wall of ~500 generated gardens, best largest and central; click opens a view-only garden view.",
+        "dependencies_introduced": [],
+        "proof": "Vitest for generator and ranking; browser check of pan, zoom, open, and back.",
+        "valid_intermediate_state": "Gallery is read-only over generated data; designer unchanged.",
+        "rollback": "Remove the toggle.",
+        "status": "completed",
+        "evidence": [
+          "src/gallery/gallery.test.ts: generator, ranking, wall layout (8 tests)",
+          "Browser: toggle, wall renders ~440 ranked gardens, click flies in and opens view-only garden, Back restores the wall camera, URL keeps view/tab/garden",
+          "Thumbnail paint cost measured at ~15 ms each; painting pauses while panning/zooming",
+          "Byron observed pan and zoom in a visible window: smooth; keep the wall (S16 decided).",
+          "Mock run 2026-11-07: rate 10 + save -> ranked #39; +30 simulated neighbors -> #2 on Best (store.test.ts 'mock run' and browser walkthrough)."
+        ]
+      },
+      {
+        "id": "m2",
+        "title": "Rate, save, and find new gardens",
+        "outcome": "Stars 1-10 and save from the garden view and New tab; saved snapshot copies in Mine.",
+        "dependencies_introduced": [
+          "GalleryStore local implementation (browser storage)"
+        ],
+        "proof": "Store contract tests; reload keeps ratings and saves.",
+        "valid_intermediate_state": "Community actions are local to this browser.",
+        "rollback": "Hide New and Mine tabs.",
+        "status": "completed",
+        "evidence": [
+          "src/gallery/store.test.ts: re-rating, clamping, snapshot saves, reload persistence",
+          "Browser: 1-10 stars and Save switch in garden view and New tab; Mine lists saved copies"
+        ]
+      },
+      {
+        "id": "m3",
+        "title": "Publish your own gardens and edit saved copies",
+        "outcome": "Public switch publishes a cleaned copy; saved copies open in the designer; edited copies publish with a Based on credit.",
+        "dependencies_introduced": [],
+        "proof": "Vitest for toPublic allow list; browser check of publish, unpublish, edit copy.",
+        "valid_intermediate_state": "Whole loop works on one machine.",
+        "rollback": "Hide the Public switch.",
+        "status": "completed",
+        "evidence": [
+          "store.test.ts: publish, can't rate own, unpublish keeps saved copies, Based on credit; toPublic allow list and every-field-decided test",
+          "Browser: Public switch publishes Sample lot; Edit my copy created a new property file and opened it in the designer; publishing the copy shows 'based on Easy prairie yard'"
+        ]
+      }
+    ],
+    "cut_line": [
+      "Real accounts, server database, hosting",
+      "Moderation, reporting, comments, profiles",
+      "Search and filters on the wall",
+      "Ranking tuning with real ratings"
+    ],
+    "open_decisions": []
+  },
+  "history": [
+    {
+      "date": "2026-11-07",
+      "event": "Created from the accounts-and-gallery intent after Byron chose the public garden gallery as the gallery viewer.",
+      "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Three question rounds: top-rated by saves and 1-10 stars, personal gallery, public toggle per garden, gallery as a tab toggled with the current design.",
+      "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Round 4: combined ranking, New gardens tab, view-only zoom-in, save then edit from the personal gallery.",
+      "phase": "intent"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Byron confirmed saved gardens open as editable copies; shape brief drafted with a local-first gallery-store seam and S16 as first proof.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Byron decided saved copies stay when an owner turns Public off.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Byron decided edited copies can go public with credit to the original; shape has no open choices.",
+      "phase": "shape"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Implementation plan written; Byron asked to start implementing. Status set to active.",
+      "phase": "plan"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Implemented milestones 1-3 locally (uncommitted). m2 and m3 verified; m1 functional, smoothness still to be observed.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "S16 decided: wall is smooth, keep it. All three milestones complete locally; not yet committed.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Top 10 tier added to the Best wall: spans for ranks 1-10, badges, clickable Top 10 list; fit leaves room for the list.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Best narrowed to the top 10 only, as a podium (#1 3x3 center, #2-#3 2x2, #4-#10 row). Top 10 side list removed as redundant.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Mock run added: ?demo=1 seeds 'Rising star meadow' (4 ratings) and a demo bar with Simulate 30 neighbors and Reset. Scenario test in store.test.ts. Fixed Best to refresh when you return to it. Walked through in the browser: your 10 makes it rankable (#39), neighbors carry it to #2.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Byron decided ratings stay equally weighted; no extra weight for the viewer's own rating.",
+      "phase": "execution"
+    },
+    {
+      "date": "2026-11-07",
+      "event": "Rebased onto main after accounts landed: toggle moved to /plan, gallery storage scoped per account, underlay (aerial photo) marked private in the public-copy allow list.",
+      "phase": "execution"
+    }
+  ],
+  "closure": null,
+  "question_rounds": {
+    "focus": "public garden gallery viewer",
+    "per_round": 5,
+    "planned_rounds": 3,
+    "status": "complete",
+    "rounds": [
+      {
+        "round": 1,
+        "theme": "goals and stakes",
+        "source": "qa-round-1",
+        "questions": [
+          {
+            "n": 1,
+            "question": "Who is the gallery for, what does zoom-in show, what can visitors do, is sign-in needed?",
+            "answer": "Free answer: show top-rated gardens from the community and highlight them; newer gardens can live in a personal gallery of the user's own ideas and designs; the owner chooses public or not.",
+            "effect": "Added ratings and a personal gallery to scope; zoom-in, actions, and sign-in carried to round 2."
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "theme": "ratings and new gardens",
+        "source": "qa-round-2",
+        "questions": [
+          {
+            "n": 2,
+            "question": "How should people rate a garden?",
+            "answer": "Total saves and stars from 1 to 10.",
+            "effect": "Two ranking signals; how they combine goes to round 3."
+          },
+          {
+            "n": 3,
+            "question": "How do new public gardens get seen?",
+            "answer": "Not answered.",
+            "effect": "Carried to round 3."
+          },
+          {
+            "n": 4,
+            "question": "Personal gallery = all your own gardens, private first?",
+            "answer": "Not answered directly.",
+            "effect": "Kept as a medium-confidence reading."
+          },
+          {
+            "n": 5,
+            "question": "What else goes in the personal gallery?",
+            "answer": "Not answered directly; saves imply saved gardens.",
+            "effect": "Added G11 as a derived claim."
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "theme": "boundaries and confirmation",
+        "source": "qa-round-3",
+        "questions": [
+          {
+            "n": 6,
+            "question": "Two sorts or one combined ranking?",
+            "answer": "Not answered.",
+            "effect": "Left in human_questions."
+          },
+          {
+            "n": 7,
+            "question": "How do new public gardens get seen?",
+            "answer": "Not answered.",
+            "effect": "Left in human_questions."
+          },
+          {
+            "n": 8,
+            "question": "What does zoom-in show?",
+            "answer": "Not answered; Byron described where the gallery lives instead.",
+            "effect": "Left in human_questions."
+          },
+          {
+            "n": 9,
+            "question": "Do saves sit in the personal gallery?",
+            "answer": "Free answer: the gallery is a separate tab in the designer, with a toggle between your current design and the gallery, viewed separately.",
+            "effect": "Added G12; save destination still a medium-confidence reading."
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "theme": "follow-up answers",
+        "source": "qa-round-4",
+        "questions": [
+          {
+            "n": 10,
+            "question": "Two sorts or one ranking?",
+            "answer": "A rough combined metric of stars and saves.",
+            "effect": "G8 updated."
+          },
+          {
+            "n": 11,
+            "question": "How do new gardens get seen?",
+            "answer": "A separate New gardens tab to pick through a few, rate 1-10, and toggle save yes/no.",
+            "effect": "Added G13."
+          },
+          {
+            "n": 12,
+            "question": "What does zoom-in show?",
+            "answer": "Full plan, plants, configuration, landscape, view only; to edit, save it then open it from the personal gallery (message cut off).",
+            "effect": "Added G14, G15 (copy reading is provisional)."
+          }
+        ]
+      }
+    ]
+  }
+}
