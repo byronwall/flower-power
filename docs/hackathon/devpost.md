@@ -16,7 +16,7 @@ We wanted a planner where you start from your own house, not a blank grid. Take 
 - **See it change.** Move between seasons and years 1 to 5. Trees go bare in winter, shrubs fill in, and the 3D yard view shows the same plan in depth.
 - **Know where the sun is.** A sun model works out hours of direct sun for every 2 ft square of the lot, from the house, fences and trees. Each spot comes out full sun, part sun or shade.
 - **Get design ideas.** Say what you want (calm, songbirds, safe for kids) and pick a dial: Light touch, Refresh or Redo. The app reviews the yard as it is, then draws 3 to 5 designs in different styles, such as cottage, prairie and modern. Each design is a list of changes on your plan. Accept or reject each change, or draw a box to rework just one bed.
-- **Browse the gallery.** Best shows the top 10 gardens, New lets you rate recent ones, and Mine holds your designs with a Public switch. A public garden shows the design you picked. A public garden never shows the address or the aerial photo.
+- **Browse the gallery.** Best shows the top 10 gardens, New lets you rate recent ones, and Mine holds your designs with a Public switch. A public garden shows the design you picked, never the address or the aerial photo.
 - **153 Indiana plants**, filterable by type, sun and bloom color. The 15 invasive ones are flagged so you know what to pull, not plant.
 - **Accounts.** Register with an email and password, and you only see your own plans.
 
@@ -53,7 +53,7 @@ We started at about 11 AM with an empty repo. The idea came from a nine-minute v
 - A real yard goes from photos to an editable watercolor plan, and you can see whether the AI got it right.
 - The eval loop told us something useful: the import passes 53 of 66 runs (80%). That's short of our 90% target, and we know where it fails.
 - The sun model is fast enough to rerun on every edit (about 20 ms for a 100 × 200 ft lot), and turning the plan moves the shadows the right way.
-- Three people and a set of agent sessions merged 15 PRs in one afternoon.
+- Three people and a set of agent sessions merged 18 PRs in one afternoon.
 
 ## What we learned
 
