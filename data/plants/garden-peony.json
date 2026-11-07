@@ -1,0 +1,87 @@
+{
+  "id": "garden-peony",
+  "commonName": "Garden peony",
+  "botanicalName": "Paeonia lactiflora",
+  "category": "perennial",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 5,
+    "spacingFt": 3
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained",
+    "rich"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#e89aa8",
+      "#f4eee2"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#719553",
+    "summer": "#68864a",
+    "fall": "#b27d51",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, peonies",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/our-garden/notable-plant-collections/peonies"
+    },
+    {
+      "label": "NC State Extension, herbaceous peonies",
+      "url": "https://plants.ces.ncsu.edu/plants/paeonia-herbaceous-types/"
+    },
+    {
+      "label": "ASPCA, peony toxicity",
+      "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/peony"
+    }
+  ],
+  "verified": false
+}

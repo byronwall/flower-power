@@ -1,0 +1,81 @@
+{
+  "id": "blue-false-indigo",
+  "commonName": "Blue false indigo",
+  "botanicalName": "Baptisia australis",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 3,
+    "plantedSpreadFt": 1,
+    "yearsToMature": 4,
+    "spacingFt": 3
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "well-drained"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#5556a8"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6b8b4f",
+    "summer": "#66804a",
+    "fall": "#8b865a",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, blue false indigo",
+      "url": "https://plants.ces.ncsu.edu/plants/baptisia-australis/common-name/blue-false-indigo/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}

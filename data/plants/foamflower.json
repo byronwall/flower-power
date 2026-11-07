@@ -1,0 +1,31 @@
+{
+  "id": "foamflower",
+  "commonName": "Foamflower",
+  "botanicalName": "Tiarella cordifolia",
+  "category": "groundcover",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 1, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 3, "spacingFt": 1 },
+  "sun": ["part", "shade"],
+  "soil": ["moist", "well-drained", "organic"],
+  "water": "medium",
+  "bloom": { "months": [4, 5, 6], "colors": ["#f4eee5"] },
+  "fruit": null,
+  "foliage": { "spring": "#74a65a", "summer": "#648b4b", "fall": "#8d8d5e", "winter": null },
+  "zones": [3, 8],
+  "care": [{ "month": 5, "task": "Water new plants during dry weather" }, { "month": 9, "task": "Remove damaged foliage" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["pollinators"],
+  "effort": 1,
+  "render": { "form": "mound" },
+  "sources": [
+    { "label": "NC State Extension, Foamflower", "url": "https://plants.ces.ncsu.edu/plants/tiarella-cordifolia/common-name/foamflower/" },
+    { "label": "Indiana University Indianapolis, Native Plant Care Guide", "url": "https://sustainability.indianapolis.iu.edu/operations/grounds/iupui-native-plant-guide-pdf.pdf" }
+  ],
+  "verified": false
+}

@@ -1,0 +1,92 @@
+{
+  "id": "tulip-tree",
+  "commonName": "Tulip tree",
+  "botanicalName": "Liriodendron tulipifera",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 100,
+    "spreadFt": 50,
+    "plantedSpreadFt": 5,
+    "yearsToMature": 30,
+    "spacingFt": 40
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "well-drained",
+    "loam"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      5,
+      6
+    ],
+    "colors": [
+      "#e6c84b"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#8b6b37"
+  },
+  "foliage": {
+    "spring": "#9cb849",
+    "summer": "#4c7c3b",
+    "fall": "#e0bd42",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "birds",
+    "hummingbirds",
+    "butterflies"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/liriodendron-tulipifera/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

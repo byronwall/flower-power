@@ -1,0 +1,88 @@
+{
+  "id": "japanese-barberry",
+  "commonName": "Japanese barberry",
+  "botanicalName": "Berberis thunbergii",
+  "category": "shrub",
+  "nativeToIndiana": false,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 4,
+    "plantedSpreadFt": 1.5,
+    "yearsToMature": 5,
+    "spacingFt": 3.4
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "dry",
+    "well-drained"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      4
+    ],
+    "colors": [
+      "#d2bf70"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#bf2525"
+  },
+  "foliage": {
+    "spring": "#8f4c30",
+    "summer": "#a1432e",
+    "fall": "#d8432e",
+    "winter": null
+  },
+  "zones": [
+    4,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Prune to shape before spring growth"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": true,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs for Clay Soils",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Clay%20Soils%20-%20Shrubs7.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

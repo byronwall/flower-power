@@ -1,0 +1,88 @@
+{
+  "id": "white-oak",
+  "commonName": "White oak",
+  "botanicalName": "Quercus alba",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 80,
+    "spreadFt": 80,
+    "plantedSpreadFt": 6,
+    "yearsToMature": 40,
+    "spacingFt": 60
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "well-drained",
+    "loam"
+  ],
+  "water": "low",
+  "bloom": {
+    "months": [
+      5
+    ],
+    "colors": [
+      "#a7ad43"
+    ]
+  },
+  "fruit": {
+    "months": [
+      9,
+      10
+    ],
+    "color": "#795331"
+  },
+  "foliage": {
+    "spring": "#9aad58",
+    "summer": "#53783d",
+    "fall": "#913d31",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/quercus-alba/common-name/forked-leaf-white-oak/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,31 @@
+{
+  "id": "river-oats",
+  "commonName": "River oats",
+  "botanicalName": "Chasmanthium latifolium",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 4, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 3, "spacingFt": 1.5 },
+  "sun": ["full", "part", "shade"],
+  "soil": ["moist", "well-drained", "average"],
+  "water": "medium",
+  "bloom": { "months": [6, 7, 8, 9], "colors": ["#7b8062"] },
+  "fruit": { "months": [8, 9, 10, 11], "color": "#a78b65" },
+  "foliage": { "spring": "#78a85c", "summer": "#789957", "fall": "#b99a4c", "winter": "#a88d6b" },
+  "zones": [3, 8],
+  "care": [{ "month": 3, "task": "Cut back old stems before new growth" }, { "month": 5, "task": "Water new plants while they establish" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds", "butterflies"],
+  "effort": 1,
+  "render": { "form": "grass" },
+  "sources": [
+    { "label": "NC State Extension, River Oats", "url": "https://plants.ces.ncsu.edu/plants/chasmanthium-latifolium/common-name/river-oats/" },
+    { "label": "Indiana Native Plant Society, Northern Sea Oats", "url": "https://indiananativeplants.org/images/speciespages/Northern_sea_oats.html" }
+  ],
+  "verified": false
+}

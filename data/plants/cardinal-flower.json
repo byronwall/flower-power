@@ -1,0 +1,84 @@
+{
+  "id": "cardinal-flower",
+  "commonName": "Cardinal flower",
+  "botanicalName": "Lobelia cardinalis",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 3,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1.5
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "wet"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "colors": [
+      "#c9263b"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#668d58",
+    "summer": "#5d814e",
+    "fall": "#8e8651",
+    "winter": null
+  },
+  "zones": [
+    3,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "hummingbirds",
+    "pollinators"
+  ],
+  "effort": 2,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, cardinal flower",
+      "url": "https://plants.ces.ncsu.edu/plants/lobelia-cardinalis/common-name/cardinal-flower/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Shade Gardening plants",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Shade%20Gardening%20-%20Plants25.pdf"
+    }
+  ],
+  "verified": false
+}

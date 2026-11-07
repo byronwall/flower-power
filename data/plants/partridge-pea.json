@@ -1,0 +1,31 @@
+{
+  "id": "partridge-pea",
+  "commonName": "Partridge pea",
+  "botanicalName": "Chamaecrista fasciculata",
+  "category": "annual",
+  "nativeToIndiana": true,
+  "lifecycle": "annual",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 2, "spreadFt": 2, "plantedSpreadFt": 0.5, "yearsToMature": 1, "spacingFt": 1.5 },
+  "sun": ["full", "part"],
+  "soil": ["sandy", "sandy loam", "dry", "average"],
+  "water": "low",
+  "bloom": { "months": [7, 8, 9], "colors": ["#e7c942"] },
+  "fruit": { "months": [9, 10, 11], "color": "#76583f" },
+  "foliage": { "spring": "#83a85b", "summer": "#6e914c", "fall": "#9d8953", "winter": null },
+  "zones": [3, 9],
+  "care": [{ "month": 5, "task": "Sow outdoors after the last hard frost" }, { "month": 8, "task": "Leave some seed pods to mature and self-sow" }],
+  "plantingMonths": [5],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds", "butterflies", "pollinators"],
+  "effort": 1,
+  "render": { "form": "upright" },
+  "sources": [
+    { "label": "USDA NRCS, Partridge Pea Plant Guide", "url": "https://plants.usda.gov/DocumentLibrary/plantguide/pdf/pg_chfa2.pdf" },
+    { "label": "Indiana Plant Atlas, Partridge Pea", "url": "https://indiana.plantatlas.usf.edu/Plant.aspx?id=3071" }
+  ],
+  "verified": false
+}

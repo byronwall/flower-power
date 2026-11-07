@@ -1,0 +1,31 @@
+{
+  "id": "liriope",
+  "commonName": "Liriope",
+  "botanicalName": "Liriope muscari",
+  "category": "groundcover",
+  "nativeToIndiana": false,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 1.5, "spreadFt": 1.5, "plantedSpreadFt": 0.5, "yearsToMature": 3, "spacingFt": 1.5 },
+  "sun": ["full", "part", "shade"],
+  "soil": ["average", "moist", "well-drained"],
+  "water": "medium",
+  "bloom": { "months": [8, 9], "colors": ["#7770a9"] },
+  "fruit": { "months": [10, 11, 12], "color": "#25242a" },
+  "foliage": { "spring": "#467343", "summer": "#3e6c3c", "fall": "#65704f", "winter": null },
+  "zones": [5, 10],
+  "care": [{ "month": 3, "task": "Cut browned foliage to the ground before new leaves emerge" }, { "month": 5, "task": "Water new plants during dry weather" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds"],
+  "effort": 1,
+  "render": { "form": "mound" },
+  "sources": [
+    { "label": "Missouri Botanical Garden Plant Finder, Lily Turf", "url": "https://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?ht=3&isprofile=0&taxonid=244864" },
+    { "label": "ASPCA, Turf Lily toxicity profile", "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/turf-lily" }
+  ],
+  "verified": false
+}

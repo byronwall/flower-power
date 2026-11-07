@@ -1,0 +1,31 @@
+{
+  "id": "pennsylvania-sedge",
+  "commonName": "Pennsylvania sedge",
+  "botanicalName": "Carex pensylvanica",
+  "category": "grass",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": { "heightFt": 0.75, "spreadFt": 1, "plantedSpreadFt": 0.33, "yearsToMature": 3, "spacingFt": 1 },
+  "sun": ["part", "shade"],
+  "soil": ["dry", "average", "well-drained", "loam"],
+  "water": "low",
+  "bloom": { "months": [4, 5], "colors": ["#806080"] },
+  "fruit": null,
+  "foliage": { "spring": "#8eb66f", "summer": "#779d61", "fall": "#9b9c67", "winter": null },
+  "zones": [3, 8],
+  "care": [{ "month": 3, "task": "Comb or trim away dead leaves before new growth" }, { "month": 5, "task": "Water new plantings during dry periods" }],
+  "plantingMonths": [4, 5, 9],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": ["birds"],
+  "effort": 1,
+  "render": { "form": "grass" },
+  "sources": [
+    { "label": "Cornell Botanic Gardens, Pennsylvania Sedge", "url": "https://cornellbotanicgardens.org/plant/pennsylvania-sedge" },
+    { "label": "U.S. EPA, Pennsylvania Sedge plant profile", "url": "https://archive.epa.gov/ecopage/web/pdf/carex_pensylvanica.pdf" }
+  ],
+  "verified": false
+}

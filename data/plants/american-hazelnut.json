@@ -1,0 +1,89 @@
+{
+  "id": "american-hazelnut",
+  "commonName": "American hazelnut",
+  "botanicalName": "Corylus americana",
+  "category": "shrub",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "either",
+  "size": {
+    "heightFt": 12,
+    "spreadFt": 10,
+    "plantedSpreadFt": 2,
+    "yearsToMature": 7,
+    "spacingFt": 5.1
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      3,
+      4
+    ],
+    "colors": [
+      "#a9814e"
+    ]
+  },
+  "fruit": {
+    "months": [
+      8,
+      9
+    ],
+    "color": "#8d6a32"
+  },
+  "foliage": {
+    "spring": "#8caf5d",
+    "summer": "#50753b",
+    "fall": "#d89a3b",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Thin old stems as needed"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Botanical Garden, Shrubs for Clay Soils",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Gardening/Gardening%20Help/Factsheets/Clay%20Soils%20-%20Shrubs7.pdf"
+    },
+    {
+      "label": "Purdue Extension, Pruning Ornamental Trees and Shrubs",
+      "url": "https://www.extension.purdue.edu/extmedia/HO/HO-4-W.pdf"
+    },
+    {
+      "label": "Purdue Extension, Fall Pruning and Planting for Indiana Gardens",
+      "url": "https://www.extension.purdue.edu/county/jefferson/_docs/sept-25.pdf"
+    }
+  ],
+  "verified": false
+}

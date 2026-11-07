@@ -1,0 +1,84 @@
+{
+  "id": "woodland-phlox",
+  "commonName": "Woodland phlox",
+  "botanicalName": "Phlox divaricata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 1,
+    "spreadFt": 1.5,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 2,
+    "spacingFt": 1
+  },
+  "sun": [
+    "part",
+    "shade"
+  ],
+  "soil": [
+    "moist",
+    "well-drained"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      4,
+      5
+    ],
+    "colors": [
+      "#9a9fe2",
+      "#d7b4e2"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#638b50",
+    "summer": "#5d7f49",
+    "fall": "#807e55",
+    "winter": null
+  },
+  "zones": [
+    3,
+    8
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "pollinators",
+    "hummingbirds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "mound"
+  },
+  "sources": [
+    {
+      "label": "Missouri Department of Conservation, blue phlox",
+      "url": "https://mdc.mo.gov/discover-nature/field-guide/blue-phlox-wild-sweet-william"
+    },
+    {
+      "label": "Missouri Botanical Garden, Signs of Spring",
+      "url": "https://www.missouribotanicalgarden.org/Portals/0/Shaw%20Nature%20Reserve/PDFs/horticulture/Signs%20of%20Spring.pdf"
+    }
+  ],
+  "verified": false
+}

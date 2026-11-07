@@ -1,0 +1,90 @@
+{
+  "id": "bald-cypress",
+  "commonName": "Bald cypress",
+  "botanicalName": "Taxodium distichum",
+  "category": "tree",
+  "nativeToIndiana": true,
+  "lifecycle": "woody",
+  "evergreen": false,
+  "placement": "single",
+  "size": {
+    "heightFt": 60,
+    "spreadFt": 25,
+    "plantedSpreadFt": 4,
+    "yearsToMature": 25,
+    "spacingFt": 25
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "average",
+    "moist",
+    "wet",
+    "clay",
+    "loam",
+    "sand"
+  ],
+  "water": "medium",
+  "bloom": {
+    "months": [
+      3,
+      4
+    ],
+    "colors": [
+      "#9a9b54"
+    ]
+  },
+  "fruit": {
+    "months": [
+      10
+    ],
+    "color": "#735138"
+  },
+  "foliage": {
+    "spring": "#b2bd69",
+    "summer": "#5d7950",
+    "fall": "#b86e3d",
+    "winter": null
+  },
+  "zones": [
+    4,
+    9
+  ],
+  "care": [
+    {
+      "month": 2,
+      "task": "Prune dead or crossing branches while dormant"
+    },
+    {
+      "month": 6,
+      "task": "Water deeply during dry spells while establishing"
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": false,
+  "wildlife": [
+    "birds"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "canopy"
+  },
+  "sources": [
+    {
+      "label": "North Carolina Extension Gardener Plant Toolbox",
+      "url": "https://plants.ces.ncsu.edu/plants/taxodium-distichum/"
+    },
+    {
+      "label": "Purdue Extension, Tree Installation: Process and Practices",
+      "url": "https://www.extension.purdue.edu/extmedia/fnr/fnr-433-w.pdf"
+    }
+  ],
+  "verified": false
+}

@@ -1,0 +1,83 @@
+{
+  "id": "swamp-milkweed",
+  "commonName": "Swamp milkweed",
+  "botanicalName": "Asclepias incarnata",
+  "category": "perennial",
+  "nativeToIndiana": true,
+  "lifecycle": "perennial",
+  "evergreen": false,
+  "placement": "region",
+  "size": {
+    "heightFt": 4,
+    "spreadFt": 2,
+    "plantedSpreadFt": 0.5,
+    "yearsToMature": 3,
+    "spacingFt": 2
+  },
+  "sun": [
+    "full",
+    "part"
+  ],
+  "soil": [
+    "moist",
+    "wet"
+  ],
+  "water": "high",
+  "bloom": {
+    "months": [
+      7,
+      8
+    ],
+    "colors": [
+      "#d57fa6"
+    ]
+  },
+  "fruit": null,
+  "foliage": {
+    "spring": "#6f9655",
+    "summer": "#64874c",
+    "fall": "#9c8050",
+    "winter": null
+  },
+  "zones": [
+    3,
+    6
+  ],
+  "care": [
+    {
+      "month": 3,
+      "task": "Leave old stems until spring; remove them as new growth starts."
+    },
+    {
+      "month": 6,
+      "task": "Water during dry spells while plants establish."
+    }
+  ],
+  "plantingMonths": [
+    4,
+    5,
+    9
+  ],
+  "liftAndStore": false,
+  "thorns": false,
+  "toxicToPets": true,
+  "wildlife": [
+    "butterflies",
+    "pollinators"
+  ],
+  "effort": 1,
+  "render": {
+    "form": "upright"
+  },
+  "sources": [
+    {
+      "label": "NC State Extension, swamp milkweed",
+      "url": "https://plants.ces.ncsu.edu/plants/asclepias-incarnata/"
+    },
+    {
+      "label": "Missouri Botanical Garden, Natives for Home Gardens",
+      "url": "https://www.missouribotanicalgarden.org/gardens-gardening/your-garden/help-for-the-home-gardener/advice-tips-resources/visual-guides/natives-for-home-gardens"
+    }
+  ],
+  "verified": false
+}
