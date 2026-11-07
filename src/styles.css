@@ -1521,7 +1521,8 @@ polyline.sel-line {
 }
 
 /* Narrow windows: the side panels become drawers over the plan. */
-.drawer-scrim {
+.drawer-scrim,
+.drawer-close {
   display: none;
 }
 
@@ -1550,6 +1551,23 @@ polyline.sel-line {
     inset: 0;
     z-index: 15;
     background: rgba(47, 51, 41, 0.18);
+  }
+  /* Sits on the scrim, just past the drawer's inner edge, because the drawer covers the panel toggles. */
+  .drawer-close {
+    display: inline-flex;
+    position: absolute;
+    top: 10px;
+    z-index: 21;
+    width: 36px;
+    height: 36px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+  .drawer-close.left {
+    left: calc(min(320px, 86vw) + 8px);
+  }
+  .drawer-close.right {
+    right: calc(min(320px, 86vw) + 8px);
   }
   .toolbar-sep {
     display: none;
@@ -3321,6 +3339,14 @@ b {
 
 .app-bar > .user-menu {
   margin-left: auto;
+}
+
+/* A phone is too narrow for one row: wrap, so the header never widens the page. */
+@media (max-width: 760px) {
+  .app-bar {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
 }
 
 /* Drawing tools float as a rail on the plan they draw on. */

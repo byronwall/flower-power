@@ -404,6 +404,17 @@ function Planner(props: PlannerProps) {
             }}
           />
         </Show>
+        {/* On a phone the drawers cover the panel toggles, so each open drawer gets its own close button. */}
+        <Show when={showPlants()}>
+          <button type="button" class="drawer-close icon-btn left" onClick={() => setShowPlants(false)} aria-label="Close the plant list" title="Close">
+            <CloseIcon />
+          </button>
+        </Show>
+        <Show when={showDetails() && !showIdeas()}>
+          <button type="button" class="drawer-close icon-btn right" onClick={() => setShowDetails(false)} aria-label="Close the details panel" title="Close">
+            <CloseIcon />
+          </button>
+        </Show>
         <Show when={showPlants()}>
           <PlantGallery
             editor={ed}
@@ -608,6 +619,14 @@ function PanelIcon(props: { side: "left" | "right" }) {
     <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
       <rect x="1.75" y="2.75" width="12.5" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" />
       <path d={props.side === "left" ? "M6 3v10" : "M10 3v10"} stroke="currentColor" stroke-width="1.4" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
     </svg>
   );
 }
