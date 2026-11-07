@@ -1,0 +1,195 @@
+/* Landing, login and register pages, and the user menu in the app bar. */
+.btn {
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  border-color: var(--moss);
+}
+
+.btn.primary {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: white;
+  font-weight: 600;
+}
+
+.btn.primary:hover {
+  background: var(--moss-dark);
+}
+
+.btn.big {
+  height: 44px;
+  padding: 0 22px;
+  font-size: 17px;
+}
+
+.landing {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.landing-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.dev-links a,
+.auth-switch a {
+  color: var(--moss);
+}
+
+.auth-page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 16px;
+  gap: 24px;
+}
+
+.auth-card {
+  width: min(380px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.auth-card h1 {
+  margin: 0;
+  font: 400 28px/1.2 var(--f-hand);
+}
+
+.auth-card .field {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.auth-card .field small {
+  font-size: 13px;
+}
+
+.auth-card button.primary {
+  height: 40px;
+  margin-top: 4px;
+}
+
+.auth-error {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fbeeec;
+  color: #a3352f;
+  font-size: 14px;
+}
+
+.auth-switch {
+  font-size: 14px;
+  text-align: center;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-chip {
+  gap: 8px;
+  padding: 0 10px 0 4px;
+  max-width: 240px;
+}
+
+.user-avatar {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--moss-soft);
+  color: var(--moss-dark);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.user-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.user-pop p {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 560px) {
+  .user-email {
+    display: none;
+  }
+}
+
+.brand-home {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Outside the editor there is room for the wordmark at every width. */
+.landing-bar .wordmark,
+.auth-page .wordmark {
+  display: inline;
+}
+
+.user-link {
+  display: block;
+  padding: 6px 8px;
+  margin: 0 -4px;
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.user-link:hover,
+.user-link.active {
+  background: var(--moss-soft);
+}
