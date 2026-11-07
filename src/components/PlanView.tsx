@@ -326,7 +326,7 @@ function PlanMarks(props: { property: Property; view: View; height: number }) {
   };
   return (
     <g class="plan-marks" transform={`translate(24 ${props.height - 28})`}>
-      <g transform={`translate(${bar().px * 2 + 48} -14) rotate(${-props.property.headingDeg})`}>
+      <g transform={`translate(${bar().px * 2 + 64} -14) rotate(${-props.property.headingDeg})`}>
         <circle r="13" />
         <path d="M0 -11 L5 6 L0 2 L-5 6 Z" />
         <text y="-17" text-anchor="middle">N</text>

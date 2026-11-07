@@ -14,7 +14,8 @@ When a new decision affects one part only, record it in that part's folder. When
 | [Plan views](plan-views/intent-brief.md) | Watercolor 2D plan, 3D pane, height layers, time slider display | S5, S7, S15, S17 | Fixed layers or a free height slider? Steps and terraces in v1? |
 | [Garden plan](garden-plan/intent-brief.md) | Shopping list, planting and care calendar | None | Do people come back over months, or take the plan once? |
 | [AI assist](ai-assist/intent-brief.md) | Image import, current-to-goal recommendations, transition plan, shared AI layer | S2, S4, S12, S13 | Which AI job do we prove first? |
-| [Accounts and gallery](accounts-and-gallery/intent-brief.md) | Accounts, view-only sharing, public gallery wall | S16 | How does a person reset a forgotten password? |
+| [Accounts and gallery](accounts-and-gallery/intent-brief.md) | Accounts, view-only sharing, public gallery wall | None | How does a person reset a forgotten password? |
+| [Public gallery](public-gallery/intent-brief.md) | Top 10 podium, New gardens tab, personal gallery, view-only garden view | S16 | None |
 
 Each folder has an `intent-brief.md` for people to read and an `initiative-map.json` that records claims, sources, and history.
 
