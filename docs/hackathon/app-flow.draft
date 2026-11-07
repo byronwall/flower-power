@@ -1,0 +1,29 @@
+diagram "From photos to a garden plan" version=1
+subtitle "Every step reads and writes one plan file"
+
+node photos "Aerial + front photo"
+node ai "AI traces the yard" color=violet shade=200
+node fix "You fix size + plants"
+node plan "Plan file" color=green shade=500 shape=pill
+node views "2D, 3D, seasons, years" color=green shade=200
+node sun "Sun hours" color=green shade=200
+node goals "Your goals"
+node design "3–5 designs" color=green shade=200
+node steps "Planting steps" color=stone shade=200
+
+legend green "Built" shade=200
+legend violet "OpenAI" shade=200
+legend stone "Next" shade=200
+
+edge e1 photos -> ai
+edge e2 ai -> fix "a guess"
+edge e3 fix -> plan
+edge e4 plan -> views
+edge e5 plan -> sun
+edge e6 sun -> design "sun class"
+edge e7 goals -> design constraint=false
+edge e8 design -> plan "apply" constraint=false
+edge e9 plan -> steps kind=async
+
+layout root engine=layered direction=right fold=never
+near goals design side=above gap=40

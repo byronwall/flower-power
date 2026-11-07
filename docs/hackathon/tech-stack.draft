@@ -1,0 +1,37 @@
+diagram "Flower Power tech stack" version=1
+subtitle "One SolidStart app on one server, JSON files for data"
+
+group browser "Browser · SolidJS" color=blue shade=100
+layout browser cells
+node b1 "Watercolor plan (SVG)" in=browser
+node b2 "3D yard (Three.js)" in=browser
+node b3 "Editor + undo" in=browser
+
+group server "Server · SolidStart" color=blue shade=100
+layout server cells
+node s1 "API routes" in=server
+node s2 "Zod schemas" in=server
+node s3 "AI import" in=server
+node s4 "Sun model" in=server
+
+group data "Data · JSON files" color=green shade=100
+layout data cells
+node d1 "95 plants" in=data
+node d2 "Plans" in=data
+node d3 "Users" in=data
+node d4 "AI runs" in=data
+
+node openai "OpenAI" color=violet shade=200
+
+group ship "Ship" color=slate shade=100
+layout ship cells
+node p1 "GitHub PRs" in=ship
+node p2 "Vitest + tsc" in=ship
+node p3 "Coolify" in=ship
+
+edge r1 browser -> server "fetch" from=bottom to=top
+edge r2 server -> data "read + write" from=bottom to=top
+edge r3 s3 -> openai "strict JSON"
+edge r4 ship -> server "deploy" kind=async from=bottom to=right
+
+layout root engine=layered direction=down
