@@ -11,11 +11,11 @@ Flower Power is a garden planner for Indiana homeowners. Start from photos of yo
 
 - **Start from photos.** Drop a top-down aerial and a front photo on one page, and pick which one is the aerial. The AI (OpenAI `gpt-6.1-terra`) traces the house, lot, beds, fences and trees, and guesses which plants are there. You fix one size and confirm the guesses.
 - **Edit the plan.** A watercolor plan you can draw on: plants, rows, filled areas, beds, paths, fences and structures, with undo.
-- **See it change.** Seasons, months, and years 1 to 5, in 2D, 3D, or side by side.
+- **See it change.** Seasons, months, and years 1 to 5, in 2D, 3D, or side by side. Shadows follow the real sun for the month, and snow covers the yard in December and January. The 3D yard has camera views (Overview, From above, Eye level) and names a plant when you point at it.
 - **Sun and shade.** A sun model gives hours of direct sun for every 2 ft square: full sun, part sun or shade.
 - **Design ideas.** Give goals and a dial (Light touch, Refresh, Redo). You get a review of the yard, then 3 to 5 designs in different styles. Accept or reject each change, or rework one area.
 - **Gallery.** Best, New and Mine, with a Public switch. Public gardens leave out the address and aerial. The community is sample data for now.
-- **153 Indiana plants**, with the 15 invasive ones flagged.
+- **253 Indiana plants**, with the 15 invasive ones flagged.
 - **Accounts.** Email and password; you see only your own plans. A share link shows the design you picked.
 - **Demo login.** `demo@flower.test` / `flowerdemo`. Each login resets it to the sample lot. `demo/README.md` has a 5-minute demo script.
 
