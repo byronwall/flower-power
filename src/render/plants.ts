@@ -14,7 +14,8 @@ export function plantShadow(b: Brush, at: Point, look: Look, seed: number) {
 
 export function drawPlant(b: Brush, plant: Plant, at: Point, look: Look, seed: number) {
   const r = look.spreadFt / 2;
-  if (!look.foliage && !look.bloom) return dormant(b, plant, at, r, seed);
+  // Trees keep their branches in winter; other plants with nothing showing get a faint marker.
+  if (!look.foliage && !look.bloom && plant.render.form !== "canopy") return dormant(b, plant, at, r, seed);
   switch (plant.render.form) {
     case "canopy": return canopy(b, at, r, look, seed);
     case "columnar": return columnar(b, at, r, look, seed);
