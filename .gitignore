@@ -14,3 +14,4 @@ data/images/
 data/users.json
 data/users/
 data/shares.json
+data/session-secret
