@@ -1,4 +1,9 @@
 import { createHandler, StartServer } from "@solidjs/start/server";
+import { Show } from "solid-js";
+
+// GA4 Measurement ID for the flower-power.apps.byroni.us property.
+const GA_ID = "G-9PPD4GGL8W";
+const gtagInit = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");`;
 
 export default createHandler(() => (
   <StartServer
@@ -20,6 +25,10 @@ export default createHandler(() => (
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Figtree:wght@400;500;600&display=swap" />
           {assets}
+          <Show when={import.meta.env.PROD}>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+            <script innerHTML={gtagInit} />
+          </Show>
         </head>
         <body>
           <div id="app">{children}</div>
